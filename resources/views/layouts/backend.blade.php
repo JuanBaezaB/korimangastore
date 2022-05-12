@@ -461,9 +461,6 @@
                                     document.getElementById('logout-form').submit();">
                                     <i class="far fa-fw fa-arrow-alt-circle-left me-1"></i> {{ __('Logout') }}
                                 </a>
-
-
-
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                     class="d-none">
                                     @csrf
