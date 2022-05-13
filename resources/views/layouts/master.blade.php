@@ -24,7 +24,10 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-     <link rel="stylesheet" id="css-main" href="{{ mix('css/dashmix.css') }}">
+    <link rel="stylesheet" id="css-main" href="{{ asset('css/dashmix.css') }}">
+    <link rel="stylesheet" id="css-theme" href="{{ asset('css/dashmix.css') }}">
+    <link rel="stylesheet" id="css-theme" href="{{ asset('css/stepper_style.css') }}">
+    <link rel="stylesheet" id="css-theme" href="{{ asset('css/map_style.css') }}">
 
 </head>
 <body>
@@ -38,6 +41,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <!-- Dashmix Core JS -->
-    <!-- añadir -->
+    <script src="{{ asset('js/dashmix.app.min.js') }}"></script>
+    <script src="{{ asset('js/dashmix.core.min.js') }}"></script>
+
 </body>
 </html>
