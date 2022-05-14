@@ -14,9 +14,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('public.welcome');
 });
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::view('/forms/be_forms_elements', 'admin.forms.be_forms_elements');
+Route::view('/forms/be_forms_layouts', 'admin.forms.be_forms_layouts');
+Route::view('/forms/be_forms_input_groups', 'admin.forms.be_forms_input_groups');
+Route::view('/forms/be_forms_plugins', 'admin.forms.be_forms_plugins');
+Route::view('/forms/be_forms_editors', 'admin.forms.be_forms_editors');

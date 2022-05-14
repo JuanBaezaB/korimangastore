@@ -387,6 +387,74 @@
                                 <span class="nav-main-link-name">Landing</span>
                             </a>
                         </li>
+
+
+                        <!-- Diseños -->
+                        <li class="nav-main-heading">Design</li>
+                        <li class="nav-main-item open {{ request()->is('forms/*') ? ' open' : '' }}">
+                            <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
+                                aria-expanded="true" href="#">
+                                <i class="nav-main-link-icon fa fa-sticky-note"></i>
+                                <span class="nav-main-link-name">Forms</span>
+                            </a>
+                            <ul class="nav-main-submenu">
+                                <li class="nav-main-item">
+                                    <a class="nav-main-link {{ request()->is('forms/be_forms_elements') ? ' active' : '' }}"
+                                        href="/forms/be_forms_elements">
+                                        <span class="nav-main-link-name">Elements</span>
+                                    </a>
+                                </li>
+                                <li class="nav-main-item">
+                                    <a class="nav-main-link {{ request()->is('forms/be_forms_layouts') ? ' active' : '' }}"
+                                        href="/forms/be_forms_layouts">
+                                        <span class="nav-main-link-name">Layouts</span>
+                                    </a>
+                                </li>
+                                <li class="nav-main-item ">
+                                    <a class="nav-main-link {{ request()->is('forms/be_input_groups') ? ' active' : '' }}"
+                                        href="/forms/be_forms_input_groups">
+                                        <span class="nav-main-link-name">Input Groups</span>
+                                    </a>
+                                </li>
+                                <li class="nav-main-item ">
+                                    <a class="nav-main-link {{ request()->is('forms/be_plugins') ? ' active' : '' }}"
+                                        href="/forms/be_forms_plugins">
+                                        <span class="nav-main-link-name">Plugins</span>
+                                    </a>
+                                </li>
+                                <li class="nav-main-item">
+                                    <a class="nav-main-link {{ request()->is('forms/be_editors') ? ' active' : '' }}" 
+                                        href="/forms/be_forms_editors">
+                                        <span class="nav-main-link-name">Editors</span>
+                                    </a>
+                                </li>
+                                <li class="nav-main-item">
+                                    <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu"
+                                        aria-haspopup="true" aria-expanded="false" href="#">
+                                        <span class="nav-main-link-name">CKEditor 5</span>
+                                    </a>
+                                    <ul class="nav-main-submenu">
+                                        <li class="nav-main-item">
+                                            <a class="nav-main-link" href="be_forms_ckeditor5_classic.html">
+                                                <span class="nav-main-link-name">Classic</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-main-item">
+                                            <a class="nav-main-link" href="be_forms_ckeditor5_inline.html">
+                                                <span class="nav-main-link-name">Inline</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-main-item">
+                                    <a class="nav-main-link" href="be_forms_validation.html">
+                                        <span class="nav-main-link-name">Validation</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- end Diseños -->
+
                     </ul>
                 </div>
                 <!-- END Side Navigation -->
@@ -427,7 +495,7 @@
                         <button type="button" class="btn btn-alt-secondary" id="page-header-user-dropdown"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-fw fa-user d-sm-none"></i>
-                            <span class="d-none d-sm-inline-block">Admin</span>
+                            <span class="d-none d-sm-inline-block">{{ Auth::user()->name }}</span>
                             <i class="fa fa-fw fa-angle-down opacity-50 ms-1 d-none d-sm-inline-block"></i>
                         </button>
                         <div class="dropdown-menu dropdown-menu-end p-0" aria-labelledby="page-header-user-dropdown">
@@ -600,23 +668,6 @@
             @yield('content')
         </main>
         <!-- END Main Container -->
-
-        <!-- Footer -->
-        <footer id="page-footer" class="bg-body-light">
-            <div class="content py-0">
-                <div class="row fs-sm">
-                    <div class="col-sm-6 order-sm-2 mb-1 mb-sm-0 text-center text-sm-end">
-                        Crafted with <i class="fa fa-heart text-danger"></i> by <a class="fw-semibold"
-                            href="https://1.envato.market/ydb" target="_blank">pixelcave</a>
-                    </div>
-                    <div class="col-sm-6 order-sm-1 text-center text-sm-start">
-                        <a class="fw-semibold" href="https://1.envato.market/r6y" target="_blank">Dashmix</a> &copy;
-                        <span data-toggle="year-copy"></span>
-                    </div>
-                </div>
-            </div>
-        </footer>
-        <!-- END Footer -->
     </div>
     <!-- END Page Container -->
 

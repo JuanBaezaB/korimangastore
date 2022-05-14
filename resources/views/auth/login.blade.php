@@ -23,6 +23,7 @@
 
                             <form class="js-validation-signin" method="POST" action="{{ route('login') }}">
                                 @csrf
+                                <!-- Email -->
                                 <div class="py-3">
                                     <div class="mb-4">
                                         <input id="email" type="email"
@@ -35,6 +36,7 @@
                                             </span>
                                         @enderror
                                     </div>
+                                    <!-- Password -->
                                     <div class="mb-4">
                                         <input id="password" type="password"
                                             class="form-control form-control-lg form-control-alt  @error('password') is-invalid @enderror"
