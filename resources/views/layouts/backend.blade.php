@@ -416,19 +416,19 @@
                                     </a>
                                 </li>
                                 <li class="nav-main-item ">
-                                    <a class="nav-main-link {{ request()->is('forms/be_input_groups') ? ' active' : '' }}"
+                                    <a class="nav-main-link {{ request()->is('forms/be_forms_input_groups') ? ' active' : '' }}"
                                         href="/forms/be_forms_input_groups">
                                         <span class="nav-main-link-name">Input Groups</span>
                                     </a>
                                 </li>
                                 <li class="nav-main-item ">
-                                    <a class="nav-main-link {{ request()->is('forms/be_plugins') ? ' active' : '' }}"
+                                    <a class="nav-main-link {{ request()->is('forms/be_forms_plugins') ? ' active' : '' }}"
                                         href="/forms/be_forms_plugins">
                                         <span class="nav-main-link-name">Plugins</span>
                                     </a>
                                 </li>
                                 <li class="nav-main-item">
-                                    <a class="nav-main-link {{ request()->is('forms/be_editors') ? ' active' : '' }}" 
+                                    <a class="nav-main-link {{ request()->is('forms/be_forms_editors') ? ' active' : '' }}"
                                         href="/forms/be_forms_editors">
                                         <span class="nav-main-link-name">Editors</span>
                                     </a>
@@ -452,7 +452,8 @@
                                     </ul>
                                 </li>
                                 <li class="nav-main-item">
-                                    <a class="nav-main-link" href="be_forms_validation.html">
+                                    <a class="nav-main-link {{ request()->is('forms/be_forms_validation') ? ' active' : '' }}"
+                                        href="/forms/be_forms_validation">
                                         <span class="nav-main-link-name">Validation</span>
                                     </a>
                                 </li>

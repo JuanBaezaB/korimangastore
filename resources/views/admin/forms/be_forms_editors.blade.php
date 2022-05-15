@@ -89,13 +89,14 @@
 
     <script src="{{ asset('js/plugins/simplemde/simplemde.min.js') }}"></script>
     <script src="{{ asset('js/plugins/ckeditor/ckeditor.js') }}"></script>
+
     <script>
         CKEDITOR.replace('js-ckeditor');
     </script>
+
     <script>
         CKEDITOR.inline('js-ckeditor-inline');
     </script>
-    
 
     <script>
         var simplemde = new SimpleMDE({

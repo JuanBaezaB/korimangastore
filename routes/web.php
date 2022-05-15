@@ -26,3 +26,4 @@ Route::view('/forms/be_forms_layouts', 'admin.forms.be_forms_layouts')->middlewa
 Route::view('/forms/be_forms_input_groups', 'admin.forms.be_forms_input_groups')->middleware('auth');
 Route::view('/forms/be_forms_plugins', 'admin.forms.be_forms_plugins')->middleware('auth');
 Route::view('/forms/be_forms_editors', 'admin.forms.be_forms_editors')->middleware('auth');
+Route::view('/forms/be_forms_validation', 'admin.forms.be_forms_validation')->middleware('auth');
