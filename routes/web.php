@@ -21,8 +21,8 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::view('/forms/be_forms_elements', 'admin.forms.be_forms_elements');
-Route::view('/forms/be_forms_layouts', 'admin.forms.be_forms_layouts');
-Route::view('/forms/be_forms_input_groups', 'admin.forms.be_forms_input_groups');
-Route::view('/forms/be_forms_plugins', 'admin.forms.be_forms_plugins');
-Route::view('/forms/be_forms_editors', 'admin.forms.be_forms_editors');
+Route::view('/forms/be_forms_elements', 'admin.forms.be_forms_elements')->middleware('auth');
+Route::view('/forms/be_forms_layouts', 'admin.forms.be_forms_layouts')->middleware('auth');
+Route::view('/forms/be_forms_input_groups', 'admin.forms.be_forms_input_groups')->middleware('auth');
+Route::view('/forms/be_forms_plugins', 'admin.forms.be_forms_plugins')->middleware('auth');
+Route::view('/forms/be_forms_editors', 'admin.forms.be_forms_editors')->middleware('auth');
