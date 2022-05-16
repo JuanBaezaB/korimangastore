@@ -27,3 +27,4 @@ Route::view('/forms/be_forms_input_groups', 'admin.forms.be_forms_input_groups')
 Route::view('/forms/be_forms_plugins', 'admin.forms.be_forms_plugins')->middleware('auth');
 Route::view('/forms/be_forms_editors', 'admin.forms.be_forms_editors')->middleware('auth');
 Route::view('/forms/be_forms_validation', 'admin.forms.be_forms_validation')->middleware('auth');
+Route::resource('/branches', BranchController::class)->middleware('auth');
