@@ -17,6 +17,10 @@ class Branch extends Model
         'latitude',
 
     ];
+
+    public function products() {
+        return $this->belongsToMany(Product::class)->withPivot('stock');
+    }
 }
 
 
