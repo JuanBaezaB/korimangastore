@@ -1,5 +1,5 @@
-@extends('layouts.backend')
+@extends('admin.product_management.product_template')
 
-@section('content')
-    
+@section('form-fields')
+
 @endsection
