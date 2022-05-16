@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,3 +28,8 @@ Route::view('/forms/be_forms_input_groups', 'admin.forms.be_forms_input_groups')
 Route::view('/forms/be_forms_plugins', 'admin.forms.be_forms_plugins')->middleware('auth');
 Route::view('/forms/be_forms_editors', 'admin.forms.be_forms_editors')->middleware('auth');
 Route::view('/forms/be_forms_validation', 'admin.forms.be_forms_validation')->middleware('auth');
+
+
+
+
+Route::get('/product_management/list_product', [ProductController::class, 'index'])->name('lista_producto');

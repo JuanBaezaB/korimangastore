@@ -24,6 +24,7 @@
     @yield('css_before')
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" id="css-main" href="{{ mix('css/dashmix.css') }}">
+    
 
     <!-- You can include a specific file from public/css/themes/ folder to alter the default color theme of the template. eg: -->
     <!-- <link rel="stylesheet" id="css-theme" href="{{ mix('css/themes/xwork.css') }}"> -->
@@ -355,8 +356,9 @@
 
 
 
+                        <!-- Gestion de productos -->
                         <li class="nav-main-heading">Gestión de productos</li>
-                        <li class="nav-main-item{{ request()->is('pages/*') ? ' open' : '' }}">
+                        <li class="nav-main-item {{ request()->is('product_management*') ? ' open' : '' }}">
                             <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
                                 aria-expanded="true" href="#">
                                 <i class="nav-main-link-icon fa fa-book"></i>
@@ -364,9 +366,9 @@
                             </a>
                             <ul class="nav-main-submenu">
                                 <li class="nav-main-item">
-                                    <a class="nav-main-link{{ request()->is('pages/datatables') ? ' active' : '' }}"
-                                        href="/pages/datatables">
-                                        <span class="nav-main-link-name">DataTables</span>
+                                    <a class="nav-main-link{{ request()->is('product_management/list_product') ? ' active' : '' }}"
+                                        href="{{ route('lista_producto') }}">
+                                        <span class="nav-main-link-name">Listado productos</span>
                                     </a>
                                 </li>
                                 <li class="nav-main-item">
@@ -385,6 +387,39 @@
                         </li>
 
 
+
+                        <!-- caracteristicas -->
+                        <li class="nav-main-heading">Componentes</li>
+                        <li class="nav-main-item{{ request()->is('pages/*') ? ' open' : '' }}">
+                            <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
+                                aria-expanded="true" href="#">
+                                <i class="nav-main-link-icon fa fa-book"></i>
+                                <span class="nav-main-link-name">Características</span>
+                            </a>
+                            <ul class="nav-main-submenu">
+                                <li class="nav-main-item">
+                                    <a class="nav-main-link{{ request()->is('pages/datatables') ? ' active' : '' }}"
+                                        href="/pages/datatables">
+                                        <span class="nav-main-link-name">Sucursales</span>
+                                    </a>
+                                </li>
+                                <li class="nav-main-item">
+                                    <a class="nav-main-link{{ request()->is('pages/slick') ? ' active' : '' }}"
+                                        href="/pages/slick">
+                                        <span class="nav-main-link-name">Categorías</span>
+                                    </a>
+                                </li>
+                                <li class="nav-main-item">
+                                    <a class="nav-main-link{{ request()->is('pages/blank') ? ' active' : '' }}"
+                                        href="/pages/blank">
+                                        <span class="nav-main-link-name">Blank</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+
                         <li class="nav-main-heading">More</li>
                         <li class="nav-main-item">
                             <a class="nav-main-link" href="/">
@@ -396,7 +431,7 @@
 
                         <!-- Diseños -->
                         <li class="nav-main-heading">Design</li>
-                        <li class="nav-main-item open {{ request()->is('forms/*') ? ' open' : '' }}">
+                        <li class="nav-main-item  {{ request()->is('forms/*') ? ' open' : '' }}">
                             <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
                                 aria-expanded="true" href="#">
                                 <i class="nav-main-link-icon fa fa-sticky-note"></i>
