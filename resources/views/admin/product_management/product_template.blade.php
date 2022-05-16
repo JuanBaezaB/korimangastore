@@ -17,12 +17,7 @@
                             <!-- Regular -->
                             <h2 class="content-heading">Regular</h2>
                             <div class="row items-push">
-                                <div class="col-lg-4">
-                                    <p class="text-muted">
-                                        Username, email and password validation made easy for your login/register forms
-                                    </p>
-                                </div>
-                                <div class="col-lg-8 col-xl-5">
+                                <div class="col">
                                     <div class="mb-4">
                                         <label class="form-label" for="val-username">Username <span
                                                 class="text-danger">*</span></label>
