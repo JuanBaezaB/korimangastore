@@ -41,8 +41,11 @@ class BranchController extends Controller
      */
     public function store(Request $request)
     {
-        $datos = request()->except('_token');
-        return response()->json($datos);
+        request()->validate(Branch::$rules);
+
+        $branch = Branch::create($request->all());
+        return redirect()->route('list_branch')
+        ->with('success', 'Branch created successfully');
     }
 
     /**

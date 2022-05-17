@@ -8,6 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Branch extends Model
 {
     use HasFactory;
+
+    static $rules = [
+		'name' => 'required',
+		'address' => 'required',
+		'longitude' => 'required',
+		'latitude' => 'required'
+    ];
+
+
     protected $table = 'branches';
 
     protected $fillable = [

@@ -54,7 +54,7 @@
                                 <td class="fw-semibold">{{ $branch->name }}</td>
                                 <td class="d-none d-sm-table-cell">{{ $branch->address }}</td>
                                 <td class="d-none d-sm-table-cell">{{ $branch->longitude }}</td>
-                                <td class="d-none d-sm-table-cell">{{ $branch->lantitude }}</td>
+                                <td class="d-none d-sm-table-cell">{{ $branch->latitude }}</td>
                                 <td> Acciones </td>
                             </tr>
                         @endforeach
@@ -83,11 +83,11 @@
                         @csrf
                         <div class="mb-3">
                             <label class="col-form-label">Nombre:</label>
-                            <input type="text" class="form-control" id="name" required>
+                            <input type="text" class="form-control" name="name" required>
                         </div>
                         <div class="mb-3">
                             <label class="col-form-label">Dirección:</label>
-                            <input type="text" class="form-control" id="address" id="address" required>
+                            <input type="text" class="form-control" id="address" name="address" required>
                         </div>
                         <div class="mb-3">
                             <label for="message-text" class="col-form-label">Longitud:</label>
@@ -95,16 +95,16 @@
                         </div>
                         <div class="mb-3">
                             <label for="message-text" class="col-form-label">Latitud:</label>
-                            <input class="form-control" step="any" type="number" name="Latitude" required>
+                            <input class="form-control" step="0.0000001" type="number" name="latitude" required>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button  type="submit" class="btn btn-primary">Ingresar</button>
+                            <button type="submit" class="btn btn-primary">Ingresar</button>
                         </div>
-                        
+
                     </form>
                 </div>
-                
+
             </div>
         </div>
     </div>
@@ -112,6 +112,7 @@
 @endsection
 
 @section('js_after')
+    <!-- Datatable -->
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
@@ -173,4 +174,22 @@
             });
         });
     </script>
+    <!-- End Datatable -->
+
+    <!-- js sweetalert2 -->
+    @if (session('success') == 'Branch created successfully')
+        <script>
+            Swal.fire(
+                'Ingresado!',
+                'El ingreso se ha relizado exitosamente.',
+                'success'
+            )
+        </script>
+    @endif
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.8/sweetalert2.min.js"></script>
+
+    <!-- End js sweetalert2 -->
 @endsection
