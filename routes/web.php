@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\BranchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,5 +32,9 @@ Route::view('/forms/be_forms_validation', 'admin.forms.be_forms_validation')->mi
 
 
 
-
+/* Producto */
 Route::get('/product_management/list_product', [ProductController::class, 'index'])->name('lista_producto');
+
+/* Sucursales */
+Route::get('/characteristics/list_branch', [BranchController::class, 'index'])->name('list_branch');
+Route::post('/characteristics/list_branch', [BranchController::class, 'store'])->name('add_branch');

@@ -371,12 +371,14 @@
                                         <span class="nav-main-link-name">Listado productos</span>
                                     </a>
                                 </li>
+
                                 <li class="nav-main-item">
                                     <a class="nav-main-link{{ request()->is('pages/slick') ? ' active' : '' }}"
                                         href="/pages/slick">
-                                        <span class="nav-main-link-name">Slick Slider</span>
+                                        <span class="nav-main-link-name">Añadir producto</span>
                                     </a>
                                 </li>
+
                                 <li class="nav-main-item">
                                     <a class="nav-main-link{{ request()->is('pages/blank') ? ' active' : '' }}"
                                         href="/pages/blank">
@@ -390,7 +392,7 @@
 
                         <!-- caracteristicas -->
                         <li class="nav-main-heading">Componentes</li>
-                        <li class="nav-main-item{{ request()->is('pages/*') ? ' open' : '' }}">
+                        <li class="nav-main-item{{ request()->is('characteristics/*') ? ' open' : '' }}">
                             <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
                                 aria-expanded="true" href="#">
                                 <i class="nav-main-link-icon fa fa-book"></i>
@@ -399,7 +401,7 @@
                             <ul class="nav-main-submenu">
                                 <li class="nav-main-item">
                                     <a class="nav-main-link{{ request()->is('pages/datatables') ? ' active' : '' }}"
-                                        href="/pages/datatables">
+                                        href="{{ route('list_branch') }}">
                                         <span class="nav-main-link-name">Sucursales</span>
                                     </a>
                                 </li>
@@ -418,15 +420,6 @@
                             </ul>
                         </li>
 
-
-
-                        <li class="nav-main-heading">More</li>
-                        <li class="nav-main-item">
-                            <a class="nav-main-link" href="/">
-                                <i class="nav-main-link-icon fa fa-globe"></i>
-                                <span class="nav-main-link-name">Landing</span>
-                            </a>
-                        </li>
 
 
                         <!-- Diseños -->
