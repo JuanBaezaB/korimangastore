@@ -44,7 +44,7 @@
                             <th class="d-none d-sm-table-cell" style="width: 30%;">Dirección</th>
                             <th class="d-none d-sm-table-cell" style="width: 15%;">Longitud</th>
                             <th class="d-none d-sm-table-cell" style="width: 15%;">Latitud</th>
-                            <th style="width: 15%;">Acciones</th>
+                            <th style="width: 10%;">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -55,16 +55,33 @@
                                 <td class="d-none d-sm-table-cell">{{ $branch->address }}</td>
                                 <td class="d-none d-sm-table-cell">{{ $branch->longitude }}</td>
                                 <td class="d-none d-sm-table-cell">{{ $branch->latitude }}</td>
-                                <td> Acciones </td>
+                                <td class="text-center"">
+                                    <form class="delete" action="{{route('delete_branch',$branch->id)}}" method="POST">
+                                        <div class=" btn-group">
+                                                <button type="button" class="btn btn-sm btn btn-outline-primary" data-bs-toggle="tooltip" title="Actualizar">
+                                                    <i class="fa fa-pencil-alt"></i>
+                                                </button>
+                                                    
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn btn-outline-danger" data-bs-toggle="tooltip" title="Eliminar">
+                                                    <i class="fa fa-times"></i>
+                                                </button>
+                                            
+                                        </div>
+                                    </form>
+                                    
+
+                        
+                                </td>
                             </tr>
                         @endforeach
-
 
                     </tbody>
                 </table>
             </div>
         </div>
-        <!-- END Elements -->
+    <!-- END Elements -->
     </div>
     <!-- END Page Content -->
 
@@ -177,6 +194,34 @@
     <!-- End Datatable -->
 
     <!-- js sweetalert2 -->
+    <script>
+        $('.delete').submit(function(e) {
+            e.preventDefault();
+
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "No podrás revertir esto!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Cancelar',
+                confirmButtonText: 'Si, eliminar!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    /*
+                    Swal.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    )*/
+                    this.submit();
+                }
+            })
+
+        });
+    </script>
+
     @if (session('success') == 'Branch created successfully')
         <script>
             Swal.fire(
@@ -187,9 +232,28 @@
         </script>
     @endif
 
+    @if (session('success') == 'Branch deleted successfully')
+        <script>
+            Swal.fire(
+                'Eliminado!',
+                'El registro ha sido eliminado.',
+                'success'
+            )
+        </script>
+    @endif
+
+    @if (session('success') == 'Branch updated successfully')
+        <script>
+            Swal.fire(
+                'Actualizado!',
+                'El registro ha sido actualizado.',
+                'success'
+            )
+        </script>
+    @endif
+
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.8/sweetalert2.min.js"></script>
-
     <!-- End js sweetalert2 -->
 @endsection

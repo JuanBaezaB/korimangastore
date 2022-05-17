@@ -38,3 +38,6 @@ Route::get('/product_management/list_product', [ProductController::class, 'index
 /* Sucursales */
 Route::get('/characteristics/list_branch', [BranchController::class, 'index'])->name('list_branch');
 Route::post('/characteristics/list_branch', [BranchController::class, 'store'])->name('add_branch');
+Route::post('/characteristics/delete_branch/{id}', [BranchController::class, 'destroy'])->name('delete_branch');
+/*  
+Route::resource('/characteristics/list_branch',BranchController::class); */

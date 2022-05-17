@@ -400,8 +400,8 @@
                             </a>
                             <ul class="nav-main-submenu">
                                 <li class="nav-main-item">
-                                    <a class="nav-main-link{{ request()->is('pages/datatables') ? ' active' : '' }}"
-                                        href="{{ route('list_branch') }}">
+                                    <a class="nav-main-link{{ request()->is('characteristics/list_branch') ? ' active' : '' }}"
+                                        href="{{ url('list_branch') }}">
                                         <span class="nav-main-link-name">Sucursales</span>
                                     </a>
                                 </li>
@@ -710,8 +710,7 @@
 
     <!-- Laravel Original JS -->
     <!-- <script src="{{ mix('/js/laravel.app.js') }}"></script> -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.8/sweetalert2.min.js"></script>
+    
     @yield('js_after')
 </body>
 

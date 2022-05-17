@@ -90,6 +90,9 @@ class BranchController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $branch = Branch::find($id)->delete();
+
+        return redirect()->route('list_branch')
+            ->with('success', 'Branch deleted successfully');
     }
 }
