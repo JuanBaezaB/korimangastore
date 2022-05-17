@@ -401,7 +401,7 @@
                             <ul class="nav-main-submenu">
                                 <li class="nav-main-item">
                                     <a class="nav-main-link{{ request()->is('characteristics/list_branch') ? ' active' : '' }}"
-                                        href="{{ url('list_branch') }}">
+                                        href="{{ route('list_branch') }}">
                                         <span class="nav-main-link-name">Sucursales</span>
                                     </a>
                                 </li>
