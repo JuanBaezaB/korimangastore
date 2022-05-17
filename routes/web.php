@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProviderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,14 +18,25 @@ Route::get('/', function () {
     return view('public.welcome');
 });
 
+
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 Route::view('/forms/be_forms_elements', 'admin.forms.be_forms_elements')->middleware('auth');
 Route::view('/forms/be_forms_layouts', 'admin.forms.be_forms_layouts')->middleware('auth');
 Route::view('/forms/be_forms_input_groups', 'admin.forms.be_forms_input_groups')->middleware('auth');
 Route::view('/forms/be_forms_plugins', 'admin.forms.be_forms_plugins')->middleware('auth');
 Route::view('/forms/be_forms_editors', 'admin.forms.be_forms_editors')->middleware('auth');
 Route::view('/forms/be_forms_validation', 'admin.forms.be_forms_validation')->middleware('auth');
-Route::resource('/branches', BranchController::class)->middleware('auth');
+
+
+Route::resource('/provider', ProviderController::class)->middleware('auth');
+Route::view('/provider/create', 'admin.provider.create')->middleware('auth');
+Route::view('/provider/edit', 'admin.provider.edit')->middleware('auth');
+Route::view('/provider/form', 'admin.provider.create')->middleware('auth');
+Route::view('/provider/index', 'admin.provider.index')->middleware('auth');
+Route::view('/provider/show', 'admin.provider.show')->middleware('auth');
+
+
+

@@ -239,7 +239,7 @@
                             </div>
                         </div>
                         <div class="block-content">
-                            hola
+                        
                         </div>
                         <div class="block-content block-content-full text-end bg-body">
                             <button type="button" class="btn btn-sm btn-primary" data-bs-dismiss="modal">Done</button>

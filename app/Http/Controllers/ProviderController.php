@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Provider;
 use Illuminate\Http\Request;
 
 class ProviderController extends Controller
@@ -14,6 +15,8 @@ class ProviderController extends Controller
     public function index()
     {
         //
+        $datos['provider']=Provider::paginate(5);
+        return view('provider.index',$datos);
     }
 
     /**
@@ -24,9 +27,10 @@ class ProviderController extends Controller
     public function create()
     {
         //
-        $provider = new Provider();
-        return view('Provider.create', compact('provider'));
+        return view('provider.create');
+        
     }
+    
 
     /**
      * Store a newly created resource in storage.
@@ -37,12 +41,10 @@ class ProviderController extends Controller
     public function store(Request $request)
     {
         //
-        request()->validate(Provider::$rules);
+        $datosProvider = $request->except('_token');
+        Provider::insert($datosProvider);
+        return response()->json($datosProvider);
 
-        $provider = Provider::create($request->all());
-
-        return redirect()->route('provider.index')
-            ->with('success', 'Provider created successfully');
     }
 
     /**
@@ -54,6 +56,8 @@ class ProviderController extends Controller
     public function show($id)
     {
         //
+        
+        
     }
 
     /**
