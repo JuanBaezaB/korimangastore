@@ -36,5 +36,9 @@ class Product extends Model
     public function series() {
         return $this->belongsToMany(Serie::class, Serie_product::$table);
     }
+
+    public function productable() {
+        return $this->morphTo();
+    }
     
 }

@@ -22,5 +22,9 @@ class Manga extends Model
     public function genres() {
         return $this->belongsToMany(Genre::class, Genre_manga::$table);
     }
+
+    public function product() {
+        return $this->morphOne(Product::class, 'productable');
+    }
     
 }

@@ -13,5 +13,9 @@ class Figure extends Model
     protected $fillable = [
         'figure_type',
     ];
+    
+    public function product() {
+        return $this->morphOne(Product::class, 'productable');
+    }
 
 }
