@@ -344,6 +344,12 @@
                                         <span class="nav-main-link-name">Listado productos</span>
                                     </a>
                                 </li>
+                                <li class="nav-main-item">
+                                    <a class="nav-main-link{{ request()->is('pages/slick') ? ' active' : '' }}"
+                                        href="/pages/slick">
+                                        <span class="nav-main-link-name">Categorías</span>
+                                    </a>
+                                </li>
 
                                 <li class="nav-main-item">
                                     <a class="nav-main-link{{ request()->is('pages/slick') ? ' active' : '' }}"
@@ -356,6 +362,32 @@
                                     <a class="nav-main-link{{ request()->is('pages/blank') ? ' active' : '' }}"
                                         href="/pages/blank">
                                         <span class="nav-main-link-name">Blank</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <!-- Gestion de Caracteristicas Manga -->
+                        <li class="nav-main-heading">Caracteristicas Manga</li>
+                        <li class="nav-main-item {{ request()->is('manga_characteristics*') ? ' open' : '' }}">
+                            <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
+                                aria-expanded="true" href="#">
+                                <i class="nav-main-link-icon fa fa-book"></i>
+                                <span class="nav-main-link-name">Caracteristicas</span><!-- Gestion de productos -->
+                            </a>
+                            <ul class="nav-main-submenu">
+                                <li class="nav-main-item">
+                                    <a class="nav-main-link{{ request()->is('format_management/list_editorial') ? ' active' : '' }}"
+                                        href="{{ route('list_editorial') }}">
+                                        <span class="nav-main-link-name">Editorial</span><!-- Gestion de Editorial -->
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav-main-submenu">
+                                <li class="nav-main-item">
+                                    <a class="nav-main-link{{ request()->is('product_management/list_format') ? ' active' : '' }}"
+                                        href="{{ route('list_format') }}">
+                                        <span class="nav-main-link-name">Formato</span><!-- Gestion de Formato -->
                                     </a>
                                 </li>
                             </ul>

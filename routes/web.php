@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\BranchController;
+use App\Http\Controllers\FormatController;
+use App\Http\Controllers\EditorialController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,14 +40,21 @@ Route::get('/characteristics/index_provider', [ProviderController::class, 'index
 Route::post('/characteristics/index_provider', [ProviderController::class, 'store'])->name('add_provider');
 Route::delete('/characteristics/delete_provider/{id}', [ProviderController::class, 'destroy'])->name('delete_provider');
 Route::patch('/characteristics/update_provider/{id}', [ProviderController::class, 'update'])->name('update_provider');
-/*
-Route::resource('/provider', ProviderController::class)->middleware('auth');
-Route::view('/provider/create', 'admin.provider.create')->middleware('auth');
-Route::view('/provider/edit', 'admin.provider.edit')->middleware('auth');
-Route::view('/provider/form', 'admin.provider.create')->middleware('auth');
-Route::view('/provider/index', 'admin.provider.index')->middleware('auth');
-Route::view('/provider/show', 'admin.provider.show')->middleware('auth');
-*/
+
+/* Manga-Formato */
+
+Route::get('/manga_characteristics/index_format', [FormatController::class, 'index'])->name('list_format');
+Route::post('/manga_characteristics/index_format', [FormatController::class, 'store'])->name('add_format');
+Route::delete('/manga_characteristics/delete_format/{id}', [FormatController::class, 'destroy'])->name('delete_format');
+Route::patch('/manga_characteristics/update_format/{id}', [FormatController::class, 'update'])->name('update_format');
+
+/* Manga-Editorial */
+
+Route::get('/manga_characteristics/index_editorial', [EditorialController::class, 'index'])->name('list_editorial');
+Route::post('/manga_characteristics/index_editorial', [EditorialController::class, 'store'])->name('add_editorial');
+Route::delete('/manga_characteristics/delete_editorial/{id}', [EditorialController::class, 'destroy'])->name('delete_editorial');
+Route::patch('/manga_characteristics/update_editorial/{id}', [EditorialController::class, 'update'])->name('update_editorial');
+
 
 /* Producto */
 Route::get('/product_management/list_product', [ProductController::class, 'index'])->name('lista_producto');
