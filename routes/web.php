@@ -8,6 +8,7 @@ use App\Http\Controllers\SerieController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FormatController;
 use App\Http\Controllers\EditorialController;
+use App\Http\Controllers\GenreController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,6 +57,13 @@ Route::get('/manga_characteristics/index_editorial', [EditorialController::class
 Route::post('/manga_characteristics/index_editorial', [EditorialController::class, 'store'])->name('add_editorial');
 Route::delete('/manga_characteristics/delete_editorial/{id}', [EditorialController::class, 'destroy'])->name('delete_editorial');
 Route::patch('/manga_characteristics/update_editorial/{id}', [EditorialController::class, 'update'])->name('update_editorial');
+
+/* Manga-Genero */
+
+Route::get('/manga_characteristics/index_genre', [GenreController::class, 'index'])->name('list_genre');
+Route::post('/manga_characteristics/index_genre', [GenreController::class, 'store'])->name('add_genre');
+Route::delete('/manga_characteristics/delete_genre/{id}', [GenreController::class, 'destroy'])->name('delete_genre');
+Route::patch('/manga_characteristics/update_genre/{id}', [GenreController::class, 'update'])->name('update_genre');
 
 
 /* Producto */
