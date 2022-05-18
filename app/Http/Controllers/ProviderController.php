@@ -15,8 +15,13 @@ class ProviderController extends Controller
     public function index()
     {
         //
-        $datos['provider']=Provider::paginate(5);
-        return view('provider.index',$datos);
+        try {
+            $provider = Provider::all();
+        } catch (\Throwable $th) {
+            return response()->json($provider);
+        }
+        
+        return response()->view('admin.provider_management.list_provider', compact('provider'));
     }
 
     /**

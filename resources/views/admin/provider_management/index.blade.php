@@ -14,29 +14,21 @@
                             <span class="card-title">Show provider</span>
                         </div>
                         <div class="float-right">
-                            <a class="btn btn-primary" href="{{ route('provider.index') }}"> Back</a>
+                            <a class="btn btn-primary" href="{{ route('/home') }}"> Back</a>
                         </div>
                     </div>
 
                     <div class="card-body">
                         
                         <div class="form-group">
-                            <strong>Nombre Sucursal:</strong>
-                            {{ $provider->nombre_sucursal }}
+                            <strong>Nombre Proveedor:</strong>
+                            {{ $provider->name }}
                         </div>
                         <div class="form-group">
-                            <strong>Direccion Sucursal:</strong>
-                            {{ $provider->direccion_sucursal }}
+                            <strong>Descripcion Proveedor:</strong>
+                            {{ $provider->descrition }}
                         </div>
-                        <div class="form-group">
-                            <strong>Jefe Sucursal:</strong>
-                            {{ $provider->jefe_sucursal }}
-                        </div>
-                        <div class="form-group">
-                            <strong>Telefono Sucursal:</strong>
-                            {{ $provider->telefono_sucursal }}
-                        </div>
-
+                        
                     </div>
                 </div>
             </div>
