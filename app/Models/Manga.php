@@ -14,4 +14,8 @@ class Manga extends Model
         'format_id',
         'editorial_id'
     ];
+
+    public function creativePeople() {
+        return $this->belongsToMany(CreativePerson::class)->withPivot('creative_type');
+    }
 }
