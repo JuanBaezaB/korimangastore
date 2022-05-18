@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Branch;
-use PhpParser\Node\Stmt\TryCatch;
+use App\Models\Category;
 
-class BranchController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,13 +14,8 @@ class BranchController extends Controller
      */
     public function index()
     {
-        try {
-            $branches = Branch::all();
-        } catch (\Throwable $th) {
-            return response()->json($th);
-        }
-        
-        return response()->view('admin.characteristics.branch.list_branch', compact('branches'));
+        $categories = Category::all();
+        return view('admin.characteristics.category.index_category', compact('categories'));
     }
 
     /**
@@ -31,7 +25,7 @@ class BranchController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -42,11 +36,12 @@ class BranchController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate(Branch::$rules);
+        
+        request()->validate(Category::$rules);
 
-        $branch = Branch::create($request->all());
-        return redirect()->route('list_branch')
-        ->with('success', 'created');
+        $category = Category::create($request->all());
+
+        return redirect()->route('list_category')->with('success', 'created');
     }
 
     /**
@@ -57,7 +52,9 @@ class BranchController extends Controller
      */
     public function show($id)
     {
-        //
+        $category = Category::find($id);
+        
+        return view('category.show', compact('category'));
     }
 
     /**
@@ -68,7 +65,7 @@ class BranchController extends Controller
      */
     public function edit($id)
     {
-        //
+       
     }
 
     /**
@@ -80,20 +77,13 @@ class BranchController extends Controller
      */
     public function update(Request $request, $id)
     {
-        try {
-            request()->validate(Branch::$rules);
-            $branch = Branch::where('id', '=', $id)->first();
-            $branch->update($request->all());
+        request()->validate(Category::$rules);
 
-        } catch (\Throwable $th) {
-            //throw $th;
-        }
-        
+        $category = Category::where('id', '=', $id)->first();
 
+        $category->update($request->all());
 
-        return redirect()->route('list_branch')
-            ->with('success', 'updated');
-        return response() -> json($request);    
+        return redirect()->route('list_category')->with('success', 'updated');
     }
 
     /**
@@ -104,9 +94,8 @@ class BranchController extends Controller
      */
     public function destroy($id)
     {
-        $branch = Branch::find($id)->delete();
+        $category = Category::find($id)->delete();
 
-        return redirect()->route('list_branch')
-        ->with('success', 'deleted');
+        return redirect()->route('list_category')->with('success', 'deleted');
     }
 }

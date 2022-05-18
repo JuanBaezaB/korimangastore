@@ -280,7 +280,7 @@
                             D<span class="opacity-75">x</span>
                         </span>
                         <span class="smini-hidden">
-                            Dash<span class="opacity-75">mix</span>
+                            Kori<span class="opacity-75">MangaStore</span>
                         </span>
                     </a>
                     <!-- END Logo -->
@@ -385,12 +385,21 @@
                             </ul>
                             <ul class="nav-main-submenu">
                                 <li class="nav-main-item">
-                                    <a class="nav-main-link{{ request()->is('product_management/list_format') ? ' active' : '' }}"
+                                    <a class="nav-main-link{{ request()->is('format_management/list_format') ? ' active' : '' }}"
                                         href="{{ route('list_format') }}">
                                         <span class="nav-main-link-name">Formato</span><!-- Gestion de Formato -->
                                     </a>
                                 </li>
                             </ul>
+                            <ul class="nav-main-submenu">
+                                <li class="nav-main-item">
+                                    <a class="nav-main-link{{ request()->is('genre_management/list_genre') ? ' active' : '' }}"
+                                        href="{{ route('list_genre') }}">
+                                        <span class="nav-main-link-name">Genero</span><!-- Gestion de Editorial -->
+                                    </a>
+                                </li>
+                            </ul>
+                            
                         </li>
 
                         <!-- caracteristicas -->
@@ -409,13 +418,19 @@
                                     </a>
                                 </li>
                                 <li class="nav-main-item">
-                                    <a class="nav-main-link{{ request()->is('/characteristics/index_category') ? ' active' : '' }}"
+                                    <a class="nav-main-link{{ request()->is('characteristics/list_serie') ? ' active' : '' }}"
+                                        href="{{ route('list_serie') }}">
+                                        <span class="nav-main-link-name">Series</span>
+                                    </a>
+                                </li>
+                                <li class="nav-main-item">
+                                    <a class="nav-main-link{{ request()->is('characteristics/index_category') ? ' active' : '' }}"
                                         href="{{ route('list_category') }}">
                                         <span class="nav-main-link-name">Categorías</span>
                                     </a>
                                 </li>
                                 <li class="nav-main-item">
-                                    <a class="nav-main-link{{ request()->is('characteristics/list_provider') ? ' active' : '' }}"
+                                    <a class="nav-main-link{{ request()->is('characteristics/index_provider') ? ' active' : '' }}"
                                         href="{{ route('list_provider') }}">
                                         <span class="nav-main-link-name">Proveedores</span>
                                     </a>
@@ -428,13 +443,6 @@
                             </ul>
                         </li>
                                                 
-                        <li class="nav-main-heading">More</li>
-                        <li class="nav-main-item">
-                            <a class="nav-main-link" href="/">
-                                <i class="nav-main-link-icon fa fa-globe"></i>
-                                <span class="nav-main-link-name">Landing</span>
-                            </a>
-                        </li>
 
 
                         <!-- Diseños -->

@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Serie;
 use Illuminate\Http\Request;
-use App\Models\Branch;
-use PhpParser\Node\Stmt\TryCatch;
 
-class BranchController extends Controller
+class SerieController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,13 +14,14 @@ class BranchController extends Controller
      */
     public function index()
     {
+        //
         try {
-            $branches = Branch::all();
+            $series = Serie::all();
         } catch (\Throwable $th) {
             return response()->json($th);
         }
-        
-        return response()->view('admin.characteristics.branch.list_branch', compact('branches'));
+
+        return response()->view('admin.characteristics.serie.list_serie', compact('series'));
     }
 
     /**
@@ -42,10 +42,11 @@ class BranchController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate(Branch::$rules);
+        //
+        request()->validate(Serie::$rules);
 
-        $branch = Branch::create($request->all());
-        return redirect()->route('list_branch')
+        $serie = Serie::create($request->all());
+        return redirect()->route('list_serie')
         ->with('success', 'created');
     }
 
@@ -80,10 +81,11 @@ class BranchController extends Controller
      */
     public function update(Request $request, $id)
     {
+        //
         try {
-            request()->validate(Branch::$rules);
-            $branch = Branch::where('id', '=', $id)->first();
-            $branch->update($request->all());
+            request()->validate(Serie::$rules);
+            $serie = Serie::where('id', '=', $id)->first();
+            $serie->update($request->all());
 
         } catch (\Throwable $th) {
             //throw $th;
@@ -91,9 +93,8 @@ class BranchController extends Controller
         
 
 
-        return redirect()->route('list_branch')
+        return redirect()->route('list_serie')
             ->with('success', 'updated');
-        return response() -> json($request);    
     }
 
     /**
@@ -104,9 +105,10 @@ class BranchController extends Controller
      */
     public function destroy($id)
     {
-        $branch = Branch::find($id)->delete();
+        //
+        $serie = Serie::find($id)->delete();
 
-        return redirect()->route('list_branch')
+        return redirect()->route('list_serie')
         ->with('success', 'deleted');
     }
 }

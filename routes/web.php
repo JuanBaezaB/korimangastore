@@ -7,6 +7,8 @@ use App\Http\Controllers\BranchController;
 use App\Http\Controllers\FormatController;
 use App\Http\Controllers\EditorialController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SerieController;
+use App\Http\Controllers\GenreController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,6 +58,13 @@ Route::post('/manga_characteristics/index_editorial', [EditorialController::clas
 Route::delete('/manga_characteristics/delete_editorial/{id}', [EditorialController::class, 'destroy'])->name('delete_editorial');
 Route::patch('/manga_characteristics/update_editorial/{id}', [EditorialController::class, 'update'])->name('update_editorial');
 
+/* Manga-Genero */
+
+Route::get('/manga_characteristics/index_genre', [GenreController::class, 'index'])->name('list_genre');
+Route::post('/manga_characteristics/index_genre', [GenreController::class, 'store'])->name('add_genre');
+Route::delete('/manga_characteristics/delete_genre/{id}', [GenreController::class, 'destroy'])->name('delete_genre');
+Route::patch('/manga_characteristics/update_genre/{id}', [GenreController::class, 'update'])->name('update_genre');
+
 
 /* Producto */
 Route::get('/product_management/list_product', [ProductController::class, 'index'])->name('lista_producto');
@@ -65,6 +74,12 @@ Route::get('/characteristics/list_branch', [BranchController::class, 'index'])->
 Route::post('/characteristics/list_branch', [BranchController::class, 'store'])->name('add_branch');
 Route::delete('/characteristics/delete_branch/{id}', [BranchController::class, 'destroy'])->name('delete_branch');
 Route::patch('/characteristics/update_branch/{id}', [BranchController::class, 'update'])->name('update_branch');
+
+/* Series */
+Route::get('/characteristics/list_serie', [SerieController::class, 'index'])->name('list_serie');
+Route::post('/characteristics/list_serie', [SerieController::class, 'store'])->name('add_serie');
+Route::delete('/characteristics/delete_serie/{id}', [SerieController::class, 'destroy'])->name('delete_serie');
+Route::patch('/characteristics/update_serie/{id}', [SerieController::class, 'update'])->name('update_serie');
 
 /* Categorias */
 Route::get('/characteristics/index_category', [CategoryController::class, 'index'])->name('list_category');

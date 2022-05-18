@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Serie extends Model
 {
     use HasFactory;
+
+    static $rules = [
+		'name' => 'required'
+    ];
+
     protected $table = 'series';
 
     protected $fillable = [

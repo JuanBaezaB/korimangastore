@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Branch;
+use App\Models\Genre;
 use PhpParser\Node\Stmt\TryCatch;
 
-class BranchController extends Controller
+class GenreController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,12 +16,12 @@ class BranchController extends Controller
     public function index()
     {
         try {
-            $branches = Branch::all();
+            $genres = Genre::all();
         } catch (\Throwable $th) {
             return response()->json($th);
         }
         
-        return response()->view('admin.characteristics.branch.list_branch', compact('branches'));
+        return response()->view('admin.manga_characteristics.genre_management.index_genre', compact('genres'));
     }
 
     /**
@@ -42,10 +42,10 @@ class BranchController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate(Branch::$rules);
+        request()->validate(Genre::$rules);
 
-        $branch = Branch::create($request->all());
-        return redirect()->route('list_branch')
+        $genre = Genre::create($request->all());
+        return redirect()->route('list_genre')
         ->with('success', 'created');
     }
 
@@ -81,9 +81,9 @@ class BranchController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            request()->validate(Branch::$rules);
-            $branch = Branch::where('id', '=', $id)->first();
-            $branch->update($request->all());
+            request()->validate(Genre::$rules);
+            $genre = Genre::where('id', '=', $id)->first();
+            $genre->update($request->all());
 
         } catch (\Throwable $th) {
             //throw $th;
@@ -91,7 +91,7 @@ class BranchController extends Controller
         
 
 
-        return redirect()->route('list_branch')
+        return redirect()->route('list_genre')
             ->with('success', 'updated');
         return response() -> json($request);    
     }
@@ -104,9 +104,9 @@ class BranchController extends Controller
      */
     public function destroy($id)
     {
-        $branch = Branch::find($id)->delete();
+        $genre = Genre::find($id)->delete();
 
-        return redirect()->route('list_branch')
+        return redirect()->route('list_genre')
         ->with('success', 'deleted');
     }
 }
