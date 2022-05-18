@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\BranchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,3 +29,17 @@ Route::view('/forms/be_forms_input_groups', 'admin.forms.be_forms_input_groups')
 Route::view('/forms/be_forms_plugins', 'admin.forms.be_forms_plugins')->middleware('auth');
 Route::view('/forms/be_forms_editors', 'admin.forms.be_forms_editors')->middleware('auth');
 Route::view('/forms/be_forms_validation', 'admin.forms.be_forms_validation')->middleware('auth');
+
+
+
+/* Producto */
+Route::get('/product_management/list_product', [ProductController::class, 'index'])->name('lista_producto');
+
+/* Sucursales */
+Route::get('/characteristics/list_branch', [BranchController::class, 'index'])->name('list_branch');
+Route::post('/characteristics/list_branch', [BranchController::class, 'store'])->name('add_branch');
+Route::delete('/characteristics/delete_branch/{id}', [BranchController::class, 'destroy'])->name('delete_branch');
+Route::patch('/characteristics/update_branch/{id}', [BranchController::class, 'update'])->name('update_branch');
+
+/*  
+Route::resource('/characteristics/list_branch',BranchController::class); */

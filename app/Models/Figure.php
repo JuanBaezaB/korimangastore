@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Editorial extends Model
+class Figure extends Model
 {
     use HasFactory;
-    protected $table = 'editorials';
+    protected $table = 'figures';
 
     protected $fillable = [
-        'name',
-        'origin'
+        'figure_type',
     ];
+
 }

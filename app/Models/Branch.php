@@ -8,6 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Branch extends Model
 {
     use HasFactory;
+
+    static $rules = [
+		'name' => 'required',
+		'address' => 'required',
+		'longitude' => 'required',
+		'latitude' => 'required'
+    ];
+
+
     protected $table = 'branches';
 
     protected $fillable = [
@@ -17,6 +26,10 @@ class Branch extends Model
         'latitude',
 
     ];
+
+    public function products() {
+        return $this->belongsToMany(Product::class)->withPivot('stock');
+    }
 }
 
 
