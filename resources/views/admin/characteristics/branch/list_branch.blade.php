@@ -55,24 +55,77 @@
                                 <td class="d-none d-sm-table-cell">{{ $branch->address }}</td>
                                 <td class="d-none d-sm-table-cell">{{ $branch->longitude }}</td>
                                 <td class="d-none d-sm-table-cell">{{ $branch->latitude }}</td>
-                                <td class="text-center"">
-                                    <form class="delete" action="{{route('delete_branch',$branch->id)}}" method="POST">
+                                <td class="">
+                                    <form class=" delete" action="{{ route('delete_branch', $branch->id) }}"
+                                        method="POST">
                                         <div class=" btn-group">
-                                                <button type="button" class="btn btn-sm btn btn-outline-primary" data-bs-toggle="tooltip" title="Actualizar">
-                                                    <i class="fa fa-pencil-alt"></i>
-                                                </button>
-                                                    
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn btn-outline-danger" data-bs-toggle="tooltip" title="Eliminar">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            
+                                            <button type="button" class="btn btn-sm btn btn-outline-primary"
+                                                data-bs-toggle="modal" data-bs-target="#update_branch{{ $branch->id }}"
+                                                data-bs-whatever="@mdo" title="Actualizar">
+                                                <i class="fa fa-pencil-alt"></i>
+                                            </button>
+
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn btn-outline-danger"
+                                                data-bs-toggle="tooltip" title="Eliminar">
+                                                <i class="fa fa-fw fa-trash"></i>
+                                            </button>
+
                                         </div>
                                     </form>
-                                    
 
-                        
+                                    <!-- Modal Actualizar-->
+                                    <div class="modal fade " id="update_branch{{ $branch->id }}" tabindex="-1"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title " id="exampleModalLabel">Actualizar sucursal
+                                                    </h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="{{ route('update_branch', $branch->id) }}"
+                                                        enctype="multipart/form-data" method="POST">
+                                                        @csrf
+                                                        {{ method_field('PATCH') }}
+
+                                                        <div class="mb-3">
+                                                            <label class="col-form-label">Nombre:</label>
+                                                            <input type="text" class="form-control" name="name" value="{{$branch->name}}" required>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="col-form-label">Dirección:</label>
+                                                            <input type="text" class="form-control" id="address"
+                                                                name="address"  value="{{$branch->address}}" required>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="message-text"
+                                                                class="col-form-label">Longitud:</label>
+                                                            <input class="form-control" step="any" type="number"
+                                                                name="longitude"  value="{{$branch->longitude}}" required>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="message-text"
+                                                                class="col-form-label">Latitud:</label>
+                                                            <input class="form-control" step="0.0000001" type="number"
+                                                                name="latitude"  value="{{$branch->latitude}}" required>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Cancelar</button>
+                                                            <button type="submit" class="btn btn-primary">Actualizar</button>
+                                                        </div>
+
+                                                    </form>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Modal -->
                                 </td>
                             </tr>
                         @endforeach
@@ -81,13 +134,13 @@
                 </table>
             </div>
         </div>
-    <!-- END Elements -->
+        <!-- END Elements -->
     </div>
     <!-- END Page Content -->
 
 
 
-    <!-- Modal -->
+    <!-- Modal Ingresar-->
     <div class="modal fade " id="add_branch" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -125,7 +178,6 @@
             </div>
         </div>
     </div>
-    <!-- End Modal -->
 @endsection
 
 @section('js_after')
@@ -251,9 +303,5 @@
             )
         </script>
     @endif
-
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.8/sweetalert2.min.js"></script>
     <!-- End js sweetalert2 -->
 @endsection

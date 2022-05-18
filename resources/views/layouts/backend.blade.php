@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
-    <title>Dashboard</title>
+    <title>Kori - Admin</title>
 
     <meta name="description"
         content="Dashmix - Bootstrap 5 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
@@ -697,6 +697,13 @@
         </header>
         <!-- END Header -->
 
+        <!-- sweetalert2 -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.8/sweetalert2.min.js"></script>
+        <!-- END sweetalert2 -->
+
+
+
         <!-- Main Container -->
         <main id="main-container">
             @yield('content')
@@ -712,6 +719,7 @@
     <!-- <script src="{{ mix('/js/laravel.app.js') }}"></script> -->
     
     @yield('js_after')
+    
 </body>
 
 </html>

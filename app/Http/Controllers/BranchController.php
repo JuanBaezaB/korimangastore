@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Branch;
+use PhpParser\Node\Stmt\TryCatch;
 
 class BranchController extends Controller
 {
@@ -79,7 +80,20 @@ class BranchController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            request()->validate(Branch::$rules);
+            $branch = Branch::where('id', '=', $id)->first();
+            $branch->update($request->all());
+
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+        
+
+
+        return redirect()->route('list_branch')
+            ->with('success', 'Branch updated successfully');
+        return response() -> json($request);    
     }
 
     /**
@@ -93,6 +107,6 @@ class BranchController extends Controller
         $branch = Branch::find($id)->delete();
 
         return redirect()->route('list_branch')
-            ->with('success', 'Branch deleted successfully');
+        ->with('success', 'Branch deleted successfully');
     }
 }
