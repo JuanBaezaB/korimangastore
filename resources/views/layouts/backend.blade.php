@@ -382,16 +382,12 @@
                                         <span class="nav-main-link-name">Editorial</span><!-- Gestion de Editorial -->
                                     </a>
                                 </li>
-                            </ul>
-                            <ul class="nav-main-submenu">
                                 <li class="nav-main-item">
                                     <a class="nav-main-link{{ request()->is('manga_characteristics/index_format') ? ' active' : '' }}"
                                         href="{{ route('list_format') }}">
                                         <span class="nav-main-link-name">Formato</span><!-- Gestion de Formato -->
                                     </a>
                                 </li>
-                            </ul>
-                            <ul class="nav-main-submenu">
                                 <li class="nav-main-item">
                                     <a class="nav-main-link{{ request()->is('manga_characteristics/index_genre') ? ' active' : '' }}"
                                         href="{{ route('list_genre') }}">
