@@ -27,7 +27,7 @@ class Branch extends Model
     ];
 
     public function products() {
-        return $this->belongsToMany(Product::class, CreativePerson_manga::$table)->withPivot('stock');
+        return $this->belongsToMany(Product::class)->withPivot('stock');
     }
 }
 
