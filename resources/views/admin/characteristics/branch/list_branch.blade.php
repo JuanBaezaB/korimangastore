@@ -10,6 +10,7 @@ $collection_of_items = $branches;
 
 $list_columns = 'admin.characteristics.branch.branch_columns';
 $modal_edit_contents = 'admin.characteristics.branch.branch_edit';
+$export_columns = '[0, 1, 2, 3]';
 
 @endphp
 
