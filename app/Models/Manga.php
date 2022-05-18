@@ -18,4 +18,9 @@ class Manga extends Model
     public function creativePeople() {
         return $this->belongsToMany(CreativePerson::class, CreativePerson_manga::$table)->withPivot('creative_type');
     }
+
+    public function genres() {
+        return $this->belongsToMany(Genre::class, Genre_manga::$table);
+    }
+    
 }
