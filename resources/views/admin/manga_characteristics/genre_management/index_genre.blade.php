@@ -106,13 +106,6 @@
 
                 </tbody>
             </table>
-            <select class="js-basic-single js-select2 form-select" id="origin" name="origin" style="width: 100%;" data-placeholder="Choose one..">
-                <option></option>
-                <!-- Required for data-placeholder attribute to work with Select2 plugin -->
-                <option value="html">Argentina</option>
-                <option value="css">Mexico</option>
-                <option value="javascript">España</option>
-            </select>
         </div>
     </div>
     <!-- END Elements -->
@@ -291,7 +284,9 @@
     jQuery(document).ready(function($) {
         $(document).ready(function() {
             $('.js-basic-multiple').select2({});
-            $('.js-basic-single').select2();
+            $('.js-basic-single').select2({
+                dropdownParent: $("#add_genre")
+            });
         });
     });
 </script>
