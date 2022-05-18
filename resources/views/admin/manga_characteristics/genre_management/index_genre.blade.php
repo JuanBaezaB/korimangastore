@@ -127,14 +127,13 @@
                         <input type="text" class="form-control" name="name" required>
                     </div>
                     <div class="mb-3">
-                        <label class="col-form-label">Origen:</label>
+                        <label class="col-form-label">Tipo:</label>
 
                         <!-- Necesitamos el tipo de acuerdo a datos suministrados por el Cliente Korimangastore -->
                         <select class="js-basic-single js-select2 form-select" id="origin" name="origin" style="width: 100%;" data-placeholder="Choose one..">
                             <option></option>
-                            <option value="html">Argentina</option>
-                            <option value="css">Mexico</option>
-                            <option value="javascript">España</option>
+                            <option value="demografia">Demografia</option>
+                            <option value="tematico">Tematico</option>
                         </select>
 
                     </div>
