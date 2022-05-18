@@ -20,7 +20,7 @@ class CreativePerson extends Model
     ];
 
     public function mangas() {
-        return $this->belongsToMany(Manga::class)->withPivot('creative_type');
+        return $this->belongsToMany(Manga::class, CreativePerson_manga::$table)->withPivot('creative_type');
     }
 
 }
