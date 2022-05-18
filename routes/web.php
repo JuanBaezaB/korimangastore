@@ -10,6 +10,7 @@ use App\Http\Controllers\FormatController;
 use App\Http\Controllers\EditorialController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\CreativePersonController;
+use App\Http\Controllers\MangaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -97,3 +98,7 @@ Route::get('/characteristics/list_creative_person', [CreativePersonController::c
 Route::post('/characteristics/list_creative_person', [CreativePersonController::class, 'store'])->name('add_creative_person')->middleware('auth');
 Route::delete('/characteristics/delete_creative_person/{id}', [CreativePersonController::class, 'destroy'])->name('delete_creative_person')->middleware('auth');
 Route::patch('/characteristics/update_creative_person/{id}', [CreativePersonController::class, 'update'])->name('update_creative_person')->middleware('auth');
+
+/* Manga */
+Route::get('/characteristics/manga', [MangaController::class, 'create'])->name('create_manga')->middleware('auth');
+
