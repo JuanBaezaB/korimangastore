@@ -6,6 +6,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\FormatController;
 use App\Http\Controllers\EditorialController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,3 +66,12 @@ Route::post('/characteristics/list_branch', [BranchController::class, 'store'])-
 Route::delete('/characteristics/delete_branch/{id}', [BranchController::class, 'destroy'])->name('delete_branch');
 Route::patch('/characteristics/update_branch/{id}', [BranchController::class, 'update'])->name('update_branch');
 
+/* Categorias */
+Route::get('/characteristics/index_category', [CategoryController::class, 'index'])->name('list_category');
+Route::post('/characteristics/index_category', [CategoryController::class, 'store'])->name('add_category');
+Route::delete('/characteristics/delete_category/{id}', [CategoryController::class, 'destroy'])->name('delete_category');
+Route::patch('/characteristics/update_category/{id}', [CategoryController::class, 'update'])->name('update_category');
+
+
+/*  
+Route::resource('/characteristics/list_branch',BranchController::class); */
