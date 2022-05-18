@@ -64,6 +64,8 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         //
+
+        return response()->json($request);
         $validation_rules = [
             'name' => 'required|string',
             'price' => 'required|integer|gt:0',
@@ -86,23 +88,44 @@ class ProductController extends Controller
             ];
 
             $product = Product::create($datosProducto);
-
-            $series = Serie::findMany($datos['series']);
+            $product->series->attach($datos['series']);
+            //$series = Serie::findMany($datos['series']);
 
             if ($datos['product_type'] == 'manga') {
+                /*
                 $genres = Serie::findMany($datos['genres']);
                 $arts = CreativePerson::findMany($datos['arts']);
                 $stories = CreativePerson::findMany($datos['stories']);
+                */
+
+                $manga->genres()->sync($datos['genres']);
+
+                $artists = [];
+                foreach ($datos['arts'] as $artBy) {
+                    $artists[$artBy] = [ 'creative_type' => 'art' ];
+                }
+                foreach ($datos['stories'] as $storyBy) {
+                    $crType = 'story';
+                    if (array_key_exists($storyBy, $artists)) {
+                        $crType = 'both';
+                    }
+                    $artists[$storyBy] = [ 'creative_type' => $crType ];
+                }
+
+                $manga->creativePeople()->sync($artists);
+
                 $datosManga = [
-                    'editorial_id' => 'editorial_id'
+                    'editorial_id' => 'editorial_id',
+                    'format_id' => 'format_id'
                 ];
+                $manga = Manga::create($datosManga);
+
+                $product->productable()->associate($manga);
             }
 
         } catch(\Throwable $th) {
 
         }
-
-        return response()->json($request);
     }
 
     /**
