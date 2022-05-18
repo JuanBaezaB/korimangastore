@@ -280,7 +280,7 @@
                             D<span class="opacity-75">x</span>
                         </span>
                         <span class="smini-hidden">
-                            Dash<span class="opacity-75">mix</span>
+                            Kori<span class="opacity-75">MangaStore</span>
                         </span>
                     </a>
                     <!-- END Logo -->
@@ -443,13 +443,6 @@
                             </ul>
                         </li>
                                                 
-                        <li class="nav-main-heading">More</li>
-                        <li class="nav-main-item">
-                            <a class="nav-main-link" href="/">
-                                <i class="nav-main-link-icon fa fa-globe"></i>
-                                <span class="nav-main-link-name">Landing</span>
-                            </a>
-                        </li>
 
 
                         <!-- Diseños -->
