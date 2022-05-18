@@ -9,6 +9,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FormatController;
 use App\Http\Controllers\EditorialController;
 use App\Http\Controllers\GenreController;
+use App\Http\Controllers\CreativePersonController;
 
 /*
 |--------------------------------------------------------------------------
@@ -90,3 +91,9 @@ Route::patch('/characteristics/update_category/{id}', [CategoryController::class
 
 /*  
 Route::resource('/characteristics/list_branch',BranchController::class); */
+
+/* Creative People */
+Route::get('/characteristics/list_creative_person', [CreativePersonController::class, 'index'])->name('list_creative_person');
+Route::post('/characteristics/list_creative_person', [CreativePersonController::class, 'store'])->name('add_creative_person');
+Route::delete('/characteristics/delete_creative_person/{id}', [CreativePersonController::class, 'destroy'])->name('delete_creative_person');
+Route::patch('/characteristics/update_creative_person/{id}', [CreativePersonController::class, 'update'])->name('update_creative_person');

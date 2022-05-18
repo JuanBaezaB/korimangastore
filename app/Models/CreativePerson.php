@@ -9,6 +9,16 @@ class CreativePerson extends Model
 {
     use HasFactory;
 
+    protected $table = 'creative_people';
+
+    protected $fillable = [
+        'name'
+    ];
+
+    static $rules = [
+        'name' => 'required'
+    ];
+
     public function mangas() {
         return $this->belongsToMany(Manga::class)->withPivot('creative_type');
     }

@@ -435,6 +435,13 @@
                                         <span class="nav-main-link-name">Proveedores</span>
                                     </a>
                                 </li>
+                                </li>
+                                <li class="nav-main-item">
+                                    <a class="nav-main-link{{ request()->is('characteristics/list_creative_person') ? ' active' : '' }}"
+                                        href="{{ route('list_creative_person') }}">
+                                        <span class="nav-main-link-name">Persona Creativa</span>
+                                    </a>
+                                </li>
                                 <li class="nav-main-item">
                                     <a class="nav-main-link{{ request()->is('pages/blank') ? ' active' : '' }}" href="/pages/blank">
                                         <span class="nav-main-link-name">Blank</span>
