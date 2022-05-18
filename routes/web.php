@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\BranchController;
+use App\Http\Controllers\SerieController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +41,12 @@ Route::get('/characteristics/list_branch', [BranchController::class, 'index'])->
 Route::post('/characteristics/list_branch', [BranchController::class, 'store'])->name('add_branch');
 Route::delete('/characteristics/delete_branch/{id}', [BranchController::class, 'destroy'])->name('delete_branch');
 Route::patch('/characteristics/update_branch/{id}', [BranchController::class, 'update'])->name('update_branch');
+
+/* Series */
+Route::get('/characteristics/list_serie', [SerieController::class, 'index'])->name('list_serie');
+Route::post('/characteristics/list_serie', [SerieController::class, 'store'])->name('add_serie');
+Route::delete('/characteristics/delete_serie/{id}', [SerieController::class, 'destroy'])->name('delete_serie');
+Route::patch('/characteristics/update_serie/{id}', [SerieController::class, 'update'])->name('update_serie');
 
 /*  
 Route::resource('/characteristics/list_branch',BranchController::class); */
