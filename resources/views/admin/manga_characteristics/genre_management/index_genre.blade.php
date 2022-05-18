@@ -130,10 +130,10 @@
                         <label class="col-form-label">Tipo:</label>
 
                         <!-- Necesitamos el tipo de acuerdo a datos suministrados por el Cliente Korimangastore -->
-                        <select class="js-basic-single js-select2 form-select" id="origin" name="origin" style="width: 100%;" data-placeholder="Choose one..">
+                        <select class="js-basic-single js-select2 form-select" id="origin" name="type" style="width: 100%;" data-placeholder="Choose one..">
                             <option></option>
-                            <option value="demografia">Demografia</option>
-                            <option value="tematico">Tematico</option>
+                            <option value="Demografia">Demografia</option>
+                            <option value="Tematico">Tematico</option>
                         </select>
 
                     </div>
