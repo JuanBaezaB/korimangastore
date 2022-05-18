@@ -1,14 +1,20 @@
 @extends('admin.characteristics.template_list')
 
 @php
-$nombre_crud = 'Serie';
-$add_action_route = 'add_serie';
-$update_action_route = 'update_serie';
-$delete_action_route = 'delete_serie';
+$nombre_crud = 'Serie'; // nombre con inicial en mayuscula del producto
+$add_action_route = 'add_serie'; // ruta para accion de agregar
+$update_action_route = 'update_serie'; // ruta para accion de actualizar
+$delete_action_route = 'delete_serie'; // ruta para accion de eliminar
 
+
+/*
+    Se saca de controller, el argumento a compact()
+*/
 $collection_of_items = $series;
 
+// nombre de vista *_columns
 $list_columns = 'admin.characteristics.serie.serie_columns';
+// nombre de serie *_serie
 $modal_edit_contents = 'admin.characteristics.serie.serie_edit';
 
 @endphp
