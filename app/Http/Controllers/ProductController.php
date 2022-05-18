@@ -64,6 +64,45 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         //
+        $validation_rules = [
+            'name' => 'required|string',
+            'price' => 'required|integer|gt:0',
+            /*
+            'provider_id' => 'required|integer',
+            'editorial_id' => 'required|integer'
+
+            */
+        ];
+        try {
+            request()->validate($validation_rules);
+            $datos = request()->except(['_token']);
+            $datosProducto = [
+                'name' => $datos['name'],
+                'description' => $datos['description'],
+                'price' => $datos['price'],
+                'status' => $datos['status'],
+                'provider_id' => $datos['provider_id'],
+                'category_id' => $datos['category_id']
+            ];
+
+            $product = Product::create($datosProducto);
+
+            $series = Serie::findMany($datos['series']);
+
+            if ($datos['product_type'] == 'manga') {
+                $genres = Serie::findMany($datos['genres']);
+                $arts = CreativePerson::findMany($datos['arts']);
+                $stories = CreativePerson::findMany($datos['stories']);
+                $datosManga = [
+                    'editorial_id' => 'editorial_id'
+                ];
+            }
+
+        } catch(\Throwable $th) {
+
+        }
+
+        return response()->json($request);
     }
 
     /**
