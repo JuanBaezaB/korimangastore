@@ -344,17 +344,17 @@
                                         <span class="nav-main-link-name">Listado productos</span>
                                     </a>
                                 </li>
+
+                                <li class="nav-main-item">
+                                    <a class="nav-main-link{{ request()->is('product_management/add_product') ? ' active' : '' }}"
+                                        href="{{ route('add_product') }}">
+                                        <span class="nav-main-link-name">Añadir producto</span>
+                                    </a>
+                                </li>
                                 <li class="nav-main-item">
                                     <a class="nav-main-link{{ request()->is('pages/slick') ? ' active' : '' }}"
                                         href="/pages/slick">
                                         <span class="nav-main-link-name">Categorías</span>
-                                    </a>
-                                </li>
-
-                                <li class="nav-main-item">
-                                    <a class="nav-main-link{{ request()->is('pages/slick') ? ' active' : '' }}"
-                                        href="/pages/slick">
-                                        <span class="nav-main-link-name">Añadir producto</span>
                                     </a>
                                 </li>
 

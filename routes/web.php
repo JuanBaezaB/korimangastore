@@ -70,6 +70,7 @@ Route::patch('/manga_characteristics/update_genre/{id}', [GenreController::class
 
 /* Producto */
 Route::get('/product_management/list_product', [ProductController::class, 'index'])->name('lista_producto')->middleware('auth');
+Route::get('/product_management/add_product', [ProductController::class, 'create'])->name('add_product')->middleware('auth');
 
 /* Sucursales */
 Route::get('/characteristics/list_branch', [BranchController::class, 'index'])->name('list_branch')->middleware('auth');

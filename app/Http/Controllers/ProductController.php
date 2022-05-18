@@ -30,6 +30,7 @@ class ProductController extends Controller
     public function create()
     {
         //
+        return response()->view('admin.product_management.add_product');
     }
 
     /**
