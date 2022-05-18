@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Category;
 
 class CategoryController extends Controller
 {
@@ -13,9 +14,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $category = Category::all();
-
-        return view('category.index', compact('category'));
+        $categories = Category::all();
+        return view('admin.characteristics.category.index_category', compact('categories'));
     }
 
     /**
@@ -25,8 +25,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $category = new Category();
-        return view('category.create', compact('category'));
+        
     }
 
     /**
@@ -37,11 +36,12 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        
         request()->validate(Category::$rules);
 
         $category = Category::create($request->all());
 
-        return redirect()->route('category.index');
+        return redirect()->route('list_category')->with('success', 'created');
     }
 
     /**
@@ -65,9 +65,7 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $category = Category::find($id);
-
-        return view('category.edit', compact('category'));
+       
     }
 
     /**
@@ -81,9 +79,11 @@ class CategoryController extends Controller
     {
         request()->validate(Category::$rules);
 
+        $category = Category::where('id', '=', $id)->first();
+
         $category->update($request->all());
 
-        return redirect()->route('category.index');
+        return redirect()->route('list_category')->with('success', 'updated');
     }
 
     /**
@@ -96,6 +96,6 @@ class CategoryController extends Controller
     {
         $category = Category::find($id)->delete();
 
-        return redirect()->route('category.index');
+        return redirect()->route('list_category')->with('success', 'deleted');
     }
 }
