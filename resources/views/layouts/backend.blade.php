@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
-    <title>Dashboard</title>
+    <title>Kori - Admin</title>
 
     <meta name="description" content="Dashmix - Bootstrap 5 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
     <meta name="author" content="pixelcave">
@@ -23,6 +23,7 @@
     @yield('css_before')
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" id="css-main" href="{{ mix('css/dashmix.css') }}">
+    
 
     <!-- You can include a specific file from public/css/themes/ folder to alter the default color theme of the template. eg: -->
     <!-- <link rel="stylesheet" id="css-theme" href="{{ mix('css/themes/xwork.css') }}"> -->
@@ -328,21 +329,59 @@
 
 
 
+                        <!-- Gestion de productos -->
                         <li class="nav-main-heading">Gestión de productos</li>
-                        <li class="nav-main-item{{ request()->is('pages/*') ? ' open' : '' }}">
-                            <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="true" href="#">
+                        <li class="nav-main-item {{ request()->is('product_management*') ? ' open' : '' }}">
+                            <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
+                                aria-expanded="true" href="#">
                                 <i class="nav-main-link-icon fa fa-book"></i>
                                 <span class="nav-main-link-name">Productos</span>
                             </a>
                             <ul class="nav-main-submenu">
                                 <li class="nav-main-item">
-                                    <a class="nav-main-link{{ request()->is('pages/datatables') ? ' active' : '' }}" href="/pages/datatables">
-                                        <span class="nav-main-link-name">DataTables</span>
+                                    <a class="nav-main-link{{ request()->is('product_management/list_product') ? ' active' : '' }}"
+                                        href="{{ route('lista_producto') }}">
+                                        <span class="nav-main-link-name">Listado productos</span>
+                                    </a>
+                                </li>
+
+                                <li class="nav-main-item">
+                                    <a class="nav-main-link{{ request()->is('pages/slick') ? ' active' : '' }}"
+                                        href="/pages/slick">
+                                        <span class="nav-main-link-name">Añadir producto</span>
+                                    </a>
+                                </li>
+
+                                <li class="nav-main-item">
+                                    <a class="nav-main-link{{ request()->is('pages/blank') ? ' active' : '' }}"
+                                        href="/pages/blank">
+                                        <span class="nav-main-link-name">Blank</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+
+                        <!-- caracteristicas -->
+                        <li class="nav-main-heading">Componentes</li>
+                        <li class="nav-main-item{{ request()->is('characteristics/*') ? ' open' : '' }}">
+                            <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
+                                aria-expanded="true" href="#">
+                                <i class="nav-main-link-icon fa fa-book"></i>
+                                <span class="nav-main-link-name">Características</span>
+                            </a>
+                            <ul class="nav-main-submenu">
+                                <li class="nav-main-item">
+                                    <a class="nav-main-link{{ request()->is('characteristics/list_branch') ? ' active' : '' }}"
+                                        href="{{ route('list_branch') }}">
+                                        <span class="nav-main-link-name">Sucursales</span>
                                     </a>
                                 </li>
                                 <li class="nav-main-item">
-                                    <a class="nav-main-link{{ request()->is('pages/slick') ? ' active' : '' }}" href="/pages/slick">
-                                        <span class="nav-main-link-name">Slick Slider</span>
+                                    <a class="nav-main-link{{ request()->is('pages/slick') ? ' active' : '' }}"
+                                        href="/pages/slick">
+                                        <span class="nav-main-link-name">Categorías</span>
                                     </a>
                                 </li>
                                 <li class="nav-main-item">
@@ -394,8 +433,9 @@
 
                         <!-- Diseños -->
                         <li class="nav-main-heading">Design</li>
-                        <li class="nav-main-item open {{ request()->is('forms/*') ? ' open' : '' }}">
-                            <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="true" href="#">
+                        <li class="nav-main-item  {{ request()->is('forms/*') ? ' open' : '' }}">
+                            <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
+                                aria-expanded="true" href="#">
                                 <i class="nav-main-link-icon fa fa-sticky-note"></i>
                                 <span class="nav-main-link-name">Forms</span>
                             </a>
@@ -647,6 +687,13 @@
         </header>
         <!-- END Header -->
 
+        <!-- sweetalert2 -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.8/sweetalert2.min.js"></script>
+        <!-- END sweetalert2 -->
+
+
+
         <!-- Main Container -->
         <main id="main-container">
             @yield('content')
@@ -660,8 +707,9 @@
 
     <!-- Laravel Original JS -->
     <!-- <script src="{{ mix('/js/laravel.app.js') }}"></script> -->
-
+    
     @yield('js_after')
+    
 </body>
 
 </html>

@@ -28,5 +28,9 @@ class Product extends Model
     {
         return $this->belongsTo(Provider::class,'provider_id','id');
     }
+
+    public function branches() {
+        return $this->belongsToMany(Branch::class)->withPivot('stock');
+    }
     
 }

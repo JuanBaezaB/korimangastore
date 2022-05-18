@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProviderController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\BranchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,7 +32,7 @@ Route::view('/forms/be_forms_plugins', 'admin.forms.be_forms_plugins')->middlewa
 Route::view('/forms/be_forms_editors', 'admin.forms.be_forms_editors')->middleware('auth');
 Route::view('/forms/be_forms_validation', 'admin.forms.be_forms_validation')->middleware('auth');
 
-
+/* Proveedor */
 Route::resource('/provider', ProviderController::class)->middleware('auth');
 Route::view('/provider/create', 'admin.provider.create')->middleware('auth');
 Route::view('/provider/edit', 'admin.provider.edit')->middleware('auth');
@@ -39,4 +41,12 @@ Route::view('/provider/index', 'admin.provider.index')->middleware('auth');
 Route::view('/provider/show', 'admin.provider.show')->middleware('auth');
 
 
+/* Producto */
+Route::get('/product_management/list_product', [ProductController::class, 'index'])->name('lista_producto');
+
+/* Sucursales */
+Route::get('/characteristics/list_branch', [BranchController::class, 'index'])->name('list_branch');
+Route::post('/characteristics/list_branch', [BranchController::class, 'store'])->name('add_branch');
+Route::delete('/characteristics/delete_branch/{id}', [BranchController::class, 'destroy'])->name('delete_branch');
+Route::patch('/characteristics/update_branch/{id}', [BranchController::class, 'update'])->name('update_branch');
 
