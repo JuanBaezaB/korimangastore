@@ -347,7 +347,7 @@
 
                                 <li class="nav-main-item">
                                     <a class="nav-main-link{{ request()->is('product_management/add_product') ? ' active' : '' }}"
-                                        href="{{ route('add_product') }}">
+                                        href="{{ route('create_product') }}">
                                         <span class="nav-main-link-name">Añadir producto</span>
                                     </a>
                                 </li>
