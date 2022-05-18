@@ -361,8 +361,6 @@
                             </ul>
                         </li>
 
-
-
                         <!-- caracteristicas -->
                         <li class="nav-main-heading">Componentes</li>
                         <li class="nav-main-item{{ request()->is('characteristics/*') ? ' open' : '' }}">
@@ -385,43 +383,19 @@
                                     </a>
                                 </li>
                                 <li class="nav-main-item">
+                                    <a class="nav-main-link{{ request()->is('characteristics/list_provider') ? ' active' : '' }}"
+                                        href="{{ route('list_provider') }}">
+                                        <span class="nav-main-link-name">Proveedores</span>
+                                    </a>
+                                </li>
+                                <li class="nav-main-item">
                                     <a class="nav-main-link{{ request()->is('pages/blank') ? ' active' : '' }}" href="/pages/blank">
                                         <span class="nav-main-link-name">Blank</span>
                                     </a>
                                 </li>
                             </ul>
                         </li>
-                        <!-- Edicion gestion de proveedores -->
-                        <li class="nav-main-heading">Gestión de Proveedores</li>
-                        <li class="nav-main-item{{ request()->is('provider/*') ? ' open' : '' }}">
-                            <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="true" href="#">
-                                <i class="nav-main-link-icon fa fa-book"></i>
-                                <span class="nav-main-link-name">Proveedores</span>
-                            </a>
-                            <ul class="nav-main-submenu">
-                                <li class="nav-main-item">
-                                    <a class="nav-main-link{{ request()->is('provider/index') ? ' active' : '' }}" href="/provider/index">
-                                        <span class="nav-main-link-name">Lista de Proveedores</span>
-                                    </a>
-                                </li>
-                                <li class="nav-main-item">
-                                    <a class="nav-main-link{{ request()->is('provider/edit') ? ' active' : '' }}" href="/provider/edit">
-                                        <span class="nav-main-link-name">Editar proveedor</span>
-                                    </a>
-                                </li>
-                                <li class="nav-main-item">
-                                    <a class="nav-main-link{{ request()->is('provider/crear') ? ' active' : '' }}" href="/provider/create">
-                                        <span class="nav-main-link-name">Crear Proveedor</span>
-                                    </a>
-                                </li>
-                                <li class="nav-main-item">
-                                    <a class="nav-main-link{{ request()->is('provider/index') ? ' active' : '' }}" href="/provider/delete">
-                                        <span class="nav-main-link-name">Eliminar Proveedor</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        
+                                                
                         <li class="nav-main-heading">More</li>
                         <li class="nav-main-item">
                             <a class="nav-main-link" href="/">

@@ -33,13 +33,19 @@ Route::view('/forms/be_forms_editors', 'admin.forms.be_forms_editors')->middlewa
 Route::view('/forms/be_forms_validation', 'admin.forms.be_forms_validation')->middleware('auth');
 
 /* Proveedor */
+
+Route::get('/characteristics/index_provider', [ProviderController::class, 'index'])->name('list_provider');
+Route::post('/characteristics/index_provider', [ProviderController::class, 'store'])->name('add_provider');
+Route::delete('/characteristics/delete_provider/{id}', [ProviderController::class, 'destroy'])->name('delete_provider');
+Route::patch('/characteristics/update_provider/{id}', [ProviderController::class, 'update'])->name('update_provider');
+/*
 Route::resource('/provider', ProviderController::class)->middleware('auth');
 Route::view('/provider/create', 'admin.provider.create')->middleware('auth');
 Route::view('/provider/edit', 'admin.provider.edit')->middleware('auth');
 Route::view('/provider/form', 'admin.provider.create')->middleware('auth');
 Route::view('/provider/index', 'admin.provider.index')->middleware('auth');
 Route::view('/provider/show', 'admin.provider.show')->middleware('auth');
-
+*/
 
 /* Producto */
 Route::get('/product_management/list_product', [ProductController::class, 'index'])->name('lista_producto');

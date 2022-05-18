@@ -8,6 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Provider extends Model
 {
     use HasFactory;
+
+    static $rules = [
+		'name' => 'required',
+        'description'=>'required'
+    ];
+
     protected $table = 'providers';
 
     protected $fillable = [

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Provider;
 use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\TryCatch;
 
 class ProviderController extends Controller
 {
@@ -16,12 +17,12 @@ class ProviderController extends Controller
     {
         //
         try {
-            $provider = Provider::all();
+            $providers = Provider::all();
         } catch (\Throwable $th) {
-            return response()->json($provider);
+            return response()->json($th);
         }
-        
-        return response()->view('admin.provider_management.list_provider', compact('provider'));
+
+        return response()->view('admin.characteristics.provider_management.index_provider', compact('providers'));
     }
 
     /**
@@ -32,10 +33,9 @@ class ProviderController extends Controller
     public function create()
     {
         //
-        return view('provider.create');
-        
+
     }
-    
+
 
     /**
      * Store a newly created resource in storage.
@@ -45,11 +45,12 @@ class ProviderController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $datosProvider = $request->except('_token');
-        Provider::insert($datosProvider);
-        return response()->json($datosProvider);
-
+        
+        request()->validate(Provider::$rules);
+        
+        $provider = Provider::create($request->all());
+        return redirect()->route('list_provider')
+            ->with('success', 'Provider created successfully');
     }
 
     /**
@@ -61,8 +62,8 @@ class ProviderController extends Controller
     public function show($id)
     {
         //
-        
-        
+
+
     }
 
     /**
@@ -86,6 +87,19 @@ class ProviderController extends Controller
     public function update(Request $request, $id)
     {
         //
+        try {
+            request()->validate(Provider::$rules);
+            $provider = Provider::where('id', '=', $id)->first();
+            $provider->update($request->all());
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+
+
+
+        return redirect()->route('list_provider')
+            ->with('success', 'Provider updated successfully');
+        return response()->json($request);
     }
 
     /**
@@ -97,5 +111,9 @@ class ProviderController extends Controller
     public function destroy($id)
     {
         //
+        $provider = Provider::find($id)->delete();
+
+        return redirect()->route('list_provider')
+            ->with('success', 'Provider deleted successfully');
     }
 }

@@ -24,7 +24,6 @@ class Branch extends Model
         'address',
         'longitude',
         'latitude',
-
     ];
 
     public function products() {
