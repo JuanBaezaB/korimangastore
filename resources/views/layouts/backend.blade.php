@@ -362,7 +362,7 @@
                         </li>
 
                         <!-- caracteristicas -->
-                        <li class="nav-main-heading">Componentes</li>
+                        <li class="nav-main-heading">Características generales</li>
                         <li class="nav-main-item{{ request()->is('characteristics/*') ? ' open' : '' }}">
                             <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
                                 aria-expanded="true" href="#">
@@ -385,6 +385,8 @@
                                 <li class="nav-main-item">
                                     <a class="nav-main-link{{ request()->is('pages/slick') ? ' active' : '' }}"
                                         href="/pages/slick">
+                                    <a class="nav-main-link{{ request()->is('/characteristics/index_category') ? ' active' : '' }}"
+                                        href="{{ route('list_category') }}">
                                         <span class="nav-main-link-name">Categorías</span>
                                     </a>
                                 </li>

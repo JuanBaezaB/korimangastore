@@ -5,6 +5,7 @@ use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\SerieController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,6 +63,13 @@ Route::get('/characteristics/list_serie', [SerieController::class, 'index'])->na
 Route::post('/characteristics/list_serie', [SerieController::class, 'store'])->name('add_serie');
 Route::delete('/characteristics/delete_serie/{id}', [SerieController::class, 'destroy'])->name('delete_serie');
 Route::patch('/characteristics/update_serie/{id}', [SerieController::class, 'update'])->name('update_serie');
+
+/* Categorias */
+Route::get('/characteristics/index_category', [CategoryController::class, 'index'])->name('list_category');
+Route::post('/characteristics/index_category', [CategoryController::class, 'store'])->name('add_category');
+Route::delete('/characteristics/delete_category/{id}', [CategoryController::class, 'destroy'])->name('delete_category');
+Route::patch('/characteristics/update_category/{id}', [CategoryController::class, 'update'])->name('update_category');
+
 
 /*  
 Route::resource('/characteristics/list_branch',BranchController::class); */
