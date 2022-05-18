@@ -174,7 +174,7 @@
                         titleAttr: 'Exportar a Excel',
                         className: 'btn  btn-success mb-2',
                         exportOptions: {
-                            columns: [0, 1, 2, 3]
+                            columns: {{ $export_columns }}
                         }
                     },
                     {
@@ -183,7 +183,7 @@
                         titleAttr: 'Exportar a PDF',
                         className: 'btn btn-danger mb-2',
                         exportOptions: {
-                            columns: [0, 1, 2, 3]
+                            columns: {{ $export_columns }}
                         }
                     },
                     {
@@ -192,7 +192,7 @@
                         titleAttr: 'Imprimir',
                         className: 'btn btn-warning mb-2',
                         exportOptions: {
-                            columns: [0, 1, 2, 3]
+                            columns: {{ $export_columns }}
                         }
                     }
                 ]
