@@ -32,5 +32,13 @@ class Product extends Model
     public function branches() {
         return $this->belongsToMany(Branch::class)->withPivot('stock');
     }
+
+    public function series() {
+        return $this->belongsToMany(Serie::class, 'serie_product');
+    }
+
+    public function productable() {
+        return $this->morphTo();
+    }
     
 }

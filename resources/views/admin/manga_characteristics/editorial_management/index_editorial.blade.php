@@ -105,13 +105,7 @@
 
                 </tbody>
             </table>
-            <select class="js-basic-single js-select2 form-select" id="origin" name="origin" style="width: 100%;" data-placeholder="Choose one..">
-                <option></option>
-                <!-- Required for data-placeholder attribute to work with Select2 plugin -->
-                <option value="html">Argentina</option>
-                <option value="css">Mexico</option>
-                <option value="javascript">España</option>
-            </select>
+            
         </div>
     </div>
     <!-- END Elements -->
@@ -134,7 +128,13 @@
                     </div>
                     <div class="mb-3">
                         <label class="col-form-label">Origen:</label>
-                        
+                        <select class="js-basic-single js-select2 form-select" id="origin" name="origin" style="width: 100%;" data-placeholder="Choose one..">
+                            <option></option>
+                            <!-- Required for data-placeholder attribute to work with Select2 plugin -->
+                            <option value="Argentina">Argentina</option>
+                            <option value="Mexico">Mexico</option>
+                            <option value="España">España</option>
+                        </select>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -282,7 +282,9 @@
     jQuery(document).ready(function($) {
         $(document).ready(function() {
             $('.js-basic-multiple').select2({});
-            $('.js-basic-single').select2();
+            $('.js-basic-single').select2({
+                dropdownParent: $("#add_editorial")
+            });
         });
     });
 </script>

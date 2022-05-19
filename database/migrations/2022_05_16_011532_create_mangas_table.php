@@ -14,13 +14,13 @@ class CreateMangasTable extends Migration
     public function up()
     {
         Schema::create('mangas', function (Blueprint $table) {
-            $table->unsignedBigInteger('id');
+            $table->id();
             $table->unsignedBigInteger('format_id');
             $table->unsignedBigInteger('editorial_id');
-            $table->foreign('id')->references('id')->on('products')->onDelete('cascade')->onUpdate('cascade');
+            
             $table->foreign('format_id')->references('id')->on('formats')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('editorial_id')->references('id')->on('editorials')->onDelete('cascade')->onUpdate('cascade');
-            $table->primary('id');
+   
             $table->timestamps();
         });
     }

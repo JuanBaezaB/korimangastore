@@ -344,24 +344,11 @@
                                         <span class="nav-main-link-name">Listado productos</span>
                                     </a>
                                 </li>
-                                <li class="nav-main-item">
-                                    <a class="nav-main-link{{ request()->is('pages/slick') ? ' active' : '' }}"
-                                        href="/pages/slick">
-                                        <span class="nav-main-link-name">Categorías</span>
-                                    </a>
-                                </li>
 
                                 <li class="nav-main-item">
-                                    <a class="nav-main-link{{ request()->is('pages/slick') ? ' active' : '' }}"
-                                        href="/pages/slick">
+                                    <a class="nav-main-link{{ request()->is('product_management/add_product') ? ' active' : '' }}"
+                                        href="{{ route('create_product') }}">
                                         <span class="nav-main-link-name">Añadir producto</span>
-                                    </a>
-                                </li>
-
-                                <li class="nav-main-item">
-                                    <a class="nav-main-link{{ request()->is('pages/blank') ? ' active' : '' }}"
-                                        href="/pages/blank">
-                                        <span class="nav-main-link-name">Blank</span>
                                     </a>
                                 </li>
                             </ul>
@@ -377,23 +364,25 @@
                             </a>
                             <ul class="nav-main-submenu">
                                 <li class="nav-main-item">
-                                    <a class="nav-main-link{{ request()->is('format_management/list_editorial') ? ' active' : '' }}"
+                                    <a class="nav-main-link{{ request()->is('manga_characteristics/manga') ? ' active' : '' }}"
+                                        href="{{ route('create_manga') }}">
+                                        <span class="nav-main-link-name">Manga</span><!-- Gestion de Editorial -->
+                                    </a>
+                                </li>
+                                <li class="nav-main-item">
+                                    <a class="nav-main-link{{ request()->is('manga_characteristics/index_editorial') ? ' active' : '' }}"
                                         href="{{ route('list_editorial') }}">
                                         <span class="nav-main-link-name">Editorial</span><!-- Gestion de Editorial -->
                                     </a>
                                 </li>
-                            </ul>
-                            <ul class="nav-main-submenu">
                                 <li class="nav-main-item">
-                                    <a class="nav-main-link{{ request()->is('format_management/list_format') ? ' active' : '' }}"
+                                    <a class="nav-main-link{{ request()->is('manga_characteristics/index_format') ? ' active' : '' }}"
                                         href="{{ route('list_format') }}">
                                         <span class="nav-main-link-name">Formato</span><!-- Gestion de Formato -->
                                     </a>
                                 </li>
-                            </ul>
-                            <ul class="nav-main-submenu">
                                 <li class="nav-main-item">
-                                    <a class="nav-main-link{{ request()->is('genre_management/list_genre') ? ' active' : '' }}"
+                                    <a class="nav-main-link{{ request()->is('manga_characteristics/index_genre') ? ' active' : '' }}"
                                         href="{{ route('list_genre') }}">
                                         <span class="nav-main-link-name">Genero</span><!-- Gestion de Editorial -->
                                     </a>
@@ -435,9 +424,11 @@
                                         <span class="nav-main-link-name">Proveedores</span>
                                     </a>
                                 </li>
+                                </li>
                                 <li class="nav-main-item">
-                                    <a class="nav-main-link{{ request()->is('pages/blank') ? ' active' : '' }}" href="/pages/blank">
-                                        <span class="nav-main-link-name">Blank</span>
+                                    <a class="nav-main-link{{ request()->is('characteristics/list_creative_person') ? ' active' : '' }}"
+                                        href="{{ route('list_creative_person') }}">
+                                        <span class="nav-main-link-name">Persona Creativa</span>
                                     </a>
                                 </li>
                             </ul>
@@ -445,7 +436,7 @@
                                                 
 
 
-                        <!-- Diseños -->
+                        <!-- Diseños 
                         <li class="nav-main-heading">Design</li>
                         <li class="nav-main-item  {{ request()->is('forms/*') ? ' open' : '' }}">
                             <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
@@ -503,7 +494,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <!-- end Diseños -->
+                         end Diseños -->
 
                     </ul>
                 </div>

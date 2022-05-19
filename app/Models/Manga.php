@@ -14,4 +14,17 @@ class Manga extends Model
         'format_id',
         'editorial_id'
     ];
+
+    public function creativePeople() {
+        return $this->belongsToMany(CreativePerson::class, 'creative_person_mangas')->withPivot('creative_type');
+    }
+
+    public function genres() {
+        return $this->belongsToMany(Genre::class, 'genre_manga');
+    }
+
+    public function product() {
+        return $this->morphOne(Product::class, 'productable');
+    }
+    
 }

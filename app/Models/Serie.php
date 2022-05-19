@@ -7,15 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Serie extends Model
 {
-    use HasFactory;
+  use HasFactory;
 
-    static $rules = [
-		'name' => 'required'
-    ];
+  static $rules = [
+  'name' => 'required'
+  ];
 
-    protected $table = 'series';
+  protected $table = 'series';
 
-    protected $fillable = [
-        'name'
-    ];
+  protected $fillable = [
+      'name'
+  ];
+
+  public function products() {
+    return $this->belongsToMany(Product::class, 'serie_product');
+  }
 }
