@@ -137,7 +137,7 @@ class ProductController extends Controller
             ]);
         }
         return redirect()->route('lista_producto')
-            ->with('success', 'updated');
+            ->with('success', 'created');
     }
 
     /**
