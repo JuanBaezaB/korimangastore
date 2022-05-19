@@ -116,8 +116,8 @@
 
                     </div>
 
-                    <div class="row manga-form">
-                        <div class="mb-3 col">
+                    <div class="mb-3 row manga-form">
+                        <div class="col">
                             <label class="col-form-label">Arte por:</label>
 
                             <select class="js-basic-multiple js-select2 form-select" multiple="multiple" name="arts[]"  data-placeholder="Elige varios.." required>
@@ -128,7 +128,7 @@
                             </select>
 
                         </div>
-                        <div class="mb-3 col">
+                        <div class="col">
                             <label class="col-form-label">Historia por:</label>
 
                             <select class="js-basic-multiple js-select2 form-select" multiple="multiple" name="stories[]"  data-placeholder="Elige varios.." required>
@@ -186,19 +186,6 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
 
-<!-- esconde partes de formulario que no se usan -->
-<script>
-    $('#product-type-select').on('change', function() {
-        let value = $(this).find(':selected').text().toLowerCase();
-        let formsAround = ['manga', 'generic'];
-        if (formsAround.indexOf(value) == -1) {
-            value = 'generic';
-        }
-        let toHide = formsAround.filter(v => v !== value).map(v => `.${v}-form`).join(', ');
-        $(`.${value}-form`).show();
-        $(toHide).hide();
-    });
-</script>
 
 <!-- Page JS Plugins -->
 <script src="{{ asset('js/plugins/select2/js/select2.full.js') }}"></script>
@@ -214,6 +201,34 @@
         });
     });
 </script>
+
+<!-- esconde partes de formulario que no se usan -->
+<script>
+    
+    jQuery(document).ready(function($) {
+        function hideFormsBut(value) {
+            let formsAround = ['manga', 'generic'];
+            if (formsAround.indexOf(value) == -1) {
+                value = 'generic';
+            }
+            let toHide = formsAround.filter(v => v !== value).map(v => `.${v}-form`).join(', ');
+            $(`.${value}-form`).removeClass('d-none');
+            $(toHide).addClass('d-none');
+        }
+
+        $('#product-type-select').on('change', function() {
+            let value = $(this).find(':selected').text().toLowerCase();
+            hideFormsBut(value);
+        });
+
+        $(document).ready(function() {
+            hideFormsBut('generic');
+        });
+    });
+        
+    
+</script>
+
 
 
 
