@@ -34,7 +34,7 @@ class Product extends Model
     }
 
     public function series() {
-        return $this->belongsToMany(Serie::class, Serie_product::$table);
+        return $this->belongsToMany(Serie::class, 'serie_product');
     }
 
     public function productable() {

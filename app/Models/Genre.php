@@ -22,6 +22,6 @@ class Genre extends Model
     ];
 
     public function genres() {
-        return $this->belongsToMany(Manga::class, Genre_manga::$table);
+        return $this->belongsToMany(Manga::class, 'genre_manga');
     }
 }

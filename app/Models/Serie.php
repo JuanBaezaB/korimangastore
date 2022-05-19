@@ -20,6 +20,6 @@ class Serie extends Model
   ];
 
   public function products() {
-    return $this->belongsToMany(Product::class, Serie_product::$table);
+    return $this->belongsToMany(Product::class, 'serie_product');
   }
 }

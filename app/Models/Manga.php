@@ -16,11 +16,11 @@ class Manga extends Model
     ];
 
     public function creativePeople() {
-        return $this->belongsToMany(CreativePerson::class, CreativePerson_manga::$table)->withPivot('creative_type');
+        return $this->belongsToMany(CreativePerson::class, 'creative_person_mangas')->withPivot('creative_type');
     }
 
     public function genres() {
-        return $this->belongsToMany(Genre::class, Genre_manga::$table);
+        return $this->belongsToMany(Genre::class, 'genre_manga');
     }
 
     public function product() {
