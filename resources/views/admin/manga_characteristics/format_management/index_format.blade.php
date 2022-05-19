@@ -34,7 +34,7 @@
         </div>
         <div class="block-content block-content-full">
             <!-- DataTables init on table by adding .js-dataTable-full class, functionality is initialized in js/pages/be_tables_datatables.min.js which was auto compiled from _js/pages/be_tables_datatables.js -->
-            <table id="product-table" class="table table-bordered table-striped table-vcenter js-dataTable-full">
+            <table id="format-table" class="table table-bordered table-striped table-vcenter js-dataTable-full">
                 <thead>
                     <tr>
                         <th class="text-center" style="width: 80px;">#</th>
@@ -155,7 +155,7 @@
 
 <script>
     $(document).ready(function() {
-        $('#product-table').DataTable({
+        $('#format-table').DataTable({
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
             },
@@ -176,7 +176,7 @@
                     titleAttr: 'Exportar a Excel',
                     className: 'btn  btn-success mb-2',
                     exportOptions: {
-                        columns: [0, 1, 2, 3]
+                        columns: [0, 1, 2]
                     }
                 },
                 {
@@ -185,7 +185,7 @@
                     titleAttr: 'Exportar a PDF',
                     className: 'btn btn-danger mb-2',
                     exportOptions: {
-                        columns: [0, 1, 2, 3]
+                        columns: [0, 1, 2]
                     }
                 },
                 {
@@ -194,7 +194,7 @@
                     titleAttr: 'Imprimir',
                     className: 'btn btn-warning mb-2',
                     exportOptions: {
-                        columns: [0, 1, 2, 3]
+                        columns: [0, 1, 2]
                     }
                 }
             ]
