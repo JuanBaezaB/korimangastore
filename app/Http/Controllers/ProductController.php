@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\CreativePerson;
 use Illuminate\Http\Request;
 use App\Models\Product;
@@ -10,6 +11,7 @@ use App\Models\Serie;
 use App\Models\Editorial;
 use App\Models\Genre;
 use App\Models\Format;
+use App\Models\Manga;
 
 class ProductController extends Controller
 {
@@ -43,10 +45,12 @@ class ProductController extends Controller
             $genres = Genre::all();
             $formats = Format::all();
             $creatives = CreativePerson::all();
+            $categories = Category::all();
 
             $the_compact = compact(
                 'providers', 'series', 'publishers', 
-                'genres', 'formats', 'creatives'
+                'genres', 'formats', 'creatives', 
+                'categories'
             );
         } catch (\Throwable $th) {
             return response()->json($th);
@@ -65,7 +69,7 @@ class ProductController extends Controller
     {
         //
 
-        return response()->json($request);
+        //return response()->json($request);
         $validation_rules = [
             'name' => 'required|string',
             'price' => 'required|integer|gt:0',
@@ -78,25 +82,35 @@ class ProductController extends Controller
         try {
             request()->validate($validation_rules);
             $datos = request()->except(['_token']);
-            $datosProducto = [
-                'name' => $datos['name'],
-                'description' => $datos['description'],
-                'price' => $datos['price'],
-                'status' => $datos['status'],
-                'provider_id' => $datos['provider_id'],
-                'category_id' => $datos['category_id']
-            ];
+            $datos = collect($datos);
 
-            $product = Product::create($datosProducto);
-            $product->series->attach($datos['series']);
+            $categoryId = $datos->get('product_type');
+            $category = Category::findOrFail($categoryId);
+
+            $datosProducto = $datos->only([
+                'name',
+                'description',
+                'price',
+                'status',
+                'provider_id'
+            ]);
+            $datosProducto->put('category_id', $categoryId);
+
+            $product = Product::create($datosProducto->toArray());
+            $product->series()->attach($datos['series']);
             //$series = Serie::findMany($datos['series']);
 
-            if ($datos['product_type'] == 'manga') {
+            if ($category->name == 'Manga') {
                 /*
                 $genres = Serie::findMany($datos['genres']);
                 $arts = CreativePerson::findMany($datos['arts']);
                 $stories = CreativePerson::findMany($datos['stories']);
                 */
+                $datosManga = $datos->only([
+                    'editorial_id',
+                    'format_id'
+                ]);
+                $manga = Manga::create($datosManga->toArray());
 
                 $manga->genres()->sync($datos['genres']);
 
@@ -114,18 +128,16 @@ class ProductController extends Controller
 
                 $manga->creativePeople()->sync($artists);
 
-                $datosManga = [
-                    'editorial_id' => 'editorial_id',
-                    'format_id' => 'format_id'
-                ];
-                $manga = Manga::create($datosManga);
-
-                $product->productable()->associate($manga);
+                $manga->product()->save($product);
             }
 
         } catch(\Throwable $th) {
-
+            return response()->json([
+                'text' => $th->getMessage()
+            ]);
         }
+        return redirect()->route('lista_producto')
+            ->with('success', 'updated');
     }
 
     /**

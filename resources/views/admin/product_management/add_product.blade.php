@@ -73,8 +73,9 @@
 
                         <select id="product-type-select" name="product_type" class="js-basic-single js-select2 form-select" style="width: 100%;" data-placeholder="Elige uno.." required>
                             <option></option>
-                            <option value="manga">Manga</option>
-                            <option value="generic">Genérico</option>
+                            @foreach ($categories as $row)
+                            <option value="{{ $row->id }}">{{ $row->name }}</option>
+                            @endforeach
                         </select>
 
                     </div>
@@ -188,8 +189,11 @@
 <!-- esconde partes de formulario que no se usan -->
 <script>
     $('#product-type-select').on('change', function() {
-        let value = this.value;
-        let formsAround = ['manga'];
+        let value = $(this).find(':selected').text().toLowerCase();
+        let formsAround = ['manga', 'generic'];
+        if (formsAround.indexOf(value) == -1) {
+            value = 'generic';
+        }
         let toHide = formsAround.filter(v => v !== value).map(v => `.${v}-form`).join(', ');
         $(`.${value}-form`).show();
         $(toHide).hide();
