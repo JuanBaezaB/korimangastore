@@ -20,4 +20,8 @@ class Format extends Model
         'name',
         'description'
     ];
+
+    public function mangas() {
+        return $this->hasMany(Manga::class);
+    }
 }
