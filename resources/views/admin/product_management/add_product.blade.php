@@ -212,8 +212,8 @@
                 value = 'generic';
             }
             let toHide = formsAround.filter(v => v !== value).map(v => `.${v}-form`).join(', ');
-            $(`.${value}-form`).removeClass('d-none');
             $(toHide).addClass('d-none');
+            $(`.${value}-form`).removeClass('d-none');
         }
 
         $('#product-type-select').on('change', function() {
@@ -222,7 +222,8 @@
         });
 
         $(document).ready(function() {
-            hideFormsBut('generic');
+            let value = $('#product-type-select').find(':selected').text().toLowerCase();
+            hideFormsBut(value);
         });
     });
         
