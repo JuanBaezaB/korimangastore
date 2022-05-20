@@ -69,9 +69,9 @@ Route::patch('/manga_characteristics/update_genre/{id}', [GenreController::class
 
 
 /* Producto */
-Route::get('/product_management/list_product', [ProductController::class, 'index'])->name('lista_producto')->middleware('auth');
-Route::get('/product_management/add_product', [ProductController::class, 'create'])->name('create_product')->middleware('auth');
-Route::post('/product_management/add_product', [ProductController::class, 'store'])->name('add_product')->middleware('auth');
+Route::get('/product_management/producto', [ProductController::class, 'index'])->name('lista_producto')->middleware('auth');
+Route::get('/product_management/producto/crear', [ProductController::class, 'create'])->name('create_product')->middleware('auth');
+Route::post('/product_management/producto/agregar', [ProductController::class, 'store'])->name('add_product')->middleware('auth');
 Route::get('/product_management/producto/{id}/editar', [ProductController::class, 'edit'])->name('edit_product')->middleware('auth');
 
 /* Sucursales */
