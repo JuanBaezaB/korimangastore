@@ -26,16 +26,16 @@
                 <h3 class="block-title">Añadir</h3>
             </div>
             <div class="block-content">
-                <form action="{{ (isset($is_edit) && $is_edit) ? route('update_product', $product->id) : route('add_product') }}" enctype="multipart/form-data" method="POST">
+                <form action="{{ !empty($is_edit) ? route('update_product', $product->id) : route('add_product') }}" enctype="multipart/form-data" method="POST">
                     @csrf
-                    @if (isset($is_edit) && $is_edit)
+                    @if (!empty($is_edit))
                         @method('PATCH')
                     @endif
                     <div class="mb-3">
                         <label class="col-form-label">Nombre:</label>
                         <input type="text" class="form-control" name="name" value="{{ isset($product) ? $product->name : '' }}" required>
                     </div>
-                    <input type="hidden" name="status" value="{{ isset($product) ? $product->status : 'Habilitado' }}">
+                    <input type="hidden" name="status" value="{{ isset($product->status) ? $product->status : 'Habilitado' }}">
                     <div class="mb-3">
                         <label class="col-form-label">Precio:</label>
                         <div class="input-group">
@@ -91,7 +91,7 @@
                             <option></option>
                             @foreach ($publishers as $row)
                                 <option value="{{ $row->id }}" 
-                                {{ (isset($product) && isset($product->productable) && $product->category->name === 'Manga' && $product->productable->editorial->id === $row->id) ? 'selected=selected' : '' }}>
+                                {{ (isset($product->productable->editorial->id) && $product->productable->editorial->id === $row->id) ? 'selected=selected' : '' }}>
                                     {{ $row->name }} - {{ $row->origin }}</option>
                             @endforeach
                         </select>
@@ -105,7 +105,7 @@
                             <option></option>
                             @foreach ($formats as $row)
                                 <option value="{{ $row->id }}" 
-                                {{ (isset($product) && isset($product->productable) && $product->category->name === 'Manga' && $product->productable->format->id === $row->id) ? 'selected=selected' : '' }}>
+                                {{ (isset($product->productable->format->id) && $product->productable->format->id === $row->id) ? 'selected=selected' : '' }}>
                                 {{ $row->name }}</option>
                             @endforeach
                         </select>
@@ -119,7 +119,7 @@
                             <option></option>
                             @foreach ($genres as $row)
                                 <option value="{{ $row->id }}"
-                                {{ (isset($product) && isset($product->productable) && $product->category->name === 'Manga' && $product->productable->genres->contains($row->id)) ? 'selected=selected' : '' }}>
+                                {{ (isset($product->productable->genres) && $product->productable->genres->contains($row->id)) ? 'selected=selected' : '' }}>
                                     {{ $row->name }}</option>
                             @endforeach
                         </select>
@@ -134,7 +134,7 @@
                                 <option></option>
                                 @foreach ($creatives as $row)
                                     <option value="{{ $row->id }}"
-                                    {{ (isset($product) && isset($product->productable) && $product->category->name === 'Manga' && $product->productable->creativePeople()->wherePivotIn('creative_type', ['both', 'art'])->find($row->id)) ? 'selected=selected' : '' }}>
+                                    {{ (isset($product->productable) && $product->category->name === 'Manga' && $product->productable->creativePeople()->wherePivotIn('creative_type', ['both', 'art'])->find($row->id)) ? 'selected=selected' : '' }}>
                                         {{ $row->name }}</option>
                                 @endforeach
                             </select>
@@ -147,7 +147,7 @@
                                 <option></option>
                                 @foreach ($creatives as $row)
                                     <option value="{{ $row->id }}"
-                                    {{ (isset($product) && isset($product->productable) && $product->category->name === 'Manga' && $product->productable->creativePeople()->wherePivotIn('creative_type', ['both', 'story'])->find($row->id)) ? 'selected=selected' : '' }}>
+                                    {{ (isset($product->productable) && $product->category->name === 'Manga' && $product->productable->creativePeople()->wherePivotIn('creative_type', ['both', 'story'])->find($row->id)) ? 'selected=selected' : '' }}>
                                         {{ $row->name }}</option>
                                 @endforeach
                             </select>
