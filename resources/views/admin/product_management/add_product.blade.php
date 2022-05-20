@@ -86,7 +86,7 @@
                         <select class="js-basic-single js-select2 form-select" name="editorial_id" style="width: 100%;" data-placeholder="Elige uno.." required>
                             <option></option>
                             @foreach ($publishers as $row)
-                                <option value="{{ $row->id }}">{{ $row->name }}</option>
+                                <option value="{{ $row->id }}">{{ $row->name }} - {{ $row->origin }}</option>
                             @endforeach
                         </select>
 
