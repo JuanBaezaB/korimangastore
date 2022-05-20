@@ -26,8 +26,11 @@
                 <h3 class="block-title">Añadir</h3>
             </div>
             <div class="block-content">
-                <form action="{{ route('add_product') }}" enctype="multipart/form-data" method="POST">
+                <form action="{{ (isset($is_edit) && $is_edit) ? route('update_product', $product->id) : route('add_product') }}" enctype="multipart/form-data" method="POST">
                     @csrf
+                    @if (isset($is_edit) && $is_edit)
+                        @method('PATCH')
+                    @endif
                     <div class="mb-3">
                         <label class="col-form-label">Nombre:</label>
                         <input type="text" class="form-control" name="name" value="{{ isset($product) ? $product->name : '' }}" required>
