@@ -160,6 +160,27 @@ class ProductController extends Controller
     public function edit($id)
     {
         //
+        try {
+            $product = Product::findOrFail($id);
+            $providers = Provider::all();
+            $series = Serie::all();
+            $publishers = Editorial::all();
+            $genres = Genre::all();
+            $formats = Format::all();
+            $creatives = CreativePerson::all();
+            $categories = Category::all();
+
+            $the_compact = compact(
+                'product',
+                'providers', 'series', 'publishers', 
+                'genres', 'formats', 'creatives', 
+                'categories'
+            );
+        } catch (\Throwable $th) {
+            return response()->json($th);
+        }
+
+        return response()->view('admin.product_management.add_product', $the_compact);
     }
 
     /**

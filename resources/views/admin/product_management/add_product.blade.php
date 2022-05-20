@@ -30,16 +30,16 @@
                     @csrf
                     <div class="mb-3">
                         <label class="col-form-label">Nombre:</label>
-                        <input type="text" class="form-control" name="name" required>
+                        <input type="text" class="form-control" name="name" value="{{ isset($product) ? $product->name : '' }}" required>
                     </div>
-                    <input type="hidden" name="status" value="Habilitado">
+                    <input type="hidden" name="status" value="{{ isset($product) ? $product->status : 'Habilitado' }}">
                     <div class="mb-3">
                         <label class="col-form-label">Precio:</label>
                         <div class="input-group">
                             <span class="input-group-text">
                                 $
                             </span>
-                            <input type="number" class="form-control" name="price" min="0" placeholder="0" required>
+                            <input type="number" class="form-control" name="price" min="0" placeholder="0" value="{{ isset($product) ? $product->price : '' }}" required>
                         </div>
                     </div>
                     <div class="mb-3">
@@ -48,7 +48,7 @@
                         <select class="js-basic-single js-select2 form-select" name="provider_id" style="width: 100%;" data-placeholder="Elige uno.." required>
                             <option></option>
                             @foreach ($providers as $row)
-                                <option value="{{ $row->id }}">{{ $row->name }}</option>
+                                <option value="{{ $row->id }}" {{ (isset($product) && $product->provider->id === $row->id) ? 'selected=selected' : '' }}>{{ $row->name }}</option>
                             @endforeach
                         </select>
 
@@ -60,7 +60,7 @@
                         <select class="js-basic-multiple js-select2 form-select" multiple="multiple" name="series[]" style="width: 100%;" data-placeholder="Elige varias.." required>
                             <option></option>
                             @foreach ($series as $row)
-                                <option value="{{ $row->id }}">{{ $row->name }}</option>
+                                <option value="{{ $row->id }}" {{ (isset($product) && $product->series->contains($row->id)) ? 'selected=selected' : '' }}>{{ $row->name }}</option>
                             @endforeach
                         </select>
 
@@ -74,19 +74,22 @@
                         <select id="product-type-select" name="product_type" class="js-basic-single js-select2 form-select" style="width: 100%;" data-placeholder="Elige uno.." required>
                             <option></option>
                             @foreach ($categories as $row)
-                            <option value="{{ $row->id }}">{{ $row->name }}</option>
+                            <option value="{{ $row->id }}" {{ (isset($product) && $product->category->id === $row->id) ? 'selected=selected' : '' }}>{{ $row->name }}</option>
                             @endforeach
                         </select>
 
                     </div>
 
+                    <!-- FORM MANGA -->
                     <div class="mb-3 manga-form">
                         <label class="col-form-label">Editorial:</label>
 
                         <select class="js-basic-single js-select2 form-select" name="editorial_id" style="width: 100%;" data-placeholder="Elige uno.." required>
                             <option></option>
                             @foreach ($publishers as $row)
-                                <option value="{{ $row->id }}">{{ $row->name }} - {{ $row->origin }}</option>
+                                <option value="{{ $row->id }}" 
+                                {{ (isset($product) && isset($product->productable) && $product->category->name === 'Manga' && $product->productable->editorial->id === $row->id) ? 'selected=selected' : '' }}>
+                                    {{ $row->name }} - {{ $row->origin }}</option>
                             @endforeach
                         </select>
 
@@ -98,7 +101,9 @@
                         <select class="js-basic-single js-select2 form-select" name="format_id" style="width: 100%;" data-placeholder="Elige uno.." required>
                             <option></option>
                             @foreach ($formats as $row)
-                                <option value="{{ $row->id }}">{{ $row->name }}</option>
+                                <option value="{{ $row->id }}" 
+                                {{ (isset($product) && isset($product->productable) && $product->category->name === 'Manga' && $product->productable->format->id === $row->id) ? 'selected=selected' : '' }}>
+                                {{ $row->name }}</option>
                             @endforeach
                         </select>
 
@@ -110,7 +115,9 @@
                         <select class="js-basic-multiple js-select2 form-select" multiple="multiple" name="genres[]" style="width: 100%;" data-placeholder="Elige varias.." required>
                             <option></option>
                             @foreach ($genres as $row)
-                                <option value="{{ $row->id }}">{{ $row->name }}</option>
+                                <option value="{{ $row->id }}"
+                                {{ (isset($product) && isset($product->productable) && $product->category->name === 'Manga' && $product->productable->genres->contains($row->id)) ? 'selected=selected' : '' }}>
+                                    {{ $row->name }}</option>
                             @endforeach
                         </select>
 
@@ -123,7 +130,9 @@
                             <select class="js-basic-multiple js-select2 form-select" multiple="multiple" name="arts[]"  data-placeholder="Elige varios.." required>
                                 <option></option>
                                 @foreach ($creatives as $row)
-                                    <option value="{{ $row->id }}">{{ $row->name }}</option>
+                                    <option value="{{ $row->id }}"
+                                    {{ (isset($product) && isset($product->productable) && $product->category->name === 'Manga' && $product->productable->creativePeople()->wherePivotIn('creative_type', ['both', 'art'])->find($row->id)) ? 'selected=selected' : '' }}>
+                                        {{ $row->name }}</option>
                                 @endforeach
                             </select>
 
@@ -134,21 +143,23 @@
                             <select class="js-basic-multiple js-select2 form-select" multiple="multiple" name="stories[]"  data-placeholder="Elige varios.." required>
                                 <option></option>
                                 @foreach ($creatives as $row)
-                                    <option value="{{ $row->id }}">{{ $row->name }}</option>
+                                    <option value="{{ $row->id }}"
+                                    {{ (isset($product) && isset($product->productable) && $product->category->name === 'Manga' && $product->productable->creativePeople()->wherePivotIn('creative_type', ['both', 'story'])->find($row->id)) ? 'selected=selected' : '' }}>
+                                        {{ $row->name }}</option>
                                 @endforeach
                             </select>
 
                         </div>
                     </div>
 
-
+                    <!-- END FORM MANGA -->
 
 
 
                     <div class="mb-3">
                         <!-- SimpleMDE Container -->
                         <label class="col-form-label">Descripción:</label>
-                        <textarea class="js-simplemde" id="simplemde" name="description"></textarea>
+                        <textarea class="js-simplemde" id="simplemde" name="description">{{ isset($product) ? $product->description : '' }}</textarea>
                     </div>
 
                     <div class="modal-footer">
