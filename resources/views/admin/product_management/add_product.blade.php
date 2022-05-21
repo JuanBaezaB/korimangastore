@@ -8,7 +8,7 @@
                 <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3">Producto</h1>
                 <nav class="flex-shrink-0 my-2 my-sm-0 ms-sm-3" aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item">Añadir</li>
+                        <li class="breadcrumb-item">{{ empty($is_edit) ? 'Añadir' : 'Editar'}}</li>
                         <li class="breadcrumb-item active" aria-current="page">Producto</li>
                         <li class="breadcrumb-item active" aria-current="page">Gestión de productos</li>
                     </ol>
@@ -23,7 +23,7 @@
         <!-- Elements -->
         <div class="block block-rounded">
             <div class="block-header block-header-default">
-                <h3 class="block-title">Añadir</h3>
+                <h3 class="block-title">{{ empty($is_edit) ? 'Añadir' : 'Editar'}}</h3>
             </div>
             <div class="block-content">
                 <form action="{{ !empty($is_edit) ? route('update_product', $product->id) : route('add_product') }}" enctype="multipart/form-data" method="POST">
@@ -165,9 +165,9 @@
                         <textarea class="js-simplemde" id="simplemde" name="description">{{ isset($product) ? $product->description : '' }}</textarea>
                     </div>
 
-                    <div class="modal-footer">
+                    <div class="mb-3">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">Añadir</button>
+                        <button type="submit" class="btn btn-primary">{{ empty($is_edit) ? 'Añadir' : 'Actualizar'}}</button>
                     </div>
                 </form>
 
