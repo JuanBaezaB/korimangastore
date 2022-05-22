@@ -132,7 +132,7 @@
                         <!-- Necesitamos el tipo de acuerdo a datos suministrados por el Cliente Korimangastore -->
                         <select class="js-basic-single js-select2 form-select" id="origin" name="type" style="width: 100%;" data-placeholder="Elige uno...">
                             <option></option>
-                            <option value="Demografia">Demografia</option>
+                            <option value="Demografía">Demografía</option>
                             <option value="Tematico">Tematico</option>
                         </select>
 
