@@ -364,12 +364,15 @@
                             </a>
                             <ul class="nav-main-submenu">
                                 <li class="nav-main-item">
+<<<<<<< Updated upstream
                                     <a class="nav-main-link{{ request()->is('manga_characteristics/manga') ? ' active' : '' }}"
                                         href="{{ route('create_manga') }}">
                                         <span class="nav-main-link-name">Manga</span><!-- Gestion de Editorial -->
                                     </a>
                                 </li>
                                 <li class="nav-main-item">
+=======
+>>>>>>> Stashed changes
                                     <a class="nav-main-link{{ request()->is('manga_characteristics/index_editorial') ? ' active' : '' }}"
                                         href="{{ route('list_editorial') }}">
                                         <span class="nav-main-link-name">Editorial</span><!-- Gestion de Editorial -->
