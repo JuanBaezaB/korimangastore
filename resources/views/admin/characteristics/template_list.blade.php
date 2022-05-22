@@ -36,7 +36,7 @@
 
             <div class="block-content block-content-full">
                 <!-- DataTables init on table by adding .js-dataTable-full class, functionality is initialized in js/pages/be_tables_datatables.min.js which was auto compiled from _js/pages/be_tables_datatables.js -->
-                <table id="product-table" class="table table-bordered table-striped table-vcenter js-dataTable-full">
+                <table id="product-table" class="table table-bordered table-striped table-vcenter table-hover w-100 display nowrap">
                     <thead>
                         <tr>
                             <!-- <th class="text-center" style="width: 80px;">#</th> -->
@@ -105,6 +105,7 @@
                 </table>
             </div>
         </div>
+        
         <!-- END Elements -->
     </div>
     <!-- END Page Content -->
@@ -260,4 +261,75 @@
         </script>
     @endif
     <!-- End js sweetalert2 -->
+
+
+    <script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJo0d84q3_W-zY6-m9_QJGa1UTY_vn2es&libraries=places"></script>
+
+    <script>
+        google.maps.event.addDomListener(window, 'load', initialize);
+
+
+        const coordinates = { lat: -36.6287785, lng: -72.0984874 }
+
+        function initialize() {
+            var myOptions = {
+                zoom: 15,
+                center: new google.maps.LatLng(-36.6287785, -72.0984874),
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            
+            var map = new google.maps.Map(document.getElementById("map"), myOptions);
+
+            const marker = new google.maps.Marker({
+                animation: google.maps.Animation.DROP,
+                position: coordinates,
+                map: map,
+                draggable: false
+            });
+            marker.addListener("click", toggleBounce);
+            function toggleBounce() {
+                if (marker.getAnimation() !== null) {
+                    marker.setAnimation(null);
+                } else {
+                    marker.setAnimation(google.maps.Animation.BOUNCE);
+                }
+                
+            };
+
+            var information = new google.maps.InfoWindow();
+
+            var input = document.getElementById('autocomplete_search');
+            var autocomplete = new google.maps.places.Autocomplete(input);
+            autocomplete.addListener('place_changed', function () {
+                var place = autocomplete.getPlace();
+                // place variable will have all the information you are looking for.
+                $('#latitude').val(place.geometry['location'].lat());
+                $('#longitude').val(place.geometry['location'].lng());
+                if (!place.geometry.viewport) {
+                    window.alert("Error al mostrar el lugar");
+                }
+                if (place.geometry.viewport) {
+                    map.fitBounds(place.geometry.viewport);
+                } else {
+                    map.setCenter(place.geometry.location);
+                }
+                marker.setPosition(place.geometry.location);
+                marker.setVisible(true);
+
+                var address = "";
+                if(place.address_components){
+                    address = [
+                        (place.address_components[0] && place.address_components[0].short_name  || " "),
+                        (place.address_components[1] && place.address_components[1].short_name  || " "),
+                        (place.address_components[2] && place.address_components[2].short_name  || " ")
+                    ];
+                }
+                console.log(place.name);
+                information.setContent('<div><strong>'+place.name+'</strong><br>'+address+'</div>');
+                information.open(map, marker);
+            });
+        }
+
+    </script>
 @endsection

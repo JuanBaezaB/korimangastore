@@ -35,12 +35,12 @@
         </div>
         <div class="block-content block-content-full">
             <!-- DataTables init on table by adding .js-dataTable-full class, functionality is initialized in js/pages/be_tables_datatables.min.js which was auto compiled from _js/pages/be_tables_datatables.js -->
-            <table id="product-table" class="table table-bordered table-striped table-vcenter js-dataTable-full">
+            <table id="product-table" class="table table-bordered table-striped table-vcenter table-hover w-100 display">
                 <thead>
                     <tr>
                         <th class="text-center" style="width: 80px;">#</th>
                         <th>Nombre</th>
-                        <th class="d-none d-sm-table-cell" style="width: 30%;">Origen</th>
+                        <th class="d-none d-sm-table-cell" style="width: 30%;">Tipo</th>
                         <th style="width: 10%;">Acciones</th>
                     </tr>
                 </thead>
@@ -130,7 +130,7 @@
                         <label class="col-form-label">Tipo:</label>
 
                         <!-- Necesitamos el tipo de acuerdo a datos suministrados por el Cliente Korimangastore -->
-                        <select class="js-basic-single js-select2 form-select" id="origin" name="type" style="width: 100%;" data-placeholder="Choose one..">
+                        <select class="js-basic-single js-select2 form-select" id="origin" name="type" style="width: 100%;" data-placeholder="Elige uno...">
                             <option></option>
                             <option value="Demografia">Demografia</option>
                             <option value="Tematico">Tematico</option>

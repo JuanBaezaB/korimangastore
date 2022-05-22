@@ -17,8 +17,9 @@ class CreateBranchesTable extends Migration
             $table->id();
             $table->string('name'); 
             $table->string('address')->nullable();
-            $table->float('longitude')->nullable();
-            $table->float('latitude')->nullable();
+            $table->string('address')->nullable();
+            $table->double('longitude')->nullable();
+            $table->double('latitude')->nullable();
             $table->timestamps();
         });
     }
