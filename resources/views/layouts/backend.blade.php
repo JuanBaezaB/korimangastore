@@ -30,11 +30,12 @@
     @yield('css_after')
 
     <!-- Scripts -->
+    <!--
     <script>
         window.Laravel = {
             !!json_encode(['csrfToken' => csrf_token()]) !!
         };
-    </script>
+    </script>-->
 </head>
 
 <body>
