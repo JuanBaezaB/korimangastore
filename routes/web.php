@@ -11,6 +11,7 @@ use App\Http\Controllers\SerieController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\CreativePersonController;
 use App\Http\Controllers\MangaController;
+use App\Http\Controllers\MailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -106,3 +107,5 @@ Route::patch('/characteristics/update_creative_person/{id}', [CreativePersonCont
 /* Manga */
 Route::get('/characteristics/manga', [MangaController::class, 'create'])->name('create_manga')->middleware('auth');
 
+/*prueba correo*/
+Route::get('/enviar_correo', [MailController::class, 'enviarCorreo'])->name('enviarCorreo')->middleware('auth');

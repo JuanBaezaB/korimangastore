@@ -18,8 +18,7 @@
                         @csrf
 
                         <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Dirección de correo electrónico
-') }}</label>
+                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Dirección de correo electrónico') }}</label>
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
