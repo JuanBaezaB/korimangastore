@@ -521,7 +521,7 @@
                     <!-- Open Search Section -->
                     <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
                     <button type="button" class="btn btn-alt-secondary" data-toggle="layout" data-action="header_search_on">
-                        <i class="fa fa-fw opacity-50 fa-search"></i> <span class="ms-1 d-none d-sm-inline-block">Search</span>
+                        <i class="fa fa-fw opacity-50 fa-search"></i> <span class="ms-1 d-none d-sm-inline-block">Buscar</span>
                     </button>
                     <!-- END Open Search Section -->
                 </div>

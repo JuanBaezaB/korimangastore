@@ -9,9 +9,9 @@
                     <!-- Header -->
                     <div class="mb-3 text-center">
                         <a class="link-fx fw-bold fs-1" href="index.html">
-                            <span class="text-dark">Dash</span><span class="text-primary">mix</span>
+                            <span class="text-dark">Kori</span><span class="text-primary">MangaStore</span>
                         </a>
-                        <p class="text-uppercase fw-bold fs-sm text-muted">Sign In</p>
+                        <p class="text-uppercase fw-bold fs-sm text-muted">Iniciar Sesión</p>
                     </div>
                     <!-- END Header -->
 
@@ -51,7 +51,7 @@
 
                                 <div class="mb-4">
                                     <button type="submit" class="btn w-100 btn-lg btn-hero btn-primary">
-                                        <i class="fa fa-fw fa-sign-in-alt opacity-50 me-1"></i> Sign In
+                                        <i class="fa fa-fw fa-sign-in-alt opacity-50 me-1"></i> Iniciar Sesión
                                     </button>
 
 
@@ -59,13 +59,13 @@
                                         @if (Route::has('password.request'))
                                             <a class="btn btn-sm btn-alt-secondary d-block d-lg-inline-block mb-1"
                                                 href="{{ route('password.request') }}">
-                                                <i class="fa fa-exclamation-triangle opacity-50 me-1"></i> Forgot password
+                                                <i class="fa fa-exclamation-triangle opacity-50 me-1"></i> Se te olvidó tu contraseña
                                             </a>
                                         @endif
                                         @if (Route::has('register'))
                                             <a class="btn btn-sm btn-alt-secondary d-block d-lg-inline-block mb-1"
                                                 href="{{ route('register') }}">
-                                                <i class="fa fa-plus opacity-50 me-1"></i> New Account
+                                                <i class="fa fa-plus opacity-50 me-1"></i> Crear cuenta nueva
                                             </a>
                                         @endif
 
@@ -84,7 +84,7 @@
                 class="hero-static col-md-6 d-none d-md-flex align-items-md-center justify-content-md-center text-md-center">
                 <div class="p-3">
                     <p class="display-4 fw-bold text-white mb-3">
-                        Welcome to the future
+                        Bienvenido a nuestra tienda online! :B
                     </p>
                     <p class="fs-lg fw-semibold text-white-75 mb-0">
                         Copyright &copy; <span data-toggle="year-copy"></span>

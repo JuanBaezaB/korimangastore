@@ -14,8 +14,8 @@
                 <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3">Listado productos</h1>
                 <nav class="flex-shrink-0 my-2 my-sm-0 ms-sm-3" aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item">Forms</li>
-                        <li class="breadcrumb-item active" aria-current="page">Elements</li>
+                        <li class="breadcrumb-item">Productos</li>
+                        <li class="breadcrumb-item active" aria-current="page">Gestion de Productos</li>
                     </ol>
                 </nav>
             </div>
@@ -36,10 +36,10 @@
                     <thead>
                         <tr>
                             <th class="text-center" style="width: 80px;">#</th>
-                            <th>Name</th>
-                            <th class="d-none d-sm-table-cell" style="width: 30%;">Email</th>
-                            <th class="d-none d-sm-table-cell" style="width: 15%;">Access</th>
-                            <th style="width: 15%;">Registered</th>
+                            <th>Nombre</th>
+                            <th class="d-none d-sm-table-cell" style="width: 30%;">Correo</th>
+                            <th class="d-none d-sm-table-cell" style="width: 15%;">Acceso</th>
+                            <th style="width: 15%;">Fecha de registro</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -56,7 +56,7 @@
                                 Hola
                             </td>
                             <td>
-                                <em class="text-muted">days ago</em>
+                                <em class="text-muted">Fecha</em>
                             </td>
                         </tr>
 
