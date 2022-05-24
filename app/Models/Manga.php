@@ -26,5 +26,13 @@ class Manga extends Model
     public function product() {
         return $this->morphOne(Product::class, 'productable');
     }
+
+    public function editorial() {
+        return $this->belongsTo(Editorial::class);
+    }
+
+    public function format() {
+        return $this->belongsTo(Format::class);
+    }
     
 }
