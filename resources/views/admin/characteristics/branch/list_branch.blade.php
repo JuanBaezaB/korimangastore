@@ -22,16 +22,21 @@ $export_columns = '[0, 1, 2, 3]';
 </div>
 <div class="mb-3">
     <label class="col-form-label">Dirección:</label>
-    <input type="text" class="form-control" id="address" name="address" required>
+    <input type="text" class="form-control" id="autocomplete_search" name="address" required>
 </div>
 <div class="mb-3">
-    <label for="message-text" class="col-form-label">Longitud:</label>
-    <input class="form-control" step="any" type="number" name="longitude" required>
+    <input class="form-control" hidden name="longitude" id="longitude" required>
 </div>
 <div class="mb-3">
-    <label for="message-text" class="col-form-label">Latitud:</label>
-    <input class="form-control" step="0.0000001" type="number" name="latitude" required>
+    <input class="form-control" hidden  name="latitude" id="latitude"  required>
 </div>
+<div id="map" style="height: 500px;width: 100%;"></div>
+
+<style>
+    .pac-container {
+        z-index: 10000 !important;
+    }
+</style>
 @endsection
 
 @section('label_headers')
