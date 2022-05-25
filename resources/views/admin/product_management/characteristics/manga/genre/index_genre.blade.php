@@ -136,7 +136,7 @@
                         <select class="js-basic-single js-select2 form-select" id="origin" name="type" style="width: 100%;" data-placeholder="Elige uno...">
                             <option></option>
                             <option value="Demografía">Demografía</option>
-                            <option value="Tematico">Tematico</option>
+                            <option value="Temático">Tematico</option>
                         </select>
 
                     </div>
