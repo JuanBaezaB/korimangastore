@@ -300,5 +300,14 @@ class ProductController extends Controller
     public function destroy($id)
     {
         //
+        $product = Product::findOrFail($id);
+
+        if (!empty($product->productable)) {
+            $product->productable->delete();
+        }
+        $product->delete();
+
+        return redirect()->route('lista_producto')
+        ->with('success', 'deleted');
     }
 }
