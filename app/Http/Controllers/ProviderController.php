@@ -16,13 +16,9 @@ class ProviderController extends Controller
     public function index()
     {
         //
-        try {
-            $providers = Provider::all();
-        } catch (\Throwable $th) {
-            return response()->json($th);
-        }
+        $providers = Provider::all();
 
-        return response()->view('admin.characteristics.provider_management.index_provider', compact('providers'));
+        return response()->view('admin.basic_management.internal_configuration.provider.index_provider', compact('providers'));
     }
 
     /**
