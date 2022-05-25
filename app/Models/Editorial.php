@@ -20,4 +20,8 @@ class Editorial extends Model
         'name',
         'origin'
     ];
+
+    public function mangas() {
+        return $this->hasMany(Manga::class);
+    }
 }

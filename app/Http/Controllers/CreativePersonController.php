@@ -15,13 +15,9 @@ class CreativePersonController extends Controller
     public function index()
     {
         //
-        try {
-            $creative_people = CreativePerson::all();
-        } catch (\Throwable $th) {
-            return response()->json($th);
-        }
+        $creative_people = CreativePerson::all();
         
-        return response()->view('admin.characteristics.creative_person.list_creative_person', compact('creative_people'));
+        return response()->view('admin.product_management.characteristics.manga.creative_person.list_creative_person', compact('creative_people'));
 
     }
 

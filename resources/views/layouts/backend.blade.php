@@ -7,7 +7,8 @@
 
     <title>Kori - Admin</title>
 
-    <meta name="description" content="Dashmix - Bootstrap 5 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
+    <meta name="description"
+        content="Dashmix - Bootstrap 5 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
     <meta name="author" content="pixelcave">
     <meta name="robots" content="noindex, nofollow">
 
@@ -22,8 +23,9 @@
     <!-- Fonts and Styles -->
     @yield('css_before')
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" id="css-main" href="{{ asset('/fonts/fontawesome-free/css/all.css') }}">
     <link rel="stylesheet" id="css-main" href="{{ mix('css/dashmix.css') }}">
-    
+
 
     <!-- You can include a specific file from public/css/themes/ folder to alter the default color theme of the template. eg: -->
     <!-- <link rel="stylesheet" id="css-theme" href="{{ mix('css/themes/xwork.css') }}"> -->
@@ -95,16 +97,19 @@
 
       'sidebar-dark page-header-dark dark-mode'   Enable dark mode (light sidebar/header is not supported with dark mode)
   -->
-    <div id="page-container" class="sidebar-o enable-page-overlay sidebar-dark side-scroll page-header-fixed main-content-narrow">
+    <div id="page-container"
+        class="sidebar-o enable-page-overlay sidebar-dark side-scroll page-header-fixed main-content-narrow">
         <!-- Side Overlay-->
         <aside id="side-overlay">
             <!-- Side Header -->
-            <div class="bg-image" style="background-image: url('{{ asset('media/various/bg_side_overlay_header.jpg') }}');">
+            <div class="bg-image"
+                style="background-image: url('{{ asset('media/various/bg_side_overlay_header.jpg') }}');">
                 <div class="bg-primary-op">
                     <div class="content-header">
                         <!-- User Avatar -->
                         <a class="img-link me-1" href="javascript:void(0)">
-                            <img class="img-avatar img-avatar48" src="{{ asset('media/avatars/avatar10.jpg') }}" alt="">
+                            <img class="img-avatar img-avatar48" src="{{ asset('media/avatars/avatar10.jpg') }}"
+                                alt="">
                         </a>
                         <!-- END User Avatar -->
 
@@ -117,7 +122,8 @@
 
                         <!-- Close Side Overlay -->
                         <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-                        <a class="ms-auto text-white" href="javascript:void(0)" data-toggle="layout" data-action="side_overlay_close">
+                        <a class="ms-auto text-white" href="javascript:void(0)" data-toggle="layout"
+                            data-action="side_overlay_close">
                             <i class="fa fa-times-circle"></i>
                         </a>
                         <!-- END Close Side Overlay -->
@@ -137,47 +143,56 @@
                     <div class="block-content block-content-full">
                         <div class="row g-sm text-center">
                             <div class="col-4 mb-1">
-                                <a class="d-block py-3 text-white fs-sm fw-semibold bg-default" data-toggle="theme" data-theme="default" href="#">
+                                <a class="d-block py-3 text-white fs-sm fw-semibold bg-default" data-toggle="theme"
+                                    data-theme="default" href="#">
                                     Default
                                 </a>
                             </div>
                             <div class="col-4 mb-1">
-                                <a class="d-block py-3 text-white fs-sm fw-semibold bg-xwork" data-toggle="theme" data-theme="{{ mix('/css/themes/xwork.css') }}" href="#">
+                                <a class="d-block py-3 text-white fs-sm fw-semibold bg-xwork" data-toggle="theme"
+                                    data-theme="{{ mix('/css/themes/xwork.css') }}" href="#">
                                     xWork
                                 </a>
                             </div>
                             <div class="col-4 mb-1">
-                                <a class="d-block py-3 text-white fs-sm fw-semibold bg-xmodern" data-toggle="theme" data-theme="{{ mix('/css/themes/xmodern.css') }}" href="#">
+                                <a class="d-block py-3 text-white fs-sm fw-semibold bg-xmodern" data-toggle="theme"
+                                    data-theme="{{ mix('/css/themes/xmodern.css') }}" href="#">
                                     xModern
                                 </a>
                             </div>
                             <div class="col-4 mb-1">
-                                <a class="d-block py-3 text-white fs-sm fw-semibold bg-xeco" data-toggle="theme" data-theme="{{ mix('/css/themes/xeco.css') }}" href="#">
+                                <a class="d-block py-3 text-white fs-sm fw-semibold bg-xeco" data-toggle="theme"
+                                    data-theme="{{ mix('/css/themes/xeco.css') }}" href="#">
                                     xEco
                                 </a>
                             </div>
                             <div class="col-4 mb-1">
-                                <a class="d-block py-3 text-white fs-sm fw-semibold bg-xsmooth" data-toggle="theme" data-theme="{{ mix('/css/themes/xsmooth.css') }}" href="#">
+                                <a class="d-block py-3 text-white fs-sm fw-semibold bg-xsmooth" data-toggle="theme"
+                                    data-theme="{{ mix('/css/themes/xsmooth.css') }}" href="#">
                                     xSmooth
                                 </a>
                             </div>
                             <div class="col-4 mb-1">
-                                <a class="d-block py-3 text-white fs-sm fw-semibold bg-xinspire" data-toggle="theme" data-theme="{{ mix('/css/themes/xinspire.css') }}" href="#">
+                                <a class="d-block py-3 text-white fs-sm fw-semibold bg-xinspire" data-toggle="theme"
+                                    data-theme="{{ mix('/css/themes/xinspire.css') }}" href="#">
                                     xInspire
                                 </a>
                             </div>
                             <div class="col-4 mb-1">
-                                <a class="d-block py-3 text-white fs-sm fw-semibold bg-xdream" data-toggle="theme" data-theme="{{ mix('/css/themes/xdream.css') }}" href="#">
+                                <a class="d-block py-3 text-white fs-sm fw-semibold bg-xdream" data-toggle="theme"
+                                    data-theme="{{ mix('/css/themes/xdream.css') }}" href="#">
                                     xDream
                                 </a>
                             </div>
                             <div class="col-4 mb-1">
-                                <a class="d-block py-3 text-white fs-sm fw-semibold bg-xpro" data-toggle="theme" data-theme="{{ mix('/css/themes/xpro.css') }}" href="#">
+                                <a class="d-block py-3 text-white fs-sm fw-semibold bg-xpro" data-toggle="theme"
+                                    data-theme="{{ mix('/css/themes/xpro.css') }}" href="#">
                                     xPro
                                 </a>
                             </div>
                             <div class="col-4 mb-1">
-                                <a class="d-block py-3 text-white fs-sm fw-semibold bg-xplay" data-toggle="theme" data-theme="{{ mix('/css/themes/xplay.css') }}" href="#">
+                                <a class="d-block py-3 text-white fs-sm fw-semibold bg-xplay" data-toggle="theme"
+                                    data-theme="{{ mix('/css/themes/xplay.css') }}" href="#">
                                     xPlay
                                 </a>
                             </div>
@@ -192,10 +207,12 @@
                     <div class="block-content block-content-full">
                         <div class="row g-sm text-center">
                             <div class="col-6 mb-1">
-                                <a class="d-block py-3 bg-body-dark fw-semibold text-dark" data-toggle="layout" data-action="sidebar_style_dark" href="javascript:void(0)">Dark</a>
+                                <a class="d-block py-3 bg-body-dark fw-semibold text-dark" data-toggle="layout"
+                                    data-action="sidebar_style_dark" href="javascript:void(0)">Dark</a>
                             </div>
                             <div class="col-6 mb-1">
-                                <a class="d-block py-3 bg-body-dark fw-semibold text-dark" data-toggle="layout" data-action="sidebar_style_light" href="javascript:void(0)">Light</a>
+                                <a class="d-block py-3 bg-body-dark fw-semibold text-dark" data-toggle="layout"
+                                    data-action="sidebar_style_light" href="javascript:void(0)">Light</a>
                             </div>
                         </div>
                     </div>
@@ -208,16 +225,20 @@
                     <div class="block-content block-content-full">
                         <div class="row g-sm text-center mb-2">
                             <div class="col-6 mb-1">
-                                <a class="d-block py-3 bg-body-dark fw-semibold text-dark" data-toggle="layout" data-action="header_style_dark" href="javascript:void(0)">Dark</a>
+                                <a class="d-block py-3 bg-body-dark fw-semibold text-dark" data-toggle="layout"
+                                    data-action="header_style_dark" href="javascript:void(0)">Dark</a>
                             </div>
                             <div class="col-6 mb-1">
-                                <a class="d-block py-3 bg-body-dark fw-semibold text-dark" data-toggle="layout" data-action="header_style_light" href="javascript:void(0)">Light</a>
+                                <a class="d-block py-3 bg-body-dark fw-semibold text-dark" data-toggle="layout"
+                                    data-action="header_style_light" href="javascript:void(0)">Light</a>
                             </div>
                             <div class="col-6 mb-1">
-                                <a class="d-block py-3 bg-body-dark fw-semibold text-dark" data-toggle="layout" data-action="header_mode_fixed" href="javascript:void(0)">Fixed</a>
+                                <a class="d-block py-3 bg-body-dark fw-semibold text-dark" data-toggle="layout"
+                                    data-action="header_mode_fixed" href="javascript:void(0)">Fixed</a>
                             </div>
                             <div class="col-6 mb-1">
-                                <a class="d-block py-3 bg-body-dark fw-semibold text-dark" data-toggle="layout" data-action="header_mode_static" href="javascript:void(0)">Static</a>
+                                <a class="d-block py-3 bg-body-dark fw-semibold text-dark" data-toggle="layout"
+                                    data-action="header_mode_static" href="javascript:void(0)">Static</a>
                             </div>
                         </div>
                     </div>
@@ -230,13 +251,16 @@
                     <div class="block-content block-content-full">
                         <div class="row g-sm text-center">
                             <div class="col-6 mb-1">
-                                <a class="d-block py-3 bg-body-dark fw-semibold text-dark" data-toggle="layout" data-action="content_layout_boxed" href="javascript:void(0)">Boxed</a>
+                                <a class="d-block py-3 bg-body-dark fw-semibold text-dark" data-toggle="layout"
+                                    data-action="content_layout_boxed" href="javascript:void(0)">Boxed</a>
                             </div>
                             <div class="col-6 mb-1">
-                                <a class="d-block py-3 bg-body-dark fw-semibold text-dark" data-toggle="layout" data-action="content_layout_narrow" href="javascript:void(0)">Narrow</a>
+                                <a class="d-block py-3 bg-body-dark fw-semibold text-dark" data-toggle="layout"
+                                    data-action="content_layout_narrow" href="javascript:void(0)">Narrow</a>
                             </div>
                             <div class="col-12 mb-1">
-                                <a class="d-block py-3 bg-body-dark fw-semibold text-dark" data-toggle="layout" data-action="content_layout_full_width" href="javascript:void(0)">Full Width</a>
+                                <a class="d-block py-3 bg-body-dark fw-semibold text-dark" data-toggle="layout"
+                                    data-action="content_layout_full_width" href="javascript:void(0)">Full Width</a>
                             </div>
                         </div>
                     </div>
@@ -291,21 +315,26 @@
                         <!-- Toggle Sidebar Style -->
                         <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
                         <!-- Class Toggle, functionality initialized in Helpers.dmToggleClass() -->
-                        <button type="button" class="btn btn-sm btn-alt-secondary" data-toggle="class-toggle" data-target="#sidebar-style-toggler" data-class="fa-toggle-off fa-toggle-on" onclick="Dashmix.layout('sidebar_style_toggle');Dashmix.layout('header_style_toggle');">
+                        <button type="button" class="btn btn-sm btn-alt-secondary" data-toggle="class-toggle"
+                            data-target="#sidebar-style-toggler" data-class="fa-toggle-off fa-toggle-on"
+                            onclick="Dashmix.layout('sidebar_style_toggle');Dashmix.layout('header_style_toggle');">
                             <i class="fa fa-toggle-off" id="sidebar-style-toggler"></i>
                         </button>
                         <!-- END Toggle Sidebar Style -->
 
                         <!-- Dark Mode -->
                         <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-                        <button type="button" class="btn btn-sm btn-alt-secondary" data-toggle="class-toggle" data-target="#dark-mode-toggler" data-class="far fa" onclick="Dashmix.layout('dark_mode_toggle');">
+                        <button type="button" class="btn btn-sm btn-alt-secondary" data-toggle="class-toggle"
+                            data-target="#dark-mode-toggler" data-class="far fa"
+                            onclick="Dashmix.layout('dark_mode_toggle');">
                             <i class="far fa-moon" id="dark-mode-toggler"></i>
                         </button>
                         <!-- END Dark Mode -->
 
                         <!-- Close Sidebar, Visible only on mobile screens -->
                         <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-                        <button type="button" class="btn btn-sm btn-alt-secondary d-lg-none" data-toggle="layout" data-action="sidebar_close">
+                        <button type="button" class="btn btn-sm btn-alt-secondary d-lg-none" data-toggle="layout"
+                            data-action="sidebar_close">
                             <i class="fa fa-times-circle"></i>
                         </button>
                         <!-- END Close Sidebar -->
@@ -321,7 +350,8 @@
                 <div class="content-side content-side-full">
                     <ul class="nav-main">
                         <li class="nav-main-item">
-                            <a class="nav-main-link{{ request()->is('dashboard') ? ' active' : '' }}" href="/dashboard">
+                            <a class="nav-main-link{{ request()->is('dashboard') ? ' active' : '' }}"
+                                href="/dashboard">
                                 <i class="nav-main-link-icon fa fa-location-arrow"></i>
                                 <span class="nav-main-link-name">Dashboard</span>
                                 <span class="nav-main-link-badge badge rounded-pill bg-primary">5</span>
@@ -356,88 +386,110 @@
                         </li>
 
                         <!-- Gestion de Caracteristicas Manga -->
-                        <li class="nav-main-heading">Caracteristicas Manga</li>
-                        <li class="nav-main-item {{ request()->is('manga_characteristics*') ? ' open' : '' }}">
+                        <li
+                            class="nav-main-item {{ request()->is('gestion-de-productos/carateristicas/*') ? ' open' : '' }}">
                             <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
                                 aria-expanded="true" href="#">
-                                <i class="nav-main-link-icon fa fa-book"></i>
+                                <i class="nav-main-link-icon fa fa-sliders"></i>
                                 <span class="nav-main-link-name">Caracteristicas</span><!-- Gestion de productos -->
                             </a>
+
+
                             <ul class="nav-main-submenu">
-                                <li class="nav-main-item">
-                                    <a class="nav-main-link{{ request()->is('manga_characteristics/manga') ? ' active' : '' }}"
-                                        href="{{ route('create_manga') }}">
-                                        <span class="nav-main-link-name">Manga</span><!-- Gestion de Editorial -->
+                                <li class="nav-main-item {{ request()->is('gestion-de-productos/carateristicas/general/*') ? ' open' : '' }}">
+                                    <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu"
+                                        aria-haspopup="true" aria-expanded="true" href="#">
+                                        <span class="nav-main-link-name">General</span>
                                     </a>
+                                    <ul class="nav-main-submenu">
+                                        <li class="nav-main-item">
+                                            <a class="nav-main-link{{ request()->is('gestion-de-productos/carateristicas/general/serie') ? ' active' : '' }}"
+                                                href="{{ route('list_serie') }}">
+                                                <span class="nav-main-link-name">Series</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-main-item">
+                                            <a class="nav-main-link{{ request()->is('gestion-de-productos/carateristicas/general/categoria') ? ' active' : '' }}"
+                                                href="{{ route('list_category') }}">
+                                                <span class="nav-main-link-name">Categorías</span>
+                                            </a>
+                                        </li>
+
+                                    </ul>
                                 </li>
-                                <li class="nav-main-item">
-                                    <a class="nav-main-link{{ request()->is('manga_characteristics/index_editorial') ? ' active' : '' }}"
-                                        href="{{ route('list_editorial') }}">
-                                        <span class="nav-main-link-name">Editorial</span><!-- Gestion de Editorial -->
+
+
+                                <li class="nav-main-item {{ request()->is('gestion-de-productos/carateristicas/manga/*') ? ' open' : '' }}">
+                                    <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu"
+                                        aria-haspopup="true" aria-expanded="true" href="#">
+                                        <span class="nav-main-link-name">Manga</span>
                                     </a>
+                                    <ul class="nav-main-submenu">
+                                        <li class="nav-main-item">
+                                            <a class="nav-main-link{{ request()->is('gestion-de-productos/carateristicas/manga/editorial') ? ' active' : '' }}"
+                                                href="{{ route('list_editorial') }}">
+                                                <span class="nav-main-link-name">Editoriales</span><!-- Gestion de Editorial -->
+                                            </a>
+                                        </li>
+                                        <li class="nav-main-item">
+                                            <a class="nav-main-link{{ request()->is('gestion-de-productos/carateristicas/manga/formato') ? ' active' : '' }}"
+                                                href="{{ route('list_format') }}">
+                                                <span class="nav-main-link-name">Formatos</span><!-- Gestion de Formato -->
+                                            </a>
+                                        </li>
+                                        <li class="nav-main-item">
+                                            <a class="nav-main-link{{ request()->is('gestion-de-productos/carateristicas/manga/genre') ? ' active' : '' }}"
+                                                href="{{ route('list_genre') }}">
+                                                <span class="nav-main-link-name">Generos</span><!-- Gestion de Editorial -->
+                                            </a>
+                                        </li>
+                                        <li class="nav-main-item">
+                                            <a class="nav-main-link{{ request()->is('gestion-de-productos/carateristicas/manga/genre/persona-creativa') ? ' active' : '' }}"
+                                                href="{{ route('list_creative_person') }}">
+                                                <span class="nav-main-link-name">Persona Creativa</span>
+                                            </a>
+                                        </li>
+                                       
+
+                                    </ul>
                                 </li>
-                                <li class="nav-main-item">
-                                    <a class="nav-main-link{{ request()->is('manga_characteristics/index_format') ? ' active' : '' }}"
-                                        href="{{ route('list_format') }}">
-                                        <span class="nav-main-link-name">Formato</span><!-- Gestion de Formato -->
-                                    </a>
-                                </li>
-                                <li class="nav-main-item">
-                                    <a class="nav-main-link{{ request()->is('manga_characteristics/index_genre') ? ' active' : '' }}"
-                                        href="{{ route('list_genre') }}">
-                                        <span class="nav-main-link-name">Genero</span><!-- Gestion de Editorial -->
-                                    </a>
-                                </li>
+
+
+                                
                             </ul>
-                            
+
                         </li>
 
-                        <!-- caracteristicas -->
-                        <li class="nav-main-heading">Características generales</li>
-                        <li class="nav-main-item{{ request()->is('characteristics/*') ? ' open' : '' }}">
+                        <!-- Gestion base -->
+                        <li class="nav-main-heading">Gestión base </li>
+                        <li class="nav-main-item{{ request()->is('gestion-base/configuacion-base/*') ? ' open' : '' }}">
                             <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
                                 aria-expanded="true" href="#">
-                                <i class="nav-main-link-icon fa fa-book"></i>
-                                <span class="nav-main-link-name">Características</span>
+                                <i class="nav-main-link-icon fa fa-gear"></i>
+                                <span class="nav-main-link-name">Configuración interna</span>
                             </a>
                             <ul class="nav-main-submenu">
                                 <li class="nav-main-item">
-                                    <a class="nav-main-link{{ request()->is('characteristics/list_branch') ? ' active' : '' }}"
+                                    <a class="nav-main-link{{ request()->is('gestion-base/configuacion-base/sucursales') ? ' active' : '' }}"
                                         href="{{ route('list_branch') }}">
                                         <span class="nav-main-link-name">Sucursales</span>
                                     </a>
                                 </li>
+
                                 <li class="nav-main-item">
-                                    <a class="nav-main-link{{ request()->is('characteristics/list_serie') ? ' active' : '' }}"
-                                        href="{{ route('list_serie') }}">
-                                        <span class="nav-main-link-name">Series</span>
-                                    </a>
-                                </li>
-                                <li class="nav-main-item">
-                                    <a class="nav-main-link{{ request()->is('characteristics/index_category') ? ' active' : '' }}"
-                                        href="{{ route('list_category') }}">
-                                        <span class="nav-main-link-name">Categorías</span>
-                                    </a>
-                                </li>
-                                <li class="nav-main-item">
-                                    <a class="nav-main-link{{ request()->is('characteristics/index_provider') ? ' active' : '' }}"
+                                    <a class="nav-main-link{{ request()->is('gestion-base/configuacion-base/proveedores') ? ' active' : '' }}"
                                         href="{{ route('list_provider') }}">
                                         <span class="nav-main-link-name">Proveedores</span>
                                     </a>
                                 </li>
-                                </li>
-                                <li class="nav-main-item">
-                                    <a class="nav-main-link{{ request()->is('characteristics/list_creative_person') ? ' active' : '' }}"
-                                        href="{{ route('list_creative_person') }}">
-                                        <span class="nav-main-link-name">Persona Creativa</span>
-                                    </a>
-                                </li>
+
+
                             </ul>
                         </li>
-                                                
 
 
-                        <!-- Diseños 
+
+                        <!-- Diseños
                         <li class="nav-main-heading">Design</li>
                         <li class="nav-main-item  {{ request()->is('forms/*') ? ' open' : '' }}">
                             <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
@@ -513,15 +565,18 @@
                 <div class="space-x-1">
                     <!-- Toggle Sidebar -->
                     <!-- Layout API, functionality initialized in Template._uiApiLayout()-->
-                    <button type="button" class="btn btn-alt-secondary" data-toggle="layout" data-action="sidebar_toggle">
+                    <button type="button" class="btn btn-alt-secondary" data-toggle="layout"
+                        data-action="sidebar_toggle">
                         <i class="fa fa-fw fa-bars"></i>
                     </button>
                     <!-- END Toggle Sidebar -->
 
                     <!-- Open Search Section -->
                     <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-                    <button type="button" class="btn btn-alt-secondary" data-toggle="layout" data-action="header_search_on">
-                        <i class="fa fa-fw opacity-50 fa-search"></i> <span class="ms-1 d-none d-sm-inline-block">Search</span>
+                    <button type="button" class="btn btn-alt-secondary" data-toggle="layout"
+                        data-action="header_search_on">
+                        <i class="fa fa-fw opacity-50 fa-search"></i> <span
+                            class="ms-1 d-none d-sm-inline-block">Buscar</span>
                     </button>
                     <!-- END Open Search Section -->
                 </div>
@@ -531,7 +586,8 @@
                 <div class="space-x-1">
                     <!-- User Dropdown -->
                     <div class="dropdown d-inline-block">
-                        <button type="button" class="btn btn-alt-secondary" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button type="button" class="btn btn-alt-secondary" id="page-header-user-dropdown"
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-fw fa-user d-sm-none"></i>
                             <span class="d-none d-sm-inline-block">{{ Auth::user()->name }}</span>
                             <i class="fa fa-fw fa-angle-down opacity-50 ms-1 d-none d-sm-inline-block"></i>
@@ -544,7 +600,8 @@
                                 <a class="dropdown-item" href="javascript:void(0)">
                                     <i class="far fa-fw fa-user me-1"></i> Profile
                                 </a>
-                                <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
+                                <a class="dropdown-item d-flex align-items-center justify-content-between"
+                                    href="javascript:void(0)">
                                     <span><i class="far fa-fw fa-envelope me-1"></i> Inbox</span>
                                     <span class="badge bg-primary rounded-pill">3</span>
                                 </a>
@@ -555,7 +612,8 @@
 
                                 <!-- Toggle Side Overlay -->
                                 <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-                                <a class="dropdown-item" href="javascript:void(0)" data-toggle="layout" data-action="side_overlay_toggle">
+                                <a class="dropdown-item" href="javascript:void(0)" data-toggle="layout"
+                                    data-action="side_overlay_toggle">
                                     <i class="far fa-fw fa-building me-1"></i> Settings
                                 </a>
                                 <!-- END Side Overlay -->
@@ -565,7 +623,8 @@
                                     document.getElementById('logout-form').submit();">
                                     <i class="far fa-fw fa-arrow-alt-circle-left me-1"></i> {{ __('Logout') }}
                                 </a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                    class="d-none">
                                     @csrf
                                 </form>
                             </div>
@@ -575,10 +634,12 @@
 
                     <!-- Notifications Dropdown -->
                     <div class="dropdown d-inline-block">
-                        <button type="button" class="btn btn-alt-secondary" id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button type="button" class="btn btn-alt-secondary" id="page-header-notifications-dropdown"
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-fw fa-bell"></i>
                         </button>
-                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0" aria-labelledby="page-header-notifications-dropdown">
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
+                            aria-labelledby="page-header-notifications-dropdown">
                             <div class="bg-primary-dark rounded-top fw-semibold text-white text-center p-3">
                                 Notifications
                             </div>
@@ -652,7 +713,8 @@
 
                     <!-- Toggle Side Overlay -->
                     <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-                    <button type="button" class="btn btn-alt-secondary" data-toggle="layout" data-action="side_overlay_toggle">
+                    <button type="button" class="btn btn-alt-secondary" data-toggle="layout"
+                        data-action="side_overlay_toggle">
                         <i class="far fa-fw fa-list-alt"></i>
                     </button>
                     <!-- END Toggle Side Overlay -->
@@ -668,10 +730,12 @@
                         @csrf
                         <div class="input-group">
                             <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-                            <button type="button" class="btn btn-alt-primary" data-toggle="layout" data-action="header_search_off">
+                            <button type="button" class="btn btn-alt-primary" data-toggle="layout"
+                                data-action="header_search_off">
                                 <i class="fa fa-fw fa-times-circle"></i>
                             </button>
-                            <input type="text" class="form-control border-0" placeholder="Search or hit ESC.." id="page-header-search-input" name="page-header-search-input">
+                            <input type="text" class="form-control border-0" placeholder="Search or hit ESC.."
+                                id="page-header-search-input" name="page-header-search-input">
                         </div>
                     </form>
                 </div>
@@ -713,9 +777,9 @@
 
     <!-- Laravel Original JS -->
     <!-- <script src="{{ mix('/js/laravel.app.js') }}"></script> -->
-    
+
     @yield('js_after')
-    
+
 </body>
 
 </html>

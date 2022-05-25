@@ -14,13 +14,10 @@ class EditorialController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        try {
-            $editorials = Editorial::all();
-        } catch (\Throwable $th) {
-            return response()->json($th);
-        }
+        
+        $editorials = Editorial::all();
 
-        return response()->view('admin.manga_characteristics.editorial_management.index_editorial', compact('editorials'));
+        return response()->view('admin.product_management.characteristics.manga.editorial.index_editorial', compact('editorials'));
     }
 
     /**
