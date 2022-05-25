@@ -154,6 +154,7 @@
 
     <script>
         $(document).ready(function() {
+            let export_columns = {{ Js::from($export_columns) }};
             $('#product-table').DataTable({
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
@@ -175,7 +176,7 @@
                         titleAttr: 'Exportar a Excel',
                         className: 'btn  btn-success mb-2',
                         exportOptions: {
-                            columns: {{ $export_columns }}
+                            columns: export_columns
                         }
                     },
                     {
@@ -184,7 +185,7 @@
                         titleAttr: 'Exportar a PDF',
                         className: 'btn btn-danger mb-2',
                         exportOptions: {
-                            columns: {{ $export_columns }}
+                            columns: export_columns
                         }
                     },
                     {
@@ -193,7 +194,7 @@
                         titleAttr: 'Imprimir',
                         className: 'btn btn-warning mb-2',
                         exportOptions: {
-                            columns: {{ $export_columns }}
+                            columns: export_columns
                         }
                     }
                 ]

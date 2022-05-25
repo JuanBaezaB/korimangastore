@@ -16,7 +16,7 @@ $collection_of_items = $series;
 $list_columns = 'admin.characteristics.serie.serie_columns';
 // nombre de serie *_serie
 $modal_edit_contents = 'admin.characteristics.serie.serie_edit';
-$export_columns = '[0]';
+$export_columns = [0];
 
 @endphp
 

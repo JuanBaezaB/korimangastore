@@ -16,7 +16,7 @@ $collection_of_items = $creative_people;
 $list_columns = 'admin.characteristics.creative_person.creative_person_columns';
 // nombre de serie *_serie
 $modal_edit_contents = 'admin.characteristics.creative_person.creative_person_edit';
-$export_columns = '[0]';
+$export_columns = [0];
 
 @endphp
 
