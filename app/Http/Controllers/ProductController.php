@@ -146,7 +146,8 @@ class ProductController extends Controller
             $category = Category::findOrFail($datosProducto->get('category_id'));
 
             $product = Product::create($datosProducto->toArray());
-            $product->series()->sync($datos['series']);
+            $series = isset($datos['series']) ? $datos['series'] : [];
+            $product->series()->sync($series);
             //$series = Serie::findMany($datos['series']);
 
             if ($category->name == 'Manga') {
@@ -161,7 +162,8 @@ class ProductController extends Controller
                 ]);
                 $manga = Manga::create($datosManga->toArray());
 
-                $manga->genres()->sync($datos['genres']);
+                $genres = isset($datos['genres']) ? $datos['genres'] : [];
+                $manga->genres()->sync();
 
                 $artists = self::accumulateArtists($datos['arts'], $datos['stories']);
                 $manga->creativePeople()->sync($artists);
@@ -253,21 +255,25 @@ class ProductController extends Controller
             $oldProductable = $product->productable;
             $category = Category::findOrFail($productData->get('category_id'));
             
-            $product->series()->sync($data->get('series'));
+            $series = $data->get('series', []);
+            $product->series()->sync( $series);
             $product->update($productData->toArray());
             $product->save();
             
             $hasCategoryChanged = $category->id != $oldCategory->id;
             if ($hasCategoryChanged) {
                 $product->category()->associate($categoryId);
-                $oldProductable->delete();
+
+                if (!empty($oldProductable)) {
+                    $oldProductable->delete();
+                }
             }
 
             if ($category->name == 'Manga') {
                 $manga = $oldProductable;
                 $dataManga = self::collectMangaData($data);
-                if ($hasCategoryChanged) {
-                    $manga = Manga::create($dataManga);
+                if ($hasCategoryChanged || empty($manga)) {
+                    $manga = Manga::create($dataManga->toArray());
                     $manga->product()->save($product);
                 } else {
                     $manga->update($dataManga->toArray());
@@ -276,7 +282,8 @@ class ProductController extends Controller
 
                 $artists = self::accumulateArtists($data->get('arts'), $data->get('stories'));
                 $manga->creativePeople()->sync($artists);
-                $manga->genres()->sync($data['genres']);
+                $genres = $data->get('genres', []);
+                $manga->genres()->sync($genres);
 
             }
 
