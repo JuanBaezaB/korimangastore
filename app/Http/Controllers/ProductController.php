@@ -22,12 +22,12 @@ class ProductController extends Controller
      */
     public function index(){
         try {
-            $product = Product::all();
+            $products = Product::all();
         } catch (\Throwable $th) {
-            return response()->json($product);
+            return response()->json($products);
         }
         
-        return response()->view('admin.product_management.list_product', compact('product'));
+        return response()->view('admin.product_management.list_product', compact('products'));
     }
 
     /**

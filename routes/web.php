@@ -48,6 +48,7 @@ Route::get('/product_management/producto/crear', [ProductController::class, 'cre
 Route::post('/product_management/producto/agregar', [ProductController::class, 'store'])->name('add_product')->middleware('auth');
 Route::get('/product_management/producto/{id}/editar', [ProductController::class, 'edit'])->name('edit_product')->middleware('auth');
 Route::patch('/product_management/producto/{id}/editar', [ProductController::class, 'update'])->name('update_product')->middleware('auth');
+Route::delete('/product_management/producto/{id}/eliminar', [ProductController::class, 'destroy'])->name('delete_product')->middleware('auth');
 
 
 

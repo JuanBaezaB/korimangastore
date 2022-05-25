@@ -35,30 +35,44 @@
                 <table id="product-table" class="table table-bordered table-striped table-vcenter js-dataTable-full">
                     <thead>
                         <tr>
-                            <th class="text-center" style="width: 80px;">#</th>
                             <th>Nombre</th>
-                            <th class="d-none d-sm-table-cell" style="width: 30%;">Correo</th>
-                            <th class="d-none d-sm-table-cell" style="width: 15%;">Acceso</th>
-                            <th style="width: 15%;">Fecha de registro</th>
+                            <th class="d-none d-sm-table-cell" style="width: 30%;">Tipo</th>
+                            <th class="d-none d-sm-table-cell" style="width: 15%;">Precio</th>
+                            <th style="width: 10%;">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-
+                        @foreach($products as $product)
                         <tr>
-                            <td class="text-center">1</td>
                             <td class="fw-semibold">
-                                Juan
+                                {{ $product->name }}
                             </td>
                             <td class="d-none d-sm-table-cell">
-                                test@test.cl
+                                {{ $product->category->name }}
                             </td>
                             <td class="d-none d-sm-table-cell">
-                                Hola
+                                $ {{ $product->price }}
                             </td>
-                            <td>
-                                <em class="text-muted">Fecha</em>
-                            </td>
+                            <td class="">
+                                    <form class=" delete" action="{{ route('delete_product', $product->id) }}"
+                                        method="POST">
+                                        <div class=" btn-group">
+                                            <a type="button" class="btn btn-sm btn btn-outline-primary" href="{{ route('edit_product', $product->id) }}" title="Actualizar">
+                                                <i class="fa fa-pencil-alt"></i>
+                                            </a>
+
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn btn-outline-danger"
+                                                data-bs-toggle="tooltip" title="Eliminar">
+                                                <i class="fa fa-fw fa-trash"></i>
+                                            </button>
+
+                                        </div>
+                                    </form>
+                                </td>
                         </tr>
+                        @endforeach
 
                     </tbody>
                 </table>
@@ -101,7 +115,7 @@
                     titleAttr: 'Exportar a Excel',
                     className:'btn  btn-success mb-2',
                     exportOptions: {
-                        columns: [0, 1, 2, 3]
+                        columns: [0, 1, 2]
                     }
                 },
                 {
@@ -110,7 +124,7 @@
                     titleAttr: 'Exportar a PDF',
                     className:'btn btn-danger mb-2',
                     exportOptions: {
-                        columns: [0, 1, 2, 3]
+                        columns: [0, 1, 2]
                     }
                 },
                 {
@@ -119,11 +133,42 @@
                     titleAttr: 'Imprimir',
                     className:'btn btn-warning mb-2',
                     exportOptions: {
-                        columns: [0, 1, 2, 3]
+                        columns: [0, 1, 2]
                     }
                 }
             ]
             });
         });
         </script>
+
+
+    @if (session('success') == 'created')
+        <script>
+            Swal.fire(
+                'Ingresado!',
+                'El ingreso se ha relizado exitosamente.',
+                'success'
+            )
+        </script>
+    @endif
+
+    @if (session('success') == 'deleted')
+        <script>
+            Swal.fire(
+                'Eliminado!',
+                'El registro ha sido eliminado.',
+                'success'
+            )
+        </script>
+    @endif
+
+    @if (session('success') == 'updated')
+        <script>
+            Swal.fire(
+                'Actualizado!',
+                'El registro ha sido actualizado.',
+                'success'
+            )
+        </script>
+    @endif
 @endsection
