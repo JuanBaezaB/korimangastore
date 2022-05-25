@@ -46,7 +46,7 @@ class FormatController extends Controller
         
         $provider = Format::create($request->all());
         return redirect()->route('list_format')
-            ->with('success', 'Provider created successfully');
+            ->with('success', 'created');
     }
 
     /**
@@ -89,10 +89,8 @@ class FormatController extends Controller
             //throw $th;
         }
 
-
-
         return redirect()->route('list_format')
-            ->with('success', 'Format updated successfully');
+            ->with('success', 'updated');
         return response()->json($request);
     }
 
@@ -108,7 +106,7 @@ class FormatController extends Controller
         $format = Format::find($id)->delete();
 
         return redirect()->route('list_format')
-            ->with('success', 'Format deleted successfully');
+            ->with('success', 'deleted');
     }
 }
 

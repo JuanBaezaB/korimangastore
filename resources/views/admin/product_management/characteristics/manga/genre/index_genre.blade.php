@@ -244,7 +244,7 @@
     });
 </script>
 
-@if (session('success') == 'Genero created successfully')
+@if (session('success') == 'created')
 <script>
     Swal.fire(
         'Ingresado!',
@@ -254,7 +254,7 @@
 </script>
 @endif
 
-@if (session('success') == 'Genero deleted successfully')
+@if (session('success') == 'deleted')
 <script>
     Swal.fire(
         'Eliminado!',
@@ -264,7 +264,7 @@
 </script>
 @endif
 
-@if (session('success') == 'Genero updated successfully')
+@if (session('success') == 'updated')
 <script>
     Swal.fire(
         'Actualizado!',

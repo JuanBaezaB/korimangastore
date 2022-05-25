@@ -235,7 +235,7 @@
     });
 </script>
 
-@if (session('success') == 'Format created successfully')
+@if (session('success') == 'created')
 <script>
     Swal.fire(
         'Ingresado!',
@@ -245,7 +245,7 @@
 </script>
 @endif
 
-@if (session('success') == 'Format deleted successfully')
+@if (session('success') == 'deleted')
 <script>
     Swal.fire(
         'Eliminado!',
@@ -255,7 +255,7 @@
 </script>
 @endif
 
-@if (session('success') == 'Format updated successfully')
+@if (session('success') == 'updated')
 <script>
     Swal.fire(
         'Actualizado!',

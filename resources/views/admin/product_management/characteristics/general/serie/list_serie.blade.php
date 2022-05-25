@@ -1,4 +1,4 @@
-@extends('admin.characteristics.template_list')
+@extends('admin.product_management.characteristics.general.template_list')
 
 @php
 $nombre_crud = 'Serie'; // nombre con inicial en mayuscula del producto

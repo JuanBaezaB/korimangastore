@@ -15,11 +15,7 @@ class BranchController extends Controller
      */
     public function index()
     {
-        try {
-            $branches = Branch::all();
-        } catch (\Throwable $th) {
-            return response()->json($th);
-        }
+        $branches = Branch::all();
         
         return response()->view('admin.basic_management.internal_configuration.branch.list_branch', compact('branches'));
     }
