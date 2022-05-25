@@ -70,4 +70,22 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
     }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'file'=>'image'
+        ]);
+
+        return $request->all();
+        //return $request->file('file')->store('public/fotosdeperfil');
+    }
+
+
 }
