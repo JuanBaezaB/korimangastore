@@ -1,4 +1,4 @@
-@extends('admin.characteristics.template_list')
+@extends('admin.basic_management.internal_configuration.template_list')
 
 @php
 $nombre_crud = 'Sucursal';
@@ -8,8 +8,8 @@ $delete_action_route = 'delete_branch';
 
 $collection_of_items = $branches;
 
-$list_columns = 'admin.characteristics.branch.branch_columns';
-$modal_edit_contents = 'admin.characteristics.branch.branch_edit';
+$list_columns = 'admin.basic_management.internal_configuration.branch.branch_columns';
+$modal_edit_contents = 'admin.basic_management.internal_configuration.branch.branch_edit';
 $export_columns = [0, 1, 2, 3];
 
 @endphp

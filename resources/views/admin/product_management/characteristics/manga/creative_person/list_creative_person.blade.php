@@ -1,4 +1,4 @@
-@extends('admin.characteristics.template_list')
+@extends('admin.product_management.characteristics.manga.template_list')
 
 @php
 $nombre_crud = 'Persona creativa'; // nombre con inicial en mayuscula del producto
@@ -13,9 +13,9 @@ $delete_action_route = 'delete_creative_person'; // ruta para accion de eliminar
 $collection_of_items = $creative_people;
 
 // nombre de vista *_columns
-$list_columns = 'admin.characteristics.creative_person.creative_person_columns';
+$list_columns = 'admin.product_management.characteristics.manga.creative_person.creative_person_columns';
 // nombre de serie *_serie
-$modal_edit_contents = 'admin.characteristics.creative_person.creative_person_edit';
+$modal_edit_contents = 'admin.product_management.characteristics.manga.creative_person.creative_person_edit';
 $export_columns = [0];
 
 @endphp

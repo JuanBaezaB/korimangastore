@@ -21,7 +21,7 @@ class GenreController extends Controller
             return response()->json($th);
         }
         
-        return response()->view('admin.manga_characteristics.genre_management.index_genre', compact('genres'));
+        return response()->view('admin.product_management.characteristics.manga.genre.index_genre', compact('genres'));
     }
 
     /**

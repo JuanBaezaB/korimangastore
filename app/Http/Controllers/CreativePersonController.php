@@ -21,7 +21,7 @@ class CreativePersonController extends Controller
             return response()->json($th);
         }
         
-        return response()->view('admin.characteristics.creative_person.list_creative_person', compact('creative_people'));
+        return response()->view('admin.product_management.characteristics.manga.creative_person.list_creative_person', compact('creative_people'));
 
     }
 

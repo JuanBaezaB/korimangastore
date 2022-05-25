@@ -20,7 +20,7 @@ class FormatController extends Controller
             return response()->json($th);
         }
 
-        return response()->view('admin.manga_characteristics.format_management.index_format', compact('formats'));
+        return response()->view('admin.product_management.characteristics.manga.format.index_format', compact('formats'));
     }
 
     /**

@@ -13,9 +13,9 @@ $delete_action_route = 'delete_serie'; // ruta para accion de eliminar
 $collection_of_items = $series;
 
 // nombre de vista *_columns
-$list_columns = 'admin.characteristics.serie.serie_columns';
+$list_columns = 'admin.product_management.characteristics.general.serie.serie_columns';
 // nombre de serie *_serie
-$modal_edit_contents = 'admin.characteristics.serie.serie_edit';
+$modal_edit_contents = 'admin.product_management.characteristics.general.serie.serie_edit';
 $export_columns = [0];
 
 @endphp

@@ -15,13 +15,8 @@ class SerieController extends Controller
     public function index()
     {
         //
-        try {
-            $series = Serie::all();
-        } catch (\Throwable $th) {
-            return response()->json($th);
-        }
-
-        return response()->view('admin.characteristics.serie.list_serie', compact('series'));
+        $series = Serie::all();
+        return response()->view('admin.product_management.characteristics.general.serie.list_serie', compact('series'));
     }
 
     /**
@@ -47,7 +42,7 @@ class SerieController extends Controller
 
         $serie = Serie::create($request->all());
         return redirect()->route('list_serie')
-        ->with('success', 'created');
+            ->with('success', 'created');
     }
 
     /**
@@ -86,11 +81,10 @@ class SerieController extends Controller
             request()->validate(Serie::$rules);
             $serie = Serie::where('id', '=', $id)->first();
             $serie->update($request->all());
-
         } catch (\Throwable $th) {
             //throw $th;
         }
-        
+
 
 
         return redirect()->route('list_serie')
@@ -109,6 +103,6 @@ class SerieController extends Controller
         $serie = Serie::find($id)->delete();
 
         return redirect()->route('list_serie')
-        ->with('success', 'deleted');
+            ->with('success', 'deleted');
     }
 }

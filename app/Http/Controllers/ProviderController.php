@@ -22,7 +22,7 @@ class ProviderController extends Controller
             return response()->json($th);
         }
 
-        return response()->view('admin.characteristics.provider_management.index_provider', compact('providers'));
+        return response()->view('admin.basic_management.internal_configuration.provider.index_provider', compact('providers'));
     }
 
     /**

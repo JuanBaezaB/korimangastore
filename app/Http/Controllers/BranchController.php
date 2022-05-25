@@ -21,7 +21,7 @@ class BranchController extends Controller
             return response()->json($th);
         }
         
-        return response()->view('admin.characteristics.branch.list_branch', compact('branches'));
+        return response()->view('admin.basic_management.internal_configuration.branch.list_branch', compact('branches'));
     }
 
     /**
