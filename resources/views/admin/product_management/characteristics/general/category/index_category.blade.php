@@ -36,7 +36,8 @@
 
             <div class="block-content block-content-full">
                 <!-- DataTables init on table by adding .js-dataTable-full class, functionality is initialized in js/pages/be_tables_datatables.min.js which was auto compiled from _js/pages/be_tables_datatables.js -->
-                <table id="category-table" class="table table-bordered table-striped table-vcenter table-hover w-100 display nowrap">
+                <table id="category-table"
+                    class="table table-bordered table-striped table-vcenter table-hover w-100 display nowrap">
                     <thead>
                         <tr>
                             <th class="text-center" style="width: 80px;">#</th>
@@ -49,13 +50,14 @@
                             <tr>
                                 <td class="text-center">{{ $category->id }}</td>
                                 <td class="fw-semibold">{{ $category->name }}</td>
-                                
+
                                 <td class="">
                                     <form class=" delete" action="{{ route('delete_category', $category->id) }}"
                                         method="POST">
                                         <div class=" btn-group">
                                             <button type="button" class="btn btn-sm btn btn-outline-primary"
-                                                data-bs-toggle="modal" data-bs-target="#update_category{{ $category->id }}"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#update_category{{ $category->id }}"
                                                 data-bs-whatever="@mdo" title="Actualizar">
                                                 <i class="fa fa-pencil-alt"></i>
                                             </button>
@@ -83,19 +85,21 @@
                                                 </div>
                                                 <div class="modal-body">
                                                     <form action="{{ route('update_category', $category->id) }}"
-                                                        enctype="multipart/form-data" method="POST">
+                                                        enctype="multipart/form-data" method="POST" class="validation-update">
                                                         @csrf
                                                         {{ method_field('PATCH') }}
 
                                                         <div class="mb-3">
                                                             <label class="col-form-label">Nombre:</label>
-                                                            <input type="text" class="form-control" name="name" value="{{$category->name}}" required>
+                                                            <input type="text" class="form-control" name="name"
+                                                                value="{{ $category->name }}" required>
                                                         </div>
-                                                        
+
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary"
                                                                 data-bs-dismiss="modal">Cancelar</button>
-                                                            <button type="submit" class="btn btn-primary">Actualizar</button>
+                                                            <button type="submit"
+                                                                class="btn btn-primary">Actualizar</button>
                                                         </div>
 
                                                     </form>
@@ -128,7 +132,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('add_category') }}" enctype="multipart/form-data" method="POST">
+                    <form action="{{ route('add_category') }}"  class="validation-add" enctype="multipart/form-data" method="POST">
                         @csrf
                         <div class="mb-3">
                             <label class="col-form-label">Nombre:</label>
@@ -271,4 +275,68 @@
         </script>
     @endif
     <!-- End js sweetalert2 -->
+
+
+    <!-- validaciones -->
+    <script src="{{ asset('js/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/jquery-validation/additional-methods.js') }}"></script>
+    <script>
+        jQuery('.validation-add').validate({
+            ignore: [],
+            rules: {
+                'name': {
+                    required: true,
+                    maxlength: 200
+                }
+
+            },
+            messages: {
+                'name': {
+                    required: 'Por favor, ingrese un nombre.',
+                    maxlength: 'Por favor, ingrese no más de 200 caracteres.'
+                }
+            },
+            errorClass: 'is-invalid',
+            validClass: 'is-valid',
+            errorElement: "span",
+            errorPlacement: function(error, element) {
+                // Add the `csc-helper-text` class to the error element
+                error.addClass("is-invalid invalid-feedback animated fadeIn");
+                if (element.prop("type") === "checkbox") {
+                    error.insertAfter(element.parent("label"));
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        });
+    </script>
+    <script>
+        jQuery('.validation-update').validate({
+            ignore: [],
+            rules: {
+                'name': {
+                    required: true,
+                    maxlength: 200
+                }
+            },
+            messages: {
+                'name': {
+                    required: 'Por favor, ingrese un nombre para la sucursal.',
+                    maxlength: 'Por favor, ingrese no más de 200 caracteres.'
+                }
+            },
+            errorClass: 'is-invalid',
+            validClass: 'is-valid',
+            errorElement: "span",
+            errorPlacement: function(error, element) {
+                // Add the `csc-helper-text` class to the error element
+                error.addClass("is-invalid invalid-feedback animated fadeIn");
+                if (element.prop("type") === "checkbox") {
+                    error.insertAfter(element.parent("label"));
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        });
+    </script>
 @endsection

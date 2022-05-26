@@ -444,7 +444,7 @@
                                             </a>
                                         </li>
                                         <li class="nav-main-item">
-                                            <a class="nav-main-link{{ request()->is('gestion-de-productos/carateristicas/manga/genre/persona-creativa') ? ' active' : '' }}"
+                                            <a class="nav-main-link{{ request()->is('gestion-de-productos/carateristicas/manga/persona-creativa') ? ' active' : '' }}"
                                                 href="{{ route('list_creative_person') }}">
                                                 <span class="nav-main-link-name">Persona Creativa</span>
                                             </a>

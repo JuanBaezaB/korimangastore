@@ -20,7 +20,7 @@ $export_columns = [0, 1, 2, 3];
         <input type="text" class="form-control" name="name" placeholder="Kori-concepción">
     </div>
     <div class="mb-3">
-        <label class="col-form-label">Dirección:</label>
+        <label class="col-form-label">Dirección (opcional):</label>
         <input type="text" class="form-control" id="autocomplete_search" name="address">
     </div>
     <div class="mb-3">
@@ -208,7 +208,7 @@ $export_columns = [0, 1, 2, 3];
                     maxlength: 200
                 },
                 'address': {
-                    required: true,
+                    required: false,
                 },
 
             },
