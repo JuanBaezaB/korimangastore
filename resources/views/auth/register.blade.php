@@ -21,7 +21,7 @@
                         <!-- END Header -->
 
                         <!-- Sign Up Form -->
-                        <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('register') }}">
                             @csrf
                             <!-- Name -->
                             <div class="mb-4">
@@ -83,22 +83,6 @@
                                     </span>
                                 </div>
                             </div>
-                            <!-- Foto de Perfil -->
-                            <div class="mb-4">
-                                <span>Selecciona una foto de perfil (Opcional):</span>
-                                <div class="input-group input-group-lg">
-                                    <input name="file" class="form-control" type="file" accept="image/*">
-                                    @error('file')
-                                        <br>
-                                        <small class="text-danger">{{$mesagge}}</small>
-
-                                    @enderror
-                                    <span class="input-group-text">
-                                        <i class="fa fa-image"></i>
-                                    </span>
-                                </div>
-                            </div>
-
                             <div class="text-center mb-4">
                                 <button type="submit" class="btn btn-hero btn-primary">
                                     <i class="fa fa-fw fa-plus opacity-50 me-1"></i> Crear Cuenta
