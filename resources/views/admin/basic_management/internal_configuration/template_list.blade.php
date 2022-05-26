@@ -27,7 +27,7 @@
             <div class="block-header block-header-default">
                 <h3 class="block-title">{{ $nombre_crud }}</h3>
                 <div class="block-options">
-                    <button class="btn btn-sm btn-alt-secondary btn-primary" onclick="mymap()" data-bs-toggle="modal"
+                    <button class="btn btn-sm btn-alt-secondary btn-primary" data-bs-toggle="modal"
                         data-bs-target="#add_item" data-bs-whatever="@mdo">
                         <i class="fa fa-fw fa fa-plus"></i> Ingresar {{ $nombre_crud }}
                     </button>

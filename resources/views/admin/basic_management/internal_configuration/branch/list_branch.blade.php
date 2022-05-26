@@ -29,7 +29,7 @@ $export_columns = [0, 1, 2, 3];
     <div class="mb-3">
         <input class="form-control" hidden name="latitude" id="latitude">
     </div>
-    <div id="map" style="height: 500px;width: 100%;"></div>
+    <div id="map" style="height: 450px;width: 100%;"></div>
 
     <style>
         .pac-container {
