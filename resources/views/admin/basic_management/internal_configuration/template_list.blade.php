@@ -27,7 +27,7 @@
             <div class="block-header block-header-default">
                 <h3 class="block-title">{{ $nombre_crud }}</h3>
                 <div class="block-options">
-                    <button class="btn btn-sm btn-alt-secondary btn-primary" data-bs-toggle="modal"
+                    <button class="btn btn-sm btn-alt-secondary btn-primary" onclick="mymap()" data-bs-toggle="modal"
                         data-bs-target="#add_item" data-bs-whatever="@mdo">
                         <i class="fa fa-fw fa fa-plus"></i> Ingresar {{ $nombre_crud }}
                     </button>
@@ -80,7 +80,7 @@
                                                         aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form action="{{ route($update_action_route, $an_item->id) }}"
+                                                    <form class="validation-update" action="{{ route($update_action_route, $an_item->id) }}"
                                                         enctype="multipart/form-data" method="POST">
                                                         @csrf
                                                         {{ method_field('PATCH') }}
@@ -121,7 +121,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route($add_action_route) }}" enctype="multipart/form-data" method="POST">
+                    <form action="{{ route($add_action_route) }}" class="validation-add" enctype="multipart/form-data" method="POST">
                         @csrf
                         @yield('modal_create_contents')
                         <div class="modal-footer">
