@@ -12,6 +12,8 @@ use App\Models\Editorial;
 use App\Models\Genre;
 use App\Models\Format;
 use App\Models\Manga;
+use App\Models\FigureType;
+use App\Models\Figure;
 
 class ProductController extends Controller
 {
@@ -46,10 +48,12 @@ class ProductController extends Controller
             $formats = Format::all();
             $creatives = CreativePerson::all();
             $categories = Category::all();
+            $figure_types = FigureType::all();
 
             $the_compact = compact(
                 'providers', 'series', 'publishers', 
                 'genres', 'formats', 'creatives', 
+                'figure_types',
                 'categories'
             );
         } catch (\Throwable $th) {
@@ -89,6 +93,12 @@ class ProductController extends Controller
         return $data->only([
             'editorial_id',
             'format_id'
+        ]);
+    }
+
+    protected static function collectFigureData($data) {
+        return $data->only([
+            'figure_type_id'
         ]);
     }
 
@@ -163,18 +173,23 @@ class ProductController extends Controller
                 $manga = Manga::create($datosManga->toArray());
 
                 $genres = isset($datos['genres']) ? $datos['genres'] : [];
-                $manga->genres()->sync();
+                $manga->genres()->sync($genres);
 
                 $artists = self::accumulateArtists($datos['arts'], $datos['stories']);
                 $manga->creativePeople()->sync($artists);
 
                 $manga->product()->save($product);
+            } else if ($category->name == 'Figura') {
+                $figureData = self::collectFigureData($datos);
+                $figure = Figure::create($figureData->toArray());
+                $figure->type()->associate($figureData->get('figure_type_id'));
+                $figure->product()->save($product);
+                $figure->save();
+
             }
 
         } catch(\Throwable $th) {
-            return response()->json([
-                'text' => $th->getMessage()
-            ]);
+            dd($th);
         }
         return redirect()->route('lista_producto')
             ->with('success', 'created');
@@ -275,6 +290,7 @@ class ProductController extends Controller
                 if ($hasCategoryChanged || empty($manga)) {
                     $manga = Manga::create($dataManga->toArray());
                     $manga->product()->save($product);
+                    
                 } else {
                     $manga->update($dataManga->toArray());
                     $manga->save();
@@ -284,6 +300,23 @@ class ProductController extends Controller
                 $manga->creativePeople()->sync($artists);
                 $genres = $data->get('genres', []);
                 $manga->genres()->sync($genres);
+
+            } else if ($category->name == 'Figura') {
+
+                $figure = $oldProductable;
+                $figureData = self::collectFigureData($datos);
+
+                if ($hasCategoryChanged || empty($manga)) {
+                    $figure = Figure::create($figureData->toArray());
+                    $figure->product()->save($product);
+
+                } else {
+                    $figure->update($figureData->toArray());
+                    $figure->save();
+                }
+
+                $figure->type()->associate($figureData->get('figure_type_id'));
+                $figure->save();
 
             }
 

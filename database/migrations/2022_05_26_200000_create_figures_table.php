@@ -15,8 +15,7 @@ class CreateFiguresTable extends Migration
     {
         Schema::create('figures', function (Blueprint $table) {
             $table->id();
-            $table->usignedBigInteger('figure_type_id');
-            $table->foreign('figure_type_id')->references('figure_type_id')->on('figure_types');
+            $table->foreignIdFor(\App\Models\FigureType::class);
             $table->timestamps();
         });
     }

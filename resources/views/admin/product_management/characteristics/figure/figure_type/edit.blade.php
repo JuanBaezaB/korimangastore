@@ -6,5 +6,5 @@
     <div class="mb-3">
         <label class="col-form-label">Descripción:</label>
         <input type="text" class="form-control"
-            name="description"  value="{{$an_item->description}}" required>
+            name="description"  value="{{$an_item->description}}">
     </div>

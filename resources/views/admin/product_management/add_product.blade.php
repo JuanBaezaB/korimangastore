@@ -157,7 +157,23 @@
 
                     <!-- END FORM MANGA -->
 
+                    <!-- FORM FIGURE -->
 
+                    <div class="mb-3 figure-form">
+                        <label class="col-form-label">Tipo:</label>
+
+                        <select class="js-basic-single js-select2 form-select figure-required" name="figure_type_id" style="width: 100%;" data-placeholder="Elige uno..">
+                            <option></option>
+                            @foreach ($figure_types as $row)
+                                <option value="{{ $row->id }}" 
+                                {{ (isset($product->productable->type->id) && $product->productable->type->id === $row->id) ? 'selected=selected' : '' }}>
+                                {{ $row->name }}</option>
+                            @endforeach
+                        </select>
+
+                    </div>
+
+                    <!-- END FORM FIGURE -->
 
                     <div class="mb-3">
                         <!-- SimpleMDE Container -->
@@ -220,8 +236,13 @@
 <script>
     
     jQuery(document).ready(function($) {
+        let es_to_en = {
+            figura: 'figure'
+        };
+        let es2en = (x) => (x in es_to_en) ? es_to_en[x] : x;
         function hideFormsBut(value) {
-            let formsAround = ['manga', 'generic'];
+            value = es2en(value);
+            let formsAround = ['manga', 'generic', 'figure'];
             if (formsAround.indexOf(value) == -1) {
                 value = 'generic';
             }
@@ -231,7 +252,8 @@
         }
 
         function toggleRequired(value) {
-            let formsAround = ['manga'];
+            value = es2en(value);
+            let formsAround = ['manga', 'figure'];
             let toRemoveRequired = formsAround.filter(v => v !== value).map(v => `.${v}-required`).join(', ');
             if (toRemoveRequired !== '') {
                 $(toRemoveRequired).prop('required', false);

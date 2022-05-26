@@ -28,7 +28,7 @@ $export_columns = [0];
 </div>
 <div class="mb-3">
     <label class="col-form-label">Descripción:</label>
-    <input type="text" class="form-control" name="description" required>
+    <input type="text" class="form-control" name="description">
 </div>
 @endsection
 

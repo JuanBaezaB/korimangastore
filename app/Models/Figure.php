@@ -18,8 +18,8 @@ class Figure extends Model
         return $this->morphOne(Product::class, 'productable');
     }
 
-    public function figure_type() {
-        return $this->belongsTo(FigureType::class);
+    public function type() {
+        return $this->belongsTo(FigureType::class, 'figure_type_id');
     }
 
 }
