@@ -1,4 +1,4 @@
-@extends('admin.basic_management.internal_configuration.template_list')
+@extends('admin.template_list')
 
 @php
 $nombre_crud = 'Sucursal';
