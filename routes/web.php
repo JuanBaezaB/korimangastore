@@ -11,6 +11,7 @@ use App\Http\Controllers\SerieController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\CreativePersonController;
 use App\Http\Controllers\MangaController;
+use App\Http\Controllers\FigureTypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -89,6 +90,13 @@ Route::get('/gestion-de-productos/carateristicas/manga/persona-creativa', [Creat
 Route::post('/gestion-de-productos/carateristicas/manga/persona-creativa', [CreativePersonController::class, 'store'])->name('add_creative_person')->middleware('auth');
 Route::delete('/gestion-de-productos/carateristicas/manga/eliminar-persona-creativa/{id}', [CreativePersonController::class, 'destroy'])->name('delete_creative_person')->middleware('auth');
 Route::patch('/gestion-de-productos/carateristicas/manga/actualizar-creativa/{id}', [CreativePersonController::class, 'update'])->name('update_creative_person')->middleware('auth');
+
+/* Figure-FigureType */
+Route::get('/gestion-de-productos/carateristicas/figura/tipo', [FigureTypeController::class, 'index'])->name('list_figure_type')->middleware('auth');
+Route::post('/gestion-de-productos/carateristicas/figura/tipo', [FigureTypeController::class, 'store'])->name('add_figure_type')->middleware('auth');
+Route::delete('/gestion-de-productos/carateristicas/figura/tipo/{id}/eliminar', [FigureTypeController::class, 'destroy'])->name('delete_figure_type')->middleware('auth');
+Route::patch('/gestion-de-productos/carateristicas/figura/tipo/{id}/editar', [FigureTypeController::class, 'update'])->name('update_figure_type')->middleware('auth');
+
 
 /* General-Series */
 Route::get('/gestion-de-productos/carateristicas/general/serie', [SerieController::class, 'index'])->name('list_serie')->middleware('auth');

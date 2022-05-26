@@ -454,6 +454,23 @@
                                     </ul>
                                 </li>
 
+                                <li class="nav-main-item {{ request()->is('gestion-de-productos/carateristicas/figura/*') ? ' open' : '' }}">
+                                    <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu"
+                                        aria-haspopup="true" aria-expanded="true" href="#">
+                                        <span class="nav-main-link-name">Figura</span>
+                                    </a>
+                                    <ul class="nav-main-submenu">
+                                        <li class="nav-main-item">
+                                            <a class="nav-main-link{{ request()->is('gestion-de-productos/carateristicas/figura/tipo') ? ' active' : '' }}"
+                                                href="{{ route('list_figure_type') }}">
+                                                <span class="nav-main-link-name">Tipo</span><!-- Gestion de Editorial -->
+                                            </a>
+                                        </li>
+                                       
+
+                                    </ul>
+                                </li>
+
 
                                 
                             </ul>
