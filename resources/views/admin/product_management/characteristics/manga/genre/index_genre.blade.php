@@ -304,44 +304,20 @@
     <script src="{{ asset('js/plugins/jquery-validation/additional-methods.js') }}"></script>
 
     <!-- modal -->
+    <script src="{{ asset('js/pages/update_modal.js') }}"></script>
     <script>
         jQuery(document).ready(function ($) {
-            let $updateModal = $('#update_genre');
-            function updateEditModal(data) {
-                $updateModal.prop('x-data-id', data.id);
-                $updateModal.find('[name=name]').val(data.name);
-                $updateModal.find('[name=type]').val(data.type).trigger('change');
-            }
-
-            $('.x-edit-button').on('click', function () {
-                let $this = $(this);
-                let id = $this.attr('x-data-id');
-                let url = {{ Js::from(route('get_one_genre')) }};
-                $.ajax(url, {
-                    dataType: 'json',
-                    contentType: 'application/json',
-                    method: 'POST',
-                    data: JSON.stringify({
-                        'id': id,
-                        '_token': '{{ csrf_token() }}'
-                    })
-                })
-                .done(updateEditModal)
-
-                // TODO make better error handling
-                .fail(x => console.log(x));
-            });
-
-            $('#form-update').submit(function (e, from) {
-                if (from == null) {
-                    let $this = $(this);
-                    let id = $updateModal.prop('x-data-id');
-                    let actionUrl = $this.attr('action').replace(':id', id);
-                    $this.attr('action', actionUrl);
-                    e.preventDefault();
-                    $this.trigger('submit', ['submit function']);
-                } else {
-                }
+            let getOneUrl = {{ Js::from(route('get_one_genre')) }};
+            let csrf = '{{ csrf_token() }}';
+            $('#update_genre').updateModal({
+                form: '#form-update',
+                editButtons: '.x-edit-button',
+                getOneUrl: getOneUrl,
+                csrf: csrf,
+                fields: [
+                    ['name'],
+                    ['select3', 'type']
+                ]
             });
         });
     </script>
