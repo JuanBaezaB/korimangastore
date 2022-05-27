@@ -60,9 +60,11 @@
                                     <form class=" delete" action="{{ route('delete_genre', $genre->id) }}"
                                         method="POST">
                                         <div class=" btn-group">
-                                            <button type="button" class="btn btn-sm btn btn-outline-primary"
-                                                data-bs-toggle="modal" data-bs-target="#update_genre{{ $genre->id }}"
-                                                data-bs-whatever="@mdo" title="Actualizar">
+                                            <button type="button" 
+                                                class="btn btn-sm btn btn-outline-primary x-edit-button" 
+                                                x-data-id="{{ $genre->id }}" title="Actualizar"
+                                                data-bs-toggle="modal" data-bs-target="#update_genre"
+                                                data-bs-whatever="@mdo">
                                                 <i class="fa fa-pencil-alt"></i>
                                             </button>
 
@@ -75,61 +77,6 @@
 
                                         </div>
                                     </form>
-
-                                    <!-- Modal Actualizar-->
-                                    <div class="modal fade modal-update" id="update_genre{{ $genre->id }}" tabindex="-1"
-                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title " id="exampleModalLabel">Actualizar Genero</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form action="{{ route('update_genre', $genre->id) }}"
-                                                        enctype="multipart/form-data" method="POST">
-                                                        @csrf
-                                                        {{ method_field('PATCH') }}
-
-                                                        <div class="mb-3">
-                                                            <label class="col-form-label">Nombre:</label>
-                                                            <input type="text" class="form-control" name="name"
-                                                                value="{{ $genre->name }}" required>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label class="col-form-label">Tipo:</label>
-                                                            <select class="select-update form-select" name="type"
-                                                                style="width: 100%;" data-placeholder="Elige uno...">
-                                                                <option></option>
-                                                                @if ($genre->type == 'Demografía')
-                                                                    <option selected value="Demografía">Demografía</option>
-                                                                @else
-                                                                    <option value="Demografía">Demografía</option>
-                                                                @endif
-                                                                @if ($genre->type == 'Temático')
-                                                                    <option selected value="Temático">Tematico</option>
-                                                                @else
-                                                                    <option value="Temático">Tematico</option>
-                                                                @endif
-
-                                                            </select>
-                                                        </div>
-
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">Cancelar</button>
-                                                            <button type="submit"
-                                                                class="btn btn-primary">Actualizar</button>
-                                                        </div>
-
-                                                    </form>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Modal -->
                                 </td>
                             </tr>
                         @endforeach
@@ -174,6 +121,53 @@
                         </div>
                     </form>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Editar -->
+    <div class="modal fade modal-update" id="update_genre" tabindex="-1"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title " id="exampleModalLabel">Actualizar Genero</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="form-update"
+                        action="{{ route('update_genre', ':id') }}"
+                        enctype="multipart/form-data" method="POST">
+                        @csrf
+                        {{ method_field('PATCH') }}
+
+                        <div class="mb-3">
+                            <label class="col-form-label">Nombre:</label>
+                            <input type="text" class="form-control" name="name"
+                                value="" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="col-form-label">Tipo:</label>
+                            <select class="select-update form-select" name="type"
+                                style="width: 100%;" data-placeholder="Elige uno...">
+                                <option></option>
+                                <option value="Demografía">Demografía</option>
+                                <option value="Temático">Tematico</option>
+                            </select>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary"
+                                data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit"
+                                id="btn-update"
+                                class="btn btn-primary">Actualizar</button>
+                        </div>
+
+                    </form>
+                </div>
+
             </div>
         </div>
     </div>
@@ -308,6 +302,49 @@
     <script src="{{ asset('js/plugins/select2/js/select2.full.js') }}"></script>
     <script src="{{ asset('js/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('js/plugins/jquery-validation/additional-methods.js') }}"></script>
+
+    <!-- modal -->
+    <script>
+        jQuery(document).ready(function ($) {
+            let $updateModal = $('#update_genre');
+            function updateEditModal(data) {
+                $updateModal.prop('x-data-id', data.id);
+                $updateModal.find('[name=name]').val(data.name);
+                $updateModal.find('[name=type]').val(data.type).trigger('change');
+            }
+
+            $('.x-edit-button').on('click', function () {
+                let $this = $(this);
+                let id = $this.attr('x-data-id');
+                let url = {{ Js::from(route('get_one_genre')) }};
+                $.ajax(url, {
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    method: 'POST',
+                    data: JSON.stringify({
+                        'id': id,
+                        '_token': '{{ csrf_token() }}'
+                    })
+                })
+                .done(updateEditModal)
+
+                // TODO make better error handling
+                .fail(x => console.log(x));
+            });
+
+            $('#form-update').submit(function (e, from) {
+                if (from == null) {
+                    let $this = $(this);
+                    let id = $updateModal.prop('x-data-id');
+                    let actionUrl = $this.attr('action').replace(':id', id);
+                    $this.attr('action', actionUrl);
+                    e.preventDefault();
+                    $this.trigger('submit', ['submit function']);
+                } else {
+                }
+            });
+        });
+    </script>
 
     <!-- select2-->
     <script>

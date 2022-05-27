@@ -81,6 +81,7 @@ Route::patch('/gestion-de-productos/carateristicas/general/actualizar-editorial/
 /* Manga-Genero */
 Route::get('/gestion-de-productos/carateristicas/manga/genre', [GenreController::class, 'index'])->name('list_genre')->middleware('auth');
 Route::post('/gestion-de-productos/carateristicas/manga/genre', [GenreController::class, 'store'])->name('add_genre')->middleware('auth');
+Route::post('/gestion-de-productos/carateristicas/manga/genre/uno', [GenreController::class, 'get_one'])->name('get_one_genre')->middleware('auth');
 Route::delete('/gestion-de-productos/carateristicas/manga/eliminar-genre/{id}', [GenreController::class, 'destroy'])->name('delete_genre')->middleware('auth');
 Route::patch('/gestion-de-productos/carateristicas/manga/actualizar-genre/{id}', [GenreController::class, 'update'])->name('update_genre')->middleware('auth');
 /* Manga-Creative People */
