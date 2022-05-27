@@ -9,6 +9,7 @@ class UpdateModal {
         this.getOneUrl = getOneUrl;
         this.csrf = csrf;
         this.$editButtons = $(editButtons);
+        this.actionUrl = this.$form.attr('action');
         
         
     }
@@ -68,7 +69,7 @@ class UpdateModal {
             if (from == null) {
                 let $form = $(this);
                 let id = $updateModal.prop('x-data-id');
-                let actionUrl = $form.attr('action').replace(':id', id);
+                let actionUrl = this.actionUrl.replace(':id', id);
                 $form.attr('action', actionUrl);
                 e.preventDefault();
                 $form.trigger('submit', ['update_modal.js']);

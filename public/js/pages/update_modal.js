@@ -34,6 +34,7 @@ var UpdateModal = /*#__PURE__*/function () {
     this.getOneUrl = getOneUrl;
     this.csrf = csrf;
     this.$editButtons = $(editButtons);
+    this.actionUrl = this.$form.attr('action');
   }
 
   _createClass(UpdateModal, [{
@@ -123,7 +124,7 @@ var UpdateModal = /*#__PURE__*/function () {
         if (from == null) {
           var $form = $(this);
           var id = $updateModal.prop('x-data-id');
-          var actionUrl = $form.attr('action').replace(':id', id);
+          var actionUrl = this.actionUrl.replace(':id', id);
           $form.attr('action', actionUrl);
           e.preventDefault();
           $form.trigger('submit', ['update_modal.js']);
