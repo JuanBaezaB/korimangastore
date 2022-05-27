@@ -127,6 +127,7 @@ $export_columns = [0, 1, 2, 3];
         }
     </script>
     <script>
+        /*
         google.maps.event.addDomListener(window, 'load', initialize_update);
     
         var lati = Number(document.querySelector("#latitude_update").value);
@@ -192,7 +193,7 @@ $export_columns = [0, 1, 2, 3];
                 information.open(map_update, marker);
             });
         }
-    
+    */
     </script>
 
 
