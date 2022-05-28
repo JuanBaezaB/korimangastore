@@ -11,7 +11,6 @@ class Format extends Model
 
     static $rules = [
         'name' => 'required',
-        'description' => 'required'
     ];
 
     protected $table = 'formats';

@@ -84,10 +84,10 @@ Route::post('/gestion-de-productos/carateristicas/manga/genre', [GenreController
 Route::delete('/gestion-de-productos/carateristicas/manga/eliminar-genre/{id}', [GenreController::class, 'destroy'])->name('delete_genre')->middleware('auth');
 Route::patch('/gestion-de-productos/carateristicas/manga/actualizar-genre/{id}', [GenreController::class, 'update'])->name('update_genre')->middleware('auth');
 /* Manga-Creative People */
-Route::get('/gestion-de-productos/carateristicas/manga/genre/persona-creativa', [CreativePersonController::class, 'index'])->name('list_creative_person')->middleware('auth');
-Route::post('/gestion-de-productos/carateristicas/manga/genre/persona-creativa', [CreativePersonController::class, 'store'])->name('add_creative_person')->middleware('auth');
-Route::delete('/gestion-de-productos/carateristicas/manga/genre/eliminar-persona-creativa/{id}', [CreativePersonController::class, 'destroy'])->name('delete_creative_person')->middleware('auth');
-Route::patch('/gestion-de-productos/carateristicas/manga/genre/actualizar-creativa/{id}', [CreativePersonController::class, 'update'])->name('update_creative_person')->middleware('auth');
+Route::get('/gestion-de-productos/carateristicas/manga/persona-creativa', [CreativePersonController::class, 'index'])->name('list_creative_person')->middleware('auth');
+Route::post('/gestion-de-productos/carateristicas/manga/persona-creativa', [CreativePersonController::class, 'store'])->name('add_creative_person')->middleware('auth');
+Route::delete('/gestion-de-productos/carateristicas/manga/eliminar-persona-creativa/{id}', [CreativePersonController::class, 'destroy'])->name('delete_creative_person')->middleware('auth');
+Route::patch('/gestion-de-productos/carateristicas/manga/actualizar-creativa/{id}', [CreativePersonController::class, 'update'])->name('update_creative_person')->middleware('auth');
 
 /* General-Series */
 Route::get('/gestion-de-productos/carateristicas/general/serie', [SerieController::class, 'index'])->name('list_serie')->middleware('auth');

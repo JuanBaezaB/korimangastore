@@ -13,7 +13,10 @@
             <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
                 <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3">Listado {{ strtolower($nombre_crud) }}</h1>
                 <nav class="flex-shrink-0 my-2 my-sm-0 ms-sm-3" aria-label="breadcrumb">
-
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">Productos</li>
+                        <li class="breadcrumb-item active" aria-current="page">Gestion de Proveedores</li>
+                    </ol>
                 </nav>
             </div>
         </div>
@@ -80,7 +83,7 @@
                                                         aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form action="{{ route($update_action_route, $an_item->id) }}"
+                                                    <form class="validation-update" action="{{ route($update_action_route, $an_item->id) }}"
                                                         enctype="multipart/form-data" method="POST">
                                                         @csrf
                                                         {{ method_field('PATCH') }}
@@ -121,7 +124,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route($add_action_route) }}" enctype="multipart/form-data" method="POST">
+                    <form action="{{ route($add_action_route) }}" class="validation-add" enctype="multipart/form-data" method="POST">
                         @csrf
                         @yield('modal_create_contents')
                         <div class="modal-footer">

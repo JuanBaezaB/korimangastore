@@ -372,14 +372,14 @@
                                 <li class="nav-main-item">
                                     <a class="nav-main-link{{ request()->is('product_management/list_product') ? ' active' : '' }}"
                                         href="{{ route('lista_producto') }}">
-                                        <span class="nav-main-link-name">Listado productos</span>
+                                        <span class="nav-main-link-name">Listado</span>
                                     </a>
                                 </li>
 
                                 <li class="nav-main-item">
                                     <a class="nav-main-link{{ request()->is('product_management/add_product') ? ' active' : '' }}"
                                         href="{{ route('create_product') }}">
-                                        <span class="nav-main-link-name">Añadir producto</span>
+                                        <span class="nav-main-link-name">Añadir nuevo</span>
                                     </a>
                                 </li>
                             </ul>
@@ -444,7 +444,7 @@
                                             </a>
                                         </li>
                                         <li class="nav-main-item">
-                                            <a class="nav-main-link{{ request()->is('gestion-de-productos/carateristicas/manga/genre/persona-creativa') ? ' active' : '' }}"
+                                            <a class="nav-main-link{{ request()->is('gestion-de-productos/carateristicas/manga/persona-creativa') ? ' active' : '' }}"
                                                 href="{{ route('list_creative_person') }}">
                                                 <span class="nav-main-link-name">Persona Creativa</span>
                                             </a>
@@ -489,7 +489,7 @@
 
 
 
-                        <!-- Diseños
+                        <!-- Diseños -->
                         <li class="nav-main-heading">Design</li>
                         <li class="nav-main-item  {{ request()->is('forms/*') ? ' open' : '' }}">
                             <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
@@ -547,7 +547,7 @@
                                 </li>
                             </ul>
                         </li>
-                         end Diseños -->
+                         <!-- end Diseños -->
 
                     </ul>
                 </div>
