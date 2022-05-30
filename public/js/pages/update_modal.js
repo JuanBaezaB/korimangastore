@@ -3,25 +3,13 @@ var __webpack_exports__ = {};
 /*!********************************************!*\
   !*** ./resources/js/pages/update_modal.js ***!
   \********************************************/
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-function _readOnlyError(name) { throw new TypeError("\"" + name + "\" is read-only"); }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var UpdateModal = /*#__PURE__*/function () {
   function UpdateModal($, updateModal, form, editButtons, getOneUrl, csrf) {
@@ -38,79 +26,64 @@ var UpdateModal = /*#__PURE__*/function () {
   }
 
   _createClass(UpdateModal, [{
-    key: "append",
-    value: function append(type, inputName, inputDataKey) {
-      if (!inputDataKey) {
-        inputDataKey = inputName;
+    key: "_process_opts",
+    value: function _process_opts(opts) {
+      if (!opts.type) {
+        opts.type = 'plain';
       }
 
-      this.toUpdate.append({
-        type: type,
-        inputName: inputName,
-        inputDataKey: inputDataKey
-      });
+      if (!opts.inputDataKey) {
+        opts.inputDataKey = opts.inputName;
+      }
+
+      if (UpdateModal.VALID_OPT_TYPES.indexOf(opts.type) == -1) {
+        throw new Error("invalid opts type ".concat(opts.type));
+      }
+
+      if (!opts.inputName) {
+        throw new Error('no input name given');
+      }
+
+      return opts;
+    }
+  }, {
+    key: "append",
+    value: function append(opts) {
+      opts = this._process_opts(opts);
+      this.toUpdate.append(opts);
       return this;
     }
   }, {
     key: "appendMany",
     value: function appendMany(lst) {
-      this.toUpdate = this.toUpdate.concat(lst.map(function (row) {
-        if (row.length == 1) {
-          return {
-            type: 'plain',
-            inputName: row[0],
-            inputDataKey: row[0]
-          };
-        } else if (row.length == 2) {
-          var _row = _slicedToArray(row, 2),
-              type = _row[0],
-              inputName = _row[1];
-
-          if (!type) {
-            'plain', _readOnlyError("type");
-          }
-
-          return {
-            type: type,
-            inputName: inputName,
-            inputDataKey: inputName
-          };
-        } else if (row.length == 3) {
-          var _row2 = _slicedToArray(row, 3),
-              _type = _row2[0],
-              _inputName = _row2[1],
-              inputDataKey = _row2[2];
-
-          if (!_type) {
-            'plain', _readOnlyError("type");
-          }
-
-          return {
-            type: _type,
-            inputName: _inputName,
-            inputDataKey: inputDataKey
-          };
-        }
-
-        throw '[update_modal.js] expected for array at most an length 3 and at least length 1';
-      }));
+      this.toUpdate = this.toUpdate.concat(lst.map(this._process_opts));
       return this;
-    }
-  }, {
-    key: "select3",
-    value: function select3(inputName, inputDataKey) {
-      return this.append('select3', inputName, inputDataKey);
-    }
-  }, {
-    key: "plain",
-    value: function plain(inputName, inputDataKey) {
-      return this.append('plain', inputName, inputDataKey);
     }
   }, {
     key: "build",
     value: function build() {
+      var _this = this;
+
+      var $updateModal = _this.$updateModal;
+      this.toUpdate.forEach(function (opt) {
+        if (opt.type == 'select2') {
+          var select2Opts = opt.options || {};
+          select2Opts.dropdownParent = $updateModal;
+
+          _this.fromOptGetInput(opt).select2(select2Opts);
+        }
+      });
       this.$editButtons.on('click', this.makeOnClickCallback());
       this.$form.submit(this.makeSubmitCallback());
+    }
+  }, {
+    key: "fromOptGetInput",
+    value: function fromOptGetInput(opt) {
+      if (!opt.inputName) {
+        throw new Error("can't get Input, does not have inputName");
+      }
+
+      return this.$updateModal.find("[name=".concat(opt.inputName, "]"));
     }
   }, {
     key: "makeSubmitCallback",
@@ -170,7 +143,9 @@ var UpdateModal = /*#__PURE__*/function () {
           var inputName = x.inputName,
               inputDataKey = x.inputDataKey,
               type = x.type;
-          var $input = $updateModal.find("[name=".concat(inputName, "]"));
+
+          var $input = _this.fromOptGetInput(x);
+
           $input.val(data[inputDataKey]);
 
           if (type == 'select3') {
@@ -183,6 +158,8 @@ var UpdateModal = /*#__PURE__*/function () {
 
   return UpdateModal;
 }();
+
+_defineProperty(UpdateModal, "VALID_OPT_TYPES", ['plain', 'select2', 'select2-multiple']);
 
 jQuery.fn.extend({
   updateModal: function updateModal(args) {

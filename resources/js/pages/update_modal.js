@@ -14,51 +14,59 @@ class UpdateModal {
         
     }
 
-    append (type, inputName, inputDataKey) {
-        if (!inputDataKey) {
-            inputDataKey = inputName;
+    static VALID_OPT_TYPES = ['plain', 'select2', 'select2-multiple'];
+
+    _process_opts(opts) {
+        if (!opts.type) {
+            opts.type = 'plain';
         }
-        this.toUpdate.append({ type, inputName, inputDataKey });
+        if (!opts.inputDataKey) {
+            opts.inputDataKey = opts.inputName;
+        }
+
+        if (UpdateModal.VALID_OPT_TYPES.indexOf(opts.type) == -1) {
+            throw new Error(`invalid opts type ${opts.type}`);
+        }
+
+        if (!opts.inputName) {
+            throw new Error('no input name given');
+        }
+
+        return opts;
+    }
+
+    append (opts) {
+        opts = this._process_opts(opts);
+        this.toUpdate.append(opts);
         return this;
     }
 
     appendMany (lst) {
-        this.toUpdate = this.toUpdate.concat(
-            lst.map(row => {
-                if (row.length == 1) {
-                    return { type: 'plain', inputName: row[0], inputDataKey: row[0] };
-                } else if (row.length == 2) {
-                    const [type, inputName] = row;
-                    if (!type) {
-                        type = 'plain';
-                    }
-                    return { type: type, inputName: inputName, inputDataKey: inputName };
-                } else if (row.length == 3) {
-                    const [type, inputName, inputDataKey] = row;
-                    if (!type) {
-                        type = 'plain';
-                    }
-                    return { type, inputName, inputDataKey };
-
-                }
-                throw '[update_modal.js] expected for array at most an length 3 and at least length 1';
-
-            })
-        );
+        this.toUpdate = this.toUpdate.concat(lst.map(this._process_opts));
         return this;
     }
 
-    select3 (inputName, inputDataKey) {
-        return this.append('select3', inputName, inputDataKey);
-    }
-
-    plain (inputName, inputDataKey) {
-        return this.append('plain', inputName, inputDataKey);
-    }
-
     build () {
+        let _this = this;
+        let $updateModal = _this.$updateModal;
+        this.toUpdate.forEach(function (opt) {
+            if (opt.type == 'select2') {
+                let select2Opts = opt.options || {};
+                select2Opts.dropdownParent = $updateModal;
+                _this.fromOptGetInput(opt).select2(select2Opts);
+            }
+        });
+
         this.$editButtons.on('click', this.makeOnClickCallback());
         this.$form.submit(this.makeSubmitCallback());
+
+    }
+
+    fromOptGetInput(opt) {
+        if (!opt.inputName) {
+            throw new Error(`can't get Input, does not have inputName`);
+        }
+        return this.$updateModal.find(`[name=${opt.inputName}]`);
     }
 
     makeSubmitCallback() {
@@ -111,7 +119,7 @@ class UpdateModal {
             $updateModal.prop('x-data-id', data.id);
             _this.toUpdate.forEach(x => {
                 const {inputName, inputDataKey, type} = x;
-                let $input = $updateModal.find(`[name=${inputName}]`);
+                let $input = _this.fromOptGetInput(x);
                 $input.val(data[inputDataKey]);
                 if (type == 'select3') {
                     $input.trigger('change');

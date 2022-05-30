@@ -315,8 +315,8 @@
                 getOneUrl: getOneUrl,
                 csrf: csrf,
                 fields: [
-                    ['name'],
-                    ['select3', 'type']
+                    { inputName: 'name' },
+                    { type: 'select2', inputName: 'type' }
                 ]
             });
         });
@@ -326,19 +326,9 @@
     <script>
         jQuery(document).ready(function($) {
             $(document).ready(function() {
-                $('.modal-update').each(function() {
-                    let s = $(this).find('.select-update');
-                    s.select2({
-                        dropdownParent: $(this)
-                    });
-                });
-
                 $('.select-add').select2({
                     dropdownParent: $('#add_genre')
                 });
-
-
-
             });
         });
     </script>
