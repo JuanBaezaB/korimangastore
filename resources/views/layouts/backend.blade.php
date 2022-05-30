@@ -362,7 +362,7 @@
 
                         <!-- Gestion de productos -->
                         <li class="nav-main-heading">Gestión de productos</li>
-                        <li class="nav-main-item {{ request()->is('product_management*') ? ' open' : '' }}">
+                        <li class="nav-main-item {{ request()->is('gestion-de-productos/producto*') ? ' open' : '' }}">
                             <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
                                 aria-expanded="true" href="#">
                                 <i class="nav-main-link-icon fa fa-book"></i>
@@ -370,14 +370,14 @@
                             </a>
                             <ul class="nav-main-submenu">
                                 <li class="nav-main-item">
-                                    <a class="nav-main-link{{ request()->is('product_management/list_product') ? ' active' : '' }}"
+                                    <a class="nav-main-link{{ request()->is('gestion-de-productos/producto') ? ' active' : '' }}"
                                         href="{{ route('lista_producto') }}">
                                         <span class="nav-main-link-name">Listado</span>
                                     </a>
                                 </li>
 
                                 <li class="nav-main-item">
-                                    <a class="nav-main-link{{ request()->is('product_management/add_product') ? ' active' : '' }}"
+                                    <a class="nav-main-link{{ request()->is('gestion-de-productos/producto/crear') ? ' active' : '' }}"
                                         href="{{ route('create_product') }}">
                                         <span class="nav-main-link-name">Añadir nuevo</span>
                                     </a>
