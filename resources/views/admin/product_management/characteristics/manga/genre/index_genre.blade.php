@@ -107,7 +107,7 @@
                         <div class="mb-3">
                             <label class="col-form-label">Tipo:</label>
                             <!-- Necesitamos el tipo de acuerdo a datos suministrados por el Cliente Korimangastore -->
-                            <select class="select-add form-select" name="type" style="width: 100%;"
+                            <select class="select-add form-select form-control" name="type" style="width: 100%;"
                                 data-placeholder="Elige uno...">
                                 <option></option>
                                 <option value="Demografía">Demografía</option>
@@ -137,6 +137,7 @@
                 </div>
                 <div class="modal-body">
                     <form id="form-update"
+                    class="validation-update"
                         action="{{ route('update_genre', ':id') }}"
                         enctype="multipart/form-data" method="POST">
                         @csrf
@@ -149,7 +150,7 @@
                         </div>
                         <div class="mb-3">
                             <label class="col-form-label">Tipo:</label>
-                            <select class="select-update form-select" name="type"
+                            <select class="select-update form-select form-control" name="type"
                                 style="width: 100%;" data-placeholder="Elige uno...">
                                 <option></option>
                                 <option value="Demografía">Demografía</option>
@@ -411,6 +412,9 @@
                     error.insertAfter(element);
                 }
             }
+        });
+        jQuery('.select-update').on('change', e => {
+            jQuery(e.currentTarget).valid();
         });
     </script>
 @endsection
