@@ -66,7 +66,7 @@ var UpdateModal = /*#__PURE__*/function () {
 
       var $updateModal = _this.$updateModal;
       this.toUpdate.forEach(function (opt) {
-        if (opt.type == 'select2') {
+        if (opt.type === 'select2' || opt.type === 'select2-multiple') {
           var select2Opts = opt.options || {};
           select2Opts.dropdownParent = $updateModal;
 
@@ -148,7 +148,7 @@ var UpdateModal = /*#__PURE__*/function () {
 
           $input.val(data[inputDataKey]);
 
-          if (type == 'select3') {
+          if (type == 'select2' || type === 'select2-multiple') {
             $input.trigger('change');
           }
         });

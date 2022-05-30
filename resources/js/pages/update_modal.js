@@ -50,7 +50,7 @@ class UpdateModal {
         let _this = this;
         let $updateModal = _this.$updateModal;
         this.toUpdate.forEach(function (opt) {
-            if (opt.type == 'select2') {
+            if (opt.type === 'select2' || opt.type === 'select2-multiple') {
                 let select2Opts = opt.options || {};
                 select2Opts.dropdownParent = $updateModal;
                 _this.fromOptGetInput(opt).select2(select2Opts);
@@ -121,7 +121,7 @@ class UpdateModal {
                 const {inputName, inputDataKey, type} = x;
                 let $input = _this.fromOptGetInput(x);
                 $input.val(data[inputDataKey]);
-                if (type == 'select3') {
+                if (type == 'select2' || type === 'select2-multiple') {
                     $input.trigger('change');
                 }
             });
