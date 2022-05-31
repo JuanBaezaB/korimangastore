@@ -12,6 +12,7 @@ use App\Http\Controllers\GenreController;
 use App\Http\Controllers\CreativePersonController;
 use App\Http\Controllers\MangaController;
 use App\Http\Controllers\FigureTypeController;
+use App\Http\Controllers\StockController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +52,9 @@ Route::get('/gestion-de-productos/producto/{id}/editar', [ProductController::cla
 Route::patch('/gestion-de-productos/producto/{id}/editar', [ProductController::class, 'update'])->name('update_product')->middleware('auth');
 Route::delete('/gestion-de-productos/producto/{id}/eliminar', [ProductController::class, 'destroy'])->name('delete_product')->middleware('auth');
 
+/* Stock */
+Route::get('/gestion-de-productos/stock', [StockController::class, 'index'])->name('list_stock')->middleware('auth');
+Route::get('/gestion-de-productos/stock/sucursal/{id}', [StockController::class, 'index'])->name('list_stock_single')->middleware('auth');
 
 
 /*  BASIC MANAGEMENT */
