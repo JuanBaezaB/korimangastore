@@ -58,41 +58,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($products as $product)
-                        <tr>
-                            <td>
-                                {{ ($is_all_branches) ? '' : $product->pivot->stock }}
-                            </td>
-                            <td class="fw-semibold">
-                                {{ $product->name }}
-                            </td>
-                            <td class="d-none d-sm-table-cell">
-                                {{ $product->category->name }}
-                            </td>
-                            <td class="d-none d-sm-table-cell">
-                                $ {{ $product->price }}
-                            </td>
-                            <td class="">
-                                    <form class=" delete" action="{{ route('delete_product', $product->id) }}"
-                                        method="POST">
-                                        <div class=" btn-group">
-                                            <a type="button" class="btn btn-sm btn btn-outline-primary" href="{{ route('edit_product', $product->id) }}" title="Actualizar">
-                                                <i class="fa fa-pencil-alt"></i>
-                                            </a>
-
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn btn-outline-danger"
-                                                data-bs-toggle="tooltip" title="Eliminar">
-                                                <i class="fa fa-fw fa-trash"></i>
-                                            </button>
-
-                                        </div>
-                                    </form>
-                                </td>
-                        </tr>
-                        @endforeach
-
                     </tbody>
                 </table>
             </div>

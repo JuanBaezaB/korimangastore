@@ -19,20 +19,14 @@ class StockController extends Controller
         $branches = Branch::all();
         $the_branch = null;
         if (empty($id_branch)) {
-            $products = Product::all();
             $is_all_branches = true;
         } else {
             $the_branch = Branch::find($id_branch);
-            $products = Product::with('branches')
-            ->whereRelation('branches', 'branch_id', $id_branch)
-            ->whereRelation('branches', 'stock', '>', 0)
-            ->get()
-            ->toArray();
             $is_all_branches = false;
         }
 
-        $the_compact = compact('products', 'branches', 'is_all_branches', 'the_branch');
-        return response()->view('admin.product_management.stock.stock.list', $the_compact);
+        $the_compact = compact('branches', 'is_all_branches', 'the_branch');
+        return response()->view('admin.product_management.stock.list_stock', $the_compact);
     }
 
     /**
@@ -116,6 +110,7 @@ class StockController extends Controller
                 },
                 'category'])
             ->whereRelation('branches', 'branch_id', $givenId)
+            ->whereRelation('branches', 'stock', '>', 0)
             ->get()
             ->toArray();
         }
