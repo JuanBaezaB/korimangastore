@@ -16597,6 +16597,10 @@ a.item.item-link-pop:active {
   background-color: rgba(6, 101, 208, 0.75) !important;
 }
 
+.bg-login-op {
+  background-color: rgba(6, 101, 208, 0.3) !important;
+}
+
 a.bg-primary-op:hover, a.bg-primary-op:focus,
 button.bg-primary-op:hover,
 button.bg-primary-op:focus {

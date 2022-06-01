@@ -1,17 +1,22 @@
 @extends('layouts.master')
 
 @section('content')
-    <div class="bg-image" style="background-image: url('/media/photos/photo22@2x.jpg');">
-        <div class="row g-0 bg-primary-op">
+    <div class="bg-image" style="background-image: url('/media/login/fondo2.jpg');">
+        <div class="row g-0 bg-login-op">
             <!-- Main Section -->
             <div class="hero-static col-md-6 d-flex align-items-center bg-body-extra-light">
                 <div class="p-3 w-100">
                     <!-- Header -->
                     <div class="mb-3 text-center">
+                        <a href="index.html">
+                            <div class="logokori">
+                                <img src="/media/login/logokori.png" alt="" width="20%" height="20%">
+                            </div>
+                        </a>
                         <a class="link-fx fw-bold fs-1" href="index.html">
                             <span class="text-dark">Kori</span><span class="text-primary">MangaStore</span>
                         </a>
-                        <p class="text-uppercase fw-bold fs-sm text-muted">Iniciar Sesión</p>
+                        <p class="text-uppercase fw-bold fs-sm text-muted">Inicia sesión</p>
                     </div>
                     <!-- END Header -->
 
@@ -40,7 +45,7 @@
                                     <div class="mb-4">
                                         <input id="password" type="password"
                                             class="form-control form-control-lg form-control-alt  @error('password') is-invalid @enderror"
-                                            name="password" placeholder="Password" required autocomplete="current-password">
+                                            name="password" placeholder="Contraseña" required autocomplete="current-password">
                                         @error('password')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -59,13 +64,13 @@
                                         @if (Route::has('password.request'))
                                             <a class="btn btn-sm btn-alt-secondary d-block d-lg-inline-block mb-1"
                                                 href="{{ route('password.request') }}">
-                                                <i class="fa fa-exclamation-triangle opacity-50 me-1"></i> Se te olvidó tu contraseña
+                                                <i class="fa fa-exclamation-triangle opacity-50 me-1"></i> Recupera tu contraseña
                                             </a>
                                         @endif
                                         @if (Route::has('register'))
                                             <a class="btn btn-sm btn-alt-secondary d-block d-lg-inline-block mb-1"
                                                 href="{{ route('register') }}">
-                                                <i class="fa fa-plus opacity-50 me-1"></i> Crear cuenta nueva
+                                                <i class="fa fa-plus opacity-50 me-1"></i> ¿No tienes una cuenta? Registrate
                                             </a>
                                         @endif
 
@@ -84,10 +89,10 @@
                 class="hero-static col-md-6 d-none d-md-flex align-items-md-center justify-content-md-center text-md-center">
                 <div class="p-3">
                     <p class="display-4 fw-bold text-white mb-3">
-                        Bienvenido a nuestra tienda online! :B
+                        Ven a ser parte de Kori y disfruta de nuestros productos
                     </p>
                     <p class="fs-lg fw-semibold text-white-75 mb-0">
-                        Copyright &copy; <span data-toggle="year-copy"></span>
+                        Copyright 2022 &copy; <span data-toggle="year-copy"></span>
                     </p>
                 </div>
             </div>

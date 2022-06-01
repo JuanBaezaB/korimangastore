@@ -80,7 +80,7 @@
                                                         aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form action="{{ route($update_action_route, $an_item->id) }}"
+                                                    <form class="validation-update" action="{{ route($update_action_route, $an_item->id) }}"
                                                         enctype="multipart/form-data" method="POST">
                                                         @csrf
                                                         {{ method_field('PATCH') }}
@@ -121,7 +121,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route($add_action_route) }}" enctype="multipart/form-data" method="POST">
+                    <form action="{{ route($add_action_route) }}" class="validation-add" enctype="multipart/form-data" method="POST">
                         @csrf
                         @yield('modal_create_contents')
                         <div class="modal-footer">

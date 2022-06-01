@@ -14,10 +14,8 @@ class CreateFiguresTable extends Migration
     public function up()
     {
         Schema::create('figures', function (Blueprint $table) {
-            $table->unsignedBigInteger('id');
-            $table->string('figure_type');
-            $table->foreign('id')->references('id')->on('products')->onDelete('cascade')->onUpdate('cascade');
-            $table->primary('id');
+            $table->id();
+            $table->foreignIdFor(\App\Models\FigureType::class);
             $table->timestamps();
         });
     }

@@ -2,7 +2,7 @@
 
 @section('content')
     <!-- Page Content -->
-    <div class="bg-image" style="background-image: url('/media/photos/photo14@2x.jpg');">
+    <div class="bg-image" style="background-image: url('/media/register/FondoRegister.jpg');">
         <div class="row g-0 justify-content-center bg-black-75">
             <div class="hero-static col-sm-8 col-md-6 col-xl-4 d-flex align-items-center p-2 px-sm-0">
                 <!-- Sign Up Block -->
@@ -10,6 +10,9 @@
                     <div class="block-content block-content-full px-lg-5 px-xl-6 py-4 py-md-5 py-lg-6 bg-body-extra-light">
                         <!-- Header -->
                         <div class="mb-2 text-center">
+                            <div class="logokori">
+                                <img src="/media/login/logokori.png" alt="" width="20%" height="20%">
+                            </div>
                             <a class="link-fx fw-bold fs-1" href="index.php">
                                 <span class="text-dark">Kori</span><span class="text-primary">Mangastore</span><br>
                             </a>

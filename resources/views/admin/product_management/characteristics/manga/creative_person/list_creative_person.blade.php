@@ -1,4 +1,4 @@
-@extends('admin.product_management.characteristics.manga.template_list')
+@extends('admin.template_list')
 
 @php
 $nombre_crud = 'Persona creativa'; // nombre con inicial en mayuscula del producto

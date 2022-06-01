@@ -11,9 +11,6 @@ class Branch extends Model
 
     static $rules = [
 		'name' => 'required',
-		'address' => 'required',
-		'longitude' => 'required',
-		'latitude' => 'required'
     ];
 
 
