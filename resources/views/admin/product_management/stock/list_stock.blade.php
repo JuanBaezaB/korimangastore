@@ -142,7 +142,7 @@
 
             let datatable = $('#product-table').DataTable({
                 ajax: {
-                    url: '{{ route("data_table_stock") }}',
+                    url: '{{ route("stock.data_table") }}',
                     type: "POST",
                     data: function (d) {
                         return $.extend({}, d, maybe_id, {
@@ -258,8 +258,8 @@
 
         <script>
             $('#change-branch-select').on('change', function() {
-                let url = '{{ route("list_stock_single", ":id") }}';
-                let allUrl = '{{ route("list_stock") }}';
+                let url = '{{ route("stock.get_one", ":id") }}';
+                let allUrl = '{{ route("stock.list") }}';
                 let newId = this.value;
                 if (newId !== "") {
                     location.href = url.replace(':id', newId);

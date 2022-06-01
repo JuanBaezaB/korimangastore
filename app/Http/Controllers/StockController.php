@@ -32,7 +32,7 @@ class StockController extends Controller
         }
 
         $the_compact = compact('products', 'branches', 'is_all_branches', 'the_branch');
-        return response()->view('admin.product_management.stock.list_stock', $the_compact);
+        return response()->view('admin.product_management.stock.stock.list', $the_compact);
     }
 
     /**

@@ -53,9 +53,9 @@ Route::patch('/gestion-de-productos/producto/{id}/editar', [ProductController::c
 Route::delete('/gestion-de-productos/producto/{id}/eliminar', [ProductController::class, 'destroy'])->name('delete_product')->middleware('auth');
 
 /* Stock */
-Route::get('/gestion-de-productos/stock', [StockController::class, 'index'])->name('list_stock')->middleware('auth');
-Route::post('/gestion-de-productos/stock', [StockController::class, 'list'])->name('data_table_stock')->middleware('auth');
-Route::get('/gestion-de-productos/stock/sucursal/{id}', [StockController::class, 'index'])->name('list_stock_single')->middleware('auth');
+Route::get('/gestion-de-productos/stock', [StockController::class, 'index'])->name('stock.list')->middleware('auth');
+Route::post('/gestion-de-productos/stock', [StockController::class, 'list'])->name('stock.data_table')->middleware('auth');
+Route::get('/gestion-de-productos/stock/sucursal/{id}', [StockController::class, 'index'])->name('stock.get_one')->middleware('auth');
 
 
 /*  BASIC MANAGEMENT */
