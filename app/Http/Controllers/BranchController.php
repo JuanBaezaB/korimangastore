@@ -41,7 +41,7 @@ class BranchController extends Controller
         request()->validate(Branch::$rules);
 
         $branch = Branch::create($request->all());
-        return redirect()->route('list_branch')
+        return redirect()->route('branch.list')
         ->with('success', 'created');
     }
 
@@ -87,7 +87,7 @@ class BranchController extends Controller
         
 
 
-        return redirect()->route('list_branch')
+        return redirect()->route('branch.list')
             ->with('success', 'updated');
         return response() -> json($request);    
     }
@@ -102,7 +102,7 @@ class BranchController extends Controller
     {
         $branch = Branch::find($id)->delete();
 
-        return redirect()->route('list_branch')
+        return redirect()->route('branch.list')
         ->with('success', 'deleted');
     }
 }

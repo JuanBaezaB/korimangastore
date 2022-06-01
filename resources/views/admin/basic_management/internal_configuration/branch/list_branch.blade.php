@@ -2,15 +2,15 @@
 
 @php
 $nombre_crud = 'Sucursal';
-$add_action_route = 'add_branch';
-$update_action_route = 'update_branch';
-$delete_action_route = 'delete_branch';
+$add_action_route = 'branch.add';
+$update_action_route = 'branch.update';
+$delete_action_route = 'branch.delete';
 
 $collection_of_items = $branches;
 
 $list_columns = 'admin.basic_management.internal_configuration.branch.branch_columns';
 $modal_edit_contents = 'admin.basic_management.internal_configuration.branch.branch_edit';
-$export_columns = [0, 1, 2, 3];
+$export_columns = [0, 1, 2, 3, 4];
 
 @endphp
 
@@ -40,10 +40,16 @@ $export_columns = [0, 1, 2, 3];
 @endsection
 
 @section('label_headers')
+    <th class="text-center" style="width: 80px;">#</th>
     <th>Nombre</th>
     <th class="d-none d-sm-table-cell" style="width: 30%;">Dirección</th>
     <th class="d-none d-sm-table-cell" style="width: 15%;">Longitud</th>
     <th class="d-none d-sm-table-cell" style="width: 15%;">Latitud</th>
+@endsection
+
+@section('breadcrumb')
+    <li class="breadcrumb-item">Configuración interna</li>
+    <li class="breadcrumb-item active" aria-current="page">Sucursal</li>
 @endsection
 
 @push('scripts-extra')

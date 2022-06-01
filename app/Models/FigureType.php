@@ -9,6 +9,10 @@ class FigureType extends Model
 {
     use HasFactory;
 
+    static $rules = [
+		'name' => 'required',
+    ];
+
     protected $fillable = [
         'name',
         'description'

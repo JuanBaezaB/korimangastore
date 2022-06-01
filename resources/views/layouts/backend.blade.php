@@ -404,13 +404,13 @@
                                     <ul class="nav-main-submenu">
                                         <li class="nav-main-item">
                                             <a class="nav-main-link{{ request()->is('gestion-de-productos/carateristicas/general/serie') ? ' active' : '' }}"
-                                                href="{{ route('list_serie') }}">
+                                                href="{{ route('serie.list') }}">
                                                 <span class="nav-main-link-name">Series</span>
                                             </a>
                                         </li>
                                         <li class="nav-main-item">
                                             <a class="nav-main-link{{ request()->is('gestion-de-productos/carateristicas/general/categoria') ? ' active' : '' }}"
-                                                href="{{ route('list_category') }}">
+                                                href="{{ route('category.list') }}">
                                                 <span class="nav-main-link-name">Categorías</span>
                                             </a>
                                         </li>
@@ -427,25 +427,25 @@
                                     <ul class="nav-main-submenu">
                                         <li class="nav-main-item">
                                             <a class="nav-main-link{{ request()->is('gestion-de-productos/carateristicas/manga/editorial') ? ' active' : '' }}"
-                                                href="{{ route('list_editorial') }}">
-                                                <span class="nav-main-link-name">Editoriales</span><!-- Gestion de Editorial -->
+                                                href="{{ route('editorial.list') }}">
+                                                <span class="nav-main-link-name">Editorial</span><!-- Gestion de Editorial -->
                                             </a>
                                         </li>
                                         <li class="nav-main-item">
                                             <a class="nav-main-link{{ request()->is('gestion-de-productos/carateristicas/manga/formato') ? ' active' : '' }}"
-                                                href="{{ route('list_format') }}">
-                                                <span class="nav-main-link-name">Formatos</span><!-- Gestion de Formato -->
+                                                href="{{ route('format.list') }}">
+                                                <span class="nav-main-link-name">Formato</span><!-- Gestion de Formato -->
                                             </a>
                                         </li>
                                         <li class="nav-main-item">
                                             <a class="nav-main-link{{ request()->is('gestion-de-productos/carateristicas/manga/genre') ? ' active' : '' }}"
                                                 href="{{ route('list_genre') }}">
-                                                <span class="nav-main-link-name">Generos</span><!-- Gestion de Editorial -->
+                                                <span class="nav-main-link-name">Genero</span><!-- Gestion de Editorial -->
                                             </a>
                                         </li>
                                         <li class="nav-main-item">
                                             <a class="nav-main-link{{ request()->is('gestion-de-productos/carateristicas/manga/persona-creativa') ? ' active' : '' }}"
-                                                href="{{ route('list_creative_person') }}">
+                                                href="{{ route('creative_person.list') }}">
                                                 <span class="nav-main-link-name">Persona Creativa</span>
                                             </a>
                                         </li>
@@ -462,7 +462,7 @@
                                     <ul class="nav-main-submenu">
                                         <li class="nav-main-item">
                                             <a class="nav-main-link{{ request()->is('gestion-de-productos/carateristicas/figura/tipo') ? ' active' : '' }}"
-                                                href="{{ route('list_figure_type') }}">
+                                                href="{{ route('figure_type.list') }}">
                                                 <span class="nav-main-link-name">Tipo</span><!-- Gestion de Editorial -->
                                             </a>
                                         </li>
@@ -488,15 +488,15 @@
                             <ul class="nav-main-submenu">
                                 <li class="nav-main-item">
                                     <a class="nav-main-link{{ request()->is('gestion-base/configuacion-base/sucursales') ? ' active' : '' }}"
-                                        href="{{ route('list_branch') }}">
+                                        href="{{ route('branch.list') }}">
                                         <span class="nav-main-link-name">Sucursales</span>
                                     </a>
                                 </li>
 
                                 <li class="nav-main-item">
                                     <a class="nav-main-link{{ request()->is('gestion-base/configuacion-base/proveedores') ? ' active' : '' }}"
-                                        href="{{ route('list_provider') }}">
-                                        <span class="nav-main-link-name">Proveedores</span>
+                                        href="{{ route('provider.list') }}">
+                                        <span class="nav-main-link-name">Proveedor</span>
                                     </a>
                                 </li>
 

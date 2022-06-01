@@ -2,9 +2,9 @@
 
 @php
 $nombre_crud = 'Serie'; // nombre con inicial en mayuscula del producto
-$add_action_route = 'add_serie'; // ruta para accion de agregar
-$update_action_route = 'update_serie'; // ruta para accion de actualizar
-$delete_action_route = 'delete_serie'; // ruta para accion de eliminar
+$add_action_route = 'serie.add'; // ruta para accion de agregar
+$update_action_route = 'serie.update'; // ruta para accion de actualizar
+$delete_action_route = 'serie.delete'; // ruta para accion de eliminar
 
 /*
     Se saca de controller, el argumento a compact()
@@ -15,7 +15,7 @@ $collection_of_items = $series;
 $list_columns = 'admin.product_management.characteristics.general.serie.serie_columns';
 // nombre de serie *_serie
 $modal_edit_contents = 'admin.product_management.characteristics.general.serie.serie_edit';
-$export_columns = [0];
+$export_columns = [0, 1];
 
 @endphp
 
@@ -27,12 +27,17 @@ $export_columns = [0];
 @endsection
 
 @section('label_headers')
+    <th class="text-center" style="width: 80px;">#</th>
     <th>Nombre</th>
 @endsection
 
+@section('breadcrumb')
+    <li class="breadcrumb-item">Caracteristicas</li>
+    <li class="breadcrumb-item">General</li>
+    <li class="breadcrumb-item active" aria-current="page">Serie</li>
+@endsection
+
 @push('scripts-extra')
-    <script src="{{ asset('js/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
-    <script src="{{ asset('js/plugins/jquery-validation/additional-methods.js') }}"></script>
     <script>
         jQuery('.validation-add').validate({
             ignore: [],
@@ -44,7 +49,7 @@ $export_columns = [0];
             },
             messages: {
                 'name': {
-                    required: 'Por favor, ingrese un nombre para la sucursal.',
+                    required: 'Por favor, ingrese un nombre.',
                     maxlength: 'Por favor, ingrese no más de 200 caracteres.'
                 }
             },
@@ -74,7 +79,7 @@ $export_columns = [0];
             },
             messages: {
                 'name': {
-                    required: 'Por favor, ingrese un nombre para la sucursal.',
+                    required: 'Por favor, ingrese un nombre.',
                     maxlength: 'Por favor, ingrese no más de 200 caracteres.'
                 }
             },
@@ -92,4 +97,5 @@ $export_columns = [0];
             }
         });
     </script>
+
 @endpush

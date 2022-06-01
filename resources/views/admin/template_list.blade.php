@@ -11,9 +11,11 @@
     <div class="bg-body-light">
         <div class="content content-full">
             <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
-                <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3">Listado {{ strtolower($nombre_crud) }}</h1>
+                <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3">Listado {{ mb_strtolower($nombre_crud) }}</h1>
                 <nav class="flex-shrink-0 my-2 my-sm-0 ms-sm-3" aria-label="breadcrumb">
-
+                    <ol class="breadcrumb">
+                        @yield('breadcrumb')
+                    </ol>
                 </nav>
             </div>
         </div>
@@ -29,7 +31,7 @@
                 <div class="block-options">
                     <button class="btn btn-sm btn-alt-secondary btn-primary" data-bs-toggle="modal"
                         data-bs-target="#add_item" data-bs-whatever="@mdo">
-                        <i class="fa fa-fw fa fa-plus"></i> Ingresar {{ $nombre_crud }}
+                        <i class="fa fa-fw fa fa-plus"></i> Ingresar {{ mb_strtolower($nombre_crud) }}
                     </button>
                 </div>
             </div>
@@ -86,8 +88,7 @@
                                                         {{ method_field('PATCH') }}
                                                         @include($modal_edit_contents, ['an_item' => $an_item])
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">Cancelar</button>
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                                                             <button type="submit" class="btn btn-primary">Actualizar</button>
                                                         </div>
                                                        
@@ -110,7 +111,7 @@
     </div>
     <!-- END Page Content -->
 
-
+    
 
     <!-- Modal Ingresar-->
     <div class="modal fade " id="add_item" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -121,7 +122,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route($add_action_route) }}" class="validation-add" enctype="multipart/form-data" method="POST">
+                    <form class="validation-add" action="{{ route($add_action_route) }}" enctype="multipart/form-data" method="POST">
                         @csrf
                         @yield('modal_create_contents')
                         <div class="modal-footer">
@@ -190,7 +191,7 @@
                     },
                     {
                         extend: 'print',
-                        text: '<i class="fas fa-print"></i>',
+                        text: '<i style="color:white" class="fas fa-print"></i>',
                         titleAttr: 'Imprimir',
                         className: 'btn btn-warning mb-2',
                         exportOptions: {
@@ -263,6 +264,8 @@
     @endif
     <!-- End js sweetalert2 -->
 
+    <script src="{{ asset('js/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/jquery-validation/additional-methods.js') }}"></script>
     @stack('scripts-extra')
     
 @endsection

@@ -38,10 +38,10 @@ class FigureTypeController extends Controller
     public function store(Request $request)
     {
         //
-        //request()->validate(FigureType::$rules);
+        request()->validate(FigureType::$rules);
         
         $figure_type = FigureType::create($request->all());
-        return redirect()->route('list_figure_type')
+        return redirect()->route('figure_type.list')
             ->with('success', 'created');
     }
 
@@ -66,16 +66,6 @@ class FigureTypeController extends Controller
     {
         //
         //
-        try {
-            request()->validate(FigureType::$rules);
-            $figure_type = FigureType::findOrFail($id);
-            $figure_type->update($request->all());
-        } catch (\Throwable $th) {
-            //throw $th;
-        }
-
-        return redirect()->route('list_figure_type')
-            ->with('success', 'updated');
     }
 
     /**
@@ -87,7 +77,16 @@ class FigureTypeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            request()->validate(FigureType::$rules);
+            $figure_type = FigureType::findOrFail($id);
+            $figure_type->update($request->all());
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+
+        return redirect()->route('figure_type.list')
+            ->with('success', 'updated');
     }
 
     /**
@@ -101,7 +100,7 @@ class FigureTypeController extends Controller
         //
         $figure_type = FigureType::find($id)->delete();
 
-        return redirect()->route('list_figure_type')
+        return redirect()->route('figure_type.list')
             ->with('success', 'deleted');
     }
 }
