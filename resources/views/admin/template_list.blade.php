@@ -71,7 +71,7 @@
                                         </div>
                                     </form>
                                     <!-- Modal Actualizar-->
-                                    <div class="modal fade " id="update_item{{ $an_item->id }}" tabindex="-1"
+                                    <div class="modal fade modal-update" id="update_item{{ $an_item->id }}" tabindex="-1"
                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">

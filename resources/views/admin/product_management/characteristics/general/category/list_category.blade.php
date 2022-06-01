@@ -15,7 +15,7 @@ $collection_of_items = $categories;
 $list_columns = 'admin.product_management.characteristics.general.category.category_columns';
 // nombre de serie *_serie
 $modal_edit_contents = 'admin.product_management.characteristics.general.category.category_edit';
-$export_columns = [0,1];
+$export_columns = [0, 1];
 @endphp
 
 @section('modal_create_contents')
@@ -66,34 +66,38 @@ $export_columns = [0,1];
             }
         });
     </script>
-
     <script>
-        jQuery('.validation-update').validate({
-            ignore: [],
-            rules: {
-                'name': {
-                    required: true,
-                    maxlength: 200
-                }
-            },
-            messages: {
-                'name': {
-                    required: 'Por favor, ingrese un nombre.',
-                    maxlength: 'Por favor, ingrese no más de 200 caracteres.'
-                }
-            },
-            errorClass: 'is-invalid',
-            validClass: 'is-valid',
-            errorElement: "span",
-            errorPlacement: function(error, element) {
-                // Add the `csc-helper-text` class to the error element
-                error.addClass("is-invalid invalid-feedback animated fadeIn");
-                if (element.prop("type") === "checkbox") {
-                    error.insertAfter(element.parent("label"));
-                } else {
-                    error.insertAfter(element);
-                }
-            }
+        jQuery(document).ready(function($) {
+            $('.modal-update').each(function() {
+                let s = $(this).find('.validation-update');
+                s.validate({
+                    ignore: [],
+                    rules: {
+                        'name': {
+                            required: true,
+                            maxlength: 200
+                        }
+                    },
+                    messages: {
+                        'name': {
+                            required: 'Por favor, ingrese un nombre.',
+                            maxlength: 'Por favor, ingrese no más de 200 caracteres.'
+                        }
+                    },
+                    errorClass: 'is-invalid',
+                    validClass: 'is-valid',
+                    errorElement: "span",
+                    errorPlacement: function(error, element) {
+                        // Add the `csc-helper-text` class to the error element
+                        error.addClass("is-invalid invalid-feedback animated fadeIn");
+                        if (element.prop("type") === "checkbox") {
+                            error.insertAfter(element.parent("label"));
+                        } else {
+                            error.insertAfter(element);
+                        }
+                    }
+                });
+            });
         });
     </script>
 @endpush
