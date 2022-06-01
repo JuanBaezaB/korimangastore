@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Branch;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Laravel\Ui\Presets\React;
 
 class StockController extends Controller
 {
@@ -34,9 +35,17 @@ class StockController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         //
+        $id_branch = $request->get('id', null);
+        $branches = Branch::all();
+        $the_branch = null;
+        if (!empty($id_branch)) {
+            $the_branch = Branch::find($id_branch);
+        }
+        $the_compact = compact('branches', 'the_branch');
+        return response()->view('admin.product_management.stock.add_stock', $the_compact);
     }
 
     /**
@@ -48,6 +57,33 @@ class StockController extends Controller
     public function store(Request $request)
     {
         //
+        $quantity = $request->get('quantity');
+
+        $normalizedQuantity = ($request->get('reverse')) ? -$quantity : $quantity;
+
+        $branch_id = $request->get('branch_id');
+        $product_id = $request->get('product_id');
+        $product = Product::findOrFail($product_id);
+        $branch = $product->branches()->find($branch_id);
+        if (empty($branch)) {
+            if ($normalizedQuantity <= 0) {
+                throw new \Exception("expected positive quantity for non existent stock");
+            }
+            $product->branches()->attach($branch_id, ['stock' => $quantity]);
+        } else {
+            $stock = $product->branches()->newPivotStatementForId($branch)->value('stock');
+            if ($stock + $normalizedQuantity <= 0) {
+                throw new \Exception("expected positive quantity for new stock value");
+            }
+            $product->branches()->updateExistingPivot($branch, ['stock' => $stock + $normalizedQuantity]);
+        }
+        $product->category->name;
+        $ret = [
+            'quantity' => $normalizedQuantity,
+            'branch' => $branch,
+            'product' => $product
+        ];
+        return response()->json($ret);
     }
 
     /**
