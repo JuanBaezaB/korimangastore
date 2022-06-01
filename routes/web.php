@@ -54,6 +54,7 @@ Route::delete('/gestion-de-productos/producto/{id}/eliminar', [ProductController
 
 /* Stock */
 Route::get('/gestion-de-productos/stock', [StockController::class, 'index'])->name('list_stock')->middleware('auth');
+Route::post('/gestion-de-productos/stock', [StockController::class, 'list'])->name('data_table_stock')->middleware('auth');
 Route::get('/gestion-de-productos/stock/sucursal/{id}', [StockController::class, 'index'])->name('list_stock_single')->middleware('auth');
 
 

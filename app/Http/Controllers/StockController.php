@@ -101,4 +101,24 @@ class StockController extends Controller
         //
     }
 
+    public function list(Request $request) {
+        $givenId = $request->get('id', null);
+
+        if (!$givenId) {
+            $products = Product::with('branches', 'category')
+            ->withSum('branches', 'branch_product.stock')
+            ->get()
+            ->toArray();
+        } else {
+            $products = Product::with([
+                'branches' => function ($query) use ($givenId) {
+                    $query->whereKey($givenId);
+                },
+                'category'])
+            ->whereRelation('branches', 'branch_id', $givenId)
+            ->get()
+            ->toArray();
+        }
+        return response()->json([ "data" => $products]);
+    }
 }

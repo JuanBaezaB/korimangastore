@@ -1,6 +1,8 @@
 @extends('layouts.backend')
 
 @section('css_after')
+    <meta name="the_branch" content="{{ isset($the_branch->id) ? $the_branch->id : '' }}">
+
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css">
@@ -49,8 +51,8 @@
                     <thead>
                         <tr>
                             <th>Unidades</th>
-                            <th>Nombre</th>
-                            <th class="d-none d-sm-table-cell" style="width: 30%;">Tipo</th>
+                            <th style="width: 50%">Nombre</th>
+                            <th class="d-none d-sm-table-cell" style="width: 40%;">Tipo</th>
                             <th class="d-none d-sm-table-cell" style="width: 15%;">Precio</th>
                             <th style="width: 10%;">Acciones</th>
                         </tr>
@@ -119,10 +121,64 @@
 
     <script>
         $(document).ready(function() {
-            $('#product-table').DataTable({
+            let the_branch_id = $('meta[name=the_branch]').prop('content');
+            let maybe_id = (the_branch_id) ? {id: the_branch_id} : {};
+
+            let firstColumn;
+            if (!the_branch_id) {
+                firstColumn = { 
+                    data: null, 
+                    render: null,
+                    className: 'dt-control',
+                    defaultContent: '',
+                    searchable: null,
+                    orderable: null
+                };
+            } else {
+                firstColumn = { 
+                    data: null
+                };
+            }
+
+            let datatable = $('#product-table').DataTable({
+                ajax: {
+                    url: '{{ route("data_table_stock") }}',
+                    type: "POST",
+                    data: function (d) {
+                        return $.extend({}, d, maybe_id, {
+                            _token: $('meta[name=csrf-token]').prop('content')
+                        });
+                    }
+                },
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
                 },
+                columns: [
+                    firstColumn,
+                    { data: 'name' },
+                    { data: 'category.name' },
+                    { data: 'price' },
+                    { 
+                        data: null,
+                        searchable: null,
+                        orderable: null,
+                        render: function (data, type, row, meta) {
+                            let actionUrl = "{{ route('delete_product', ':id') }}".replace(':id', row.id);
+                            let editUrl = "{{ route('edit_product', ':id') }}".replace(':id', row.id);
+                            return '<form class=" delete" action="'+ actionUrl +'"method="POST">'
+                            + '<div class=" btn-group">'
+                            + '<a type="button" class="btn btn-sm btn btn-outline-primary" href="' 
+                            + editUrl + '" title="Actualizar">'
+                            + '<i class="fa fa-pencil-alt"></i>'
+                            + '</a>'
+                            + '@csrf'
+                            + '@method("DELETE")'
+                            + '<button type="submit" class="btn btn-sm btn btn-outline-danger" data-bs-toggle="tooltip" title="Eliminar">'
+                            + '<i class="fa fa-fw fa-trash"></i>'
+                            + '</button></div></form>';
+                        } 
+                    }
+                ],
                 dom: 'Bfrtip',
                 responsive: true,
                     columnDefs: [
@@ -158,8 +214,47 @@
                 }
             ]
             });
+
+
         });
         </script>
+
+        @empty($the_branch)
+            <script>
+                // basado en https://datatables.net/examples/api/row_details.html
+                function formatCollap(d) {
+                    let rows = d.branches.map( function (branch) {
+                        return '<tr><td>' + branch.name + '</td><td>' + branch.pivot.stock + '</td></tr>';
+                    });
+                    let total_stock = d.branches_sum_branch_productstock || 0;
+                    return (
+                        '<table cellpaddding="5" cellspacing="0" border="0" style="padding-left:50px;" >' +
+                        '<tbody>' +
+                        '<tr><td>Total</td><td>' + total_stock + '</td></tr>' +
+                        rows.join(' ') +
+                        '</tbody></table>'
+                    );
+                }
+
+                jQuery(function($) {
+                    $(document).ready(function() {
+                        let table = $('#product-table').DataTable();
+                        $('#product-table tbody').on('click', 'td.dt-control', function () {
+                            let $tr = $(this).closest('tr');
+                            let row = table.row($tr);
+
+                            if (row.child.isShown()) {
+                                row.child.hide();
+                                $tr.removeClass('shown');
+                            } else {
+                                row.child(formatCollap(row.data())).show();
+                                $tr.addClass('shown');
+                            }
+                        });
+                    });
+                });
+            </script>
+        @endempty
 
         <script>
             $('#change-branch-select').on('change', function() {
