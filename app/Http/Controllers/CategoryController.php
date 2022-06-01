@@ -41,7 +41,7 @@ class CategoryController extends Controller
 
         $category = Category::create($request->all());
 
-        return redirect()->route('list_category')->with('success', 'created');
+        return redirect()->route('category.list')->with('success', 'created');
     }
 
     /**
@@ -83,7 +83,7 @@ class CategoryController extends Controller
 
         $category->update($request->all());
 
-        return redirect()->route('list_category')->with('success', 'updated');
+        return redirect()->route('category.list')->with('success', 'updated');
     }
 
     /**
@@ -96,6 +96,6 @@ class CategoryController extends Controller
     {
         $category = Category::find($id)->delete();
 
-        return redirect()->route('list_category')->with('success', 'deleted');
+        return redirect()->route('category.list')->with('success', 'deleted');
     }
 }

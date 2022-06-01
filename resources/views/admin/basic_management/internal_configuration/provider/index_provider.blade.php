@@ -54,7 +54,7 @@
                                 <td class="fw-semibold">{{ $provider->name }}</td>
                                 <td class="d-none d-sm-table-cell">{{ $provider->description }}</td>
                                 <td class="">
-                                    <form class=" delete" action="{{ route('delete_provider', $provider->id) }}"
+                                    <form class=" delete" action="{{ route('provider.delete', $provider->id) }}"
                                         method="POST">
                                         <div class=" btn-group">
                                             <button type="button" class="btn btn-sm btn btn-outline-primary"
@@ -86,7 +86,7 @@
                                                         aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form action="{{ route('update_provider', $provider->id) }}"
+                                                    <form action="{{ route('provider.update', $provider->id) }}"
                                                         enctype="multipart/form-data" method="POST"  class="validation-update">
                                                         @csrf
                                                         {{ method_field('PATCH') }}
@@ -136,7 +136,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('add_provider') }}" class="validation-add" enctype="multipart/form-data" method="POST">
+                    <form action="{{ route('provider.add') }}" class="validation-add" enctype="multipart/form-data" method="POST">
                         @csrf
                         <div class="mb-3">
                             <label class="col-form-label">Nombre:</label>

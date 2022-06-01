@@ -191,7 +191,7 @@ class ProductController extends Controller
         } catch(\Throwable $th) {
             dd($th);
         }
-        return redirect()->route('lista_producto')
+        return redirect()->route('product.list')
             ->with('success', 'created');
     }
 
@@ -326,7 +326,7 @@ class ProductController extends Controller
             ]);
         }
 
-        return redirect()->route('lista_producto')
+        return redirect()->route('product.list')
             ->with('success', 'updated');
         return response()->json($data->toArray());
     }
@@ -347,7 +347,7 @@ class ProductController extends Controller
         }
         $product->delete();
 
-        return redirect()->route('lista_producto')
+        return redirect()->route('product.list')
         ->with('success', 'deleted');
     }
 }

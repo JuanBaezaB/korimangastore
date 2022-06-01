@@ -45,7 +45,7 @@ class ProviderController extends Controller
         request()->validate(Provider::$rules);
         
         $provider = Provider::create($request->all());
-        return redirect()->route('list_provider')
+        return redirect()->route('provider.list')
             ->with('success', 'Provider created successfully');
     }
 
@@ -93,7 +93,7 @@ class ProviderController extends Controller
 
 
 
-        return redirect()->route('list_provider')
+        return redirect()->route('provider.list')
             ->with('success', 'Provider updated successfully');
         return response()->json($request);
     }
@@ -109,7 +109,7 @@ class ProviderController extends Controller
         //
         $provider = Provider::find($id)->delete();
 
-        return redirect()->route('list_provider')
+        return redirect()->route('provider.list')
             ->with('success', 'Provider deleted successfully');
     }
 }

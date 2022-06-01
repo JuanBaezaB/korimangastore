@@ -41,7 +41,7 @@ class FigureTypeController extends Controller
         //request()->validate(FigureType::$rules);
         
         $figure_type = FigureType::create($request->all());
-        return redirect()->route('list_figure_type')
+        return redirect()->route('figure_type.list')
             ->with('success', 'created');
     }
 
@@ -74,7 +74,7 @@ class FigureTypeController extends Controller
             //throw $th;
         }
 
-        return redirect()->route('list_figure_type')
+        return redirect()->route('figure_type.list')
             ->with('success', 'updated');
     }
 
@@ -101,7 +101,7 @@ class FigureTypeController extends Controller
         //
         $figure_type = FigureType::find($id)->delete();
 
-        return redirect()->route('list_figure_type')
+        return redirect()->route('figure_type.list')
             ->with('success', 'deleted');
     }
 }

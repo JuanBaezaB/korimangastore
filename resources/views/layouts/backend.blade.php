@@ -371,14 +371,14 @@
                             <ul class="nav-main-submenu">
                                 <li class="nav-main-item">
                                     <a class="nav-main-link{{ request()->is('gestion-de-productos/producto') ? ' active' : '' }}"
-                                        href="{{ route('lista_producto') }}">
+                                        href="{{ route('product.list') }}">
                                         <span class="nav-main-link-name">Listado</span>
                                     </a>
                                 </li>
 
                                 <li class="nav-main-item">
                                     <a class="nav-main-link{{ request()->is('gestion-de-productos/producto/crear') ? ' active' : '' }}"
-                                        href="{{ route('create_product') }}">
+                                        href="{{ route('producto.create') }}">
                                         <span class="nav-main-link-name">Añadir nuevo</span>
                                     </a>
                                 </li>
@@ -404,13 +404,13 @@
                                     <ul class="nav-main-submenu">
                                         <li class="nav-main-item">
                                             <a class="nav-main-link{{ request()->is('gestion-de-productos/carateristicas/general/serie') ? ' active' : '' }}"
-                                                href="{{ route('list_serie') }}">
+                                                href="{{ route('serie.list') }}">
                                                 <span class="nav-main-link-name">Series</span>
                                             </a>
                                         </li>
                                         <li class="nav-main-item">
                                             <a class="nav-main-link{{ request()->is('gestion-de-productos/carateristicas/general/categoria') ? ' active' : '' }}"
-                                                href="{{ route('list_category') }}">
+                                                href="{{ route('category.list') }}">
                                                 <span class="nav-main-link-name">Categorías</span>
                                             </a>
                                         </li>
@@ -427,25 +427,25 @@
                                     <ul class="nav-main-submenu">
                                         <li class="nav-main-item">
                                             <a class="nav-main-link{{ request()->is('gestion-de-productos/carateristicas/manga/editorial') ? ' active' : '' }}"
-                                                href="{{ route('list_editorial') }}">
+                                                href="{{ route('editorial.list') }}">
                                                 <span class="nav-main-link-name">Editoriales</span><!-- Gestion de Editorial -->
                                             </a>
                                         </li>
                                         <li class="nav-main-item">
                                             <a class="nav-main-link{{ request()->is('gestion-de-productos/carateristicas/manga/formato') ? ' active' : '' }}"
-                                                href="{{ route('list_format') }}">
+                                                href="{{ route('format.list') }}">
                                                 <span class="nav-main-link-name">Formatos</span><!-- Gestion de Formato -->
                                             </a>
                                         </li>
                                         <li class="nav-main-item">
                                             <a class="nav-main-link{{ request()->is('gestion-de-productos/carateristicas/manga/genre') ? ' active' : '' }}"
-                                                href="{{ route('list_genre') }}">
+                                                href="{{ route('genre.list') }}">
                                                 <span class="nav-main-link-name">Generos</span><!-- Gestion de Editorial -->
                                             </a>
                                         </li>
                                         <li class="nav-main-item">
                                             <a class="nav-main-link{{ request()->is('gestion-de-productos/carateristicas/manga/persona-creativa') ? ' active' : '' }}"
-                                                href="{{ route('list_creative_person') }}">
+                                                href="{{ route('creative_person.list') }}">
                                                 <span class="nav-main-link-name">Persona Creativa</span>
                                             </a>
                                         </li>

@@ -43,7 +43,7 @@ class UserResetPassword extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject('Reinicio de contraseña')
+            ->subject('Reinicio de contraseña plataforma Korimangastore')
             ->greeting('Hola que tal')
             ->line('Hemos recibido una peticion para el reinicio de tu contraseña.')
             ->action('Reiniciar Contraseña', url('/password/reset/' . $this->token))

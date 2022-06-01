@@ -42,7 +42,7 @@ class EditorialController extends Controller
         request()->validate(Editorial::$rules);
         
         $editorial = Editorial::create($request->all());
-        return redirect()->route('list_editorial')
+        return redirect()->route('editorial.list')
             ->with('success', 'Editorial created successfully');
     }
 
@@ -88,7 +88,7 @@ class EditorialController extends Controller
 
 
 
-        return redirect()->route('list_editorial')
+        return redirect()->route('editorial.list')
             ->with('success', 'Editorial updated successfully');
         return response()->json($request);
     }
@@ -104,7 +104,7 @@ class EditorialController extends Controller
         //
         $editorial = Editorial::find($id)->delete();
 
-        return redirect()->route('list_editorial')
+        return redirect()->route('editorial.list')
             ->with('success', 'Editorial deleted successfully');
     }
 }

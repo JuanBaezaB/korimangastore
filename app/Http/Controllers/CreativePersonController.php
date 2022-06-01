@@ -43,7 +43,7 @@ class CreativePersonController extends Controller
         request()->validate(CreativePerson::$rules);
 
         $creative_person = CreativePerson::create($request->all());
-        return redirect()->route('list_creative_person')
+        return redirect()->route('creative_person.list')
         ->with('success', 'created');
     }
 
@@ -90,7 +90,7 @@ class CreativePersonController extends Controller
         
 
 
-        return redirect()->route('list_creative_person')
+        return redirect()->route('creative_person.list')
             ->with('success', 'updated');
     }
 
@@ -105,7 +105,7 @@ class CreativePersonController extends Controller
         //
         $creative_person = CreativePerson::find($id)->delete();
 
-        return redirect()->route('list_creative_person')
+        return redirect()->route('creative_person.list')
         ->with('success', 'deleted');
     }
 }

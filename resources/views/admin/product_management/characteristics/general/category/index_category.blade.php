@@ -52,12 +52,12 @@
                                 <td class="fw-semibold">{{ $category->name }}</td>
 
                                 <td class="">
-                                    <form class=" delete" action="{{ route('delete_category', $category->id) }}"
+                                    <form class=" delete" action="{{ route('category.delete', $category->id) }}"
                                         method="POST">
                                         <div class=" btn-group">
                                             <button type="button" class="btn btn-sm btn btn-outline-primary"
                                                 data-bs-toggle="modal"
-                                                data-bs-target="#update_category{{ $category->id }}"
+                                                data-bs-target="#category.update{{ $category->id }}"
                                                 data-bs-whatever="@mdo" title="Actualizar">
                                                 <i class="fa fa-pencil-alt"></i>
                                             </button>
@@ -73,7 +73,7 @@
                                     </form>
 
                                     <!-- Modal Actualizar-->
-                                    <div class="modal fade " id="update_category{{ $category->id }}" tabindex="-1"
+                                    <div class="modal fade " id="category.update{{ $category->id }}" tabindex="-1"
                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
@@ -84,7 +84,7 @@
                                                         aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form action="{{ route('update_category', $category->id) }}"
+                                                    <form action="{{ route('category.update', $category->id) }}"
                                                         enctype="multipart/form-data" method="POST" class="validation-update">
                                                         @csrf
                                                         {{ method_field('PATCH') }}
@@ -132,7 +132,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('add_category') }}"  class="validation-add" enctype="multipart/form-data" method="POST">
+                    <form action="{{ route('category.add') }}"  class="validation-add" enctype="multipart/form-data" method="POST">
                         @csrf
                         <div class="mb-3">
                             <label class="col-form-label">Nombre:</label>

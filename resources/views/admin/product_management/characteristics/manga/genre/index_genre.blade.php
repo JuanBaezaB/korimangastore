@@ -57,7 +57,7 @@
                                 <td class="fw-semibold">{{ $genre->name }}</td>
                                 <td class="d-none d-sm-table-cell">{{ $genre->type }}</td>
                                 <td class="">
-                                    <form class=" delete" action="{{ route('delete_genre', $genre->id) }}"
+                                    <form class=" delete" action="{{ route('genre.delete', $genre->id) }}"
                                         method="POST">
                                         <div class=" btn-group">
                                             <button type="button" class="btn btn-sm btn btn-outline-primary"
@@ -87,7 +87,7 @@
                                                         aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form action="{{ route('update_genre', $genre->id) }}"
+                                                    <form action="{{ route('genre.update', $genre->id) }}"
                                                         enctype="multipart/form-data" method="POST">
                                                         @csrf
                                                         {{ method_field('PATCH') }}
@@ -150,7 +150,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('add_genre') }}" class="validation-add" enctype="multipart/form-data"
+                    <form action="{{ route('genre.add') }}" class="validation-add" enctype="multipart/form-data"
                         method="POST">
                         @csrf
                         <div class="mb-3">
