@@ -54,10 +54,10 @@
                                 $ {{ $product->price }}
                             </td>
                             <td class="">
-                                    <form class=" delete" action="{{ route('delete_product', $product->id) }}"
+                                    <form class=" delete" action="{{ route('product.delete', $product->id) }}"
                                         method="POST">
                                         <div class=" btn-group">
-                                            <a type="button" class="btn btn-sm btn btn-outline-primary" href="{{ route('edit_product', $product->id) }}" title="Actualizar">
+                                            <a type="button" class="btn btn-sm btn btn-outline-primary" href="{{ route('product.edit', $product->id) }}" title="Actualizar">
                                                 <i class="fa fa-pencil-alt"></i>
                                             </a>
 

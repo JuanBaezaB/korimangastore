@@ -128,8 +128,8 @@
                         searchable: null,
                         orderable: null,
                         render: function (data, type, row, meta) {
-                            let actionUrl = "{{ route('delete_product', ':id') }}".replace(':id', row.id);
-                            let editUrl = "{{ route('edit_product', ':id') }}".replace(':id', row.id);
+                            let actionUrl = "{{ route('product.delete', ':id') }}".replace(':id', row.id);
+                            let editUrl = "{{ route('product.edit', ':id') }}".replace(':id', row.id);
                             return '<form class=" delete" action="'+ actionUrl +'"method="POST">'
                             + '<div class=" btn-group">'
                             + '<a type="button" class="btn btn-sm btn btn-outline-primary" href="' 

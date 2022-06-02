@@ -371,14 +371,14 @@
                             <ul class="nav-main-submenu">
                                 <li class="nav-main-item">
                                     <a class="nav-main-link{{ request()->is('gestion-de-productos/producto') ? ' active' : '' }}"
-                                        href="{{ route('lista_producto') }}">
+                                        href="{{ route('product.list') }}">
                                         <span class="nav-main-link-name">Listado</span>
                                     </a>
                                 </li>
 
                                 <li class="nav-main-item">
                                     <a class="nav-main-link{{ request()->is('gestion-de-productos/producto/crear') ? ' active' : '' }}"
-                                        href="{{ route('create_product') }}">
+                                        href="{{ route('product.create') }}">
                                         <span class="nav-main-link-name">Añadir nuevo</span>
                                     </a>
                                 </li>

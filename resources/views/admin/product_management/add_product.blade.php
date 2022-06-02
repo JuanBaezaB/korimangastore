@@ -26,7 +26,7 @@
                 <h3 class="block-title">{{ empty($is_edit) ? 'Añadir' : 'Editar'}}</h3>
             </div>
             <div class="block-content">
-                <form action="{{ !empty($is_edit) ? route('update_product', $product->id) : route('add_product') }}" enctype="multipart/form-data" method="POST">
+                <form action="{{ !empty($is_edit) ? route('product.update', $product->id) : route('product.add') }}" enctype="multipart/form-data" method="POST">
                     @csrf
                     @if (!empty($is_edit))
                         @method('PATCH')
