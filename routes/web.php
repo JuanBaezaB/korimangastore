@@ -12,6 +12,7 @@ use App\Http\Controllers\GenreController;
 use App\Http\Controllers\CreativePersonController;
 use App\Http\Controllers\MangaController;
 use App\Http\Controllers\FigureTypeController;
+use App\Http\Controllers\StockController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,7 +51,14 @@ Route::post('/gestion-de-productos/producto/agregar', [ProductController::class,
 Route::get('/gestion-de-productos/producto/{id}/editar', [ProductController::class, 'edit'])->name('edit_product')->middleware('auth');
 Route::patch('/gestion-de-productos/producto/{id}/editar', [ProductController::class, 'update'])->name('update_product')->middleware('auth');
 Route::delete('/gestion-de-productos/producto/{id}/eliminar', [ProductController::class, 'destroy'])->name('delete_product')->middleware('auth');
+Route::post('/gestion-de-productos/producto/buscar', [ProductController::class, 'search'])->name('product.search')->middleware('auth');
 
+/* Stock */
+Route::get('/gestion-de-productos/stock', [StockController::class, 'index'])->name('stock.list')->middleware('auth');
+Route::post('/gestion-de-productos/stock', [StockController::class, 'list'])->name('stock.data_table')->middleware('auth');
+Route::get('/gestion-de-productos/stock/sucursal/{id}', [StockController::class, 'index'])->name('stock.get_one')->middleware('auth');
+Route::get('/gestion-de-productos/stock/crear', [StockController::class, 'create'])->name('stock.create')->middleware('auth');
+Route::post('/gestion-de-productos/stock/agregar', [StockController::class, 'store'])->name('stock.add')->middleware('auth');
 
 
 /*  PRODUCT MANAGEMENT */

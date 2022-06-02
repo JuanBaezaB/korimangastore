@@ -304,7 +304,7 @@ class ProductController extends Controller
             } else if ($category->name == 'Figura') {
 
                 $figure = $oldProductable;
-                $figureData = self::collectFigureData($datos);
+                $figureData = self::collectFigureData($data);
 
                 if ($hasCategoryChanged || empty($manga)) {
                     $figure = Figure::create($figureData->toArray());
@@ -349,5 +349,21 @@ class ProductController extends Controller
 
         return redirect()->route('lista_producto')
         ->with('success', 'deleted');
+    }
+
+
+    public function search(Request $request) {
+        $ret = [];
+        $term = $request->get('term');
+        $results = Product::orWhere('name', 'LIKE', '%' . $term . '%')
+        ->get()
+        ->map(function ($d) {
+            $d->text = $d->name;
+            return $d;
+        })
+        ->toArray();
+
+        $ret['results'] = $results;
+        return response()->json($ret);
     }
 }
