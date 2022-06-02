@@ -350,8 +350,8 @@
                 <div class="content-side content-side-full">
                     <ul class="nav-main">
                         <li class="nav-main-item">
-                            <a class="nav-main-link{{ request()->is('dashboard') ? ' active' : '' }}"
-                                href="/dashboard">
+                            <a class="nav-main-link{{ request()->is('grafico-de-productos/grafico') ? ' active' : '' }}"
+                                href="{{ route('graphic.show') }}">
                                 <i class="nav-main-link-icon fa fa-location-arrow"></i>
                                 <span class="nav-main-link-name">Dashboard</span>
                                 <span class="nav-main-link-badge badge rounded-pill bg-primary">5</span>
@@ -378,7 +378,7 @@
 
                                 <li class="nav-main-item">
                                     <a class="nav-main-link{{ request()->is('gestion-de-productos/producto/crear') ? ' active' : '' }}"
-                                        href="{{ route('producto.create') }}">
+                                        href="{{ route('product.create') }}">
                                         <span class="nav-main-link-name">Añadir nuevo</span>
                                     </a>
                                 </li>
@@ -439,7 +439,7 @@
                                         </li>
                                         <li class="nav-main-item">
                                             <a class="nav-main-link{{ request()->is('gestion-de-productos/carateristicas/manga/genre') ? ' active' : '' }}"
-                                                href="{{ route('list_genre') }}">
+                                                href="{{ route('genre.list') }}">
                                                 <span class="nav-main-link-name">Genero</span><!-- Gestion de Editorial -->
                                             </a>
                                         </li>

@@ -13,6 +13,7 @@ use App\Http\Controllers\CreativePersonController;
 use App\Http\Controllers\MangaController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\FigureTypeController;
+use App\Http\Controllers\GraphicController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,7 +43,8 @@ Route::view('/forms/be_forms_plugins', 'admin.forms.be_forms_plugins')->middlewa
 Route::view('/forms/be_forms_editors', 'admin.forms.be_forms_editors')->middleware('auth');
 Route::view('/forms/be_forms_validation', 'admin.forms.be_forms_validation')->middleware('auth');
 
-
+/* Graficos de prueba */
+Route::get('/grafico-de-productos/grafico', [GraphicController::class, 'index'])->name('graphic.show')->middleware('auth');
 
 /* Producto */
 Route::get('/gestion-de-productos/producto', [ProductController::class, 'index'])->name('product.list')->middleware('auth');
