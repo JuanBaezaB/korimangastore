@@ -1,21 +1,16 @@
 @extends('admin.template_list')
 
 @php
-$nombre_crud = 'Serie'; // nombre con inicial en mayuscula del producto
-$add_action_route = 'serie.add'; // ruta para accion de agregar
-$update_action_route = 'serie.update'; // ruta para accion de actualizar
-$delete_action_route = 'serie.delete'; // ruta para accion de eliminar
+$nombre_crud = 'Proveedor';
+$add_action_route = 'provider.add';
+$update_action_route = 'provider.update';
+$delete_action_route = 'provider.delete';
 
-/*
-    Se saca de controller, el argumento a compact()
-*/
-$collection_of_items = $series;
+$collection_of_items = $providers;
 
-// nombre de vista *_columns
-$list_columns = 'admin.product_management.characteristics.general.serie.serie_columns';
-// nombre de serie *_serie
-$modal_edit_contents = 'admin.product_management.characteristics.general.serie.serie_edit';
-$export_columns = [0, 1];
+$list_columns = 'admin.basic_management.internal_configuration.provider.provider_columns';
+$modal_edit_contents = 'admin.basic_management.internal_configuration.provider.provider_edit';
+$export_columns = [0, 1, 2];
 
 @endphp
 
@@ -24,17 +19,21 @@ $export_columns = [0, 1];
         <label class="col-form-label">Nombre:</label>
         <input type="text" class="form-control" name="name" required>
     </div>
+    <div class="mb-3">
+        <label class="col-form-label">Descripción (opcional):</label>
+        <input type="text" class="form-control" id="description" name="description" required>
+    </div>
 @endsection
 
 @section('label_headers')
     <th class="text-center" style="width: 80px;">#</th>
     <th>Nombre</th>
+    <th class="d-none d-sm-table-cell">Descripción</th>
 @endsection
 
 @section('breadcrumb')
-    <li class="breadcrumb-item">Caracteristicas</li>
-    <li class="breadcrumb-item">General</li>
-    <li class="breadcrumb-item active" aria-current="page">Serie</li>
+    <li class="breadcrumb-item">Configuración interna</li>
+    <li class="breadcrumb-item active" aria-current="page">Proveedor</li>
 @endsection
 
 @push('scripts-extra')
@@ -45,13 +44,21 @@ $export_columns = [0, 1];
                 'name': {
                     required: true,
                     maxlength: 200
-                }
+                },
+                'description': {
+                    required: false,
+                    maxlength: 2000
+                },
+
             },
             messages: {
                 'name': {
                     required: 'Por favor, ingrese un nombre.',
                     maxlength: 'Por favor, ingrese no más de 200 caracteres.'
-                }
+                },
+                'description': {
+                    maxlength: 'Por favor, ingrese no más de 2000 caracteres.'
+                },
             },
             errorClass: 'is-invalid',
             validClass: 'is-valid',
@@ -77,13 +84,21 @@ $export_columns = [0, 1];
                         'name': {
                             required: true,
                             maxlength: 200
-                        }
+                        },
+                        'description': {
+                            required: false,
+                            maxlength: 2000
+                        },
+
                     },
                     messages: {
                         'name': {
-                            required: 'Por favor, ingrese un nombre.',
+                            required: 'Por favor, ingrese un nombre para la sucursal.',
                             maxlength: 'Por favor, ingrese no más de 200 caracteres.'
-                        }
+                        },
+                        'description': {
+                            maxlength: 'Por favor, ingrese no más de 2000 caracteres.'
+                        },
                     },
                     errorClass: 'is-invalid',
                     validClass: 'is-valid',

@@ -17,7 +17,7 @@ class EditorialController extends Controller
         
         $editorials = Editorial::all();
 
-        return response()->view('admin.product_management.characteristics.manga.editorial.index_editorial', compact('editorials'));
+        return response()->view('admin.product_management.characteristics.manga.editorial.list_editorial', compact('editorials'));
     }
 
     /**
@@ -43,7 +43,7 @@ class EditorialController extends Controller
         
         $editorial = Editorial::create($request->all());
         return redirect()->route('editorial.list')
-            ->with('success', 'Editorial created successfully');
+            ->with('success', 'created');
     }
 
     /**
@@ -89,7 +89,7 @@ class EditorialController extends Controller
 
 
         return redirect()->route('editorial.list')
-            ->with('success', 'Editorial updated successfully');
+            ->with('success', 'updated');
         return response()->json($request);
     }
 
@@ -105,7 +105,7 @@ class EditorialController extends Controller
         $editorial = Editorial::find($id)->delete();
 
         return redirect()->route('editorial.list')
-            ->with('success', 'Editorial deleted successfully');
+            ->with('success', 'deleted');
     }
 }
 

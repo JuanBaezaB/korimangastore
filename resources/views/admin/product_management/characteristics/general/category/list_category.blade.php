@@ -1,22 +1,21 @@
 @extends('admin.template_list')
 
 @php
-$nombre_crud = 'Serie'; // nombre con inicial en mayuscula del producto
-$add_action_route = 'serie.add'; // ruta para accion de agregar
-$update_action_route = 'serie.update'; // ruta para accion de actualizar
-$delete_action_route = 'serie.delete'; // ruta para accion de eliminar
+$nombre_crud = 'Categoría'; // nombre con inicial en mayuscula del producto
+$add_action_route = 'category.add'; // ruta para accion de agregar
+$update_action_route = 'category.update'; // ruta para accion de actualizar
+$delete_action_route = 'category.delete'; // ruta para accion de eliminar
 
 /*
     Se saca de controller, el argumento a compact()
 */
-$collection_of_items = $series;
+$collection_of_items = $categories;
 
 // nombre de vista *_columns
-$list_columns = 'admin.product_management.characteristics.general.serie.serie_columns';
+$list_columns = 'admin.product_management.characteristics.general.category.category_columns';
 // nombre de serie *_serie
-$modal_edit_contents = 'admin.product_management.characteristics.general.serie.serie_edit';
+$modal_edit_contents = 'admin.product_management.characteristics.general.category.category_edit';
 $export_columns = [0, 1];
-
 @endphp
 
 @section('modal_create_contents')
@@ -34,7 +33,7 @@ $export_columns = [0, 1];
 @section('breadcrumb')
     <li class="breadcrumb-item">Caracteristicas</li>
     <li class="breadcrumb-item">General</li>
-    <li class="breadcrumb-item active" aria-current="page">Serie</li>
+    <li class="breadcrumb-item active" aria-current="page">Categoría</li>
 @endsection
 
 @push('scripts-extra')

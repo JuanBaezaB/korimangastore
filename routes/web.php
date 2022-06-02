@@ -52,22 +52,19 @@ Route::get('/gestion-de-productos/producto/{id}/editar', [ProductController::cla
 Route::patch('/gestion-de-productos/producto/{id}/editar', [ProductController::class, 'update'])->name('product.update')->middleware('auth');
 Route::delete('/gestion-de-productos/producto/{id}/eliminar', [ProductController::class, 'destroy'])->name('product.delete')->middleware('auth');
 
-/*  BASIC MANAGEMENT */
-
-/* Proveedor */
-Route::get('/gestion-base/configuacion-base/proveedores', [ProviderController::class, 'index'])->name('provider.list')->middleware('auth');
-Route::post('/gestion-base/configuacion-base/proveedores', [ProviderController::class, 'store'])->name('provider.add')->middleware('auth');
-Route::delete('/gestion-base/configuacion-base/eliminar-proveedores/{id}', [ProviderController::class, 'destroy'])->name('provider.delete')->middleware('auth');
-Route::patch('/gestion-base/configuacion-base/actualizar-proveedores/{id}', [ProviderController::class, 'update'])->name('provider.update')->middleware('auth');
-/* Sucursales */
-Route::get('/gestion-base/configuacion-base/sucursales', [BranchController::class, 'index'])->name('branch.list')->middleware('auth');
-Route::post('/gestion-base/configuacion-base/sucursales', [BranchController::class, 'store'])->name('branch.add')->middleware('auth');
-Route::delete('/gestion-base/configuacion-base/eliminar_sucursales/{id}', [BranchController::class, 'destroy'])->name('branch.delete')->middleware('auth');
-Route::patch('/gestion-base/configuacion-base/actualizar_sucursales/{id}', [BranchController::class, 'update'])->name('branch.update')->middleware('auth');
-
-
-
 /*  PRODUCT MANAGEMENT */
+
+/* General-Series */
+Route::get('/gestion-de-productos/carateristicas/general/serie', [SerieController::class, 'index'])->name('serie.list')->middleware('auth');
+Route::post('/gestion-de-productos/carateristicas/general/serie', [SerieController::class, 'store'])->name('serie.add')->middleware('auth');
+Route::delete('/gestion-de-productos/carateristicas/general/eliminar-serie/{id}', [SerieController::class, 'destroy'])->name('serie.delete')->middleware('auth');
+Route::patch('/gestion-de-productos/carateristicas/general/actualizar-serie/{id}', [SerieController::class, 'update'])->name('serie.update')->middleware('auth');
+/* General-Categorias */
+Route::get('/gestion-de-productos/carateristicas/general/categoria', [CategoryController::class, 'index'])->name('category.list')->middleware('auth');
+Route::post('/gestion-de-productos/carateristicas/general/categoria', [CategoryController::class, 'store'])->name('category.add')->middleware('auth');
+Route::delete('/gestion-de-productos/carateristicas/general/eliminar-categoria/{id}', [CategoryController::class, 'destroy'])->name('category.delete')->middleware('auth');
+Route::patch('/gestion-de-productos/carateristicas/general/actualizar-categoria/{id}', [CategoryController::class, 'update'])->name('category.update')->middleware('auth');
+
 
 /* Manga-Formato */
 Route::get('/gestion-de-productos/carateristicas/manga/formato', [FormatController::class, 'index'])->name('format.list')->middleware('auth');
@@ -97,13 +94,17 @@ Route::delete('/gestion-de-productos/carateristicas/figura/tipo/{id}/eliminar', 
 Route::patch('/gestion-de-productos/carateristicas/figura/tipo/{id}/editar', [FigureTypeController::class, 'update'])->name('figure_type.update')->middleware('auth');
 
 
-/* General-Series */
-Route::get('/gestion-de-productos/carateristicas/general/serie', [SerieController::class, 'index'])->name('serie.list')->middleware('auth');
-Route::post('/gestion-de-productos/carateristicas/general/serie', [SerieController::class, 'store'])->name('serie.add')->middleware('auth');
-Route::delete('/gestion-de-productos/carateristicas/general/eliminar-serie/{id}', [SerieController::class, 'destroy'])->name('serie.delete')->middleware('auth');
-Route::patch('/gestion-de-productos/carateristicas/general/actualizar-serie/{id}', [SerieController::class, 'update'])->name('serie.update')->middleware('auth');
-/* General-Categorias */
-Route::get('/gestion-de-productos/carateristicas/general/categoria', [CategoryController::class, 'index'])->name('category.list')->middleware('auth');
-Route::post('/gestion-de-productos/carateristicas/general/categoria', [CategoryController::class, 'store'])->name('category.add')->middleware('auth');
-Route::delete('/gestion-de-productos/carateristicas/general/eliminar-categoria/{id}', [CategoryController::class, 'destroy'])->name('category.delete')->middleware('auth');
-Route::patch('/gestion-de-productos/carateristicas/general/actualizar-categoria/{id}', [CategoryController::class, 'update'])->name('category.update')->middleware('auth');
+
+
+/*  BASIC MANAGEMENT */
+
+/* Proveedor */
+Route::get('/gestion-base/configuacion-base/proveedores', [ProviderController::class, 'index'])->name('provider.list')->middleware('auth');
+Route::post('/gestion-base/configuacion-base/proveedores', [ProviderController::class, 'store'])->name('provider.add')->middleware('auth');
+Route::delete('/gestion-base/configuacion-base/eliminar-proveedores/{id}', [ProviderController::class, 'destroy'])->name('provider.delete')->middleware('auth');
+Route::patch('/gestion-base/configuacion-base/actualizar-proveedores/{id}', [ProviderController::class, 'update'])->name('provider.update')->middleware('auth');
+/* Sucursales */
+Route::get('/gestion-base/configuacion-base/sucursales', [BranchController::class, 'index'])->name('branch.list')->middleware('auth');
+Route::post('/gestion-base/configuacion-base/sucursales', [BranchController::class, 'store'])->name('branch.add')->middleware('auth');
+Route::delete('/gestion-base/configuacion-base/eliminar_sucursales/{id}', [BranchController::class, 'destroy'])->name('branch.delete')->middleware('auth');
+Route::patch('/gestion-base/configuacion-base/actualizar_sucursales/{id}', [BranchController::class, 'update'])->name('branch.update')->middleware('auth');

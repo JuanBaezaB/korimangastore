@@ -98,7 +98,7 @@
       'sidebar-dark page-header-dark dark-mode'   Enable dark mode (light sidebar/header is not supported with dark mode)
   -->
     <div id="page-container"
-        class="sidebar-o enable-page-overlay sidebar-dark side-scroll page-header-fixed main-content-narrow">
+        class="sidebar-o enable-page-overlay remember-theme page-header-dark sidebar-dark  side-scroll page-header-fixed main-content-narrow">
         <!-- Side Overlay-->
         <aside id="side-overlay">
             <!-- Side Header -->
@@ -428,19 +428,19 @@
                                         <li class="nav-main-item">
                                             <a class="nav-main-link{{ request()->is('gestion-de-productos/carateristicas/manga/editorial') ? ' active' : '' }}"
                                                 href="{{ route('editorial.list') }}">
-                                                <span class="nav-main-link-name">Editoriales</span><!-- Gestion de Editorial -->
+                                                <span class="nav-main-link-name">Editorial</span><!-- Gestion de Editorial -->
                                             </a>
                                         </li>
                                         <li class="nav-main-item">
                                             <a class="nav-main-link{{ request()->is('gestion-de-productos/carateristicas/manga/formato') ? ' active' : '' }}"
                                                 href="{{ route('format.list') }}">
-                                                <span class="nav-main-link-name">Formatos</span><!-- Gestion de Formato -->
+                                                <span class="nav-main-link-name">Formato</span><!-- Gestion de Formato -->
                                             </a>
                                         </li>
                                         <li class="nav-main-item">
                                             <a class="nav-main-link{{ request()->is('gestion-de-productos/carateristicas/manga/genre') ? ' active' : '' }}"
-                                                href="{{ route('genre.list') }}">
-                                                <span class="nav-main-link-name">Generos</span><!-- Gestion de Editorial -->
+                                                href="{{ route('list_genre') }}">
+                                                <span class="nav-main-link-name">Genero</span><!-- Gestion de Editorial -->
                                             </a>
                                         </li>
                                         <li class="nav-main-item">
@@ -462,7 +462,7 @@
                                     <ul class="nav-main-submenu">
                                         <li class="nav-main-item">
                                             <a class="nav-main-link{{ request()->is('gestion-de-productos/carateristicas/figura/tipo') ? ' active' : '' }}"
-                                                href="{{ route('list_figure_type') }}">
+                                                href="{{ route('figure_type.list') }}">
                                                 <span class="nav-main-link-name">Tipo</span><!-- Gestion de Editorial -->
                                             </a>
                                         </li>
@@ -488,15 +488,15 @@
                             <ul class="nav-main-submenu">
                                 <li class="nav-main-item">
                                     <a class="nav-main-link{{ request()->is('gestion-base/configuacion-base/sucursales') ? ' active' : '' }}"
-                                        href="{{ route('list_branch') }}">
+                                        href="{{ route('branch.list') }}">
                                         <span class="nav-main-link-name">Sucursales</span>
                                     </a>
                                 </li>
 
                                 <li class="nav-main-item">
                                     <a class="nav-main-link{{ request()->is('gestion-base/configuacion-base/proveedores') ? ' active' : '' }}"
-                                        href="{{ route('list_provider') }}">
-                                        <span class="nav-main-link-name">Proveedores</span>
+                                        href="{{ route('provider.list') }}">
+                                        <span class="nav-main-link-name">Proveedor</span>
                                     </a>
                                 </li>
 

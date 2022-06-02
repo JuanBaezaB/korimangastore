@@ -15,7 +15,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
-        return response()->view('admin.product_management.characteristics.general.category.index_category', compact('categories'));
+        return response()->view('admin.product_management.characteristics.general.category.list_category', compact('categories'));
     }
 
     /**
