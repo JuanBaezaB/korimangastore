@@ -224,12 +224,14 @@ class ProductController extends Controller
             $formats = Format::all();
             $creatives = CreativePerson::all();
             $categories = Category::all();
+            $figure_types = FigureType::all();
             $is_edit = true;
             $the_compact = compact(
                 'product',
                 'providers', 'series', 'publishers', 
                 'genres', 'formats', 'creatives', 
                 'categories',
+                'figure_types',
                 'is_edit'
             );
         } catch (\Throwable $th) {
