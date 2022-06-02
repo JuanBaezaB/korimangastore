@@ -60,9 +60,11 @@
                                     <form class=" delete" action="{{ route('delete_genre', $genre->id) }}"
                                         method="POST">
                                         <div class=" btn-group">
-                                            <button type="button" class="btn btn-sm btn btn-outline-primary"
-                                                data-bs-toggle="modal" data-bs-target="#update_genre{{ $genre->id }}"
-                                                data-bs-whatever="@mdo" title="Actualizar">
+                                            <button type="button" 
+                                                class="btn btn-sm btn btn-outline-primary x-edit-button" 
+                                                x-data-id="{{ $genre->id }}" title="Actualizar"
+                                                data-bs-toggle="modal" data-bs-target="#update_genre"
+                                                data-bs-whatever="@mdo">
                                                 <i class="fa fa-pencil-alt"></i>
                                             </button>
 
@@ -75,61 +77,6 @@
 
                                         </div>
                                     </form>
-
-                                    <!-- Modal Actualizar-->
-                                    <div class="modal fade modal-update" id="update_genre{{ $genre->id }}" tabindex="-1"
-                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title " id="exampleModalLabel">Actualizar Genero</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form action="{{ route('update_genre', $genre->id) }}"
-                                                        enctype="multipart/form-data" method="POST">
-                                                        @csrf
-                                                        {{ method_field('PATCH') }}
-
-                                                        <div class="mb-3">
-                                                            <label class="col-form-label">Nombre:</label>
-                                                            <input type="text" class="form-control" name="name"
-                                                                value="{{ $genre->name }}" required>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label class="col-form-label">Tipo:</label>
-                                                            <select class="select-update form-select" name="type"
-                                                                style="width: 100%;" data-placeholder="Elige uno...">
-                                                                <option></option>
-                                                                @if ($genre->type == 'Demografía')
-                                                                    <option selected value="Demografía">Demografía</option>
-                                                                @else
-                                                                    <option value="Demografía">Demografía</option>
-                                                                @endif
-                                                                @if ($genre->type == 'Temático')
-                                                                    <option selected value="Temático">Tematico</option>
-                                                                @else
-                                                                    <option value="Temático">Tematico</option>
-                                                                @endif
-
-                                                            </select>
-                                                        </div>
-
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">Cancelar</button>
-                                                            <button type="submit"
-                                                                class="btn btn-primary">Actualizar</button>
-                                                        </div>
-
-                                                    </form>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Modal -->
                                 </td>
                             </tr>
                         @endforeach
@@ -160,7 +107,7 @@
                         <div class="mb-3">
                             <label class="col-form-label">Tipo:</label>
                             <!-- Necesitamos el tipo de acuerdo a datos suministrados por el Cliente Korimangastore -->
-                            <select class="select-add form-select" name="type" style="width: 100%;"
+                            <select class="select-add form-select form-control" name="type" style="width: 100%;"
                                 data-placeholder="Elige uno...">
                                 <option></option>
                                 <option value="Demografía">Demografía</option>
@@ -174,6 +121,54 @@
                         </div>
                     </form>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Editar -->
+    <div class="modal fade modal-update" id="update_genre" tabindex="-1"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title " id="exampleModalLabel">Actualizar Genero</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="form-update"
+                    class="validation-update"
+                        action="{{ route('update_genre', ':id') }}"
+                        enctype="multipart/form-data" method="POST">
+                        @csrf
+                        {{ method_field('PATCH') }}
+
+                        <div class="mb-3">
+                            <label class="col-form-label">Nombre:</label>
+                            <input type="text" class="form-control" name="name"
+                                value="" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="col-form-label">Tipo:</label>
+                            <select class="select-update form-select form-control" name="type"
+                                style="width: 100%;" data-placeholder="Elige uno...">
+                                <option></option>
+                                <option value="Demografía">Demografía</option>
+                                <option value="Temático">Tematico</option>
+                            </select>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary"
+                                data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit"
+                                id="btn-update"
+                                class="btn btn-primary">Actualizar</button>
+                        </div>
+
+                    </form>
+                </div>
+
             </div>
         </div>
     </div>
@@ -309,23 +304,32 @@
     <script src="{{ asset('js/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('js/plugins/jquery-validation/additional-methods.js') }}"></script>
 
+    <!-- modal -->
+    <script src="{{ asset('js/pages/update_modal.js') }}"></script>
+    <script>
+        jQuery(document).ready(function ($) {
+            let getOneUrl = {{ Js::from(route('get_one_genre')) }};
+            let csrf = '{{ csrf_token() }}';
+            $('#update_genre').updateModal({
+                form: '#form-update',
+                editButtons: '.x-edit-button',
+                getOneUrl: getOneUrl,
+                csrf: csrf,
+                fields: [
+                    { inputName: 'name' },
+                    { type: 'select2', inputName: 'type' }
+                ]
+            });
+        });
+    </script>
+
     <!-- select2-->
     <script>
         jQuery(document).ready(function($) {
             $(document).ready(function() {
-                $('.modal-update').each(function() {
-                    let s = $(this).find('.select-update');
-                    s.select2({
-                        dropdownParent: $(this)
-                    });
-                });
-
                 $('.select-add').select2({
                     dropdownParent: $('#add_genre')
                 });
-
-
-
             });
         });
     </script>
@@ -408,6 +412,9 @@
                     error.insertAfter(element);
                 }
             }
+        });
+        jQuery('.select-update').on('change', e => {
+            jQuery(e.currentTarget).valid();
         });
     </script>
 @endsection
