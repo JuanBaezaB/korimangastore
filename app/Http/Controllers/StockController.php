@@ -72,7 +72,7 @@ class StockController extends Controller
             $product->branches()->attach($branch_id, ['stock' => $quantity]);
         } else {
             $stock = $product->branches()->newPivotStatementForId($branch)->value('stock');
-            if ($stock + $normalizedQuantity <= 0) {
+            if ($stock + $normalizedQuantity < 0) {
                 throw new \Exception("expected positive quantity for new stock value");
             }
             $product->branches()->updateExistingPivot($branch, ['stock' => $stock + $normalizedQuantity]);
