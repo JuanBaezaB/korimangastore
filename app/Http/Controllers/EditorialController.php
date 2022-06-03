@@ -107,5 +107,11 @@ class EditorialController extends Controller
         return redirect()->route('editorial.list')
             ->with('success', 'deleted');
     }
+
+    public function get_one(Request $request)
+    {
+        $editorial = Editorial::findOrFail($request->get('id'));
+        return response()->json($editorial);
+    }
 }
 

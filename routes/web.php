@@ -83,6 +83,7 @@ Route::patch('/gestion-de-productos/carateristicas/manga/actualizar-formato/{id}
 /* Manga-Editorial */
 Route::get('/gestion-de-productos/carateristicas/manga/editorial', [EditorialController::class, 'index'])->name('editorial.list')->middleware('auth');
 Route::post('/gestion-de-productos/carateristicas/general/editorial', [EditorialController::class, 'store'])->name('editorial.add')->middleware('auth');
+Route::post('/gestion-de-productos/carateristicas/general/editorial/uno', [EditorialController::class, 'get_one'])->name('editorial.get_one')->middleware('auth');
 Route::delete('/gestion-de-productos/carateristicas/general/eliminar-editorial/{id}', [EditorialController::class, 'destroy'])->name('editorial.delete')->middleware('auth');
 Route::patch('/gestion-de-productos/carateristicas/general/actualizar-editorial/{id}', [EditorialController::class, 'update'])->name('editorial.update')->middleware('auth');
 /* Manga-Genero */
