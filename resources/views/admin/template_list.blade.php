@@ -1,5 +1,24 @@
 @extends('layouts.backend')
 
+<?php /*
+
+Defined in this file:
+Variables:
+- nombre_crud
+- collection_of_items
+- add_action_route
+- update_action_route
+- delete_action_route
+- export_columns
+Sections:
+- breadcrumb
+- label_headers
+- modal_create_contents
+Stacks:
+- scripts-extra
+
+*/ ?>
+
 @section('css_after')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.dataTables.min.css">
