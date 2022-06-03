@@ -50,7 +50,7 @@
                 <table id="product-table" class="table table-bordered table-striped table-vcenter table-hover w-100 display nowrap">
                     <thead>
                         <tr>
-                            <th>Unidades</th>
+                            <th style="width: 9%">Unidades</th>
                             <th style="width: 50%">Nombre</th>
                             <th class="d-none d-sm-table-cell" style="width: 40%;">Tipo</th>
                             <th class="d-none d-sm-table-cell" style="width: 15%;">Precio</th>

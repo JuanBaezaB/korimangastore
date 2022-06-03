@@ -483,7 +483,7 @@
                         <li class="nav-main-item {{ request()->is('gestion-de-inventario*') ? ' open' : '' }}">
                             <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
                                 aria-expanded="true" href="#">
-                                <i class="nav-main-link-icon fa fa-book"></i>
+                                <i class="nav-main-link-icon fa-solid fa-boxes-stacked {{ request()->is('gestion-de-inventario*') ? 'fa-bounce' : '' }}"></i>
                                 <span class="nav-main-link-name">Stock</span>
                             </a>
                             <ul class="nav-main-submenu">
