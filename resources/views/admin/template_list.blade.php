@@ -1,6 +1,28 @@
 @extends('layouts.backend')
 
+<?php /*
+
+Defined in this file:
+Variables:
+- nombre_crud
+- collection_of_items
+- add_action_route
+- update_action_route
+- delete_action_route
+- export_columns
+- validation_rules
+- validation_messages
+Sections:
+- breadcrumb
+- label_headers
+- modal_create_contents
+Stacks:
+- scripts-extra
+
+*/ ?>
+
 @section('css_after')
+    <link rel="stylesheet" href="{{ asset('js/plugins/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css">
@@ -55,11 +77,21 @@
                                     <form class=" delete" action="{{ route($delete_action_route, $an_item->id) }}"
                                         method="POST">
                                         <div class=" btn-group">
+                                            @hasSection('update-modal')
+                                            <button type="button" class="btn btn-sm btn btn-outline-primary x-edit-button"
+                                                data-bs-toggle="modal" data-bs-target="#update_item" 
+                                                data-bs-whatever="@mdo" title="Actualizar"
+                                                x-data-id="{{ $an_item->id }}">
+                                                <i class="fa fa-pencil-alt"></i>
+                                            </button>
+                                            @endif
+                                            @sectionMissing('update-modal')
                                             <button type="button" class="btn btn-sm btn btn-outline-primary"
                                                 data-bs-toggle="modal" data-bs-target="#update_item{{ $an_item->id }}"
                                                 data-bs-whatever="@mdo" title="Actualizar">
                                                 <i class="fa fa-pencil-alt"></i>
                                             </button>
+                                            @endif
 
                                             @csrf
                                             @method('DELETE')
@@ -70,6 +102,8 @@
 
                                         </div>
                                     </form>
+
+                                    @sectionMissing('update-modal')
                                     <!-- Modal Actualizar-->
                                     <div class="modal fade modal-update" id="update_item{{ $an_item->id }}" tabindex="-1"
                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -98,6 +132,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
@@ -136,6 +171,37 @@
             </div>
         </div>
     </div>
+    @yield('update-modal')
+    @hasSection('update-modal')
+    <!-- Modal Actualizar-->
+    <div class="modal fade modal-update" id="update_item" tabindex="-1"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title " id="exampleModalLabel">Actualizar {{ strtolower($nombre_crud) }}
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="form-update" class="validation-update" action="{{ route($update_action_route, ':id') }}"
+                        enctype="multipart/form-data" method="POST">
+                        @csrf
+                        {{ method_field('PATCH') }}
+                        @include($modal_edit_contents)
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Actualizar</button>
+                        </div>
+                        
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    @endif
 @endsection
 
 @section('js_after')
@@ -206,18 +272,30 @@
 
     <!-- js sweetalert2 -->
     <script>
+        let toast = Swal.mixin({
+            buttonsStyling: false,
+            target: '#page-container',
+            customClass: {
+                confirmButton: 'btn btn-success m-1',
+                cancelButton: 'btn btn-danger m-1',
+                input: 'form-control'
+            }
+        });
         $('.delete').submit(function(e) {
             e.preventDefault();
 
-            Swal.fire({
+            toast.fire({
                 title: '¿Estás seguro?',
                 text: "No podrás revertir esto!",
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
+                customClass: {
+                    confirmButton: 'btn btn-danger m-1',
+                    cancelButton: 'btn btn-secondary m-1'
+                },
                 cancelButtonText: 'Cancelar',
-                confirmButtonText: 'Si, eliminar!'
+                confirmButtonText: 'Si, eliminar!',
+                html: false,
             }).then((result) => {
                 if (result.isConfirmed) {
                     /*
@@ -231,41 +309,80 @@
             })
 
         });
-    </script>
-
-    @if (session('success') == 'created')
-        <script>
-            Swal.fire(
+        @if (session('success') == 'created')
+            toast.fire(
                 'Ingresado!',
                 'El ingreso se ha relizado exitosamente.',
                 'success'
-            )
-        </script>
-    @endif
-
-    @if (session('success') == 'deleted')
-        <script>
-            Swal.fire(
+            );
+        
+        @endif
+        @if (session('success') == 'deleted')
+        
+            toast.fire(
                 'Eliminado!',
                 'El registro ha sido eliminado.',
                 'success'
-            )
-        </script>
-    @endif
-
-    @if (session('success') == 'updated')
-        <script>
-            Swal.fire(
+            );
+        @endif
+        @if (session('success') == 'updated')
+            toast.fire(
                 'Actualizado!',
                 'El registro ha sido actualizado.',
                 'success'
-            )
-        </script>
-    @endif
+            );
+        @endif
+    </script>
+
+    
     <!-- End js sweetalert2 -->
 
     <script src="{{ asset('js/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('js/plugins/jquery-validation/additional-methods.js') }}"></script>
+    <script src="{{ asset('js/plugins/select2/js/select2.full.js') }}"></script>
+
+
+    <script>
+        jQuery(document).ready(function($) {
+            $('.force-js-select2').each(function() {
+                $(this).select2({
+                    dropdownParent: $(this).closest('div.modal')
+                });
+            });
+        });
+    </script>
+
     @stack('scripts-extra')
+    
+    <script>
+        jQuery(document).ready(function($) {
+            var validation_rules = {{ Js::from($validation_rules) }} ;
+            var validation_messages = {{ Js::from($validation_messages) }} ;
+            $('.validation-add, .validation-update')
+            .each(function () {
+                $(this).validate({
+                    ignore: [],
+                    rules: validation_rules,
+                    messages: validation_messages,
+                    errorClass: 'is-invalid',
+                    validClass: 'is-valid',
+                    errorElement: "span",
+                    errorPlacement: function(error, element) {
+                        // Add the `csc-helper-text` class to the error element
+                        error.addClass("is-invalid invalid-feedback animated fadeIn");
+                        if (element.prop("type") === "checkbox") {
+                            error.insertAfter(element.parent("label"));
+                        } else {
+                            error.insertAfter(element);
+                        }
+                    }
+                });
+            });
+
+            $('.js-select2').on('change', e => {
+                $(e.currentTarget).valid();
+            });
+        });
+    </script>
     
 @endsection

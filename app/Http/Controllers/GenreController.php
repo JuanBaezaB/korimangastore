@@ -109,4 +109,14 @@ class GenreController extends Controller
         return redirect()->route('genre.list')
         ->with('success', 'deleted');
     }
+
+    public function get_one(Request $request)
+    {
+        try {
+            $genre = Genre::findOrFail($request->get('id'));
+        } catch (\Throwable $th) {
+            dd($th);
+        }
+        return response()->json($genre);
+    }
 }

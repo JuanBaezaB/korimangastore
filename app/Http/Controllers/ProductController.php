@@ -224,12 +224,14 @@ class ProductController extends Controller
             $formats = Format::all();
             $creatives = CreativePerson::all();
             $categories = Category::all();
+            $figure_types = FigureType::all();
             $is_edit = true;
             $the_compact = compact(
                 'product',
                 'providers', 'series', 'publishers', 
                 'genres', 'formats', 'creatives', 
                 'categories',
+                'figure_types',
                 'is_edit'
             );
         } catch (\Throwable $th) {
@@ -304,7 +306,7 @@ class ProductController extends Controller
             } else if ($category->name == 'Figura') {
 
                 $figure = $oldProductable;
-                $figureData = self::collectFigureData($datos);
+                $figureData = self::collectFigureData($data);
 
                 if ($hasCategoryChanged || empty($manga)) {
                     $figure = Figure::create($figureData->toArray());
@@ -349,5 +351,21 @@ class ProductController extends Controller
 
         return redirect()->route('product.list')
         ->with('success', 'deleted');
+    }
+
+
+    public function search(Request $request) {
+        $ret = [];
+        $term = $request->get('term');
+        $results = Product::orWhere('name', 'LIKE', '%' . $term . '%')
+        ->get()
+        ->map(function ($d) {
+            $d->text = $d->name;
+            return $d;
+        })
+        ->toArray();
+
+        $ret['results'] = $results;
+        return response()->json($ret);
     }
 }

@@ -1,4 +1,4 @@
-@extends('admin.template_list')
+@extends('admin.template_list_ajax')
 
 @php
     $nombre_crud = 'Editorial'; // nombre con inicial en mayuscula del producto
@@ -16,6 +16,27 @@
     // nombre de serie *_serie
     $modal_edit_contents = 'admin.product_management.characteristics.manga.editorial.editorial_edit';
     $export_columns = [0,1,2];
+    $validation_rules = [
+        'name' => ['required' => true, 'maxlength' => 100],
+        'origin' => ['required' => true]
+    ];
+    $validation_messages = [
+        'name' => [
+            'required' => 'Por favor, ingrese un nombre.',
+            'maxlength' => 'Por favor, ingrese no más de 100 caracteres.'
+        ],
+        'origin' => [
+            'required' => 'Por favor, selecciona uno.'
+        ]
+    ];
+
+
+    // AJAX ONLY
+    $get_one_route = 'editorial.get_one';
+    $update_modal_fields = [
+        [ 'inputName' => 'name' ],
+        [ 'type' => 'select2', 'inputName' => 'origin' ]
+    ];
 @endphp
 
 @section('modal_create_contents')
@@ -25,7 +46,7 @@
     </div>
     <div class="mb-3">
         <label class="col-form-label">Origen:</label>
-        <select class="js-select-add js-select2 form-select" id="origin" name="origin" style="width: 100%;" data-placeholder="Choose one..">
+        <select class="select-add form-select form-control force-js-select2 js-select2" name="origin" style="width: 100%;" data-placeholder="Elige uno.." required>
             <option></option>
             <!-- Required for data-placeholder attribute to work with Select2 plugin -->
             <option value="Argentina">Argentina</option>
@@ -46,19 +67,3 @@
     <li class="breadcrumb-item">Manga</li>
     <li class="breadcrumb-item active" aria-current="page">Editorial</li>
 @endsection
-
-@push('scripts-extra')
-<script src="{{ asset('js/plugins/select2/js/select2.full.js') }}"></script>
-
-<!-- select2-->
-<script>
-    jQuery(document).ready(function($) {
-        $(document).ready(function() {
-            $('.js-select-add').select2({
-                dropdownParent: $("#add_item")
-            });
-        });
-    });
-</script>
-    
-@endpush
