@@ -97,7 +97,9 @@ var UpdateModal = /*#__PURE__*/function () {
         if (from == null) {
           var $form = $(this);
           var id = $updateModal.prop('x-data-id');
-          var actionUrl = this.actionUrl.replace(':id', id);
+
+          var actionUrl = _this.actionUrl.replace(':id', id);
+
           $form.attr('action', actionUrl);
           e.preventDefault();
           $form.trigger('submit', ['update_modal.js']);
