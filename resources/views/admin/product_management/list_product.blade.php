@@ -32,7 +32,7 @@
             </div>
             <div class="block-content block-content-full">
                 <!-- DataTables init on table by adding .js-dataTable-full class, functionality is initialized in js/pages/be_tables_datatables.min.js which was auto compiled from _js/pages/be_tables_datatables.js -->
-                <table id="product-table" class="table table-bordered table-striped table-vcenter js-dataTable-full">
+                <table id="product-table" class="table table-bordered table-striped table-vcenter table-hover w-100 display nowrap">
                     <thead>
                         <tr>
                             <th>Nombre</th>
