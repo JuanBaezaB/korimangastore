@@ -105,4 +105,10 @@ class BranchController extends Controller
         return redirect()->route('branch.list')
         ->with('success', 'deleted');
     }
+
+    public function get_one(Request $request)
+    {
+        $branch = Branch::findOrFail($request->get('id'));
+        return response()->json($branch);
+    }
 }
