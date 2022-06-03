@@ -33,7 +33,7 @@
                                         class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}"
                                         required autocomplete="name" autofocus placeholder="Nombre de usuario">
 
-                                    
+
                                 </div>
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -50,7 +50,7 @@
                                     <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
                                         name="email" value="{{ old('email') }}" required autocomplete="email"
                                         placeholder="Dirección de correo electrónico">
-                                    
+
                                 </div>
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -67,7 +67,7 @@
                                     <input type="password" class="form-control @error('password') is-invalid @enderror"
                                         id="password" name="password" required autocomplete="new-password"
                                         placeholder="Contraseña">
-                                    
+
                                 </div>
                                 <div class="js-password pw-strength-progress mt-1"></div>
 
@@ -152,9 +152,24 @@
         });
     </script>
     <script>
+        // valid email pattern
+        var eregex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        $.validator.addMethod("validemail", function(value, element) {
+            return this.optional(element) || eregex.test(value);
+        });
         jQuery('.validation').validate({
             ignore: [],
             rules: {
+                'name': {
+                    required: true,
+                    maxlength: 200
+                },
+                'email': {
+                    required: true,
+                    validemail: true,
+                    email: true
+
+                },
                 'password': {
                     required: true,
                     maxlength: 64,
@@ -169,11 +184,25 @@
             },
             messages: {
                 'name': {
-                    required: 'Por favor, ingrese un nombre.',
+                    required: 'Por favor, ingrese un nombre de usuario.',
                     maxlength: 'Por favor, ingrese no más de 200 caracteres.'
+                },
+                'email': {
+                    required: 'Introduce tu dirección de e-mail',
+                    validemail: 'Comprueba si el e-mail que has introducido es correcto',
+                    email: 'Comprueba si el e-mail que has introducido es correcto',
+
+                },
+                'password': {
+                    required: 'Introduce una contraseña.',
+                    maxlength: 'Por favor, ingrese no más de 200 caracteres.',
+                    minlength: 'La contraseña debe tener al menos 8 caracteres'
                 },
                 'password_confirmation': {
                     equalTo: "El password debe ser igual al anterior",
+                    required: 'Confirma tu contraseña',
+                    maxlength: 'Por favor, ingrese no más de 200 caracteres.',
+                    minlength: 'La contraseña debe tener al menos 8 caracteres'
                 },
             },
             errorClass: 'is-invalid',
