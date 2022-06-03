@@ -54,11 +54,11 @@ Route::delete('/gestion-de-productos/producto/{id}/eliminar', [ProductController
 Route::post('/gestion-de-productos/producto/buscar', [ProductController::class, 'search'])->name('product.search')->middleware('auth');
 
 /* Stock */
-Route::get('/gestion-de-productos/stock', [StockController::class, 'index'])->name('stock.list')->middleware('auth');
-Route::post('/gestion-de-productos/stock', [StockController::class, 'list'])->name('stock.data_table')->middleware('auth');
-Route::get('/gestion-de-productos/stock/sucursal/{id}', [StockController::class, 'index'])->name('stock.get_one')->middleware('auth');
-Route::get('/gestion-de-productos/stock/crear', [StockController::class, 'create'])->name('stock.create')->middleware('auth');
-Route::post('/gestion-de-productos/stock/agregar', [StockController::class, 'store'])->name('stock.add')->middleware('auth');
+Route::get('/gestion-de-inventario/stock', [StockController::class, 'index'])->name('stock.list')->middleware('auth');
+Route::post('/gestion-de-inventario/stock', [StockController::class, 'list'])->name('stock.data_table')->middleware('auth');
+Route::get('/gestion-de-inventario/stock/sucursal/{id}', [StockController::class, 'index'])->name('stock.get_one')->middleware('auth');
+Route::get('/gestion-de-inventario/stock/crear', [StockController::class, 'create'])->name('stock.create')->middleware('auth');
+Route::post('/gestion-de-inventario/stock/agregar', [StockController::class, 'store'])->name('stock.add')->middleware('auth');
 
 
 /*  PRODUCT MANAGEMENT */

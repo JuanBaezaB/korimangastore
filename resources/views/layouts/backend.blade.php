@@ -386,8 +386,7 @@
                         </li>
 
                         <!-- Gestion de Caracteristicas Manga -->
-                        <li
-                            class="nav-main-item {{ request()->is('gestion-de-productos/carateristicas/*') ? ' open' : '' }}">
+                        <li class="nav-main-item {{ request()->is('gestion-de-productos/carateristicas/*') ? ' open' : '' }}">
                             <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
                                 aria-expanded="true" href="#">
                                 <i class="nav-main-link-icon fa fa-sliders"></i>
@@ -475,6 +474,32 @@
                                 
                             </ul>
 
+                        </li>
+
+
+                        <!-- Gestion de productos -->
+                        <li class="nav-main-heading">Gestión de inventario</li>
+                        <li class="nav-main-item {{ request()->is('gestion-de-inventario*') ? ' open' : '' }}">
+                            <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
+                                aria-expanded="true" href="#">
+                                <i class="nav-main-link-icon fa fa-book"></i>
+                                <span class="nav-main-link-name">Stock</span>
+                            </a>
+                            <ul class="nav-main-submenu">
+                                <li class="nav-main-item">
+                                    <a class="nav-main-link{{ request()->is('gestion-de-inventario/stock') ? ' active' : '' }}"
+                                        href="{{ route('stock.list') }}">
+                                        <span class="nav-main-link-name">Listado</span>
+                                    </a>
+                                </li>
+
+                                <li class="nav-main-item">
+                                    <a class="nav-main-link{{ request()->is('gestion-de-inventario/stock/crear') ? ' active' : '' }}"
+                                        href="{{ route('stock.create') }}">
+                                        <span class="nav-main-link-name">Añadir nuevo</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
 
                         <!-- Gestion base -->
