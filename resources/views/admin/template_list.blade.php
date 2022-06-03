@@ -272,18 +272,30 @@ Stacks:
 
     <!-- js sweetalert2 -->
     <script>
+        let toast = Swal.mixin({
+            buttonsStyling: false,
+            target: '#page-container',
+            customClass: {
+                confirmButton: 'btn btn-success m-1',
+                cancelButton: 'btn btn-danger m-1',
+                input: 'form-control'
+            }
+        });
         $('.delete').submit(function(e) {
             e.preventDefault();
 
-            Swal.fire({
+            toast.fire({
                 title: '¿Estás seguro?',
                 text: "No podrás revertir esto!",
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
+                customClass: {
+                    confirmButton: 'btn btn-danger m-1',
+                    cancelButton: 'btn btn-secondary m-1'
+                },
                 cancelButtonText: 'Cancelar',
-                confirmButtonText: 'Si, eliminar!'
+                confirmButtonText: 'Si, eliminar!',
+                html: false,
             }).then((result) => {
                 if (result.isConfirmed) {
                     /*
@@ -297,37 +309,32 @@ Stacks:
             })
 
         });
-    </script>
-
-    @if (session('success') == 'created')
-        <script>
-            Swal.fire(
+        @if (session('success') == 'created')
+            toast.fire(
                 'Ingresado!',
                 'El ingreso se ha relizado exitosamente.',
                 'success'
-            )
-        </script>
-    @endif
-
-    @if (session('success') == 'deleted')
-        <script>
-            Swal.fire(
+            );
+        
+        @endif
+        @if (session('success') == 'deleted')
+        
+            toast.fire(
                 'Eliminado!',
                 'El registro ha sido eliminado.',
                 'success'
-            )
-        </script>
-    @endif
-
-    @if (session('success') == 'updated')
-        <script>
-            Swal.fire(
+            );
+        @endif
+        @if (session('success') == 'updated')
+            toast.fire(
                 'Actualizado!',
                 'El registro ha sido actualizado.',
                 'success'
-            )
-        </script>
-    @endif
+            );
+        @endif
+    </script>
+
+    
     <!-- End js sweetalert2 -->
 
     <script src="{{ asset('js/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
