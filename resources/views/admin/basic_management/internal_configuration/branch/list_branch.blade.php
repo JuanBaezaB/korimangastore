@@ -1,4 +1,4 @@
-@extends('admin.template_list')
+@extends('admin.template_list_ajax')
 
 @php
 $nombre_crud = 'Sucursal';
@@ -11,6 +11,33 @@ $collection_of_items = $branches;
 $list_columns = 'admin.basic_management.internal_configuration.branch.branch_columns';
 $modal_edit_contents = 'admin.basic_management.internal_configuration.branch.branch_edit';
 $export_columns = [0, 1, 2, 3, 4];
+
+$validation_rules = [
+    'name' => [
+        'required' => 'Por favor, ingrese un nombre para la sucursal.',
+        'maxlength' => 'Por favor, ingrese no más de 200 caracteres.'
+    ],
+    'address' => 'Por favor, ingrese una dirección.'
+];
+
+$validation_messages = [
+    'name' => [
+        'required' => true,
+        'maxlength' => 200
+    ],
+    'address' => [
+        'required' => false,
+    ]
+];
+
+// AJAX ONLY
+$get_one_route = 'branch.get_one';
+$update_modal_fields = [
+    [ 'inputName' => 'name' ],
+    [ 'inputName' => 'longitude' ],
+    [ 'inputName' => 'latitude' ],
+    [ 'inputName' => 'address' ]
+];
 
 @endphp
 
@@ -57,7 +84,10 @@ $export_columns = [0, 1, 2, 3, 4];
     <script type="text/javascript"
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJo0d84q3_W-zY6-m9_QJGa1UTY_vn2es&libraries=places"></script>
     <script>
-        google.maps.event.addDomListener(window, 'load', initialize);
+        google.maps.event.addDomListener(window, 'load', function () {
+            initialize();
+            initialize_update();
+        });
 
         const coordinates = {
             lat: -36.82618294457036,
@@ -131,16 +161,15 @@ $export_columns = [0, 1, 2, 3, 4];
                 information.open(map, marker);
             });
         }
-    </script>
-    <script>
-        google.maps.event.addDomListener(window, 'load', initialize_update);
 
         var lati = Number(document.querySelector("#latitude_update").value);
         var lng = Number(document.querySelector("#longitude_update").value);
 
         const coordinates2 = {
-            lat: lati,
-            lng: lng
+            lat: -36.82618294457036,
+            lng: -73.05284952925507
+            //lat: lati,
+            //lng: lng
         }
 
         function initialize_update() {
@@ -202,86 +231,5 @@ $export_columns = [0, 1, 2, 3, 4];
                 information.open(map_update, marker);
             });
         }
-    </script>
-
-
-    <!-- validaciones -->
-    <script src="{{ asset('js/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
-    <script src="{{ asset('js/plugins/jquery-validation/additional-methods.js') }}"></script>
-    <script>
-        jQuery('.validation-add').validate({
-            ignore: [],
-            rules: {
-                'name': {
-                    required: true,
-                    maxlength: 200
-                },
-                'address': {
-                    required: false,
-                },
-
-            },
-            messages: {
-                'name': {
-                    required: 'Por favor, ingrese un nombre para la sucursal.',
-                    maxlength: 'Por favor, ingrese no más de 200 caracteres.'
-                },
-                'address': 'Por favor, ingrese una dirección.',
-            },
-            errorClass: 'is-invalid',
-            validClass: 'is-valid',
-            errorElement: "span",
-            errorPlacement: function(error, element) {
-                // Add the `csc-helper-text` class to the error element
-                error.addClass("is-invalid invalid-feedback animated fadeIn");
-                if (element.prop("type") === "checkbox") {
-                    error.insertAfter(element.parent("label"));
-                } else {
-                    error.insertAfter(element);
-                }
-            }
-        });
-    </script>
-
-
-
-    <script>
-        jQuery(document).ready(function($) {
-            $('.modal-update').each(function() {
-                let s = $(this).find('.validation-update');
-                s.validate({
-                    ignore: [],
-                    rules: {
-                        'name': {
-                            required: true,
-                            maxlength: 200
-                        },
-                        'address': {
-                            required: false,
-                        },
-
-                    },
-                    messages: {
-                        'name': {
-                            required: 'Por favor, ingrese un nombre para la sucursal.',
-                            maxlength: 'Por favor, ingrese no más de 200 caracteres.'
-                        },
-                        'address': 'Por favor, ingrese una dirección.',
-                    },
-                    errorClass: 'is-invalid',
-                    validClass: 'is-valid',
-                    errorElement: "span",
-                    errorPlacement: function(error, element) {
-                        // Add the `csc-helper-text` class to the error element
-                        error.addClass("is-invalid invalid-feedback animated fadeIn");
-                        if (element.prop("type") === "checkbox") {
-                            error.insertAfter(element.parent("label"));
-                        } else {
-                            error.insertAfter(element);
-                        }
-                    }
-                });
-            });
-        });
     </script>
 @endpush
