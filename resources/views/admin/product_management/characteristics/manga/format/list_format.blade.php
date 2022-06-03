@@ -1,4 +1,4 @@
-@extends('admin.template_list')
+@extends('admin.template_list_no_ajax')
 
 @php
 $nombre_crud = 'Formato'; // nombre con inicial en mayuscula del producto
@@ -16,6 +16,27 @@ $list_columns = 'admin.product_management.characteristics.manga.format.format_co
 // nombre de serie *_serie
 $modal_edit_contents = 'admin.product_management.characteristics.manga.format.format_edit';
 $export_columns = [0, 1, 2];
+
+$validation_rules = [
+    'name' => [
+        'required' => true,
+        'maxlength' => 200
+    ],
+    'description' => [
+        'required' => false,
+        'maxlength' => 2000
+    ]
+];
+
+$validation_messages = [
+    'name' => [
+        'required' => 'Por favor, ingrese un nombre.',
+        'maxlength' => 'Por favor, ingrese no más de 200 caracteres.'
+    ],
+    'description' => [
+        'maxlength' => 'Por favor, ingrese no más de 2000 caracteres.'
+    ]
+];
 @endphp
 
 @section('modal_create_contents')
@@ -45,25 +66,10 @@ $export_columns = [0, 1, 2];
     <script>
         jQuery('.validation-add').validate({
             ignore: [],
-            rules: {
-                'name': {
-                    required: true,
-                    maxlength: 200
-                },
-                'description': {
-                    required: false,
-                    maxlength: 2000
-                },
+            rules: {,
 
             },
-            messages: {
-                'name': {
-                    required: 'Por favor, ingrese un nombre.',
-                    maxlength: 'Por favor, ingrese no más de 200 caracteres.'
-                },
-                'description': {
-                    maxlength: 'Por favor, ingrese no más de 2000 caracteres.'
-                },
+            messages: {,
             },
             errorClass: 'is-invalid',
             validClass: 'is-valid',
