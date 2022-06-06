@@ -42,8 +42,8 @@ $validation_messages = [
     </div>
     <div class="mb-3">
         <label class="col-form-label">Descripción (opcional):</label>
-        <input type="text" class="form-control" id="description" name="description" required>
-    </div>
+        <textarea class="js-simplemde form-control" id="simplemde-add" id="description" name="description" required></textarea>
+    </div>  
 @endsection
 
 @section('label_headers')
@@ -56,3 +56,40 @@ $validation_messages = [
     <li class="breadcrumb-item">Configuración interna</li>
     <li class="breadcrumb-item active" aria-current="page">Proveedor</li>
 @endsection
+
+@push('scripts-extra')
+<script src="{{ asset('js/plugins/simplemde/simplemde.min.js') }}"></script>
+<script>
+    var simplemde = new SimpleMDE({
+        element: document.getElementById("simplemde-add"),
+        /*
+            Desabilitado algunas partes del toolbar,
+            side-by-side y fullscreen estan bugueados
+        */
+        toolbar: ['bold', 'italic', 'heading', '|', 'quote', 'unordered-list', 'ordered-list', 'preview'],
+        spellChecker: false
+    });
+</script>
+
+<script>
+    jQuery(document).ready(function($) {
+        $('.validation-update').each(function () {
+            var text = $(this).find('.simplemde-update').text();
+            console.log(text);
+            var simplemde1 = new SimpleMDE({
+                element: $(this).find('.simplemde-update').get(0),
+                /*
+                    Desabilitado algunas partes del toolbar,
+                    side-by-side y fullscreen estan bugueados
+                */
+                toolbar: ['bold', 'italic', 'heading', '|', 'quote', 'unordered-list', 'ordered-list', 'preview'],
+                spellChecker: false,
+            });
+            simplemde1.value(text);
+        });
+    });
+</script>
+
+
+    
+@endpush
