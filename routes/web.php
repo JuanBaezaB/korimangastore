@@ -11,9 +11,9 @@ use App\Http\Controllers\SerieController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\CreativePersonController;
 use App\Http\Controllers\MangaController;
-use App\Http\Controllers\MailController;
 use App\Http\Controllers\FigureTypeController;
 use App\Http\Controllers\StockController;
+use App\Http\Controllers\GraphicController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,8 +43,7 @@ Route::view('/forms/be_forms_plugins', 'admin.forms.be_forms_plugins')->middlewa
 Route::view('/forms/be_forms_editors', 'admin.forms.be_forms_editors')->middleware('auth');
 Route::view('/forms/be_forms_validation', 'admin.forms.be_forms_validation')->middleware('auth');
 
-/* Graficos de prueba */
-Route::get('/grafico-de-productos/grafico', [GraphicController::class, 'index'])->name('graphic.show')->middleware('auth');
+
 
 /* Producto */
 Route::get('/gestion-de-productos/producto', [ProductController::class, 'index'])->name('product.list')->middleware('auth');
@@ -122,3 +121,6 @@ Route::post('/gestion-base/configuacion-base/sucursales', [BranchController::cla
 Route::post('/gestion-base/configuacion-base/sucursales/uno', [BranchController::class, 'get_one'])->name('branch.get_one')->middleware('auth');
 Route::delete('/gestion-base/configuacion-base/eliminar_sucursales/{id}', [BranchController::class, 'destroy'])->name('branch.delete')->middleware('auth');
 Route::patch('/gestion-base/configuacion-base/actualizar_sucursales/{id}', [BranchController::class, 'update'])->name('branch.update')->middleware('auth');
+
+/*Grafico */
+Route::get('/grafico/mostrar', [GraphicController::class, 'charts'])->name('graphic.show')->middleware('auth');
