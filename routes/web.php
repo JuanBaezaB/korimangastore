@@ -120,3 +120,8 @@ Route::post('/gestion-base/configuacion-base/sucursales', [BranchController::cla
 Route::post('/gestion-base/configuacion-base/sucursales/uno', [BranchController::class, 'get_one'])->name('branch.get_one')->middleware('auth');
 Route::delete('/gestion-base/configuacion-base/eliminar_sucursales/{id}', [BranchController::class, 'destroy'])->name('branch.delete')->middleware('auth');
 Route::patch('/gestion-base/configuacion-base/actualizar_sucursales/{id}', [BranchController::class, 'update'])->name('branch.update')->middleware('auth');
+
+
+/*  Soporte */
+Route::get('/soporte/preguntas-frecuentes-admin', [App\Http\Controllers\SupportAdminController::class, 'index'])->name('supportadminfaq')->middleware('auth');
+Route::get('/soporte/manual-admin', [App\Http\Controllers\SupportAdminController::class, 'index'])->name('supportadminmanual')->middleware('auth');

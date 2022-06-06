@@ -530,6 +530,34 @@
                             </ul>
                         </li>
 
+                        <!-- Soporte -->
+                        <li class="nav-main-heading">Soporte</li>
+                        <li class="nav-main-item{{ request()->is('soporte/*') ? ' open' : '' }}">
+                            <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
+                                aria-expanded="true" href="#">
+                                <i class="nav-main-link-icon fa fa-triangle-exclamation"></i>
+                                <span class="nav-main-link-name">¿Tienes un problema?</span>
+                            </a>
+                            <ul class="nav-main-submenu">
+                                <li class="nav-main-item">
+                                    <a class="nav-main-link{{ request()->is('soporte/preguntas-frecuentes-admin') ? ' active' : '' }}"
+                                        href="{{ route('supportadminfaq') }}">
+                                        <span class="nav-main-link-name">Preguntas frecuentes (FAQ's)</span>
+                                    </a>
+                                </li>
+
+                                <li class="nav-main-item">
+                                    <a class="nav-main-link{{ request()->is('soporte/manual-admin') ? ' active' : '' }}"
+                                        href="{{ route('supportadminmanual') }}">
+                                        <span class="nav-main-link-name">Manual de Administrador</span>
+                                    </a>
+                                </li>
+
+
+                            </ul>
+                        </li>
+                        
+
 
                         
                         <!-- Diseños 
