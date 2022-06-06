@@ -20,7 +20,7 @@ class FormatController extends Controller
             return response()->json($th);
         }
 
-        return response()->view('admin.product_management.characteristics.manga.format.index_format', compact('formats'));
+        return response()->view('admin.product_management.characteristics.manga.format.list_format', compact('formats'));
     }
 
     /**
@@ -45,7 +45,7 @@ class FormatController extends Controller
         request()->validate(Format::$rules);
         
         $provider = Format::create($request->all());
-        return redirect()->route('list_format')
+        return redirect()->route('format.list')
             ->with('success', 'created');
     }
 
@@ -89,7 +89,7 @@ class FormatController extends Controller
             //throw $th;
         }
 
-        return redirect()->route('list_format')
+        return redirect()->route('format.list')
             ->with('success', 'updated');
         return response()->json($request);
     }
@@ -105,7 +105,7 @@ class FormatController extends Controller
         //
         $format = Format::find($id)->delete();
 
-        return redirect()->route('list_format')
+        return redirect()->route('format.list')
             ->with('success', 'deleted');
     }
 }

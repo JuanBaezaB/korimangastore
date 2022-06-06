@@ -11,11 +11,15 @@ class Figure extends Model
     protected $table = 'figures';
 
     protected $fillable = [
-        'figure_type',
+        'figure_type_id',
     ];
     
     public function product() {
         return $this->morphOne(Product::class, 'productable');
+    }
+
+    public function type() {
+        return $this->belongsTo(FigureType::class, 'figure_type_id');
     }
 
 }

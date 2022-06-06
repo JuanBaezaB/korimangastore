@@ -24,6 +24,7 @@
     @yield('css_before')
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" id="css-main" href="{{ asset('/fonts/fontawesome-free/css/all.css') }}">
+    <link rel="stylesheet" id="css-main" href="{{ asset('js/plugins/sweetalert2/sweetalert2.min.css') }}">
     <link rel="stylesheet" id="css-main" href="{{ mix('css/dashmix.css') }}">
 
 
@@ -98,7 +99,7 @@
       'sidebar-dark page-header-dark dark-mode'   Enable dark mode (light sidebar/header is not supported with dark mode)
   -->
     <div id="page-container"
-        class="sidebar-o enable-page-overlay sidebar-dark side-scroll page-header-fixed main-content-narrow">
+        class="sidebar-o enable-page-overlay remember-theme page-header-dark sidebar-dark  side-scroll page-header-fixed main-content-narrow">
         <!-- Side Overlay-->
         <aside id="side-overlay">
             <!-- Side Header -->
@@ -351,7 +352,7 @@
                     <ul class="nav-main">
                         <li class="nav-main-item">
                             <a class="nav-main-link{{ request()->is('dashboard') ? ' active' : '' }}"
-                                href="/dashboard">
+                                href="{{ route('home') }}">
                                 <i class="nav-main-link-icon fa fa-location-arrow"></i>
                                 <span class="nav-main-link-name">Dashboard</span>
                                 <span class="nav-main-link-badge badge rounded-pill bg-primary">5</span>
@@ -362,7 +363,7 @@
 
                         <!-- Gestion de productos -->
                         <li class="nav-main-heading">Gestión de productos</li>
-                        <li class="nav-main-item {{ request()->is('product_management*') ? ' open' : '' }}">
+                        <li class="nav-main-item {{ request()->is('gestion-de-productos/producto*') ? ' open' : '' }}">
                             <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
                                 aria-expanded="true" href="#">
                                 <i class="nav-main-link-icon fa fa-book"></i>
@@ -370,15 +371,15 @@
                             </a>
                             <ul class="nav-main-submenu">
                                 <li class="nav-main-item">
-                                    <a class="nav-main-link{{ request()->is('product_management/list_product') ? ' active' : '' }}"
-                                        href="{{ route('lista_producto') }}">
+                                    <a class="nav-main-link{{ request()->is('gestion-de-productos/producto') ? ' active' : '' }}"
+                                        href="{{ route('product.list') }}">
                                         <span class="nav-main-link-name">Listado</span>
                                     </a>
                                 </li>
 
                                 <li class="nav-main-item">
-                                    <a class="nav-main-link{{ request()->is('product_management/add_product') ? ' active' : '' }}"
-                                        href="{{ route('create_product') }}">
+                                    <a class="nav-main-link{{ request()->is('gestion-de-productos/producto/crear') ? ' active' : '' }}"
+                                        href="{{ route('product.create') }}">
                                         <span class="nav-main-link-name">Añadir nuevo</span>
                                     </a>
                                 </li>
@@ -386,8 +387,7 @@
                         </li>
 
                         <!-- Gestion de Caracteristicas Manga -->
-                        <li
-                            class="nav-main-item {{ request()->is('gestion-de-productos/carateristicas/*') ? ' open' : '' }}">
+                        <li class="nav-main-item {{ request()->is('gestion-de-productos/carateristicas/*') ? ' open' : '' }}">
                             <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
                                 aria-expanded="true" href="#">
                                 <i class="nav-main-link-icon fa fa-sliders"></i>
@@ -404,13 +404,13 @@
                                     <ul class="nav-main-submenu">
                                         <li class="nav-main-item">
                                             <a class="nav-main-link{{ request()->is('gestion-de-productos/carateristicas/general/serie') ? ' active' : '' }}"
-                                                href="{{ route('list_serie') }}">
+                                                href="{{ route('serie.list') }}">
                                                 <span class="nav-main-link-name">Series</span>
                                             </a>
                                         </li>
                                         <li class="nav-main-item">
                                             <a class="nav-main-link{{ request()->is('gestion-de-productos/carateristicas/general/categoria') ? ' active' : '' }}"
-                                                href="{{ route('list_category') }}">
+                                                href="{{ route('category.list') }}">
                                                 <span class="nav-main-link-name">Categorías</span>
                                             </a>
                                         </li>
@@ -427,26 +427,43 @@
                                     <ul class="nav-main-submenu">
                                         <li class="nav-main-item">
                                             <a class="nav-main-link{{ request()->is('gestion-de-productos/carateristicas/manga/editorial') ? ' active' : '' }}"
-                                                href="{{ route('list_editorial') }}">
-                                                <span class="nav-main-link-name">Editoriales</span><!-- Gestion de Editorial -->
+                                                href="{{ route('editorial.list') }}">
+                                                <span class="nav-main-link-name">Editorial</span><!-- Gestion de Editorial -->
                                             </a>
                                         </li>
                                         <li class="nav-main-item">
                                             <a class="nav-main-link{{ request()->is('gestion-de-productos/carateristicas/manga/formato') ? ' active' : '' }}"
-                                                href="{{ route('list_format') }}">
-                                                <span class="nav-main-link-name">Formatos</span><!-- Gestion de Formato -->
+                                                href="{{ route('format.list') }}">
+                                                <span class="nav-main-link-name">Formato</span><!-- Gestion de Formato -->
                                             </a>
                                         </li>
                                         <li class="nav-main-item">
                                             <a class="nav-main-link{{ request()->is('gestion-de-productos/carateristicas/manga/genre') ? ' active' : '' }}"
                                                 href="{{ route('list_genre') }}">
-                                                <span class="nav-main-link-name">Generos</span><!-- Gestion de Editorial -->
+                                                <span class="nav-main-link-name">Genero</span><!-- Gestion de Editorial -->
                                             </a>
                                         </li>
                                         <li class="nav-main-item">
                                             <a class="nav-main-link{{ request()->is('gestion-de-productos/carateristicas/manga/persona-creativa') ? ' active' : '' }}"
-                                                href="{{ route('list_creative_person') }}">
+                                                href="{{ route('creative_person.list') }}">
                                                 <span class="nav-main-link-name">Persona Creativa</span>
+                                            </a>
+                                        </li>
+                                       
+
+                                    </ul>
+                                </li>
+
+                                <li class="nav-main-item {{ request()->is('gestion-de-productos/carateristicas/figura/*') ? ' open' : '' }}">
+                                    <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu"
+                                        aria-haspopup="true" aria-expanded="true" href="#">
+                                        <span class="nav-main-link-name">Figura</span>
+                                    </a>
+                                    <ul class="nav-main-submenu">
+                                        <li class="nav-main-item">
+                                            <a class="nav-main-link{{ request()->is('gestion-de-productos/carateristicas/figura/tipo') ? ' active' : '' }}"
+                                                href="{{ route('figure_type.list') }}">
+                                                <span class="nav-main-link-name">Tipo</span><!-- Gestion de Editorial -->
                                             </a>
                                         </li>
                                        
@@ -460,6 +477,32 @@
 
                         </li>
 
+
+                        <!-- Gestion de productos -->
+                        <li class="nav-main-heading">Gestión de inventario</li>
+                        <li class="nav-main-item {{ request()->is('gestion-de-inventario*') ? ' open' : '' }}">
+                            <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
+                                aria-expanded="true" href="#">
+                                <i class="nav-main-link-icon fa-solid fa-boxes-stacked {{ request()->is('gestion-de-inventario*') ? 'fa-bounce' : '' }}"></i>
+                                <span class="nav-main-link-name">Stock</span>
+                            </a>
+                            <ul class="nav-main-submenu">
+                                <li class="nav-main-item">
+                                    <a class="nav-main-link{{ request()->is('gestion-de-inventario/stock') ? ' active' : '' }}"
+                                        href="{{ route('stock.list') }}">
+                                        <span class="nav-main-link-name">Listado</span>
+                                    </a>
+                                </li>
+
+                                <li class="nav-main-item">
+                                    <a class="nav-main-link{{ request()->is('gestion-de-inventario/stock/crear') ? ' active' : '' }}"
+                                        href="{{ route('stock.create') }}">
+                                        <span class="nav-main-link-name">Añadir nuevo</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
                         <!-- Gestion base -->
                         <li class="nav-main-heading">Gestión base </li>
                         <li class="nav-main-item{{ request()->is('gestion-base/configuacion-base/*') ? ' open' : '' }}">
@@ -471,15 +514,15 @@
                             <ul class="nav-main-submenu">
                                 <li class="nav-main-item">
                                     <a class="nav-main-link{{ request()->is('gestion-base/configuacion-base/sucursales') ? ' active' : '' }}"
-                                        href="{{ route('list_branch') }}">
+                                        href="{{ route('branch.list') }}">
                                         <span class="nav-main-link-name">Sucursales</span>
                                     </a>
                                 </li>
 
                                 <li class="nav-main-item">
                                     <a class="nav-main-link{{ request()->is('gestion-base/configuacion-base/proveedores') ? ' active' : '' }}"
-                                        href="{{ route('list_provider') }}">
-                                        <span class="nav-main-link-name">Proveedores</span>
+                                        href="{{ route('provider.list') }}">
+                                        <span class="nav-main-link-name">Proveedor</span>
                                     </a>
                                 </li>
 
@@ -488,8 +531,8 @@
                         </li>
 
 
-
-                        <!-- Diseños -->
+                        
+                        <!-- Diseños 
                         <li class="nav-main-heading">Design</li>
                         <li class="nav-main-item  {{ request()->is('forms/*') ? ' open' : '' }}">
                             <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
@@ -547,7 +590,7 @@
                                 </li>
                             </ul>
                         </li>
-                         <!-- end Diseños -->
+                         <end Diseños -->
 
                     </ul>
                 </div>
@@ -572,7 +615,7 @@
                     <!-- END Toggle Sidebar -->
 
                     <!-- Open Search Section -->
-                    <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
+                    <!-- Layout API, functionality initialized in Template._uiApiLayout() 
                     <button type="button" class="btn btn-alt-secondary" data-toggle="layout"
                         data-action="header_search_on">
                         <i class="fa fa-fw opacity-50 fa-search"></i> <span
@@ -597,6 +640,7 @@
                                 User Options
                             </div>
                             <div class="p-2">
+                                <!--
                                 <a class="dropdown-item" href="javascript:void(0)">
                                     <i class="far fa-fw fa-user me-1"></i> Profile
                                 </a>
@@ -608,17 +652,17 @@
                                 <a class="dropdown-item" href="javascript:void(0)">
                                     <i class="far fa-fw fa-file-alt me-1"></i> Invoices
                                 </a>
-                                <div role="separator" class="dropdown-divider"></div>
+                                <div role="separator" class="dropdown-divider"></div>-->
 
                                 <!-- Toggle Side Overlay -->
-                                <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
+                                <!-- Layout API, functionality initialized in Template._uiApiLayout() 
                                 <a class="dropdown-item" href="javascript:void(0)" data-toggle="layout"
                                     data-action="side_overlay_toggle">
                                     <i class="far fa-fw fa-building me-1"></i> Settings
                                 </a>
-                                <!-- END Side Overlay -->
+                                <!-- END Side Overlay 
 
-                                <div role="separator" class="dropdown-divider"></div>
+                                <div role="separator" class="dropdown-divider"></div>-->
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
                                     <i class="far fa-fw fa-arrow-alt-circle-left me-1"></i> {{ __('Logout') }}
@@ -644,6 +688,7 @@
                                 Notifications
                             </div>
                             <ul class="nav-items my-2">
+                                <!--
                                 <li>
                                     <a class="d-flex text-dark py-2" href="javascript:void(0)">
                                         <div class="flex-shrink-0 mx-3">
@@ -700,7 +745,7 @@
                                             <div class="text-muted">2 hours ago</div>
                                         </div>
                                     </a>
-                                </li>
+                                </li>-->
                             </ul>
                             <div class="p-2 border-top">
                                 <a class="btn btn-alt-primary w-100 text-center" href="javascript:void(0)">
@@ -713,7 +758,7 @@
 
                     <!-- Toggle Side Overlay -->
                     <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-                    <button type="button" class="btn btn-alt-secondary" data-toggle="layout"
+                    <button hidden type="button" class="btn btn-alt-secondary" data-toggle="layout"
                         data-action="side_overlay_toggle">
                         <i class="far fa-fw fa-list-alt"></i>
                     </button>
@@ -758,8 +803,8 @@
         <!-- END Header -->
 
         <!-- sweetalert2 -->
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.8/sweetalert2.min.js"></script>
+        <script src="{{ asset('js/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+
         <!-- END sweetalert2 -->
 
 

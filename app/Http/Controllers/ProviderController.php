@@ -18,7 +18,7 @@ class ProviderController extends Controller
         //
         $providers = Provider::all();
 
-        return response()->view('admin.basic_management.internal_configuration.provider.index_provider', compact('providers'));
+        return response()->view('admin.basic_management.internal_configuration.provider.list_provider', compact('providers'));
     }
 
     /**
@@ -45,8 +45,8 @@ class ProviderController extends Controller
         request()->validate(Provider::$rules);
         
         $provider = Provider::create($request->all());
-        return redirect()->route('list_provider')
-            ->with('success', 'Provider created successfully');
+        return redirect()->route('provider.list')
+            ->with('success', 'created');
     }
 
     /**
@@ -93,8 +93,8 @@ class ProviderController extends Controller
 
 
 
-        return redirect()->route('list_provider')
-            ->with('success', 'Provider updated successfully');
+        return redirect()->route('provider.list')
+            ->with('success', 'updated');
         return response()->json($request);
     }
 
@@ -109,7 +109,7 @@ class ProviderController extends Controller
         //
         $provider = Provider::find($id)->delete();
 
-        return redirect()->route('list_provider')
-            ->with('success', 'Provider deleted successfully');
+        return redirect()->route('provider.list')
+            ->with('success', 'deleted');
     }
 }

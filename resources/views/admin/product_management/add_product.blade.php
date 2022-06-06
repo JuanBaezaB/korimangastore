@@ -26,7 +26,7 @@
                 <h3 class="block-title">{{ empty($is_edit) ? 'Añadir' : 'Editar'}}</h3>
             </div>
             <div class="block-content">
-                <form action="{{ !empty($is_edit) ? route('update_product', $product->id) : route('add_product') }}" enctype="multipart/form-data" method="POST">
+                <form action="{{ !empty($is_edit) ? route('product.update', $product->id) : route('product.add') }}" enctype="multipart/form-data" method="POST">
                     @csrf
                     @if (!empty($is_edit))
                         @method('PATCH')
@@ -48,7 +48,7 @@
                     <div class="mb-3">
                         <label class="col-form-label">Proveedor:</label>
 
-                        <select class="js-basic-single js-select2 form-select" name="provider_id" style="width: 100%;" data-placeholder="Elige uno.." required>
+                        <select class="js-basic-single js-select2 form-select" name="provider_id" style="width: 100%;" data-placeholder="Elige uno si aplica..">
                             <option></option>
                             @foreach ($providers as $row)
                                 <option value="{{ $row->id }}" {{ (isset($product) && $product->provider->id === $row->id) ? 'selected=selected' : '' }}>{{ $row->name }}</option>
@@ -60,7 +60,7 @@
                     <div class="mb-3">
                         <label class="col-form-label">Series:</label>
 
-                        <select class="js-basic-multiple js-select2 form-select" multiple="multiple" name="series[]" style="width: 100%;" data-placeholder="Elige varias.." required>
+                        <select class="js-basic-multiple js-select2 form-select" multiple="multiple" name="series[]" style="width: 100%;" data-placeholder="Elige varias..">
                             <option></option>
                             @foreach ($series as $row)
                                 <option value="{{ $row->id }}" {{ (isset($product) && $product->series->contains($row->id)) ? 'selected=selected' : '' }}>{{ $row->name }}</option>
@@ -87,7 +87,7 @@
                     <div class="mb-3 manga-form">
                         <label class="col-form-label">Editorial:</label>
 
-                        <select class="js-basic-single js-select2 form-select" name="editorial_id" style="width: 100%;" data-placeholder="Elige uno.." required>
+                        <select class="js-basic-single js-select2 form-select manga-required" name="editorial_id" style="width: 100%;" data-placeholder="Elige uno..">
                             <option></option>
                             @foreach ($publishers as $row)
                                 <option value="{{ $row->id }}" 
@@ -101,7 +101,7 @@
                     <div class="mb-3 manga-form">
                         <label class="col-form-label">Formato:</label>
 
-                        <select class="js-basic-single js-select2 form-select" name="format_id" style="width: 100%;" data-placeholder="Elige uno.." required>
+                        <select class="js-basic-single js-select2 form-select manga-required" name="format_id" style="width: 100%;" data-placeholder="Elige uno..">
                             <option></option>
                             @foreach ($formats as $row)
                                 <option value="{{ $row->id }}" 
@@ -115,7 +115,7 @@
                     <div class="mb-3 manga-form">
                         <label class="col-form-label">Genero:</label>
 
-                        <select class="js-basic-multiple js-select2 form-select" multiple="multiple" name="genres[]" style="width: 100%;" data-placeholder="Elige varias.." required>
+                        <select class="js-basic-multiple js-select2 form-select" multiple="multiple" name="genres[]" style="width: 100%;" data-placeholder="Elige varias..">
                             <option></option>
                             @foreach ($genres as $row)
                                 <option value="{{ $row->id }}"
@@ -130,7 +130,7 @@
                         <div class="col">
                             <label class="col-form-label">Arte por:</label>
 
-                            <select class="js-basic-multiple js-select2 form-select" multiple="multiple" name="arts[]"  data-placeholder="Elige varios.." required>
+                            <select class="js-basic-multiple js-select2 form-select" multiple="multiple" name="arts[]"  data-placeholder="Elige varios..">
                                 <option></option>
                                 @foreach ($creatives as $row)
                                     <option value="{{ $row->id }}"
@@ -143,7 +143,7 @@
                         <div class="col">
                             <label class="col-form-label">Historia por:</label>
 
-                            <select class="js-basic-multiple js-select2 form-select" multiple="multiple" name="stories[]"  data-placeholder="Elige varios.." required>
+                            <select class="js-basic-multiple js-select2 form-select" multiple="multiple" name="stories[]"  data-placeholder="Elige varios..">
                                 <option></option>
                                 @foreach ($creatives as $row)
                                     <option value="{{ $row->id }}"
@@ -157,7 +157,23 @@
 
                     <!-- END FORM MANGA -->
 
+                    <!-- FORM FIGURE -->
 
+                    <div class="mb-3 figure-form">
+                        <label class="col-form-label">Tipo:</label>
+
+                        <select class="js-basic-single js-select2 form-select figure-required" name="figure_type_id" style="width: 100%;" data-placeholder="Elige uno..">
+                            <option></option>
+                            @foreach ($figure_types as $row)
+                                <option value="{{ $row->id }}" 
+                                {{ (isset($product->productable->type->id) && $product->productable->type->id === $row->id) ? 'selected=selected' : '' }}>
+                                {{ $row->name }}</option>
+                            @endforeach
+                        </select>
+
+                    </div>
+
+                    <!-- END FORM FIGURE -->
 
                     <div class="mb-3">
                         <!-- SimpleMDE Container -->
@@ -216,18 +232,33 @@
     });
 </script>
 
-<!-- esconde partes de formulario que no se usan -->
+<!-- esconde partes de formulario que no se usan y cambia elementos required dinamicamente -->
 <script>
     
     jQuery(document).ready(function($) {
+        let es_to_en = {
+            figura: 'figure'
+        };
+        let es2en = (x) => (x in es_to_en) ? es_to_en[x] : x;
         function hideFormsBut(value) {
-            let formsAround = ['manga', 'generic'];
+            value = es2en(value);
+            let formsAround = ['manga', 'generic', 'figure'];
             if (formsAround.indexOf(value) == -1) {
                 value = 'generic';
             }
             let toHide = formsAround.filter(v => v !== value).map(v => `.${v}-form`).join(', ');
             $(toHide).addClass('d-none');
             $(`.${value}-form`).removeClass('d-none');
+        }
+
+        function toggleRequired(value) {
+            value = es2en(value);
+            let formsAround = ['manga', 'figure'];
+            let toRemoveRequired = formsAround.filter(v => v !== value).map(v => `.${v}-required`).join(', ');
+            if (toRemoveRequired !== '') {
+                $(toRemoveRequired).prop('required', false);
+            }
+            $(`.${value}-required`).prop('required', true);
         }
 
         $('#product-type-select').on('change', function() {

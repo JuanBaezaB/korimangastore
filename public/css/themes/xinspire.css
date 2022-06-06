@@ -1514,27 +1514,27 @@ a.btn-block-option:focus,
 }
 
 .select2-container--default .select2-selection--single {
-  border-color: #e1e1e1;
+  border-color: #e1e1e1 !important;
 }
 .select2-container--default .select2-selection--multiple {
-  border-color: #e1e1e1;
+  border-color: #e1e1e1 !important;
 }
 .select2-container--default.select2-container--focus .select2-selection--multiple, .select2-container--default.select2-container--focus .select2-selection--single, .select2-container--default.select2-container--open .select2-selection--multiple, .select2-container--default.select2-container--open .select2-selection--single {
-  border-color: #37a6a5;
-  box-shadow: 0 0 0 0.25rem rgba(42, 128, 127, 0.25);
+  border-color: #37a6a5 !important;
+  box-shadow: 0 0 0 0.25rem rgba(42, 128, 127, 0.25) !important;
 }
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
-  background-color: #2a807f;
+  background-color: #2a807f !important;
 }
 .select2-container--default .select2-search--dropdown .select2-search__field {
-  border-color: #e1e1e1;
+  border-color: #e1e1e1 !important;
 }
 .select2-container--default .select2-results__option--highlighted[aria-selected] {
-  background-color: #2a807f;
+  background-color: #2a807f !important;
 }
 .select2-container--default .select2-dropdown .select2-search__field:focus {
-  border-color: #37a6a5;
-  box-shadow: 0 0 0 0.25rem rgba(42, 128, 127, 0.25);
+  border-color: #37a6a5 !important;
+  box-shadow: 0 0 0 0.25rem rgba(42, 128, 127, 0.25) !important;
 }
 
 .simplebar-scrollbar::before {
@@ -2683,70 +2683,70 @@ a.btn-block-option:focus,
   background: #222528;
 }
 .dark-mode .select2-container--default .select2-selection--single .select2-selection__placeholder {
-  color: #7d858f;
+  color: #7d858f !important;
 }
 .dark-mode .select2-container--default .select2-selection--single,
 .dark-mode .select2-container--default .select2-selection--multiple {
-  background-color: #1f2124;
-  border-color: #3c4146;
+  background-color: #1f2124 !important;
+  border-color: #3c4146 !important;
 }
 .dark-mode .select2-container--default.select2-container--focus .select2-selection--multiple, .dark-mode .select2-container--default.select2-container--focus .select2-selection--single, .dark-mode .select2-container--default.select2-container--open .select2-selection--multiple, .dark-mode .select2-container--default.select2-container--open .select2-selection--single {
-  border-color: #2a807f;
+  border-color: #2a807f !important;
 }
 .dark-mode .select2-container--default .select2-selection--single .select2-selection__rendered {
-  color: #d1d1d1;
+  color: #d1d1d1 !important;
 }
 .dark-mode .select2-container--default .select2-search--dropdown .select2-search__field {
-  border-color: #3c4146;
+  border-color: #3c4146 !important;
 }
 .dark-mode .select2-container--default .select2-dropdown .select2-search__field:focus {
-  border-color: #2a807f;
+  border-color: #2a807f !important;
 }
 .dark-mode .select2-container--default .select2-dropdown {
-  background-color: #1f2124;
-  border-color: #3c4146;
+  background-color: #1f2124 !important;
+  border-color: #3c4146 !important;
 }
 .dark-mode .select2-container--default .select2-search--dropdown .select2-search__field {
-  color: #d1d1d1;
-  background-color: #1f2124;
-  border-color: #3c4146;
+  color: #d1d1d1 !important;
+  background-color: #1f2124 !important;
+  border-color: #3c4146 !important;
 }
 .dark-mode .select2-container--default .select2-results__option[aria-selected=true] {
-  color: #fff;
-  background-color: #2a807f;
+  color: #fff !important;
+  background-color: #2a807f !important;
 }
 .dark-mode .select2-container--default .select2-search__field::-moz-placeholder {
-  color: #7d858f;
+  color: #7d858f !important;
 }
 .dark-mode .select2-container--default .select2-search__field:-ms-input-placeholder {
-  color: #7d858f;
+  color: #7d858f !important;
 }
 .dark-mode .select2-container--default .select2-search__field::placeholder {
-  color: #7d858f;
+  color: #7d858f !important;
 }
 .dark-mode .is-valid + .select2-container--default .select2-selection--single,
 .dark-mode .is-valid + .select2-container--default .select2-selection--multiple,
 .dark-mode .is-valid + .select2-container--default.select2-container--focus .select2-selection--single,
 .dark-mode .is-valid + .select2-container--default.select2-container--focus .select2-selection--multiple {
-  border-color: #89b956;
+  border-color: #89b956 !important;
 }
 .dark-mode .is-valid + .select2-container--default.select2-container--focus .select2-selection--single,
 .dark-mode .is-valid + .select2-container--default.select2-container--focus .select2-selection--multiple,
 .dark-mode .is-valid + .select2-container--default.select2-container--open .select2-selection--single,
 .dark-mode .is-valid + .select2-container--default.select2-container--open .select2-selection--multiple {
-  box-shadow: 0 0 0 0.25rem rgba(137, 185, 86, 0.25);
+  box-shadow: 0 0 0 0.25rem rgba(137, 185, 86, 0.25) !important;
 }
 .dark-mode .is-invalid + .select2-container--default .select2-selection--single,
 .dark-mode .is-invalid + .select2-container--default .select2-selection--multiple,
 .dark-mode .is-invalid + .select2-container--default.select2-container--focus .select2-selection--single,
 .dark-mode .is-invalid + .select2-container--default.select2-container--focus .select2-selection--multiple {
-  border-color: #e97044;
+  border-color: #e97044 !important;
 }
 .dark-mode .is-invalid + .select2-container--default.select2-container--focus .select2-selection--single,
 .dark-mode .is-invalid + .select2-container--default.select2-container--focus .select2-selection--multiple,
 .dark-mode .is-invalid + .select2-container--default.select2-container--open .select2-selection--single,
 .dark-mode .is-invalid + .select2-container--default.select2-container--open .select2-selection--multiple {
-  box-shadow: 0 0 0 0.25rem rgba(233, 112, 68, 0.25);
+  box-shadow: 0 0 0 0.25rem rgba(233, 112, 68, 0.25) !important;
 }
 .dark-mode .datepicker .datepicker-switch:hover,
 .dark-mode .datepicker .next:hover,
