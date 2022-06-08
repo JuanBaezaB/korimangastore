@@ -541,14 +541,14 @@
                             <ul class="nav-main-submenu">
                                 <li class="nav-main-item">
                                     <a class="nav-main-link{{ request()->is('soporte/preguntas-frecuentes-admin') ? ' active' : '' }}"
-                                        href="{{ route('supportadminfaq') }}">
+                                        href="{{ route('support.adminfaq') }}">
                                         <span class="nav-main-link-name">Preguntas frecuentes (FAQ's)</span>
                                     </a>
                                 </li>
 
                                 <li class="nav-main-item">
                                     <a class="nav-main-link{{ request()->is('soporte/manual-admin') ? ' active' : '' }}"
-                                        href="{{ route('supportadminmanual') }}">
+                                        href="{{ route('support.adminmanual') }}">
                                         <span class="nav-main-link-name">Manual de Administrador</span>
                                     </a>
                                 </li>

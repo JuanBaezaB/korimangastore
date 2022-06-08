@@ -123,5 +123,5 @@ Route::patch('/gestion-base/configuacion-base/actualizar_sucursales/{id}', [Bran
 
 
 /*  Soporte */
-Route::get('/soporte/preguntas-frecuentes-admin', [App\Http\Controllers\SupportAdminController::class, 'index'])->name('supportadminfaq')->middleware('auth');
-Route::get('/soporte/manual-admin', [App\Http\Controllers\SupportAdminController::class, 'index'])->name('supportadminmanual')->middleware('auth');
+Route::view('/soporte/preguntas-frecuentes-admin', 'admin.support.adminfaq')->name('support.adminfaq')->middleware('auth');
+Route::view('/soporte/manual-admin', 'admin.support.adminmanual')->name('support.adminmanual')->middleware('auth');
