@@ -17,7 +17,12 @@ class DatabaseSeeder extends Seeder
         $this->call([
             CategorySeeder::class,
             UserSeeder::class,
-            GenreSeeder::class
+            GenreSeeder::class,
+            FigureTypeSeeder::class,
+            FormatSeeder::class,
+            EditorialSeeder::class,
+            CreativePersonSeeder::class,
+            SerieSeeder::class
         ]);
     }
 }
