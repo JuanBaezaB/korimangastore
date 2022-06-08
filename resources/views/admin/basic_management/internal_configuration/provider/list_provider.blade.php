@@ -73,19 +73,21 @@ $validation_messages = [
 
 <script>
     jQuery(document).ready(function($) {
-        $('.validation-update').each(function () {
+        $('.modal-update').each(function () {
             var text = $(this).find('.simplemde-update').text();
             console.log(text);
-            var simplemde1 = new SimpleMDE({
+            var simplemdeupdate = new SimpleMDE({
                 element: $(this).find('.simplemde-update').get(0),
-                /*
-                    Desabilitado algunas partes del toolbar,
-                    side-by-side y fullscreen estan bugueados
-                */
+                
                 toolbar: ['bold', 'italic', 'heading', '|', 'quote', 'unordered-list', 'ordered-list', 'preview'],
                 spellChecker: false,
             });
-            simplemde1.value(text);
+            simplemdeupdate.value(text);
+            simplemdeupdate.render();
+            $(this).focus(function(){
+                simplemdeupdate.codemirror.refresh();
+            });
+            
         });
     });
 </script>
