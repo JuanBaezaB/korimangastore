@@ -14,6 +14,8 @@ use App\Http\Controllers\MangaController;
 use App\Http\Controllers\FigureTypeController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\GraphicController;
+use App\Http\Controllers\SaleController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -122,5 +124,10 @@ Route::post('/gestion-base/configuacion-base/sucursales/uno', [BranchController:
 Route::delete('/gestion-base/configuacion-base/eliminar_sucursales/{id}', [BranchController::class, 'destroy'])->name('branch.delete')->middleware('auth');
 Route::patch('/gestion-base/configuacion-base/actualizar_sucursales/{id}', [BranchController::class, 'update'])->name('branch.update')->middleware('auth');
 
-/*Grafico */
-Route::get('/grafico/mostrar', [GraphicController::class, 'charts'])->name('graphic.show')->middleware('auth');
+
+/* Venta para graficos */
+Route::get('/gestion-base/configuacion-base/venta', [SaleController::class, 'index'])->name('sale.list')->middleware('auth');
+Route::post('/gestion-base/configuacion-base/venta', [SaleController::class, 'store'])->name('sale.add')->middleware('auth');
+Route::post('/gestion-base/configuacion-base/venta/uno', [SaleController::class, 'get_one'])->name('sale.get_one')->middleware('auth');
+Route::delete('/gestion-base/configuacion-base/eliminar_venta/{id}', [SaleController::class, 'destroy'])->name('sale.delete')->middleware('auth');
+Route::patch('/gestion-base/configuacion-base/actualizar_venta/{id}', [SaleController::class, 'update'])->name('sale.update')->middleware('auth');

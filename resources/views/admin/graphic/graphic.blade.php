@@ -33,6 +33,9 @@
     <!-- END Elements -->
 </div>
 <!-- END Page Content -->
+@foreach($ventas)
+<p>This is user {{ $ventas->id }}</p>
+endforeach
 
 @endsection
 
@@ -42,7 +45,6 @@
 <script>
 
 const ctx = document.getElementById('myChart').getContext('2d');
-var venta[]= '{{$venta}}';
 const myChart = new Chart(ctx, {
     type: 'bar',
     data: {

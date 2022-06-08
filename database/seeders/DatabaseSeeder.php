@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             UserSeeder::class,
             GenreSeeder::class,
-            PruebaVentaSeeder::class
+            Sales::class
         ]);
     }
 }
