@@ -58,40 +58,37 @@ $validation_messages = [
 @endsection
 
 @push('scripts-extra')
-<script src="{{ asset('js/plugins/simplemde/simplemde.min.js') }}"></script>
-<script>
-    var simplemde = new SimpleMDE({
-        element: document.getElementById("simplemde-add"),
-        /*
-            Desabilitado algunas partes del toolbar,
-            side-by-side y fullscreen estan bugueados
-        */
-        toolbar: ['bold', 'italic', 'heading', '|', 'quote', 'unordered-list', 'ordered-list', 'preview'],
-        spellChecker: false
-    });
-</script>
-
-<script>
-    jQuery(document).ready(function($) {
-        $('.modal-update').each(function () {
-            var text = $(this).find('.simplemde-update').text();
-            console.log(text);
-            var simplemdeupdate = new SimpleMDE({
-                element: $(this).find('.simplemde-update').get(0),
-                
-                toolbar: ['bold', 'italic', 'heading', '|', 'quote', 'unordered-list', 'ordered-list', 'preview'],
-                spellChecker: false,
-            });
-            simplemdeupdate.value(text);
-            simplemdeupdate.render();
-            $(this).focus(function(){
-                simplemdeupdate.codemirror.refresh();
-            });
-            
+    <script src="{{ asset('js/plugins/simplemde/simplemde.min.js') }}"></script>
+    <script>
+        var simplemde = new SimpleMDE({
+            element: document.getElementById("simplemde-add"),
+            /*
+                Desabilitado algunas partes del toolbar,
+                side-by-side y fullscreen estan bugueados
+            */
+            toolbar: ['bold', 'italic', 'heading', '|', 'quote', 'unordered-list', 'ordered-list', 'preview'],
+            spellChecker: false
         });
-    });
-</script>
+    </script>
 
-
-    
+    <script>
+        jQuery(document).ready(function($) {
+            $('.modal-update').each(function () {
+                var text = $(this).find('.simplemde-update').text();
+                console.log(text);
+                var simplemdeupdate = new SimpleMDE({
+                    element: $(this).find('.simplemde-update').get(0),
+                    
+                    toolbar: ['bold', 'italic', 'heading', '|', 'quote', 'unordered-list', 'ordered-list', 'preview'],
+                    spellChecker: false,
+                });
+                simplemdeupdate.value(text);
+                simplemdeupdate.render();
+                $(this).focus(function(){
+                    simplemdeupdate.codemirror.refresh();
+                });
+                
+            });
+        });
+    </script>
 @endpush

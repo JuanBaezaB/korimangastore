@@ -46,7 +46,7 @@ $validation_messages = [
     </div>
     <div class="mb-3">
         <label class="col-form-label">Descripción (opcional):</label>
-        <input type="text" class="form-control" id="description" name="description" required>
+        <input type="text" class="form-control" id="simplemde-add" name="description" required>
     </div>
 @endsection
 
@@ -61,3 +61,40 @@ $validation_messages = [
     <li class="breadcrumb-item">Manga</li>
     <li class="breadcrumb-item active" aria-current="page">Formato</li>
 @endsection
+
+@push('scripts-extra')
+    <script src="{{ asset('js/plugins/simplemde/simplemde.min.js') }}"></script>
+    <script>
+        var simplemde = new SimpleMDE({
+            element: document.getElementById("simplemde-add"),
+            /*
+                Desabilitado algunas partes del toolbar,
+                side-by-side y fullscreen estan bugueados
+            */
+            toolbar: ['bold', 'italic', 'heading', '|', 'quote', 'unordered-list', 'ordered-list', 'preview'],
+            spellChecker: false
+        });
+    </script>
+
+    <script>
+        jQuery(document).ready(function($) {
+            $('.modal-update').each(function () {
+                var text = $(this).find('.simplemde-update').text();
+                console.log(text);
+                var simplemdeupdate = new SimpleMDE({
+                    element: $(this).find('.simplemde-update').get(0),
+                    
+                    toolbar: ['bold', 'italic', 'heading', '|', 'quote', 'unordered-list', 'ordered-list', 'preview'],
+                    spellChecker: false,
+                });
+                simplemdeupdate.value(text);
+                simplemdeupdate.render();
+                $(this).focus(function(){
+                    simplemdeupdate.codemirror.refresh();
+                });
+                
+            });
+        });
+    </script>
+@endpush
+
