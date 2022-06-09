@@ -360,15 +360,34 @@
                         </li>
 
                         
-                        <li class="nav-main-item">
-                            <a class="nav-main-link{{ request()->is('gestion-base/configuacion-base/venta') ? ' active' : '' }}"
-                                href="{{ route('sale.list') }}">
-                                <i class="nav-main-link-icon fa fa-location-arrow"></i>
-                                <span class="nav-main-link-name">Grafico</span>
-                                <span class="nav-main-link-badge badge rounded-pill bg-primary">5</span>
+                        
+                        <!-- Gestion de ventas -->
+                        <li class="nav-main-heading">Gestión de ventas</li>
+                        <li class="nav-main-item {{ request()->is('gestion-base/configuacion-base/venta') ? ' active' : '' }}">
+                            <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
+                                aria-expanded="true" href="#">
+                                <i class="nav-main-link-icon fa fa-book"></i>
+                                <span class="nav-main-link-name">Ventas</span>
                             </a>
+                            <ul class="nav-main-submenu">
+                                <li class="nav-main-item">
+                                    <a class="nav-main-link{{ request()->is('gestion-de-productos/producto') ? ' active' : '' }}"
+                                        href="{{ route('sale.list') }}">
+                                        <span class="nav-main-link-name">Listado Ventas</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav-main-submenu">
+                                <li class="nav-main-item">
+                                    <a class="nav-main-link{{ request()->is('gestion-base/configuacion-base/venta/grafico') ? ' active' : '' }}"
+                                        href="{{ route('sale.graphic') }}">
+                                        <span class="nav-main-link-name">Grafico</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
 
+                        
 
 
                         <!-- Gestion de productos -->

@@ -131,3 +131,4 @@ Route::post('/gestion-base/configuacion-base/venta', [SaleController::class, 'st
 Route::post('/gestion-base/configuacion-base/venta/uno', [SaleController::class, 'get_one'])->name('sale.get_one')->middleware('auth');
 Route::delete('/gestion-base/configuacion-base/eliminar_venta/{id}', [SaleController::class, 'destroy'])->name('sale.delete')->middleware('auth');
 Route::patch('/gestion-base/configuacion-base/actualizar_venta/{id}', [SaleController::class, 'update'])->name('sale.update')->middleware('auth');
+Route::get('/gestion-base/configuacion-base/venta/grafico', [SaleController::class, 'charts'])->name('sale.graphic')->middleware('auth');

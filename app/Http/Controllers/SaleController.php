@@ -113,10 +113,22 @@ class SaleController extends Controller
         return redirect()->route('sale.list')
         ->with('success', 'deleted');
     }
-
+    //esta es la clave
     public function get_one(Request $request)
     {
         $sale = Sale::findOrFail($request->get('id'));
         return response()->json($sale);
     }
+
+    public function charts(Request $request)
+    {
+        //$sale = Sale::findOrFail($request->get('id'));
+        //return response()->json($sale);
+
+        $sales = Sale::all();
+        return response()->view('admin.basic_management.internal_configuration.sale.graphic.graphic', compact('sales'));
+    }
+    
+    //charts para hacer consulta con response y devolver json
+    public function
 }

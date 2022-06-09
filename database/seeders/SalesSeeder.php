@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Sales;
+use App\Models\Sale;
 
 class SalesSeeder extends Seeder
 {
@@ -15,34 +15,34 @@ class SalesSeeder extends Seeder
     public function run()
     {
         //
-        $sales = new Sales();
-        $sales ->name = 'Kodomo0';
-        $sales ->price = '1000';
-        $sales ->save();
+        $Sale = new Sale();
+        $Sale ->name = 'Kodomo0';
+        $Sale ->price = '1000';
+        $Sale ->save();
 
-        $sales = new Sales();
-        $sales ->name = 'Kodomo1';
-        $sales ->price = '2000';
-        $sales ->save();
+        $Sale = new Sale();
+        $Sale ->name = 'Kodomo1';
+        $Sale ->price = '2000';
+        $Sale ->save();
 
-        $sales = new Sales();
-        $sales ->name = 'Kodomo2';
-        $sales ->price = '3000';
-        $sales ->save();
+        $Sale = new Sale();
+        $Sale ->name = 'Kodomo2';
+        $Sale ->price = '3000';
+        $Sale ->save();
 
-        $sales = new Sales();
-        $sales ->name = 'Kodomo4';
-        $sales ->price = '4000';
-        $sales ->save();
+        $Sale = new Sale();
+        $Sale ->name = 'Kodomo4';
+        $Sale ->price = '4000';
+        $Sale ->save();
 
-        $sales = new Sales();
-        $sales ->name = 'Kodomo5';
-        $sales ->price = '5000';
-        $sales ->save();
+        $Sale = new Sale();
+        $Sale ->name = 'Kodomo5';
+        $Sale ->price = '5000';
+        $Sale ->save();
 
-        $sales = new Sales();
-        $sales ->name = 'Kodomo6';
-        $sales ->price = '6000';
-        $sales ->save();
+        $Sale = new Sale();
+        $Sale ->name = 'Kodomo6';
+        $Sale ->price = '6000';
+        $Sale ->save();
     }
 }

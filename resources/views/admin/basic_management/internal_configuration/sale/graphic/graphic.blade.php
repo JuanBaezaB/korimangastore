@@ -23,27 +23,31 @@
     <div class="block block-rounded">
         <div class="block-header block-header-default">
             <h3 class="block-title">Grafico</h3>
-        </div>
+        </div><canvas id="myChart"></canvas>
         <div class="block-content block-content-full">
             <!-- DataTables init on table by adding .js-dataTable-full class, functionality is initialized in js/pages/be_tables_datatables.min.js which was auto compiled from _js/pages/be_tables_datatables.js -->
             <!-- ACA VA EL CANVAS -->
-            <canvas id="myChart"></canvas>
+            
         </div>
     </div>
     <!-- END Elements -->
 </div>
 <!-- END Page Content -->
-@foreach($ventas)
-<p>This is user {{ $ventas->id }}</p>
-endforeach
 
-@endsection
+
+@foreach($sales as $sale)
+<p>{{ $sale->id }}</p>
+<p>{{ $sale->price }}</p>
+<p>{{ $sale->name }}</p>
+@endforeach
+
+
 
 @section('js_after')
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js"></script>
 
 <script>
-
+var sale = JSON.parse("{{ json_encode($sale->price) }}");
 const ctx = document.getElementById('myChart').getContext('2d');
 const myChart = new Chart(ctx, {
     type: 'bar',
@@ -81,6 +85,4 @@ const myChart = new Chart(ctx, {
 });
 </script>
  
-
-
 @endsection
