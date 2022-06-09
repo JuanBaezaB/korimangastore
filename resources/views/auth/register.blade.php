@@ -14,7 +14,7 @@
                                 <img src="/media/login/logokori.png" alt="" width="20%" height="20%">
                             </div>
                             <a class="link-fx fw-bold fs-1" href="index.php">
-                                <span class="text-dark">Kori</span><span class="text-primary">Mangastore</span><br>
+                                <span class="text-dark">Kori</span><span class="text-primary">MangaStore</span><br>
                             </a>
                             <p class="text-uppercase fw-bold fs-sm text-muted">Crear una cuenta nueva</p>
                         </div>
