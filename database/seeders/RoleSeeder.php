@@ -19,7 +19,13 @@ class RoleSeeder extends Seeder
         $roleadmin = Role::create(['name'=>'Admin']);
         $roleseller = Role::create(['name'=>'Vendedor']);
         $rolePublic = Role::create(['name'=>'User']);
-        Permission::Create(['name'=>'product'])->syncRoles([$roleadmin, $roleseller]);
+        Permission::Create(['name'=>'product.list'])->syncRoles([$roleadmin]);
+        Permission::Create(['name'=>'product.create']);
+        Permission::Create(['name'=>'product.add']);
+        Permission::Create(['name'=>'product.delete']);
+        Permission::Create(['name'=>'product.edit']);
+
+
 
     }
 }
