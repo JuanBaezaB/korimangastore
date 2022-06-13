@@ -359,14 +359,17 @@
                             </a>
                         </li>
 
-
-
+                       
+                            
+                        
+                        @can('product')
+                        @endcan 
                         <!-- Gestion de productos -->
                         <li class="nav-main-heading">Gestión de productos</li>
                         <li class="nav-main-item {{ request()->is('gestion-de-productos/producto*') ? ' open' : '' }}">
                             <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
                                 aria-expanded="true" href="#">
-                                <i class="nav-main-link-icon fa fa-book"></i>
+                                <i class="nav-main-link-icon fa fa-book {{ request()->is('gestion-de-productos/producto*') ? 'fa-bounce' : '' }}"></i>
                                 <span class="nav-main-link-name">Productos</span>
                             </a>
                             <ul class="nav-main-submenu">
@@ -385,12 +388,13 @@
                                 </li>
                             </ul>
                         </li>
+                        
 
                         <!-- Gestion de Caracteristicas Manga -->
                         <li class="nav-main-item {{ request()->is('gestion-de-productos/carateristicas/*') ? ' open' : '' }}">
                             <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
                                 aria-expanded="true" href="#">
-                                <i class="nav-main-link-icon fa fa-sliders"></i>
+                                <i class="nav-main-link-icon fa fa-sliders {{ request()->is('gestion-de-productos/carateristicas/*') ? 'fa-bounce' : '' }}"></i>
                                 <span class="nav-main-link-name">Caracteristicas</span><!-- Gestion de productos -->
                             </a>
 
@@ -466,15 +470,9 @@
                                                 <span class="nav-main-link-name">Tipo</span><!-- Gestion de Editorial -->
                                             </a>
                                         </li>
-                                       
-
                                     </ul>
                                 </li>
-
-
-                                
                             </ul>
-
                         </li>
 
 
@@ -503,12 +501,40 @@
                             </ul>
                         </li>
 
+
+                        <!-- Gestion de productos -->
+                        <li class="nav-main-heading">Area de ventas</li>
+                        <li class="nav-main-item {{ request()->is('') ? ' open' : '' }}">
+                            <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
+                                aria-expanded="true" href="#">
+                                <i class="nav-main-link-icon fa-solid fa-store {{ request()->is('') ? 'fa-bounce' : '' }}"></i>
+                                <span class="nav-main-link-name">Ventas</span>
+                            </a>
+                            <ul class="nav-main-submenu">
+                                <li class="nav-main-item">
+                                    <a class="nav-main-link{{ request()->is('gestion-de-inventario/stock') ? ' active' : '' }}"
+                                        href="{{ route('stock.list') }}">
+                                        <span class="nav-main-link-name">Listado</span>
+                                    </a>
+                                </li>
+
+                                <li class="nav-main-item">
+                                    <a class="nav-main-link{{ request()->is('gestion-de-inventario/stock/crear') ? ' active' : '' }}"
+                                        href="{{ route('stock.create') }}">
+                                        <span class="nav-main-link-name">Realizar venta</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+
                         <!-- Gestion base -->
                         <li class="nav-main-heading">Gestión base </li>
                         <li class="nav-main-item{{ request()->is('gestion-base/configuacion-base/*') ? ' open' : '' }}">
                             <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
                                 aria-expanded="true" href="#">
-                                <i class="nav-main-link-icon fa fa-gear"></i>
+                                <i class="nav-main-link-icon fa fa-gear {{ request()->is('gestion-base/configuacion-base/*') ? 'fa-bounce' : '' }}"></i>
                                 <span class="nav-main-link-name">Configuración interna</span>
                             </a>
                             <ul class="nav-main-submenu">
@@ -523,6 +549,35 @@
                                     <a class="nav-main-link{{ request()->is('gestion-base/configuacion-base/proveedores') ? ' active' : '' }}"
                                         href="{{ route('provider.list') }}">
                                         <span class="nav-main-link-name">Proveedor</span>
+                                    </a>
+                                </li>
+
+
+                            </ul>
+                        </li>
+                        <li class="nav-main-item{{ request()->is('gestion-base/gestion-usuarios/*') ? ' open' : '' }}">
+                            <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
+                                aria-expanded="true" href="#">
+                                <i class="nav-main-link-icon fa fa-users {{ request()->is('gestion-base/gestion-usuarios/*') ? 'fa-bounce' : '' }}"></i>
+                                <span class="nav-main-link-name">Gestión de usuarios</span>
+                            </a>
+                            <ul class="nav-main-submenu">
+                                <li class="nav-main-item">
+                                    <a class="nav-main-link{{ request()->is('gestion-base/gestion-usuarios/usuarios') ? ' active' : '' }}"
+                                        href="{{ route('user.list') }}">
+                                        <span class="nav-main-link-name">Usuarios</span>
+                                    </a>
+                                </li>
+                                <li class="nav-main-item">
+                                    <a class="nav-main-link{{ request()->is('gestion-base/gestion-usuarios/roles') ? ' active' : '' }}"
+                                        href="{{ route('role.list') }}">
+                                        <span class="nav-main-link-name">Roles</span>
+                                    </a>
+                                </li>
+                                <li class="nav-main-item">
+                                    <a class="nav-main-link{{ request()->is('gestion-base/gestion-usuarios/permisos') ? ' active' : '' }}"
+                                        href="{{ route('permission.list') }}">
+                                        <span class="nav-main-link-name">Permisos</span>
                                     </a>
                                 </li>
 
