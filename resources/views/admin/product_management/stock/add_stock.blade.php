@@ -43,8 +43,7 @@
                 <div class="row items-push">
                     <div class="col-lg-8 col-md-6">
                         <div class="">
-                            <label class="form-label" for="val-username">Sucursal</label>
-                            <select id="change-branch-select" class="js-select2 form-select" style="width: 100%;" autocomplete="off">
+                            <select id="change-branch-select" class="js-select2 form-select" style="width: 100%;" autocomplete="off" data-placeholder="Elige una sucursal..." >
                                 @foreach($branches as $branch)
                                     <option value="{{ $branch->id }}" {{ (isset($the_branch->id) && $the_branch->id==$branch->id) ? 'selected' : '' }}>{{ $branch->name }}</option>
                                 @endforeach
@@ -54,7 +53,7 @@
                     </div>
                     <div class="col-lg-8 col-md-6">
                         <div class="">
-                            <select class="js-select2 form-select"  style="width: 100%;" id="select-product">
+                            <select class="js-select2 form-select"  style="width: 100%;" id="select-product" >
                                 <option></option>
                             </select>
                         </div>
