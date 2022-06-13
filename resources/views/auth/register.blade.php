@@ -53,9 +53,7 @@
 
                                 </div>
                                 @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                    <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                             <!-- Password -->
@@ -195,13 +193,13 @@
                 },
                 'password': {
                     required: 'Introduce una contraseña.',
-                    maxlength: 'Por favor, ingrese no más de 200 caracteres.',
+                    maxlength: 'Por favor, ingrese no más de 64 caracteres.',
                     minlength: 'La contraseña debe tener al menos 8 caracteres'
                 },
                 'password_confirmation': {
                     equalTo: "El password debe ser igual al anterior",
                     required: 'Confirma tu contraseña',
-                    maxlength: 'Por favor, ingrese no más de 200 caracteres.',
+                    maxlength: 'Por favor, ingrese no más de 64 caracteres.',
                     minlength: 'La contraseña debe tener al menos 8 caracteres'
                 },
             },
