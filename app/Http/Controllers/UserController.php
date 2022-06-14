@@ -39,6 +39,9 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request){
+        
+
+
         $validator = Validator::make($request->all(),[
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -57,11 +60,24 @@ class UserController extends Controller
                 ->withInput();
         } else {
             $roles = $request->roles;
-            $user = User::create([
-                'name' => $request['name'],
-                'email' => $request['email'],
-                'password' => Hash::make($request['password']),
-            ]);
+            if($request->file('image')){
+                $file= $request->file('image');
+                $filename= date('YmdHi').$file->getClientOriginalName();
+                $file-> move(public_path('uploads/user'), $filename);
+
+                $user = User::create([
+                    'name' => $request['name'],
+                    'email' => $request['email'],
+                    'image' => $filename,
+                    'password' => Hash::make($request['password']),
+                ]);
+            }else{
+                $user = User::create([
+                    'name' => $request['name'],
+                    'email' => $request['email'],
+                    'password' => Hash::make($request['password']),
+                ]);
+            };
             $user->syncRoles($roles);
             
             return redirect()->route('user.list')

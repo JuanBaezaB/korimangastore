@@ -73,6 +73,10 @@ $validation_messages = [
         <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" required>
     </div>
     <div class="mb-3">
+        <label class="col-form-label" >Imagen:</label>
+        <input type="file" class="form-control" name="image" value="" id="image" accept="image/png, image/jpeg, image/jpg, image/svg">
+    </div>
+    <div class="mb-3">
         <label class="col-form-label">Contraseña:</label>
         <input type="password" class="form-control @error('password') is-invalid @enderror"
             id="password" name="password" required autocomplete="new-password"
@@ -97,6 +101,7 @@ $validation_messages = [
     <th class="text-center" style="width: 80px;">#</th>
     <th>Nombre</th>
     <th class="d-none d-sm-table-cell">Email</th>
+    <th class="d-none text-center d-sm-table-cell">Imagen</th>
 @endsection
 
 @section('breadcrumb')
