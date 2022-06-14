@@ -509,7 +509,7 @@
                         <li class="nav-main-item {{ request()->is('') ? ' open' : '' }}">
                             <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
                                 aria-expanded="true" href="#">
-                                <i class="nav-main-link-icon fa-solid fa-store {{ request()->is('') ? 'fa-bounce' : '' }}"></i>
+                                <i class="nav-main-link-icon fa-solid fa-cart-shopping {{ request()->is('') ? 'fa-bounce' : '' }}"></i>
                                 <span class="nav-main-link-name">Ventas</span>
                             </a>
                             <ul class="nav-main-submenu">

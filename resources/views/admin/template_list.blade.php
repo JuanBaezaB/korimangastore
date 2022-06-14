@@ -75,7 +75,7 @@ Stacks:
                                 @include($list_columns, ['an_item' => $an_item])
                                 <td class="">
                                     <form class=" delete" action="{{ route($delete_action_route, $an_item->id) }}"
-                                        method="POST">
+                                        method="POST" enctype="multipart/form-data">
                                         <div class=" btn-group">
                                             @hasSection('update-modal')
                                             <button type="button" class="btn btn-sm btn btn-outline-primary x-edit-button"
