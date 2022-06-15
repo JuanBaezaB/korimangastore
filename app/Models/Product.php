@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
+
+    public const TYPE_MANGA = 1;
+    public const TYPE_FIGURE = 2;
+
     protected $table = 'products';
 
     protected $fillable = [
