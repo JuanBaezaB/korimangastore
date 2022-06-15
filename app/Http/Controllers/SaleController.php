@@ -130,5 +130,12 @@ class SaleController extends Controller
     }
     
     //charts para hacer consulta con response y devolver json
-    public function
+        public function consultaCompra(){
+            /*
+            $product = Sale::table('sales');
+            $idproduct = Sale::table('sales')->where('id', $product)->first();
+            */
+            $sale = Sale::find(1)->name;
+        return $sale->name;    
+        }
 }
