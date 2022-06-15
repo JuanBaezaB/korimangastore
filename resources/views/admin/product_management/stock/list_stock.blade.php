@@ -23,17 +23,7 @@
                     </ol>
                 </nav>
             </div>
-            <div class="d-flex flex-column flex-sm-row justify-content-sm-start align-items-sm-center">
-                Sucursal
-                <div class="mx-sm-2 flex-grow-1">
-                    <select id="change-branch-select" class="js-select2 form-select" autocomplete="off">
-                        <option value="" {{ ($is_all_branches) ? 'selected' : '' }}>Todos</option>
-                        @foreach($branches as $branch)
-                            <option value="{{ $branch->id }}" {{ (!$is_all_branches && $the_branch->id==$branch->id) ? 'selected' : '' }}>{{ $branch->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
+           
         </div>
     </div>
     <!-- END Hero -->
@@ -46,6 +36,20 @@
                 <h3 class="block-title">Productos</h3>
             </div>
             <div class="block-content block-content-full">
+                <div class="row items-push">
+                    <div class="d-flex flex-column col-sm-8 pb-3 flex-sm-row justify-content-sm-start align-items-sm-center">
+                        Sucursal
+                        <div class="mx-sm-2 flex-grow-1">
+                            <select id="change-branch-select" class="js-select2 form-select" style="width: 100%;" autocomplete="off">
+                                <option value="" {{ ($is_all_branches) ? 'selected' : '' }}>Todos</option>
+                                @foreach($branches as $branch)
+                                    <option value="{{ $branch->id }}" {{ (!$is_all_branches && $the_branch->id==$branch->id) ? 'selected' : '' }}>{{ $branch->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- DataTables init on table by adding .js-dataTable-full class, functionality is initialized in js/pages/be_tables_datatables.min.js which was auto compiled from _js/pages/be_tables_datatables.js -->
                 <table id="product-table" class="table table-bordered table-striped table-vcenter table-hover w-100 display nowrap">
                     <thead>

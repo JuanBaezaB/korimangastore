@@ -7,16 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sale extends Model
 {
-    static $rules = [
-		'name' => 'required',
-    ];
     use HasFactory;
-    protected $fillable = [
-        'name',
-        'price',
-        'product_id'
-    ];
-    public function product() {
-      return $this->belongsTo(Poduct::class);
-  }
+
+    public function products() {
+        return $this->belongsToMany(Product::class)->withPivot('amount');
+    }
+
+    public function totalPrice() {
+        return Sale::whereKey($this)->withSum('products', 'product_sale.amount * price AS total_price')->value('total_price');
+    }
 }

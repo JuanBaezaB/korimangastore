@@ -181,7 +181,7 @@
                         <textarea class="js-simplemde" id="simplemde" name="description">{{ isset($product) ? $product->description : '' }}</textarea>
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-3 text-end" >
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-primary">{{ empty($is_edit) ? 'Añadir' : 'Actualizar'}}</button>
                     </div>

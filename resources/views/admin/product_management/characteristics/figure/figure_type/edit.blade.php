@@ -5,6 +5,5 @@
     </div>
     <div class="mb-3">
         <label class="col-form-label">Descripción (opcional):</label>
-        <input type="text" class="form-control"
-            name="description"  value="{{$an_item->description}}">
+        <textarea class="js-simplemde simplemde-update form-control" id="simplemde-update{{$an_item->id}}"  name="description" required>{{ $an_item->description }}</textarea>
     </div>

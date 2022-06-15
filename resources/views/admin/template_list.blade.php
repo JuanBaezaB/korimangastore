@@ -60,7 +60,7 @@ Stacks:
 
             <div class="block-content block-content-full">
                 <!-- DataTables init on table by adding .js-dataTable-full class, functionality is initialized in js/pages/be_tables_datatables.min.js which was auto compiled from _js/pages/be_tables_datatables.js -->
-                <table id="product-table" class="table table-bordered table-striped table-vcenter table-hover w-100 display nowrap">
+                <table id="product-table" class="table table-bordered table-striped table-vcenter table-hover w-100 display">
                     <thead>
                         <tr>
                             <!-- <th class="text-center" style="width: 80px;">#</th> -->
@@ -75,7 +75,7 @@ Stacks:
                                 @include($list_columns, ['an_item' => $an_item])
                                 <td class="">
                                     <form class=" delete" action="{{ route($delete_action_route, $an_item->id) }}"
-                                        method="POST">
+                                        method="POST" enctype="multipart/form-data">
                                         <div class=" btn-group">
                                             @hasSection('update-modal')
                                             <button type="button" class="btn btn-sm btn btn-outline-primary x-edit-button"

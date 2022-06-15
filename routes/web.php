@@ -13,9 +13,9 @@ use App\Http\Controllers\CreativePersonController;
 use App\Http\Controllers\MangaController;
 use App\Http\Controllers\FigureTypeController;
 use App\Http\Controllers\StockController;
-use App\Http\Controllers\GraphicController;
-use App\Http\Controllers\SaleController;
-
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,12 +48,12 @@ Route::view('/forms/be_forms_validation', 'admin.forms.be_forms_validation')->mi
 
 
 /* Producto */
-Route::get('/gestion-de-productos/producto', [ProductController::class, 'index'])->name('product.list')->middleware('auth');
-Route::get('/gestion-de-productos/producto/crear', [ProductController::class, 'create'])->name('product.create')->middleware('auth');
-Route::post('/gestion-de-productos/producto/agregar', [ProductController::class, 'store'])->name('product.add')->middleware('auth');
-Route::get('/gestion-de-productos/producto/{id}/editar', [ProductController::class, 'edit'])->name('product.edit')->middleware('auth');
-Route::patch('/gestion-de-productos/producto/{id}/editar', [ProductController::class, 'update'])->name('product.update')->middleware('auth');
-Route::delete('/gestion-de-productos/producto/{id}/eliminar', [ProductController::class, 'destroy'])->name('product.delete')->middleware('auth');
+Route::get('/gestion-de-productos/producto', [ProductController::class, 'index'])->name('product.list')->middleware('can:product.list');
+Route::get('/gestion-de-productos/producto/crear', [ProductController::class, 'create'])->name('product.create')->middleware('can:product.create');
+Route::post('/gestion-de-productos/producto/agregar', [ProductController::class, 'store'])->name('product.add')->middleware('can:product.add');
+Route::get('/gestion-de-productos/producto/{id}/editar', [ProductController::class, 'edit'])->name('product.edit')->middleware('can:product.edit');
+Route::patch('/gestion-de-productos/producto/{id}/editar', [ProductController::class, 'update'])->name('product.update')->middleware('can:product.update');
+Route::delete('/gestion-de-productos/producto/{id}/eliminar', [ProductController::class, 'destroy'])->name('product.delete')->middleware('can:product.delete');
 Route::post('/gestion-de-productos/producto/buscar', [ProductController::class, 'search'])->name('product.search')->middleware('auth');
 
 /* Stock */
@@ -123,15 +123,23 @@ Route::post('/gestion-base/configuacion-base/sucursales', [BranchController::cla
 Route::post('/gestion-base/configuacion-base/sucursales/uno', [BranchController::class, 'get_one'])->name('branch.get_one')->middleware('auth');
 Route::delete('/gestion-base/configuacion-base/eliminar_sucursales/{id}', [BranchController::class, 'destroy'])->name('branch.delete')->middleware('auth');
 Route::patch('/gestion-base/configuacion-base/actualizar_sucursales/{id}', [BranchController::class, 'update'])->name('branch.update')->middleware('auth');
+/* Usuarios */
+Route::get('/gestion-base/gestion-usuarios/usuarios', [UserController::class, 'index'])->name('user.list')->middleware('auth');
+Route::post('/gestion-base/gestion-usuarios/usuarios', [userController::class, 'store'])->name('user.add')->middleware('auth');
+Route::delete('/gestion-base/gestion-usuarios/eliminar-usuario/{id}', [UserController::class, 'destroy'])->name('user.delete')->middleware('auth');
+Route::patch('/gestion-base/gestion-usuarios/eliminar-usuario/{id}', [UserController::class, 'update'])->name('user.update')->middleware('auth');
 
+/* Roles */
+Route::get('/gestion-base/gestion-usuarios/roles', [RoleController::class, 'index'])->name('role.list')->middleware('auth');
+Route::post('/gestion-base/gestion-usuarios/roles', [RoleController::class, 'store'])->name('role.add')->middleware('auth');
+Route::delete('/gestion-base/gestion-usuarios/roles/{id}', [RoleController::class, 'destroy'])->name('role.delete')->middleware('auth');
+Route::patch('/gestion-base/gestion-usuarios/roles/{id}', [RoleController::class, 'update'])->name('role.update')->middleware('auth');
+/* Permisos */
+Route::get('/gestion-base/gestion-usuarios/permisos', [PermissionController::class, 'index'])->name('permission.list')->middleware('auth');
+Route::post('/gestion-base/gestion-usuarios/permisos', [PermissionController::class, 'store'])->name('permission.add')->middleware('auth');
+Route::delete('/gestion-base/gestion-usuarios/permisos/{id}', [PermissionController::class, 'destroy'])->name('permission.delete')->middleware('auth');
+Route::patch('/gestion-base/gestion-usuarios/permisos/{id}', [PermissionController::class, 'update'])->name('permission.update')->middleware('auth');
 
-/* Venta para graficos */
-Route::get('/gestion-base/configuacion-base/venta', [SaleController::class, 'index'])->name('sale.list')->middleware('auth');
-Route::post('/gestion-base/configuacion-base/venta', [SaleController::class, 'store'])->name('sale.add')->middleware('auth');
-Route::post('/gestion-base/configuacion-base/venta/uno', [SaleController::class, 'get_one'])->name('sale.get_one')->middleware('auth');
-Route::delete('/gestion-base/configuacion-base/eliminar_venta/{id}', [SaleController::class, 'destroy'])->name('sale.delete')->middleware('auth');
-Route::patch('/gestion-base/configuacion-base/actualizar_venta/{id}', [SaleController::class, 'update'])->name('sale.update')->middleware('auth');
-
-Route::get('/gestion-base/configuacion-base/venta/grafico', [SaleController::class, 'charts'])->name('sale.graphic')->middleware('auth');
-Route::get('/gestion-base/configuacion-base/venta/grafico2', [SaleController::class, 'charts2'])->name('sale.graphic2')->middleware('auth');
-Route::get('/gestion-base/configuacion-base/venta/grafico3', [SaleController::class, 'charts3'])->name('sale.graphic3')->middleware('auth');
+/*  Soporte */
+Route::view('/soporte/preguntas-frecuentes-admin', 'admin.support.adminfaq')->name('support.adminfaq')->middleware('auth');
+Route::view('/soporte/manual-admin', 'admin.support.adminmanual')->name('support.adminmanual')->middleware('auth');

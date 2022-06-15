@@ -23,16 +23,7 @@
                     </ol>
                 </nav>
             </div>
-            <div class="d-flex flex-column flex-sm-row justify-content-sm-start align-items-sm-center">
-                Sucursal
-                <div class="mx-sm-2 flex-grow-1">
-                    <select id="change-branch-select" class="js-select2 form-select" autocomplete="off">
-                        @foreach($branches as $branch)
-                            <option value="{{ $branch->id }}" {{ (isset($the_branch->id) && $the_branch->id==$branch->id) ? 'selected' : '' }}>{{ $branch->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
+            
         </div>
     </div>
     <!-- END Hero -->
@@ -43,22 +34,46 @@
         <div class="block block-rounded">
             <div class="block-header block-header-default">
                 <h3 class="block-title">Productos</h3>
+                <div class="block-options">
+                    
+                </div>
             </div>
+            
             <div class="block-content block-content-full">
-                <div class="mb-4 mx-4 row">
-                    <div class="col-6">
-                        <select class="js-select2 form-select" id="select-product">
-                            <option></option>
-                        </select>
+                <div class="row items-push">
+                    <div class="col-lg-8 col-md-6">
+                        <div class="">
+                            <select id="change-branch-select" class="js-select2 form-select" style="width: 100%;" autocomplete="off" data-placeholder="Elige una sucursal..." >
+                                @foreach($branches as $branch)
+                                    <option value="{{ $branch->id }}" {{ (isset($the_branch->id) && $the_branch->id==$branch->id) ? 'selected' : '' }}>{{ $branch->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    
                     </div>
-                    <div class="col-2">
-                        <input type="number" id="qnt-product-stock" class="form-control" min="1" value="1" autocomplete="off"></input>
+                    <div class="col-lg-8 col-md-6">
+                        <div class="">
+                            <select class="js-select2 form-select"  style="width: 100%;" id="select-product" >
+                                <option></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="mb-3"><input type="number" id="qnt-product-stock" class="form-control" min="1" value="1" autocomplete="off"></input></div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="mb-3">
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <a class="btn btn-success" id="btn-add-stock"><i class="fa fa-plus"></i></a>
+                                        <a class="btn btn-danger" id="btn-remove-stock"><i class="fa fa-minus"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="col-2">
-                        <a class="btn btn-success" id="btn-add-stock"><i class="fa fa-plus"></i></a>
-                        <a class="btn btn-danger" id="btn-remove-stock"><i class="fa fa-minus"></i></a>
-                    </div>
                 </div>
 
                 <!-- DataTables init on table by adding .js-dataTable-full class, functionality is initialized in js/pages/be_tables_datatables.min.js which was auto compiled from _js/pages/be_tables_datatables.js -->
