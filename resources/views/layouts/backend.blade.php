@@ -537,15 +537,15 @@
                             </a>
                             <ul class="nav-main-submenu">
                                 <li class="nav-main-item">
-                                    <a class="nav-main-link{{ request()->is('gestion-de-inventario/stock') ? ' active' : '' }}"
-                                        href="{{ route('stock.list') }}">
+                                    <a class="nav-main-link{{ request()->is('') ? ' active' : '' }}"
+                                        href="">
                                         <span class="nav-main-link-name">Listado</span>
                                     </a>
                                 </li>
 
                                 <li class="nav-main-item">
-                                    <a class="nav-main-link{{ request()->is('gestion-de-inventario/stock/crear') ? ' active' : '' }}"
-                                        href="{{ route('stock.create') }}">
+                                    <a class="nav-main-link{{ request()->is('') ? ' active' : '' }}"
+                                        href="">
                                         <span class="nav-main-link-name">Realizar venta</span>
                                     </a>
                                 </li>
