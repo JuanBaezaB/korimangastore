@@ -173,11 +173,12 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         //
+        /*
         $validator = Validator::make($request->all(), self::makeRules($request));
         
         if ($validator->fails()) {
             dd($validator);
-        }
+        }*/
         try {
 
             $datos = request()->except(['_token']);
