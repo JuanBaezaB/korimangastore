@@ -506,23 +506,23 @@
 
                         <!-- Gestion de productos -->
                         <li class="nav-main-heading">Area de ventas</li>
-                        <li class="nav-main-item {{ request()->is('') ? ' open' : '' }}">
+                        <li class="nav-main-item {{ request()->is('area-de-ventas/*') ? ' open' : '' }}">
                             <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
                                 aria-expanded="true" href="#">
-                                <i class="nav-main-link-icon fa-solid fa-cart-shopping {{ request()->is('') ? 'fa-bounce' : '' }}"></i>
+                                <i class="nav-main-link-icon fa-solid fa-cart-shopping {{ request()->is('area-de-ventas/*') ? 'fa-bounce' : '' }}"></i>
                                 <span class="nav-main-link-name">Ventas</span>
                             </a>
                             <ul class="nav-main-submenu">
                                 <li class="nav-main-item">
-                                    <a class="nav-main-link{{ request()->is('gestion-de-inventario/stock') ? ' active' : '' }}"
-                                        href="{{ route('stock.list') }}">
+                                    <a class="nav-main-link{{ request()->is('area-de-ventas/venta') ? ' active' : '' }}"
+                                        href="{{ route('sale.list') }}">
                                         <span class="nav-main-link-name">Listado</span>
                                     </a>
                                 </li>
 
                                 <li class="nav-main-item">
-                                    <a class="nav-main-link{{ request()->is('gestion-de-inventario/stock/crear') ? ' active' : '' }}"
-                                        href="{{ route('stock.create') }}">
+                                    <a class="nav-main-link{{ request()->is('area-de-ventas/venta/crear') ? ' active' : '' }}"
+                                        href="{{ route('sale.create') }}">
                                         <span class="nav-main-link-name">Realizar venta</span>
                                     </a>
                                 </li>

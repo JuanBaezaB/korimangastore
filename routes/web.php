@@ -65,11 +65,11 @@ Route::get('/gestion-de-inventario/stock/crear', [StockController::class, 'creat
 Route::post('/gestion-de-inventario/stock/agregar', [StockController::class, 'store'])->name('stock.add')->middleware('auth');
 
 /* Sales */
-Route::get('/ventas-y-descuentos/venta', [SaleController::class, 'index'])->name('sale.list')->middleware('auth');
-Route::post('/ventas-y-descuentos/venta', [SaleController::class, 'list'])->name('sale.data_table')->middleware('auth');
-Route::get('/ventas-y-descuentos/venta/sucursal/{id}', [SaleController::class, 'index'])->name('sale.get_one')->middleware('auth');
-Route::get('/ventas-y-descuentos/venta/crear', [SaleController::class, 'create'])->name('sale.create')->middleware('auth');
-Route::post('/ventas-y-descuentos/venta/agregar', [SaleController::class, 'store'])->name('sale.add')->middleware('auth');
+Route::get('/area-de-ventas/venta', [SaleController::class, 'index'])->name('sale.list')->middleware('auth');
+Route::post('/area-de-ventas/venta', [SaleController::class, 'list'])->name('sale.data_table')->middleware('auth');
+Route::get('/area-de-ventas/venta/sucursal/{id}', [SaleController::class, 'index'])->name('sale.get_one')->middleware('auth');
+Route::get('/area-de-ventas/venta/crear', [SaleController::class, 'create'])->name('sale.create')->middleware('auth');
+Route::post('/area-de-ventas/venta/agregar', [SaleController::class, 'store'])->name('sale.add')->middleware('auth');
 
 
 /*  PRODUCT MANAGEMENT */
