@@ -1,5 +1,6 @@
 <!--Con este canvas se muestra el grafico dependiendo de la Id que se le da en la configuracion del grafico-->
 @extends('layouts.backend')
+
 @section('content')
 <!-- Hero -->
 <div class="bg-body-light">
