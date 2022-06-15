@@ -107,4 +107,30 @@ class SaleRuleCompiler {
         $f = $this->compiled;
         return $f($model);
     }
+
+    protected function append($rule) {
+        if (!$this->rule) {
+            $this->rule = $rule;
+        } else {
+            $old = $this->rule;
+            $this->rule = null;
+            $this->and($rule, $this->old);
+        }
+        return $this;
+    }
+
+    public function and($a, $b) {
+        return $this->append([
+            'rule' => 'and',
+            'a' => $a,
+            'b' => $b
+        ]);
+    }
+
+    public function hasCategory($matches) {
+        return $this->append([
+            'rule' => 'hasCategory',
+            'arg' => $matches
+        ]);
+    }
 }
