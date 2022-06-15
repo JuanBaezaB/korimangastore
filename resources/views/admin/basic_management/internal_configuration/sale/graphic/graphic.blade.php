@@ -43,10 +43,12 @@
 @endsection
 
 <!-- END Page Content -->
-{{ $sales }}
+
 
 @section('js_after')
 
+
+     
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js"></script>
 
 <script>
@@ -57,7 +59,8 @@
             labels: ['enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre', ],
             datasets: [{
                 label: 'Grafico de Ventas',
-                data: [3, 5, 7, 8, 7, 2, 3, 6, 8, 5, 3, 9],
+                data: [{!!json_encode($sales)!!},2, 3, 6, 8,5, 3, 9],
+                //data: [3, 5, 7, 8, 7, 2, 3, 6, 8, 5, 3, 9],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
