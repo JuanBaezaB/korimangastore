@@ -45,7 +45,7 @@ class GenreController extends Controller
         request()->validate(Genre::$rules);
 
         $genre = Genre::create($request->all());
-        return redirect()->route('list_genre')
+        return redirect()->route('genre.list')
         ->with('success', 'created');
     }
 
@@ -91,7 +91,7 @@ class GenreController extends Controller
         
 
 
-        return redirect()->route('list_genre')
+        return redirect()->route('genre.list')
             ->with('success', 'updated');
         return response() -> json($request);    
     }
@@ -106,7 +106,7 @@ class GenreController extends Controller
     {
         $genre = Genre::find($id)->delete();
 
-        return redirect()->route('list_genre')
+        return redirect()->route('genre.list')
         ->with('success', 'deleted');
     }
 
