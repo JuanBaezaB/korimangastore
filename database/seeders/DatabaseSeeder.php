@@ -24,7 +24,9 @@ class DatabaseSeeder extends Seeder
             FormatSeeder::class,
             EditorialSeeder::class,
             CreativePersonSeeder::class,
-            SerieSeeder::class
+            SerieSeeder::class,
+            ProviderSeeder::class,
+            BranchSeeder::class,
         ]);
     }
 }
