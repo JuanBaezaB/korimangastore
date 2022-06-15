@@ -72,17 +72,14 @@ class ProductController extends Controller
      * @return \Illuminate\Support\Collection
      */
     protected static function collectProductData($data) {
-        $categoryId = $data->get('product_type');
-
-        $retval = $data->only([
+        return $data->only([
             'name',
             'description',
             'price',
             'status',
-            'provider_id'
+            'provider_id',
+            'category_id'
         ]);
-        $retval->put('category_id', $categoryId);
-        return $retval;
     }
 
     /**
@@ -129,12 +126,12 @@ class ProductController extends Controller
 
     static protected function makeRequiredIfCategoryId($request, $id) {
         return Rule::requiredIf(function () use ($request, $id) {
-            return $request->get('product_type') == $id;
+            return $request->get('category_id') == $id;
         });
     }
 
     static protected function makeExcludeIfCategoryId($request, $id) {
-        return 'exclude_if:product_type,' . $id;
+        return 'exclude_if:category_id,' . $id;
     }
     
     static protected function makeRules($request) {
@@ -151,7 +148,7 @@ class ProductController extends Controller
             'provider_id' => 'nullable|exists:App\Models\Provider,id',
             'series' => 'array',
             'series.*' => 'exists:App\Models\Serie,id',
-            'product_type' /* category_id */ => 'required|exists:App\Models\Category,id', /* TODO: deberia ser cambiado en formulario */
+            'category_id' => 'required|exists:App\Models\Category,id', /* TODO: deberia ser cambiado en formulario */
             /* MANGA */
             'editorial_id' => [$mangaExcludeIf, $mangaRequiredIf, 'exists:App\Models\Editorial,id'],
             'format_id' => [$mangaExcludeIf, $mangaRequiredIf, 'exists:App\Models\Format,id'],
@@ -291,7 +288,7 @@ class ProductController extends Controller
         
         try {
             // TODO: validacion
-            $categoryId = $data->get('product_type');
+            $categoryId = $data->get('category_id');
 
             $productData = $data->only([
                 'name',
