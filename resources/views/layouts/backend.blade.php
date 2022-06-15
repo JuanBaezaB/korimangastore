@@ -385,10 +385,26 @@
                                     </a>
                                 </li>
                             </ul>
+
+                            <!--Pruebas-->
+                            <ul class="nav-main-submenu">
+                                <li class="nav-main-item">
+                                    <a class="nav-main-link{{ request()->is('gestion-base/configuacion-base/venta/grafico2') ? ' active' : '' }}"
+                                        href="{{ route('sale.graphic2') }}">
+                                        <span class="nav-main-link-name">Grafico2</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav-main-submenu">
+                                <li class="nav-main-item">
+                                    <a class="nav-main-link{{ request()->is('gestion-base/configuacion-base/venta/grafico3') ? ' active' : '' }}"
+                                        href="{{ route('sale.graphic3') }}">
+                                        <span class="nav-main-link-name">Grafico3</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <!--Pruebas-->
                         </li>
-
-                        
-
 
                         <!-- Gestion de productos -->
                         <li class="nav-main-heading">Gestión de productos</li>

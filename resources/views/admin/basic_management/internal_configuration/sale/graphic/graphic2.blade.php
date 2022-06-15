@@ -50,19 +50,24 @@
 @endforeach
 
 @section('js_after')
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js"></script>
 
 <script>
     
+
+    
+
+// Every ChartJS chart needs data with labels and datasets
 const ctx = document.getElementById('grafico').getContext('2d');
 const myChart = new Chart(ctx, {
     type: 'bar',
-    data: {
-        labels: ['enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',],
-        datasets: [{
-            label: 'Grafico de Ventas',
+    data = {
+    labels: ['EEUU', 'UK', 'España', 'Japón', 'China'],
+    datasets: [   // datasets is an Array of Objects, each Object contains one set of info/styles to be shown. In many charts, multiple sets of info can be rendered if multiple Objets are passed to the datasets Array
+        {
             data: [12, 19, 3, 5, 2, 3],
+            borderWidth: 1,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
@@ -78,18 +83,13 @@ const myChart = new Chart(ctx, {
                 'rgba(75, 192, 192, 1)',
                 'rgba(153, 102, 255, 1)',
                 'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
+            ]
         }
-    }
-});
+    ]
+}});
+
+
+
 </script>
  
 @endsection

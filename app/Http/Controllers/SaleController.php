@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Sale;
 use Illuminate\Http\Request;
 use PhpParser\Node\Stmt\TryCatch;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -124,11 +125,22 @@ class SaleController extends Controller
     {
         //$sale = Sale::findOrFail($request->get('id'));
         //return response()->json($sale);
+        
+        //$plazas = DB::table('sale')->select(['schedule_id', DB::raw('SUM(capMax) as capmax')])->groupBy('schedule_id')->get();
 
         $sales = Sale::all();
         return response()->view('admin.basic_management.internal_configuration.sale.graphic.graphic', compact('sales'));
     }
-    
+    public function charts2(Request $request)
+    {
+        //$sale = Sale::findOrFail($request->get('id'));
+        //return response()->json($sale);
+        
+        //$plazas = DB::table('sale')->select(['schedule_id', DB::raw('SUM(capMax) as capmax')])->groupBy('schedule_id')->get();
+
+        $sales = Sale::all();
+        return response()->view('admin.basic_management.internal_configuration.sale.graphic.graphic2', compact('sales'));
+    }
     //charts para hacer consulta con response y devolver json
         public function consultaCompra(){
             /*
@@ -138,4 +150,5 @@ class SaleController extends Controller
             $sale = Sale::find(1)->name;
         return $sale->name;    
         }
+        
 }
