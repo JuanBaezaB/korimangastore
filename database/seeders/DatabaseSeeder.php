@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             SerieSeeder::class,
             ProviderSeeder::class,
             BranchSeeder::class,
+            SalesSeeder::class
         ]);
     }
 }

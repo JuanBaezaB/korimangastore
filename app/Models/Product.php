@@ -41,6 +41,10 @@ class Product extends Model
         return $this->belongsToMany(Serie::class, 'serie_product');
     }
 
+    public function products() {
+        return $this->belongsToMany(Sale::class)->withPivot('amount');
+    }
+
     public function productable() {
         return $this->morphTo();
     }
