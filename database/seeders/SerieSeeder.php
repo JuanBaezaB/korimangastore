@@ -26,5 +26,15 @@ class SerieSeeder extends Seeder
         $serie = new Serie();
         $serie->name = 'Jojo\'s Bizarre Adventure';
         $serie->save();
+
+        $serie = new Serie();
+        $serie->name = 'Jujutsu Kaisen';
+        $serie->save();
+
+        $serie = new Serie();
+        $serie->name = 'Kimetsu no Yaiba';
+        $serie->save();
+
+        
     }
 }

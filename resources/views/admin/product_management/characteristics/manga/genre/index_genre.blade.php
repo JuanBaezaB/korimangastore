@@ -4,9 +4,9 @@
 
 // COMMON
 $nombre_crud = 'Genero'; // nombre con inicial en mayuscula del producto
-$add_action_route = 'add_genre'; // ruta para accion de agregar
-$update_action_route = 'update_genre'; // ruta para accion de actualizar
-$delete_action_route = 'delete_genre'; // ruta para accion de eliminar
+$add_action_route = 'genre.add'; // ruta para accion de agregar
+$update_action_route = 'genre.update'; // ruta para accion de actualizar
+$delete_action_route = 'genre.delete'; // ruta para accion de eliminar
 
 /*
         Se saca de controller, el argumento a compact()
@@ -34,7 +34,7 @@ $validation_messages = [
 
 
 // AJAX ONLY
-$get_one_route = 'get_one_genre';
+$get_one_route = 'genre.get_one';
 $update_modal_fields = [
     [ 'inputName' => 'name' ],
     [ 'type' => 'select2', 'inputName' => 'type' ]
