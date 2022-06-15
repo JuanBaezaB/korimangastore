@@ -1,8 +1,9 @@
 @extends('layouts.master')
+
 @section('content')
 
 <!-- Page Content -->
-<div class="bg-image" style="background-image: url('/media/login/fondo2.jpg');">
+<div class="bg-image" style="background-image: url('/media/photos/photo14@2x.jpg');">
     <div class="row g-0 justify-content-center bg-black-75">
         <div class="hero-static col-sm-8 col-md-6 col-xl-4 d-flex align-items-center p-2 px-sm-0">
             <!-- Reminder Block -->
@@ -11,12 +12,9 @@
                     <!-- Header -->
                     <div class="mb-2 text-center">
                         <a class="link-fx fw-bold fs-1" href="index.php">
-                        <div class="logokori">
-                                <img src="/media/login/logokori.png" alt="" width="20%" height="20%">
-                            </div>
-                            <span class="text-dark">Kori</span><span class="text-primary">Mangastore</span>
+                            <span class="text-dark">Dash</span><span class="text-primary">mix</span>
                         </a>
-                        <p class="text-uppercase fw-bold fs-sm text-muted">Restablecer contraseña</p>
+                        <p class="text-uppercase fw-bold fs-sm text-muted">Password Reminder</p>
                     </div>
                     <!-- END Header -->
 
@@ -41,7 +39,6 @@
                                 <i class="fa fa-fw fa-reply opacity-50 me-1"></i> {{ __('Enviar enlace de restablecimiento de contraseña') }}
                             </button>
                         </div>
-                        
                     </form>
                     <!-- END Reminder Form -->
                 </div>
@@ -52,4 +49,3 @@
 </div>
 <!-- END Page Content -->
 @endsection
-

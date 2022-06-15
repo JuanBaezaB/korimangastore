@@ -944,11 +944,13 @@
 
     <!-- Dashmix Core JS -->
     <script src="{{ mix('js/dashmix.app.js') }}"></script>
+    
 
     <!-- Laravel Original JS -->
     <!-- <script src="{{ mix('/js/laravel.app.js') }}"></script> -->
 
     @yield('js_after')
+    
 
 </body>
 
