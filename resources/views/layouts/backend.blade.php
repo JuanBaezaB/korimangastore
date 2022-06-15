@@ -359,6 +359,12 @@
                                 <span class="nav-main-link-name">Dashboard</span>
                                 <span class="nav-main-link-badge badge rounded-pill bg-primary">5</span>
                             </a>
+                            <a class="nav-main-link{{ request()->is('/gestion-base/configuacion-base/venta/grafico') ? ' active' : '' }}"
+                                href="{{ route('sale.graphic') }}">
+                                <i class="nav-main-link-icon fa fa-location-arrow"></i>
+                                <span class="nav-main-link-name">Grafico</span>
+                                <span class="nav-main-link-badge badge rounded-pill bg-primary">5</span>
+                            </a>
                         </li>
 
                        

@@ -19,7 +19,7 @@ class CreateDiscountsTable extends Migration
             $table->enum('discount_type', ['percent', 'amount']);
             $table->double('percent_or_amount');
             $table->date('valid_from');
-            $table->data('valid_to');
+            $table->date('valid_to');
             $table->json('rule');
             $table->timestamps();
         });
