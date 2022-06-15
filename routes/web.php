@@ -69,7 +69,7 @@ Route::post('/ventas-y-descuentos/venta', [SaleController::class, 'list'])->name
 Route::get('/ventas-y-descuentos/venta/sucursal/{id}', [SaleController::class, 'index'])->name('sale.get_one')->middleware('auth');
 Route::get('/ventas-y-descuentos/venta/crear', [SaleController::class, 'create'])->name('sale.create')->middleware('auth');
 Route::post('/ventas-y-descuentos/venta/agregar', [SaleController::class, 'store'])->name('sale.add')->middleware('auth');
-1
+
 
 /*  PRODUCT MANAGEMENT */
 
