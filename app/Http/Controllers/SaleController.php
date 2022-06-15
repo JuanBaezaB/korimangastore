@@ -82,4 +82,12 @@ class SaleController extends Controller
     {
         //
     }
+
+    public function charts()
+    {
+        $sales = Sale::all();
+        
+        return response()->view('admin.basic_management.internal_configuration.sale.graphic.graphic', compact('sales'));
+
+    }
 }

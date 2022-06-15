@@ -16,4 +16,5 @@ class Sale extends Model
     public function totalPrice() {
         return Sale::whereKey($this)->withSum('products', 'product_sale.amount * price AS total_price')->value('total_price');
     }
+    
 }
