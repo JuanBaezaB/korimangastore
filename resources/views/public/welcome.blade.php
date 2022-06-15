@@ -25,37 +25,106 @@
         </style>
     </head>
     <body class="antialiased">
-        <nav class="navbar navbar-light bg-light">
-            <div class="container">
-              <a class="navbar-brand" href="#">
-                <img src="/media/login/logokori.png" alt="" width="32" height="28">
-              </a>
-            </div>
-            @if (Route::has('login'))
-                <div class="d-inlineflex pe-4">
+
+        <!-- Navbar -->
+        <nav class="navbar bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#" style="color: #f7fafc" style="text-decoration-line: none">
+                    <img src="/media/login/logonav.png" alt="" width="32" height="28">
+                    <b>Kori</b><h6>MangaStore</h6>
+                </a>
+              <form class="d-flex" role="search">
+                @if (Route::has('login'))
+                <div class="d-inlineflex pe-1">
                     @auth
-                        <button type="button" class="btn btn-info"><a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a></button>
+                        <button type="button" class="btn btn-info">
+                            <a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">
+                                <b>
+                                    <i class="fa-solid fa-house-chimney-user pe-2"></i>
+                                    Home
+                                </b>
+                            </a>
+                        </button>
                     @else
-                        <button type="button" class="btn btn-secondary"><a style="color: #fff" href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a></button>
+                        <button type="button" class="btn btn-secondary">
+                            <a style="color: #fff" href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">
+                                <b>
+                                    <i class="fa-solid fa-right-to-bracket pe-2"></i>
+                                    Inicia Sesión
+                                </b>
+                            </a>
+                        </button>
 
                         @if (Route::has('register'))
-                            <button type="button" class="btn btn-warning"><a href="{{ route('register') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Register</a></button>
+                            <button type="button" class="btn btn-warning">
+                                <a href="{{ route('register') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">
+                                    <b>
+                                        <i class="fa-solid fa-user-plus pe-2"></i>
+                                        Regístrate
+                                    </b>
+                                </a>
+                            </button>
                         @endif
                     @endauth
                 </div>
             @endif
-          </nav>
+              </form>
+            </div>
+        </nav>
+
+        <!-- Contenido -->
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
-            
 
             <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-                <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
+
+                <div class="flex justify-center pt-8 sm:justify-start sm:pt-0 ms-3 me-3">
                     <div class="logokori">
                         <a href="#">
                             <img src="/media/login/logokori.png" alt="" width="160px" height="140px">
                             <span style="font-size: 60px"><b>Kori</b>MangaStore</span>
                         </a>
                         
+                    </div>
+                </div>
+
+                <div class="card dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg mt-4 mb-4">
+                    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
+                        <div class="carousel-indicators">
+                          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                        </div>
+                        <div class="carousel-inner">
+                          <div class="carousel-item active">
+                            <img src="https://wwwhatsnew.com/wp-content/uploads/2022/03/Estas-son-las-mejores-apps-de-fondos-de-pantalla-4K-y-QHD-para-2022.jpg" class="d-block w-100" alt="...">
+                            <div class="carousel-caption d-none d-md-block">
+                              <h5>First slide label</h5>
+                              <p>Some representative placeholder content for the first slide.</p>
+                            </div>
+                          </div>
+                          <div class="carousel-item">
+                            <img src="https://wwwhatsnew.com/wp-content/uploads/2022/03/Estas-son-las-mejores-apps-de-fondos-de-pantalla-4K-y-QHD-para-2022.jpg" class="d-block w-100" alt="...">
+                            <div class="carousel-caption d-none d-md-block">
+                              <h5>Second slide label</h5>
+                              <p>Some representative placeholder content for the second slide.</p>
+                            </div>
+                          </div>
+                          <div class="carousel-item">
+                            <img src="https://wwwhatsnew.com/wp-content/uploads/2022/03/Estas-son-las-mejores-apps-de-fondos-de-pantalla-4K-y-QHD-para-2022.jpg" class="d-block w-100" alt="...">
+                            <div class="carousel-caption d-none d-md-block">
+                              <h5>Third slide label</h5>
+                              <p>Some representative placeholder content for the third slide.</p>
+                            </div>
+                          </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                          <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                          <span class="visually-hidden">Next</span>
+                        </button>
                     </div>
                 </div>
 
