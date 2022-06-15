@@ -63,6 +63,13 @@ Route::get('/gestion-de-inventario/stock/sucursal/{id}', [StockController::class
 Route::get('/gestion-de-inventario/stock/crear', [StockController::class, 'create'])->name('stock.create')->middleware('auth');
 Route::post('/gestion-de-inventario/stock/agregar', [StockController::class, 'store'])->name('stock.add')->middleware('auth');
 
+/* Sales */
+Route::get('/ventas-y-descuentos/venta', [SaleController::class, 'index'])->name('sale.list')->middleware('auth');
+Route::post('/ventas-y-descuentos/venta', [SaleController::class, 'list'])->name('sale.data_table')->middleware('auth');
+Route::get('/ventas-y-descuentos/venta/sucursal/{id}', [SaleController::class, 'index'])->name('sale.get_one')->middleware('auth');
+Route::get('/ventas-y-descuentos/venta/crear', [SaleController::class, 'create'])->name('sale.create')->middleware('auth');
+Route::post('/ventas-y-descuentos/venta/agregar', [SaleController::class, 'store'])->name('sale.add')->middleware('auth');
+1
 
 /*  PRODUCT MANAGEMENT */
 
