@@ -53,9 +53,7 @@
                     </div>
                     <div class="col-lg-8 col-md-6">
                         <div class="">
-                            <select class="js-select2 form-select"  style="width: 100%;" id="select-product" >
-                                <option></option>
-                            </select>
+                            <x-product-search id="select-product" />
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6">
@@ -172,20 +170,6 @@
             jQuery(function ($) {
                 $(document).ready(function () {
                     $('#change-branch-select').select2();
-                });
-
-                $(document).ready(function () {
-                    $('#select-product').select2({
-                        ajax: {
-                            url: '{{ route("product.search") }}',
-                            dataType: 'json',
-                            method: 'POST',
-                            data: function (params) {
-                                return $.extend({}, params, { _token: $('meta[name=csrf-token]').prop('content') });
-                            }
-                        },
-                        placeholder: 'Buscar un producto...'
-                    });
                 });
             });
         </script>
