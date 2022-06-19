@@ -419,7 +419,6 @@
                 <b>Kori</b>
                 <h6>MangaStore</h6>
             </a>
-            
             <div class="d-inlineflex pe-1">
                 <!-- Authentication Links -->
                 @guest
