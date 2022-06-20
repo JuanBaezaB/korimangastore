@@ -68,11 +68,11 @@ Route::group(['middleware' => ['role:Admin|Vendedor']], function () {
     Route::post('/gestion-de-inventario/stock/agregar', [StockController::class, 'store'])->name('stock.add')->middleware('can:stock.modify');
 
     /* Sales */
-    Route::get('/area-de-ventas/venta', [SaleController::class, 'index'])->name('sale.list')->middleware('auth');
-    Route::post('/area-de-ventas/venta', [SaleController::class, 'list'])->name('sale.data_table')->middleware('auth');
-    Route::get('/area-de-ventas/venta/sucursal/{id}', [SaleController::class, 'index'])->name('sale.get_one')->middleware('auth');
-    Route::get('/area-de-ventas/venta/crear', [SaleController::class, 'create'])->name('sale.create')->middleware('auth');
-    Route::post('/area-de-ventas/venta/agregar', [SaleController::class, 'store'])->name('sale.add')->middleware('auth');
+    Route::get('/area-de-ventas/venta', [SaleController::class, 'index'])->name('sale.list');
+    Route::post('/area-de-ventas/venta', [SaleController::class, 'list'])->name('sale.data_table');
+    Route::get('/area-de-ventas/venta/sucursal/{id}', [SaleController::class, 'index'])->name('sale.get_one');
+    Route::get('/area-de-ventas/venta/crear', [SaleController::class, 'create'])->name('sale.create');
+    Route::post('/area-de-ventas/venta/agregar', [SaleController::class, 'store'])->name('sale.add');
     Route::get('/area-de-ventas/venta/grafico', [SaleController::class, 'charts'])->name('sale.graphic');
 
 
