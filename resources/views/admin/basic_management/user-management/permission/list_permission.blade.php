@@ -47,6 +47,7 @@ $validation_messages = [
 @section('label_headers')
     <th class="text-center" style="width: 80px;">#</th>
     <th>Nombre</th>
+    <th>Descripción</th>
 @endsection
 
 @section('breadcrumb')

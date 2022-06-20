@@ -16,7 +16,7 @@ class RoleController extends Controller
      */
     public function index(){
         $roles = Role::all();
-        $permissions = Permission::all();
+        $permissions = Permission::orderBy("group")->get()->groupBy("group");
         return response()->view('admin.basic_management.user-management.role.list_role', compact('roles','permissions'));
     }
 
