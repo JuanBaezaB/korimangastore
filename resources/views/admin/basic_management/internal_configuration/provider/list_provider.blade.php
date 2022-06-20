@@ -38,12 +38,12 @@ $validation_messages = [
 @section('modal_create_contents')
     <div class="mb-3">
         <label class="col-form-label">Nombre:</label>
-        <input type="text" class="form-control" name="name" required>
+        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" required>
     </div>
     <div class="mb-3">
-        <label class="col-form-label">Descripción (opcional):</label>
-        <textarea class="js-simplemde form-control" id="simplemde-add" id="description" name="description" required></textarea>
-    </div>  
+        <label class="col-form-label ">Descripción (opcional):</label>
+        <textarea class="js-simplemde form-control @error('description') is-invalid @enderror" id="simplemde-add" id="description" name="description" required></textarea>
+    </div>
 @endsection
 
 @section('label_headers')
@@ -78,7 +78,7 @@ $validation_messages = [
                 console.log(text);
                 var simplemdeupdate = new SimpleMDE({
                     element: $(this).find('.simplemde-update').get(0),
-                    
+
                     toolbar: ['bold', 'italic', 'heading', '|', 'quote', 'unordered-list', 'ordered-list', 'preview'],
                     spellChecker: false,
                 });
@@ -87,7 +87,7 @@ $validation_messages = [
                 $(this).focus(function(){
                     simplemdeupdate.codemirror.refresh();
                 });
-                
+
             });
         });
     </script>

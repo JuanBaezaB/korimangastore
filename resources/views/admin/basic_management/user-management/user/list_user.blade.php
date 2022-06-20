@@ -53,17 +53,6 @@ $validation_messages = [
 @endphp
 
 @section('modal_create_contents')
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-        <br />
-    @endif
-
     <div class="mb-3">
         <label class="col-form-label">Nombre:</label>
         <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" required>
@@ -74,7 +63,7 @@ $validation_messages = [
     </div>
     <div class="mb-3">
         <label class="col-form-label" >Imagen:</label>
-        <input type="file" class="form-control" name="image" value="" id="image" accept="image/png, image/jpeg, image/jpg, image/svg">
+        <input type="file" class="form-control @error('image') is-invalid @enderror" name="image" value="" id="image" accept="image/png, image/jpeg, image/jpg, image/svg">
     </div>
     <div class="mb-3">
         <label class="col-form-label">Contraseña:</label>
@@ -82,8 +71,8 @@ $validation_messages = [
             id="password" name="password" required autocomplete="new-password"
             placeholder="Contraseña">
     </div>
-    
-    
+
+
     <div class="mb-3">
         <label class="col-form-label">Roles:</label>
         <br>
@@ -94,7 +83,7 @@ $validation_messages = [
             </div>
         @endforeach
     </div>
-    
+
 @endsection
 
 @section('label_headers')

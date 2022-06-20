@@ -36,7 +36,7 @@ $validation_messages = [
 @section('modal_create_contents')
     <div class="mb-3">
         <label class="col-form-label">Nombre:</label>
-        <input type="text" class="form-control" name="name" required>
+        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" required>
     </div>
 @endsection
 

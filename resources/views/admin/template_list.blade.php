@@ -56,6 +56,16 @@ Stacks:
                         <i class="fa fa-fw fa fa-plus"></i> Ingresar {{ mb_strtolower($nombre_crud) }}
                     </button>
                 </div>
+                @if ($errors->any())
+                    <ul>
+                        <div id="ERROR_COPY" style="display: none" class="alert alert-danger">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }} <br></li>
+                            @endforeach
+                        </div>
+                    </ul>
+                    <br />
+                @endif
             </div>
 
             <div class="block-content block-content-full">
@@ -79,7 +89,7 @@ Stacks:
                                         <div class=" btn-group">
                                             @hasSection('update-modal')
                                             <button type="button" class="btn btn-sm btn btn-outline-primary x-edit-button"
-                                                data-bs-toggle="modal" data-bs-target="#update_item" 
+                                                data-bs-toggle="modal" data-bs-target="#update_item"
                                                 data-bs-whatever="@mdo" title="Actualizar"
                                                 x-data-id="{{ $an_item->id }}">
                                                 <i class="fa fa-pencil-alt"></i>
@@ -125,7 +135,7 @@ Stacks:
                                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                                                             <button type="submit" class="btn btn-primary">Actualizar</button>
                                                         </div>
-                                                       
+
                                                     </form>
                                                 </div>
 
@@ -141,12 +151,12 @@ Stacks:
                 </table>
             </div>
         </div>
-        
+
         <!-- END Elements -->
     </div>
     <!-- END Page Content -->
 
-    
+
 
     <!-- Modal Ingresar-->
     <div class="modal fade " id="add_item" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -194,7 +204,7 @@ Stacks:
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                             <button type="submit" class="btn btn-primary">Actualizar</button>
                         </div>
-                        
+
                     </form>
                 </div>
 
@@ -315,10 +325,10 @@ Stacks:
                 'El ingreso se ha relizado exitosamente.',
                 'success'
             );
-        
+
         @endif
         @if (session('success') == 'deleted')
-        
+
             toast.fire(
                 'Eliminado!',
                 'El registro ha sido eliminado.',
@@ -332,9 +342,19 @@ Stacks:
                 'success'
             );
         @endif
+
+        @if ($errors->any())
+            toast.fire({
+                title: 'Error',
+                text: "No podrás revertir esto!",
+                icon: 'error',
+                html:jQuery("#ERROR_COPY").html(),
+                showCloseButton: true,
+            });
+        @endif
     </script>
 
-    
+
     <!-- End js sweetalert2 -->
 
     <script src="{{ asset('js/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
@@ -353,7 +373,7 @@ Stacks:
     </script>
 
     @stack('scripts-extra')
-    
+
     <script>
         jQuery(document).ready(function($) {
             var validation_rules = {{ Js::from($validation_rules) }} ;
@@ -384,5 +404,5 @@ Stacks:
             });
         });
     </script>
-    
+
 @endsection
