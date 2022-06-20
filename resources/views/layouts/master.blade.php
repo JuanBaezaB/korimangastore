@@ -25,6 +25,7 @@
 
     <!-- Styles -->
     <link rel="stylesheet" id="css-main" href="{{ mix('css/dashmix.css') }}">
+    <link rel="stylesheet" id="css-main" href="{{ asset('/fonts/fontawesome-free/css/all.css') }}">
 
 </head>
 <body>

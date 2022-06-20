@@ -74,7 +74,7 @@
                     <div class="mb-3">
                         <label class="col-form-label">Tipo de producto:</label>
 
-                        <select id="product-type-select" name="product_type" class="js-basic-single js-select2 form-select" style="width: 100%;" data-placeholder="Elige uno.." required>
+                        <select id="product-type-select" name="category_id" class="js-basic-single js-select2 form-select" style="width: 100%;" data-placeholder="Elige uno.." required>
                             <option></option>
                             @foreach ($categories as $row)
                             <option value="{{ $row->id }}" {{ (isset($product) && $product->category->id === $row->id) ? 'selected=selected' : '' }}>{{ $row->name }}</option>

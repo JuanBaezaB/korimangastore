@@ -3,9 +3,9 @@
 <td class="d-none d-sm-table-cell">{{ $an_item->email }}</td>
 <td class="d-none text-center d-sm-table-cell">
     @if ($an_item->image != null)
-        <img src="{{ url('uploads/user/'.$an_item->image) }}"style="height: 75px; width: 75px;">
+        <img class="rounded-circle" src="{{ asset('storage/'.$an_item->image) }}" style="height: 75px; width: 75px;">
     @endif
     @if ($an_item->image == null)
-        <img src="{{ url('media/avatars/avatar0.jpg') }}"style="height: 75px; width: 75px;">
+        <img class="rounded-circle" src="{{ url('media/avatars/avatar0.jpg') }}"style="height: 75px; width: 75px;">
     @endif
 </td>

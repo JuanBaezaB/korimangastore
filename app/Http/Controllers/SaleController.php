@@ -153,4 +153,11 @@ class SaleController extends Controller
         return response()->json([ "data" => $products]);
     }
     
+    public function charts()
+    {
+        $sales = Sale::all();
+        
+        return response()->view('admin.basic_management.internal_configuration.sale.graphic.graphic', compact('sales'));
+
+    }
 }

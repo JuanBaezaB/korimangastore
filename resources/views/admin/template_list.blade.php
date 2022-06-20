@@ -51,7 +51,7 @@ Stacks:
             <div class="block-header block-header-default">
                 <h3 class="block-title">{{ $nombre_crud }}</h3>
                 <div class="block-options">
-                    <button class="btn btn-sm btn-alt-secondary btn-primary" data-bs-toggle="modal"
+                    <buttonb {{ request()->is('gestion-base/gestion-usuarios/permisos') ? ' hidden' : '' }} class="btn btn-sm btn-alt-secondary btn-primary" data-bs-toggle="modal"
                         data-bs-target="#add_item" data-bs-whatever="@mdo">
                         <i class="fa fa-fw fa fa-plus"></i> Ingresar {{ mb_strtolower($nombre_crud) }}
                     </button>
@@ -65,7 +65,7 @@ Stacks:
                         <tr>
                             <!-- <th class="text-center" style="width: 80px;">#</th> -->
                             @yield('label_headers')
-                            <th style="width: 10%;">Acciones</th>
+                            <th {{ request()->is('gestion-base/gestion-usuarios/permisos') ? ' hidden' : '' }} style="width: 10%;">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -73,7 +73,7 @@ Stacks:
                             <tr>
                                 <!-- <td class="text-center">{{ $an_item->id }}</td> -->
                                 @include($list_columns, ['an_item' => $an_item])
-                                <td class="">
+                                <td {{ request()->is('gestion-base/gestion-usuarios/permisos') ? ' hidden' : '' }} class="">
                                     <form class=" delete" action="{{ route($delete_action_route, $an_item->id) }}"
                                         method="POST" enctype="multipart/form-data">
                                         <div class=" btn-group">
@@ -107,7 +107,7 @@ Stacks:
                                     <!-- Modal Actualizar-->
                                     <div class="modal fade modal-update" id="update_item{{ $an_item->id }}" tabindex="-1"
                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
+                                        <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title " id="exampleModalLabel">Actualizar {{ strtolower($nombre_crud) }}
@@ -150,7 +150,7 @@ Stacks:
 
     <!-- Modal Ingresar-->
     <div class="modal fade " id="add_item" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title " id="exampleModalLabel">Ingresar {{ strtolower($nombre_crud) }}</h5>
@@ -176,7 +176,7 @@ Stacks:
     <!-- Modal Actualizar-->
     <div class="modal fade modal-update" id="update_item" tabindex="-1"
         aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title " id="exampleModalLabel">Actualizar {{ strtolower($nombre_crud) }}

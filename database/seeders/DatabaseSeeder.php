@@ -18,12 +18,16 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             GenreSeeder::class,
             RoleSeeder::class,
+            PermissionSeeder::class,
             UserSeeder::class,
             FigureTypeSeeder::class,
             FormatSeeder::class,
             EditorialSeeder::class,
             CreativePersonSeeder::class,
-            SerieSeeder::class
+            SerieSeeder::class,
+            ProviderSeeder::class,
+            BranchSeeder::class,
+            SalesSeeder::class
         ]);
     }
 }

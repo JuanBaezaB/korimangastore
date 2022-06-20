@@ -14,8 +14,13 @@
 </div>
 <div class="mb-3">
     <label class="col-form-label">Email:</label>
-    <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
+    <input type="email" class="form-control @error('email') is-invalid @enderror"
         value="{{ $an_item->email }}" name="email" required>
+</div>
+<div class="mb-3">
+    <label class="col-form-label" >Imagen:</label>
+    <input type="file" class="form-control" name="image"  accept="image/png, image/jpeg, image/jpg, image/svg">
+    <div  class="form-text">Rellene este campo solo en el caso de querer editar la imagen, en caso contrario, no lo haga.</div>
 </div>
 
 <div class="mb-3">
