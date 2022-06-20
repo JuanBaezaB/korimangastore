@@ -67,12 +67,14 @@ Route::group(['middleware' => ['role:Admin|Vendedor']], function () {
     Route::get('/gestion-de-inventario/stock/crear', [StockController::class, 'create'])->name('stock.create')->middleware('can:stock.modify');
     Route::post('/gestion-de-inventario/stock/agregar', [StockController::class, 'store'])->name('stock.add')->middleware('can:stock.modify');
 
-/* Sales */
-Route::get('/area-de-ventas/venta', [SaleController::class, 'index'])->name('sale.list')->middleware('auth');
-Route::post('/area-de-ventas/venta', [SaleController::class, 'list'])->name('sale.data_table')->middleware('auth');
-Route::get('/area-de-ventas/venta/sucursal/{id}', [SaleController::class, 'index'])->name('sale.get_one')->middleware('auth');
-Route::get('/area-de-ventas/venta/crear', [SaleController::class, 'create'])->name('sale.create')->middleware('auth');
-Route::post('/area-de-ventas/venta/agregar', [SaleController::class, 'store'])->name('sale.add')->middleware('auth');
+    /* Sales */
+    Route::get('/area-de-ventas/venta', [SaleController::class, 'index'])->name('sale.list')->middleware('auth');
+    Route::post('/area-de-ventas/venta', [SaleController::class, 'list'])->name('sale.data_table')->middleware('auth');
+    Route::get('/area-de-ventas/venta/sucursal/{id}', [SaleController::class, 'index'])->name('sale.get_one')->middleware('auth');
+    Route::get('/area-de-ventas/venta/crear', [SaleController::class, 'create'])->name('sale.create')->middleware('auth');
+    Route::post('/area-de-ventas/venta/agregar', [SaleController::class, 'store'])->name('sale.add')->middleware('auth');
+    Route::get('/area-de-ventas/venta/grafico', [SaleController::class, 'charts'])->name('sale.graphic');
+
 
 
     /*  PRODUCT MANAGEMENT */
@@ -156,7 +158,3 @@ Route::post('/area-de-ventas/venta/agregar', [SaleController::class, 'store'])->
     Route::view('/soporte/manual-admin', 'admin.support.adminmanual')->name('support.adminmanual')->middleware('auth');
 
 });
-
-/*  graficos */
-Route::get('/gestion-base/configuacion-base/venta', [SaleController::class, 'index'])->name('sale.list')->middleware('auth');
-Route::get('/gestion-base/configuacion-base/venta/grafico', [SaleController::class, 'charts'])->name('sale.graphic')->middleware('auth');
