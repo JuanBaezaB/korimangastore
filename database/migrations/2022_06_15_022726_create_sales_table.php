@@ -16,6 +16,7 @@ class CreateSalesTable extends Migration
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(App\Models\User::class);
+            $table->foreignIdFor(App\Models\Branch::class);
             $table->decimal('discount_amount');
             $table->timestamps();
         });

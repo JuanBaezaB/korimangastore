@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Sale;
 use App\Models\Branch;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class SaleController extends Controller
@@ -133,24 +134,30 @@ class SaleController extends Controller
 
     public function list(Request $request) {
         $givenId = $request->get('id', null);
+        if ($givenId == -1) {
+            $givenId = null;
+        }
 
         if (!$givenId) {
-            $products = Sale::with('branches', 'category')
-            ->withSum('branches', 'branch_product.stock')
-            ->get()
-            ->toArray();
+            $sales = Sale::with(['branch', 'products', 'user'])
+            ->withCount('products')
+            ->addSelect([
+                'total_price' => Product::selectRaw('SUM(product_sale.amount * products.price)')
+                                ->join('product_sale', 'product_sale.product_id', '=', 'products.id')
+                                ->whereColumn('product_sale.sale_id', 'sales.id')
+            ]);
         } else {
-            $products = Sale::with([
-                'branches' => function ($query) use ($givenId) {
-                    $query->whereKey($givenId);
-                },
-                'category'])
-            ->whereRelation('branches', 'branch_id', $givenId)
-            ->whereRelation('branches', 'stock', '>', 0)
-            ->get()
-            ->toArray();
+            $sales = Sale::with(['branch', 'products', 'user'])
+            ->withCount('products')
+            ->whereRelation('branch', 'id', $givenId)
+            ->addSelect([
+                'total_price' => Product::selectRaw('SUM(product_sale.amount * products.price)')
+                                ->join('product_sale', 'product_sale.product_id', '=', 'products.id')
+                                ->whereColumn('product_sale.sale_id', 'sales.id')
+            ]);
         }
-        return response()->json([ "data" => $products]);
+        $sales = $sales->get()->toArray();
+        return response()->json([ "data" => $sales]);
     }
     
     public function charts()
