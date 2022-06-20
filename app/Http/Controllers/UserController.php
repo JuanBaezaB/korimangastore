@@ -136,12 +136,23 @@ class UserController extends Controller
         } else {
             $roles = $request->roles;
             $user = User::find($id);
-            $user->update([
-                'name' => $request['name'],
-                'email' => $request['email'],
-                'password' => Hash::make($request['password']),
-            ]);
+            if($request->file('image')){
+                $path = $request->file('image')->storeAs('user-image',date('YmdHi').$request->file('image')->getClientOriginalName(),'public');
+                $user->update([
+                    'name' => $request['name'],
+                    'email' => $request['email'],
+                    'image' => $path,
+
+                ]);
+
+            }else{
+                $user->update([
+                    'name' => $request['name'],
+                    'email' => $request['email'],
+                ]);
+            };
             $user->syncRoles($roles);
+
 
             return redirect()->route('user.list')
                 ->with('success', 'created');
