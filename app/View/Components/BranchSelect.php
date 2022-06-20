@@ -28,16 +28,30 @@ class BranchSelect extends Component
      */
     public $allBranches;
 
+    /**
+     * Template to replace the string 'id'
+     * 
+     * @var false|string
+     */
     public $redirectTemplate;
 
+
+    /**
+     * @var false|string
+     */
     public $redirect;
 
     /**
      * Create a new component instance.
-     *
+     * 
+     * @param string $id
+     * @param string|integer $current
+     * @param boolean $allBranches
+     * @param false|string $redirectTemplate
+     * @param false|string $redirect
      * @return void
      */
-    public function __construct($id, $current, $allBranches, $redirectTemplate, $redirect)
+    public function __construct($id, $current, $allBranches = false, $redirectTemplate = false, $redirect = false)
     {
         //
         $this->id = $id;
