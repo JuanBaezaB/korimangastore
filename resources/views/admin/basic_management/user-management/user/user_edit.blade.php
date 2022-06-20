@@ -1,20 +1,10 @@
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-    <br />
-@endif
 <div class="mb-3">
     <label class="col-form-label">Nombre:</label>
-    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $an_item->name }}" required>
+    <input type="text" class="form-control " name="name" value="{{ $an_item->name }}" required>
 </div>
 <div class="mb-3">
     <label class="col-form-label">Email:</label>
-    <input type="email" class="form-control @error('email') is-invalid @enderror"
+    <input type="email" class="form-control "
         value="{{ $an_item->email }}" name="email" required>
 </div>
 <div class="mb-3">

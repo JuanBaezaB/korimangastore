@@ -54,6 +54,8 @@ class UserController extends Controller
             'email.required' => 'Por favor, ingrese un email.',
             'email.unique'=> 'El email ya ha sido registrado.',
             'password.required' => 'Introduce una contraseña.',
+            'image.image' => 'El tipo de archivo subido debe ser una imagen..',
+            'image.uploaded' => 'No se pudo cargar una imagen. El tamaño máximo de la imagen es de 2 MB.',
         ]);
 
         if ($validator->fails()) {
@@ -122,11 +124,14 @@ class UserController extends Controller
         $validator = Validator::make($request->all(),[
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
+            'image' => ['image', 'max:2048']
         ],
         [
             'name.required' => 'Por favor, ingrese un nombre.',
             'email.required' => 'Por favor, ingrese un email.',
             'email.unique'=> 'El email ya ha sido registrado.',
+            'image.image' => 'El tipo de archivo subido debe ser una imagen..',
+            'image.uploaded' => 'No se pudo cargar una imagen. El tamaño máximo de la imagen es de 2 MB.',
         ]);
 
         if ($validator->fails()) {

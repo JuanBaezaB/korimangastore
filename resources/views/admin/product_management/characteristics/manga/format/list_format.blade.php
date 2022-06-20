@@ -42,11 +42,11 @@ $validation_messages = [
 @section('modal_create_contents')
     <div class="mb-3">
         <label class="col-form-label">Nombre:</label>
-        <input type="text" class="form-control" name="name" required>
+        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" required>
     </div>
     <div class="mb-3">
         <label class="col-form-label">Descripción (opcional):</label>
-        <input type="text" class="form-control" id="simplemde-add" name="description" required>
+        <input type="text" class="form-control @error('description') is-invalid @enderror" id="simplemde-add" name="description" required>
     </div>
 @endsection
 
@@ -83,7 +83,7 @@ $validation_messages = [
                 console.log(text);
                 var simplemdeupdate = new SimpleMDE({
                     element: $(this).find('.simplemde-update').get(0),
-                    
+
                     toolbar: ['bold', 'italic', 'heading', '|', 'quote', 'unordered-list', 'ordered-list', 'preview'],
                     spellChecker: false,
                 });
@@ -92,7 +92,7 @@ $validation_messages = [
                 $(this).focus(function(){
                     simplemdeupdate.codemirror.refresh();
                 });
-                
+
             });
         });
     </script>

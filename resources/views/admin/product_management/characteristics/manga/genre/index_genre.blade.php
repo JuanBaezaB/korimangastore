@@ -44,7 +44,7 @@ $update_modal_fields = [
 
 @section('modal_create_contents')
     <div class="mb-3">
-        <label class="col-form-label">Nombre:</label>
+        <label class="col-form-label @error('name') is-invalid @enderror">Nombre:</label>
         <input type="text" class="form-control" name="name" required>
     </div>
     <div class="mb-3">
