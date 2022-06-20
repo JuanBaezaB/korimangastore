@@ -111,4 +111,28 @@ class BranchController extends Controller
         $branch = Branch::findOrFail($request->get('id'));
         return response()->json($branch);
     }
+
+    public function search(Request $request) {
+        $ret = [];
+        $term = $request->get('term');
+        $results = Branch::orWhere('name', 'LIKE', '%' . $term . '%')
+        ->get()
+        ->map(function ($d) use ($request) {
+            $d->text = $d->name;
+            $d->selected = $d->id == $request->get('selected', false);
+            return $d;
+        });
+
+        if ($request->get('add_all_option')) {
+            $results->push([
+                'id' => -1,
+                'text' => 'Todas',
+                'selected' => $request->get('selected', false) == -1
+            ]);
+        }
+
+        $ret['results'] = $results->toArray();
+
+        return response()->json($ret);
+    }
 }

@@ -40,12 +40,12 @@
                     <div class="d-flex flex-column col-sm-8 pb-3 flex-sm-row justify-content-sm-start align-items-sm-center">
                         Sucursal
                         <div class="mx-sm-2 flex-grow-1">
-                            <select id="change-branch-select" class="js-select2 form-select" style="width: 100%;" autocomplete="off">
-                                <option value="" {{ ($is_all_branches) ? 'selected' : '' }}>Todos</option>
-                                @foreach($branches as $branch)
-                                    <option value="{{ $branch->id }}" {{ (!$is_all_branches && $the_branch->id==$branch->id) ? 'selected' : '' }}>{{ $branch->name }}</option>
-                                @endforeach
-                            </select>
+                            <x-branch-select 
+                            :redirect-template="URL::route('sale.list', ['sucursal' => 'id'])" 
+                            :redirect="route('sale.list')"
+                            :current="app('request')->input('sucursal', -1)" 
+                            :allBranches="true" 
+                            id="change-branch-select" style="width: 100%;" />
                         </div>
                     </div>
                 </div>
@@ -225,25 +225,6 @@
                 });
             </script>
         @endempty
-
-        <script>
-            $('#change-branch-select').on('change', function() {
-                let url = '{{ route("stock.get_one", ":id") }}';
-                let allUrl = '{{ route("stock.list") }}';
-                let newId = this.value;
-                if (newId !== "") {
-                    location.href = url.replace(':id', newId);
-                } else {
-                    location.href = allUrl;
-                }
-            });
-
-            jQuery(function ($) {
-                $(document).ready(function () {
-                    $('#change-branch-select').select2();
-                });
-            });
-        </script>
     @if (session('success') == 'created')
         <script>
             Swal.fire(

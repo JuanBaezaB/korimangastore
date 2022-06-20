@@ -26,5 +26,6 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         Blade::component('product-search', \App\View\Components\ProductSearch::class);
+        Blade::component('branch-select', \App\View\Components\BranchSelect::class);
     }
 }

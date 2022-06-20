@@ -129,6 +129,7 @@ Route::patch('/gestion-base/configuacion-base/actualizar-proveedores/{id}', [Pro
 Route::get('/gestion-base/configuacion-base/sucursales', [BranchController::class, 'index'])->name('branch.list')->middleware('auth');
 Route::post('/gestion-base/configuacion-base/sucursales', [BranchController::class, 'store'])->name('branch.add')->middleware('auth');
 Route::post('/gestion-base/configuacion-base/sucursales/uno', [BranchController::class, 'get_one'])->name('branch.get_one')->middleware('auth');
+Route::post('/gestion-base/configuacion-base/sucursales/buscar', [BranchController::class, 'search'])->name('branch.search')->middleware('auth');
 Route::delete('/gestion-base/configuacion-base/eliminar_sucursales/{id}', [BranchController::class, 'destroy'])->name('branch.delete')->middleware('auth');
 Route::patch('/gestion-base/configuacion-base/actualizar_sucursales/{id}', [BranchController::class, 'update'])->name('branch.update')->middleware('auth');
 /* Usuarios */
