@@ -14,6 +14,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
+    <!-- MDB 
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.css" rel="stylesheet"/>
+    -->
 
     <!-- Styles -->
     <style>
@@ -410,14 +414,12 @@
 </head>
 
 <body class="antialiased">
-
     <!-- Navbar -->
-    <nav class="navbar bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#" style="color: #f7fafc" style="text-decoration-line: none">
                 <img src="/media/login/logonav.png" alt="" width="32" height="28">
-                <b>Kori</b>
-                <h6>MangaStore</h6>
+                <b>Kori</b>MangaStore
             </a>
             <div class="d-inlineflex pe-1">
                 <!-- Authentication Links -->
