@@ -157,7 +157,9 @@ class SaleController extends Controller
         }
         return response()->json([ "data" => $products]);
     }
-    
+        
+
+
     public function charts()
     {
         /*
@@ -176,27 +178,11 @@ class SaleController extends Controller
 
 
         //Ganancias y porcentaje
-        $dateFrom = Carbon::now()->subDays(30);
-        $dateTo = Carbon::now();
-        $monthly = Sale::where('created_at', '>=', $dateFrom)->where('created_at', '<=', $dateTo)->count();
+        
 
         $previousDateFrom = Carbon::now()->subDays(60);
         $previousDateTo = Carbon::now()->subDays(31);
         $previousMonthly = Sale::where('created_at', '>=', $dateFrom)->where('created_at', '<=', $dateTo)->count();
-
-        if ($previousMonthly < $monthly) {
-            if ($previousMonthly > 0) {
-                $pEarnings = $monthly - $previousMonthly;
-                $pSales = $pEarnings / $previousMonthly * 100; //incremento de porcentaje
-                $mark   ="+";
-            } else {
-                $percent = 100; //incremento de porcentaje
-            }
-        } else {
-            $mark="-";
-            $Earnings = $previousMonthly - $monthly;
-            $pEarnings = $Earnings / $previousMonthly * 100; //disminucion de porcentaje
-        }
 
         //Ultimos 30 usuarios
         /*
@@ -219,11 +205,40 @@ class SaleController extends Controller
             $salesMonth['Octubre'] =  Sale::whereMonth('created_at', '=', '10')->whereYear('created_at', '=', date("Y"))->count('id');
             $salesMonth['Noviembre'] =  Sale::whereMonth('created_at', '=', '11')->whereYear('created_at', '=', date("Y"))->count('id');
             $salesMonth['Diciembre'] =  Sale::whereMonth('created_at', '=', '12')->whereYear('created_at', '=', date("Y"))->count('id');
-        
+
+            $monthlySales = Sale::where('created_at', '>=', $dateFrom)->where('created_at', '<=', $dateTo)->count();
+            $monthlyUsers = User::where('created_at', '>=', $dateFrom)->where('created_at', '<=', $dateTo)->count();
 
         
 
+            $percentSales = devuelvePorcentaje($monthlySales);
+            $percentUsers = devuelvePorcentaje($monthlyUsers);
+
         
-        return view('admin.basic_management.internal_configuration.sale.graphic.graphic', compact('salesMonth','mark', 'cUsers', 'cSales', 'pEarnings', 'Earnings', 'cProducts', 'sales'));
+        return view('admin.basic_management.internal_configuration.sale.graphic.graphic', compact('salesMonth', 'cUsers', 'cSales', 'percentSales','percentUsers', 'cProducts', 'sales'));
     }
+
+    
+    public function porcentajeGanancia($monthly)//necesito que reciba una clase (sale, user)
+    {
+        $dateFrom = Carbon::now()->subDays(30);
+        $dateTo = Carbon::now();
+
+        if ($previousMonthly < $monthly) {
+            if ($previousMonthly > 0) {
+                $rest = $monthly - $previousMonthly;
+                $percent = $rest / $previousMonthly * 100; //incremento de porcentaje
+                $mark   ="+";
+            } else {
+                $percent = 100; //incremento de porcentaje
+            }
+        } else {
+            $mark="-";
+            $rest = $previousMonthly - $monthly;
+            $percent = $rest / $previousMonthly * 100; //disminucion de porcentaje
+        }
+
+        return 
+    }
+    
 }

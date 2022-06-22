@@ -16,7 +16,7 @@
                         </div>
                         <div class="ms-3 text-end">
                             <p class="fs-3 fw-medium mb-0">
-                                {{ $mark }}{{ $pEarnings }}%
+                                <!--$mark $pEarnings-->
                             </p>
                             <p class="text-muted mb-0">
                                 Porcentaje de ganancias
