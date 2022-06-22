@@ -446,23 +446,30 @@
                         </a>
                     @endif
                 @else
-                    <div class="d-inline">
-                        <a href="{{ url('/home') }}" class="text-sm btn btn-info text-gray-700 dark:text-gray-500 underline">
-                            <b>
-                                <i class="fa-solid fa-house-chimney-user pe-2"></i>
-                                Home
-                            </b>
-                        </a>
-                    </div>
+                     @hasrole('Admin')
+                        <div class="d-inline">
+                            <a href="{{ url('/home') }}" class="text-sm btn btn-info text-gray-700 dark:text-gray-500 underline">
+                                <b>
+                                    <i class="fa-solid fa-chart-line pe-2"></i>
+                                    Dashboard
+                                </b>
+                            </a>
+                        </div>
+                    @endhasrole
                     <div class="d-inline dropdown">
                         <a id="navbarDropdown" class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ Auth::user()->name }}
+                            <b>
+                                {{ Auth::user()->name }}
+                            </b>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
+                                <b>
+                                    <i class="fa-solid fa-door-closed"></i>
+                                    {{ __('Cerrar Sesión') }}  
+                                </b>
                             </a>
 
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
