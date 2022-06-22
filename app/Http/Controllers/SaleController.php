@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Sale;
+use App\Models\User;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
@@ -86,12 +88,10 @@ class SaleController extends Controller
         //
     }
 
+
+
     public function charts()
     {
-
-
-
-
         /*
         $mes = substr($hoy, 0, 7);
         $ventames = DB::table('ventas')->where('created_at', '>=', $mes . '-01')->where('created_at', '<=', $mes . '-31')->sum('valor');
@@ -100,31 +100,62 @@ class SaleController extends Controller
         $ventanual = DB::table('ventas')->where('created_at', '>=', $year . '-01-01')->where('created_at', '<=', $year . '-12-31')->sum('valor');
 */
 
-        $date = Carbon::now();
-        $year = substr($date, 0, 4);
-        $sales = Sale::all();
-        
-        foreach($sales as $sale)
-        {
-            $sales = $sale->id;
-        }
-        
-/*
-        foreach ($sales as $sale) {
-            $salesMonth['Enero'] =  DB::table('sale')->where('created_at', '>=', $year . '-01-01')->where('created_at', '<=', $year . '-01-31')->sum('id');
-            $salesMonth['Febrero'] =  DB::table('sale')->where('created_at', '>=', $year . '-02-01')->where('created_at', '<=', $year . '-02-28')->sum('id');
-            $salesMonth['Marzo'] =  DB::table('sale')->where('created_at', '>=', $year . '-03-01')->where('created_at', '<=', $year . '-03-31')->sum('id');
-            $salesMonth['Abril'] =  DB::table('sale')->where('created_at', '>=', $year . '-04-01')->where('created_at', '<=', $year . '-04-30')->sum('id');
-            $salesMonth['Mayo'] =  DB::table('sale')->where('created_at', '>=', $year . '-05-01')->where('created_at', '<=', $year . '-05-31')->sum('id');
-            $salesMonth['Junio'] =  DB::table('sale')->where('created_at', '>=', $year . '-06-01')->where('created_at', '<=', $year . '-06-30')->sum('id');
-            $salesMonth['Julio'] =  DB::table('sale')->where('created_at', '>=', $year . '-07-01')->where('created_at', '<=', $year . '-07-31')->sum('id');
-            $salesMonth['Agosto'] =  DB::table('sale')->where('created_at', '>=', $year . '-08-01')->where('created_at', '<=', $year . '-08-31')->sum('id');
-            $salesMonth['Septiembre'] =  DB::table('sale')->where('created_at', '>=', $year . '-09-01')->where('created_at', '<=', $year . '-09-30')->sum('id');
-            $salesMonth['Octubre'] =  DB::table('sale')->where('created_at', '>=', $year . '-10-01')->where('created_at', '<=', $year . '-10-31')->sum('id');
-            $salesMonth['Noviembre'] =  DB::table('sale')->where('created_at', '>=', $year . '-11-01')->where('created_at', '<=', $year . '-11-30')->sum('id');
-            $salesMonth['Diciembre'] =  DB::table('sale')->where('created_at', '>=', $year . '-12-01')->where('created_at', '<=', $year . '-12-31')->sum('id');
-        }*/
 
-        return view('admin.basic_management.internal_configuration.sale.graphic.graphic', compact('sales'));
+        $sales = Sale::all();
+        $cUsers  = User::count();
+        $cSales = Sale::count();
+        $cProducts = Product::count();
+
+
+        //Ganancias y porcentaje
+        $dateFrom = Carbon::now()->subDays(30);
+        $dateTo = Carbon::now();
+        $monthly = Sale::where('created_at', '>=', $dateFrom)->where('created_at', '<=', $dateTo)->count();
+
+        $previousDateFrom = Carbon::now()->subDays(60);
+        $previousDateTo = Carbon::now()->subDays(31);
+        $previousMonthly = Sale::where('created_at', '>=', $dateFrom)->where('created_at', '<=', $dateTo)->count();
+
+        if ($previousMonthly < $monthly) {
+            if ($previousMonthly > 0) {
+                $pEarnings = $monthly - $previousMonthly;
+                $pSales = $pEarnings / $previousMonthly * 100; //incremento de porcentaje
+                $mark   ="+";
+            } else {
+                $percent = 100; //incremento de porcentaje
+            }
+        } else {
+            $mark="-";
+            $Earnings = $previousMonthly - $monthly;
+            $pEarnings = $Earnings / $previousMonthly * 100; //disminucion de porcentaje
+        }
+
+        //Ultimos 30 usuarios
+        /*
+        $lastThirtyUsers = User::select('id')
+            ->where('name', 'user')
+            ->where('created_at', '>', now()->subDays(30)->endOfDay())
+            ->all();
+            */
+        $salesMonth = [];
+        
+            $salesMonth['Enero'] =  Sale::whereMonth('created_at', '=', '01')->whereYear('created_at', '=', date("Y"))->count('id');
+            $salesMonth['Febrero'] =  Sale::whereMonth('created_at', '=', '02')->whereYear('created_at', '=', date("Y"))->count('id');
+            $salesMonth['Marzo'] =  Sale::whereMonth('created_at', '=', '03')->whereYear('created_at', '=', date("Y"))->count('id');
+            $salesMonth['Abril'] =  Sale::whereMonth('created_at', '=', '04')->whereYear('created_at', '=', date("Y"))->count('id');
+            $salesMonth['Mayo'] =  Sale::whereMonth('created_at', '=', '05')->whereYear('created_at', '=', date("Y"))->count('id');
+            $salesMonth['Junio'] =  Sale::whereMonth('created_at', '=', '06')->whereYear('created_at', '=', date("Y"))->count('id');
+            $salesMonth['Julio'] =  Sale::whereMonth('created_at', '=', '07')->whereYear('created_at', '=', date("Y"))->count('id');
+            $salesMonth['Agosto'] =  Sale::whereMonth('created_at', '=', '08')->whereYear('created_at', '=', date("Y"))->count('id');
+            $salesMonth['Septiembre'] =  Sale::whereMonth('created_at', '=', '09')->whereYear('created_at', '=', date("Y"))->count('id');
+            $salesMonth['Octubre'] =  Sale::whereMonth('created_at', '=', '10')->whereYear('created_at', '=', date("Y"))->count('id');
+            $salesMonth['Noviembre'] =  Sale::whereMonth('created_at', '=', '11')->whereYear('created_at', '=', date("Y"))->count('id');
+            $salesMonth['Diciembre'] =  Sale::whereMonth('created_at', '=', '12')->whereYear('created_at', '=', date("Y"))->count('id');
+        
+
+        
+
+        
+        return view('admin.basic_management.internal_configuration.sale.graphic.graphic', compact('salesMonth','mark', 'cUsers', 'cSales', 'pEarnings', 'Earnings', 'cProducts', 'sales'));
     }
 }
