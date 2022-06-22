@@ -14,6 +14,8 @@ use App\Models\Format;
 use App\Models\Manga;
 use App\Models\FigureType;
 use App\Models\Figure;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class ProductController extends Controller
 {
@@ -70,17 +72,14 @@ class ProductController extends Controller
      * @return \Illuminate\Support\Collection
      */
     protected static function collectProductData($data) {
-        $categoryId = $data->get('product_type');
-
-        $retval = $data->only([
+        return $data->only([
             'name',
             'description',
             'price',
             'status',
-            'provider_id'
+            'provider_id',
+            'category_id'
         ]);
-        $retval->put('category_id', $categoryId);
-        return $retval;
     }
 
     /**
@@ -124,7 +123,47 @@ class ProductController extends Controller
         }
         return $artists;
     }
+
+    static protected function makeRequiredIfCategoryId($request, $id) {
+        return Rule::requiredIf(function () use ($request, $id) {
+            return $request->get('category_id') == $id;
+        });
+    }
+
+    static protected function makeExcludeIfCategoryId($request, $id) {
+        return 'exclude_if:category_id,' . $id;
+    }
     
+    static protected function makeRules($request) {
+        $mangaExcludeIf = self::makeExcludeIfCategoryId($request, Product::TYPE_MANGA);
+        $mangaRequiredIf = self::makeRequiredIfCategoryId($request, Product::TYPE_MANGA);
+
+
+        $figureExcludeIf = self::makeExcludeIfCategoryId($request, Product::TYPE_FIGURE);
+        $figureRequiredIf = self::makeRequiredIfCategoryId($request, Product::TYPE_FIGURE);
+        return [
+            'name' => 'required|string|lt:200',
+            'price' => 'required|integer|gt:0',
+            'description' => 'lt:2000',
+            'provider_id' => 'nullable|exists:App\Models\Provider,id',
+            'series' => 'array',
+            'series.*' => 'exists:App\Models\Serie,id',
+            'category_id' => 'required|exists:App\Models\Category,id', /* TODO: deberia ser cambiado en formulario */
+            /* MANGA */
+            'editorial_id' => [$mangaExcludeIf, $mangaRequiredIf, 'exists:App\Models\Editorial,id'],
+            'format_id' => [$mangaExcludeIf, $mangaRequiredIf, 'exists:App\Models\Format,id'],
+            'genres' => [$mangaExcludeIf, 'nullable', 'array'],
+            'genres.*' => [$mangaExcludeIf, 'exists:App\Models\Genre,id'],
+            'arts' => [$mangaExcludeIf, 'nullable','array'],
+            'arts.*' => [$mangaExcludeIf, 'exists:App\Models\CreativePerson,id'],
+            'stories' => [$mangaExcludeIf, 'nullable','array'],
+            'stories.*' => [$mangaExcludeIf, 'exists:App\Models\CreativePerson,id'],
+            /* FIGURE */
+            'figure_type_id' => [$figureExcludeIf, $figureRequiredIf, 'exists:App\Models\FigureType,id']
+            
+        ];
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -134,20 +173,14 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         //
-
-        //return response()->json($request);
-        $validation_rules = [
-            'name' => 'required|string',
-            'price' => 'required|integer|gt:0',
-            /*
-            'provider_id' => 'required|integer',
-            'editorial_id' => 'required|integer'
-
-            */
-        ];
+        /*
+        $validator = Validator::make($request->all(), self::makeRules($request));
+        
+        if ($validator->fails()) {
+            dd($validator);
+        }*/
         try {
-            // todo validacion
-            request()->validate($validation_rules);
+
             $datos = request()->except(['_token']);
             $datos = collect($datos);
 
@@ -256,7 +289,7 @@ class ProductController extends Controller
         
         try {
             // TODO: validacion
-            $categoryId = $data->get('product_type');
+            $categoryId = $data->get('category_id');
 
             $productData = $data->only([
                 'name',

@@ -8,7 +8,7 @@
                 <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3">Añadir Producto</h1>
                 <nav class="flex-shrink-0 my-2 my-sm-0 ms-sm-3" aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        
+
                         <li class="breadcrumb-item active" aria-current="page">Productos</li>
                         <li class="breadcrumb-item active" aria-current="page">Gestion de Producto</li>
                     </ol>
@@ -26,7 +26,7 @@
                 <h3 class="block-title">{{ empty($is_edit) ? 'Añadir' : 'Editar'}}</h3>
             </div>
             <div class="block-content">
-                <form action="{{ !empty($is_edit) ? route('product.update', $product->id) : route('product.add') }}" enctype="multipart/form-data" method="POST">
+                <form class="validation" action="{{ !empty($is_edit) ? route('product.update', $product->id) : route('product.add') }}" enctype="multipart/form-data" method="POST">
                     @csrf
                     @if (!empty($is_edit))
                         @method('PATCH')
@@ -51,7 +51,7 @@
                         <select class="js-basic-single js-select2 form-select" name="provider_id" style="width: 100%;" data-placeholder="Elige uno si aplica..">
                             <option></option>
                             @foreach ($providers as $row)
-                                <option value="{{ $row->id }}" {{ (isset($product) && $product->provider->id === $row->id) ? 'selected=selected' : '' }}>{{ $row->name }}</option>
+                                <option value="{{ $row->id }}" {{ (isset($product->provider) && ($product->provider->id === $row->id)) ? 'selected=selected' : '' }}>{{ $row->name }}</option>
                             @endforeach
                         </select>
 
@@ -63,21 +63,21 @@
                         <select class="js-basic-multiple js-select2 form-select" multiple="multiple" name="series[]" style="width: 100%;" data-placeholder="Elige varias..">
                             <option></option>
                             @foreach ($series as $row)
-                                <option value="{{ $row->id }}" {{ (isset($product) && $product->series->contains($row->id)) ? 'selected=selected' : '' }}>{{ $row->name }}</option>
+                                <option value="{{ $row->id }}" {{ (isset($product->series) && ($product->series->contains($row->id))) ? 'selected=selected' : '' }}>{{ $row->name }}</option>
                             @endforeach
                         </select>
 
                     </div>
 
-                    
+
 
                     <div class="mb-3">
                         <label class="col-form-label">Tipo de producto:</label>
 
-                        <select id="product-type-select" name="product_type" class="js-basic-single js-select2 form-select" style="width: 100%;" data-placeholder="Elige uno.." required>
+                        <select id="product-type-select" name="category_id" class="js-basic-single js-select2 js-category form-control form-select" style="width: 100%;" data-placeholder="Elige uno.." required>
                             <option></option>
                             @foreach ($categories as $row)
-                            <option value="{{ $row->id }}" {{ (isset($product) && $product->category->id === $row->id) ? 'selected=selected' : '' }}>{{ $row->name }}</option>
+                            <option value="{{ $row->id }}" {{ (isset($product->category) && ($product->category->id === $row->id)) ? 'selected=selected' : '' }}>{{ $row->name }}</option>
                             @endforeach
                         </select>
 
@@ -90,7 +90,7 @@
                         <select class="js-basic-single js-select2 form-select manga-required" name="editorial_id" style="width: 100%;" data-placeholder="Elige uno..">
                             <option></option>
                             @foreach ($publishers as $row)
-                                <option value="{{ $row->id }}" 
+                                <option value="{{ $row->id }}"
                                 {{ (isset($product->productable->editorial->id) && $product->productable->editorial->id === $row->id) ? 'selected=selected' : '' }}>
                                     {{ $row->name }} - {{ $row->origin }}</option>
                             @endforeach
@@ -104,7 +104,7 @@
                         <select class="js-basic-single js-select2 form-select manga-required" name="format_id" style="width: 100%;" data-placeholder="Elige uno..">
                             <option></option>
                             @foreach ($formats as $row)
-                                <option value="{{ $row->id }}" 
+                                <option value="{{ $row->id }}"
                                 {{ (isset($product->productable->format->id) && $product->productable->format->id === $row->id) ? 'selected=selected' : '' }}>
                                 {{ $row->name }}</option>
                             @endforeach
@@ -165,7 +165,7 @@
                         <select class="js-basic-single js-select2 form-select figure-required" name="figure_type_id" style="width: 100%;" data-placeholder="Elige uno..">
                             <option></option>
                             @foreach ($figure_types as $row)
-                                <option value="{{ $row->id }}" 
+                                <option value="{{ $row->id }}"
                                 {{ (isset($product->productable->type->id) && $product->productable->type->id === $row->id) ? 'selected=selected' : '' }}>
                                 {{ $row->name }}</option>
                             @endforeach
@@ -188,10 +188,10 @@
                 </form>
 
 
-                
+
             </div>
 
-                
+
         </div>
         <!-- END Elements -->
     </div>
@@ -234,7 +234,7 @@
 
 <!-- esconde partes de formulario que no se usan y cambia elementos required dinamicamente -->
 <script>
-    
+
     jQuery(document).ready(function($) {
         let es_to_en = {
             figura: 'figure'
@@ -271,8 +271,53 @@
             hideFormsBut(value);
         });
     });
-        
-    
+
+
+</script>
+<script>
+    jQuery('.validation').validate({
+        ignore: [],
+        rules: {
+            'name': {
+                required: true,
+                maxlength: 200
+            },
+            'price': {
+                required: true,
+                maxlength: 200
+            }
+
+        },
+        messages: {
+            'name': {
+                required: 'Por favor, ingrese un nombre para el producto.',
+                maxlength: 'Por favor, ingrese no más de 200 caracteres.'
+            },
+            'price': {
+                required: 'Por favor, ingrese un precio.',
+                maxlength: 'Por favor, ingrese no más de 200 caracteres.'
+            },
+            'category_id': {
+                required: 'Por favor, seleccione un tipo de producto.',
+            },
+        },
+        errorClass: 'is-invalid',
+        validClass: 'is-valid',
+        errorElement: "span",
+        errorPlacement: function(error, element) {
+            // Add the `csc-helper-text` class to the error element
+            error.addClass("is-invalid invalid-feedback animated fadeIn");
+            if (element.prop("type") === "checkbox") {
+                error.insertAfter(element.parent("label"));
+            } else {
+                error.insertAfter(element);
+            }
+        }
+
+    });
+    $('.js-category').on('change', e => {
+        $(e.currentTarget).valid();
+    });
 </script>
 
 

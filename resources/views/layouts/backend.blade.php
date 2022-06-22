@@ -23,24 +23,21 @@
     <!-- Fonts and Styles -->
     @yield('css_before')
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
-    <link rel="stylesheet" id="css-main" href="{{ asset('/fonts/fontawesome-free/css/all.css') }}">
-    <link rel="stylesheet" id="css-main" href="{{ asset('js/plugins/sweetalert2/sweetalert2.min.css') }}">
     <link rel="stylesheet" id="css-main" href="{{ mix('css/dashmix.css') }}">
+    <link rel="stylesheet" id="css-main" href="{{ asset('/fonts/fontawesome-free/css/all.css') }}">
 
+    <!--  plugins and libraries -->
     <link rel="stylesheet" href="{{ asset('js/plugins/simplemde/simplemde.min.css') }}">
-
+    <link rel="stylesheet" id="css-main" href="{{ asset('js/plugins/sweetalert2/sweetalert2.min.css') }}">
 
     <!-- You can include a specific file from public/css/themes/ folder to alter the default color theme of the template. eg: -->
     <!-- <link rel="stylesheet" id="css-theme" href="{{ mix('css/themes/xwork.css') }}"> -->
     @yield('css_after')
 
     <!-- Scripts -->
-    <!--
     <script>
-        window.Laravel = {
-            !!json_encode(['csrfToken' => csrf_token()]) !!
-        };
-    </script>-->
+        window.Laravel = {!! json_encode(['csrfToken' => csrf_token()]) !!};
+    </script>
 </head>
 
 <body>
@@ -95,13 +92,13 @@
       ''                                          Full width Main Content if no class is added
       'main-content-boxed'                        Full width Main Content with a specific maximum width (screen width > 1200px)
       'main-content-narrow'                       Full width Main Content with a percentage width (screen width > 1200px)
-        
+
     DARK MODE
 
       'sidebar-dark page-header-dark dark-mode'   Enable dark mode (light sidebar/header is not supported with dark mode)
   -->
     <div id="page-container"
-        class="sidebar-o enable-page-overlay remember-theme page-header-dark sidebar-dark  side-scroll page-header-fixed main-content-narrow">
+        class="sidebar-o remember-theme enable-page-overlay page-header-dark sidebar-dark side-scroll page-header-fixed main-content-narrow">
         <!-- Side Overlay-->
         <aside id="side-overlay">
             <!-- Side Header -->
@@ -111,14 +108,18 @@
                     <div class="content-header">
                         <!-- User Avatar -->
                         <a class="img-link me-1" href="javascript:void(0)">
-                            <img class="img-avatar img-avatar48" src="{{ asset('media/avatars/avatar10.jpg') }}"
-                                alt="">
+                            @if (Auth::user()->image != null)
+                                <img class="img-avatar img-avatar48" src="{{ asset('storage/' . Auth::user()->image) }}">
+                            @endif
+                            @if (Auth::user()->image == null)
+                                <img class="img-avatar img-avatar48" src="{{ asset('media/avatars/avatar10.jpg') }}" alt="">
+                            @endif
                         </a>
                         <!-- END User Avatar -->
 
                         <!-- User Info -->
                         <div class="ms-2">
-                            <a class="text-white fw-semibold" href="javascript:void(0)">George Taylor</a>
+                            <a class="text-white fw-semibold" href="javascript:void(0)">{{ Auth::user()->name }}</a>
                             <div class="text-white-75 fs-sm">Full Stack Developer</div>
                         </div>
                         <!-- END User Info -->
@@ -308,7 +309,7 @@
                             D<span class="opacity-75">x</span>
                         </span>
                         <span class="smini-hidden">
-                            Kori<span class="opacity-75">MangaStore</span>
+                            Dash<span class="opacity-75">mix</span>
                         </span>
                     </a>
                     <!-- END Logo -->
@@ -746,11 +747,11 @@
                     <!-- END Toggle Sidebar -->
 
                     <!-- Open Search Section -->
-                    <!-- Layout API, functionality initialized in Template._uiApiLayout() 
-                    <button type="button" class="btn btn-alt-secondary" data-toggle="layout"
+                    <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
+                    <button hidden type="button" class="btn btn-alt-secondary" data-toggle="layout"
                         data-action="header_search_on">
                         <i class="fa fa-fw opacity-50 fa-search"></i> <span
-                            class="ms-1 d-none d-sm-inline-block">Buscar</span>
+                            class="ms-1 d-none d-sm-inline-block">Search</span>
                     </button>
                     <!-- END Open Search Section -->
                 </div>
@@ -771,31 +772,23 @@
                                 User Options
                             </div>
                             <div class="p-2">
-                                <!--
                                 <a class="dropdown-item" href="javascript:void(0)">
                                     <i class="far fa-fw fa-user me-1"></i> Profile
                                 </a>
-                                <a class="dropdown-item d-flex align-items-center justify-content-between"
-                                    href="javascript:void(0)">
-                                    <span><i class="far fa-fw fa-envelope me-1"></i> Inbox</span>
-                                    <span class="badge bg-primary rounded-pill">3</span>
-                                </a>
-                                <a class="dropdown-item" href="javascript:void(0)">
-                                    <i class="far fa-fw fa-file-alt me-1"></i> Invoices
-                                </a>
-                                <div role="separator" class="dropdown-divider"></div>-->
+                                <div role="separator" class="dropdown-divider"></div>
 
                                 <!-- Toggle Side Overlay -->
-                                <!-- Layout API, functionality initialized in Template._uiApiLayout() 
+                                <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
                                 <a class="dropdown-item" href="javascript:void(0)" data-toggle="layout"
                                     data-action="side_overlay_toggle">
                                     <i class="far fa-fw fa-building me-1"></i> Settings
                                 </a>
-                                <!-- END Side Overlay 
+                                <!-- END Side Overlay -->
 
-                                <div role="separator" class="dropdown-divider"></div>-->
-                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                    document.getElementById('logout-form').submit();">
+                                <div role="separator" class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">
                                     <i class="far fa-fw fa-arrow-alt-circle-left me-1"></i> {{ __('Logout') }}
                                 </a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
@@ -819,7 +812,6 @@
                                 Notifications
                             </div>
                             <ul class="nav-items my-2">
-                                <!--
                                 <li>
                                     <a class="d-flex text-dark py-2" href="javascript:void(0)">
                                         <div class="flex-shrink-0 mx-3">
@@ -831,52 +823,7 @@
                                         </div>
                                     </a>
                                 </li>
-                                <li>
-                                    <a class="d-flex text-dark py-2" href="javascript:void(0)">
-                                        <div class="flex-shrink-0 mx-3">
-                                            <i class="fa fa-fw fa-user-plus text-info"></i>
-                                        </div>
-                                        <div class="flex-grow-1 fs-sm pe-2">
-                                            <div class="fw-semibold">New Subscriber was added! You now have 2580!
-                                            </div>
-                                            <div class="text-muted">10 min ago</div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="d-flex text-dark py-2" href="javascript:void(0)">
-                                        <div class="flex-shrink-0 mx-3">
-                                            <i class="fa fa-fw fa-times-circle text-danger"></i>
-                                        </div>
-                                        <div class="flex-grow-1 fs-sm pe-2">
-                                            <div class="fw-semibold">Server backup failed to complete!</div>
-                                            <div class="text-muted">30 min ago</div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="d-flex text-dark py-2" href="javascript:void(0)">
-                                        <div class="flex-shrink-0 mx-3">
-                                            <i class="fa fa-fw fa-exclamation-circle text-warning"></i>
-                                        </div>
-                                        <div class="flex-grow-1 fs-sm pe-2">
-                                            <div class="fw-semibold">You are running out of space. Please consider
-                                                upgrading your plan.</div>
-                                            <div class="text-muted">1 hour ago</div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="d-flex text-dark py-2" href="javascript:void(0)">
-                                        <div class="flex-shrink-0 mx-3">
-                                            <i class="fa fa-fw fa-plus-circle text-primary"></i>
-                                        </div>
-                                        <div class="flex-grow-1 fs-sm pe-2">
-                                            <div class="fw-semibold">New Sale! + $30</div>
-                                            <div class="text-muted">2 hours ago</div>
-                                        </div>
-                                    </a>
-                                </li>-->
+
                             </ul>
                             <div class="p-2 border-top">
                                 <a class="btn btn-alt-primary w-100 text-center" href="javascript:void(0)">
@@ -889,7 +836,7 @@
 
                     <!-- Toggle Side Overlay -->
                     <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-                    <button hidden type="button" class="btn btn-alt-secondary" data-toggle="layout"
+                    <button type="button" class="btn btn-alt-secondary" data-toggle="layout"
                         data-action="side_overlay_toggle">
                         <i class="far fa-fw fa-list-alt"></i>
                     </button>
@@ -935,29 +882,25 @@
 
         <!-- sweetalert2 -->
         <script src="{{ asset('js/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
-
         <!-- END sweetalert2 -->
-
-
 
         <!-- Main Container -->
         <main id="main-container">
             @yield('content')
         </main>
         <!-- END Main Container -->
+
     </div>
     <!-- END Page Container -->
 
     <!-- Dashmix Core JS -->
     <script src="{{ mix('js/dashmix.app.js') }}"></script>
-    
 
     <!-- Laravel Original JS -->
     <!-- <script src="{{ mix('/js/laravel.app.js') }}"></script> -->
 
     @yield('js_after')
-    
-
+    @stack('scripts-extra')
 </body>
 
 </html>

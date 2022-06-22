@@ -25,9 +25,9 @@ class DatabaseSeeder extends Seeder
             EditorialSeeder::class,
             CreativePersonSeeder::class,
             SerieSeeder::class,
-            SalesSeeder::class,
             ProviderSeeder::class,
-            BranchSeeder::class
+            BranchSeeder::class,
+            SalesSeeder::class
         ]);
     }
 }

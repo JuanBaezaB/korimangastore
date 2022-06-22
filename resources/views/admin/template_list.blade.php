@@ -23,9 +23,9 @@ Stacks:
 
 @section('css_after')
     <link rel="stylesheet" href="{{ asset('js/plugins/select2/css/select2.min.css') }}">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.dataTables.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css">
+    <link rel="stylesheet" href="{{ asset('js/plugins/datatables-bs5/css/dataTables.bootstrap5.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('js/plugins/datatables-buttons-bs5/css/buttons.bootstrap5.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('js\plugins/datatables-responsive/css/responsive.bootstrap5.min.css') }}">
 @endsection
 
 @section('content')
@@ -51,11 +51,21 @@ Stacks:
             <div class="block-header block-header-default">
                 <h3 class="block-title">{{ $nombre_crud }}</h3>
                 <div class="block-options">
-                    <button class="btn btn-sm btn-alt-secondary btn-primary" data-bs-toggle="modal"
+                    <buttonb {{ request()->is('gestion-base/gestion-usuarios/permisos') ? ' hidden' : '' }} class="btn btn-sm btn-alt-secondary btn-primary" data-bs-toggle="modal"
                         data-bs-target="#add_item" data-bs-whatever="@mdo">
                         <i class="fa fa-fw fa fa-plus"></i> Ingresar {{ mb_strtolower($nombre_crud) }}
                     </button>
                 </div>
+                @if ($errors->any())
+                    <ul>
+                        <div id="ERROR_COPY" style="display: none" class="alert alert-danger">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }} <br></li>
+                            @endforeach
+                        </div>
+                    </ul>
+                    <br />
+                @endif
             </div>
 
             <div class="block-content block-content-full">
@@ -65,7 +75,7 @@ Stacks:
                         <tr>
                             <!-- <th class="text-center" style="width: 80px;">#</th> -->
                             @yield('label_headers')
-                            <th style="width: 10%;">Acciones</th>
+                            <th {{ request()->is('gestion-base/gestion-usuarios/permisos') ? ' hidden' : '' }} style="width: 10%;">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -73,13 +83,13 @@ Stacks:
                             <tr>
                                 <!-- <td class="text-center">{{ $an_item->id }}</td> -->
                                 @include($list_columns, ['an_item' => $an_item])
-                                <td class="">
+                                <td {{ request()->is('gestion-base/gestion-usuarios/permisos') ? ' hidden' : '' }} class="">
                                     <form class=" delete" action="{{ route($delete_action_route, $an_item->id) }}"
                                         method="POST" enctype="multipart/form-data">
                                         <div class=" btn-group">
                                             @hasSection('update-modal')
                                             <button type="button" class="btn btn-sm btn btn-outline-primary x-edit-button"
-                                                data-bs-toggle="modal" data-bs-target="#update_item" 
+                                                data-bs-toggle="modal" data-bs-target="#update_item"
                                                 data-bs-whatever="@mdo" title="Actualizar"
                                                 x-data-id="{{ $an_item->id }}">
                                                 <i class="fa fa-pencil-alt"></i>
@@ -107,7 +117,7 @@ Stacks:
                                     <!-- Modal Actualizar-->
                                     <div class="modal fade modal-update" id="update_item{{ $an_item->id }}" tabindex="-1"
                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
+                                        <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title " id="exampleModalLabel">Actualizar {{ strtolower($nombre_crud) }}
@@ -125,7 +135,7 @@ Stacks:
                                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                                                             <button type="submit" class="btn btn-primary">Actualizar</button>
                                                         </div>
-                                                       
+
                                                     </form>
                                                 </div>
 
@@ -141,16 +151,16 @@ Stacks:
                 </table>
             </div>
         </div>
-        
+
         <!-- END Elements -->
     </div>
     <!-- END Page Content -->
 
-    
+
 
     <!-- Modal Ingresar-->
     <div class="modal fade " id="add_item" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title " id="exampleModalLabel">Ingresar {{ strtolower($nombre_crud) }}</h5>
@@ -176,7 +186,7 @@ Stacks:
     <!-- Modal Actualizar-->
     <div class="modal fade modal-update" id="update_item" tabindex="-1"
         aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title " id="exampleModalLabel">Actualizar {{ strtolower($nombre_crud) }}
@@ -194,7 +204,7 @@ Stacks:
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                             <button type="submit" class="btn btn-primary">Actualizar</button>
                         </div>
-                        
+
                     </form>
                 </div>
 
@@ -207,17 +217,17 @@ Stacks:
 @section('js_after')
     <!-- Datatable -->
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap4.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.1.1/js/dataTables.buttons.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.1.1/js/buttons.bootstrap4.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.1.1/js/buttons.html5.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.1.1/js/buttons.print.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap4.min.js"></script>
+     <script src="{{ asset('js/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+  <script src="{{ asset('js/plugins/datatables-bs5/js/dataTables.bootstrap5.min.js') }}"></script>
+  <script src="{{ asset('js/plugins/datatables-buttons/dataTables.buttons.min.js') }}"></script>
+  <script src="{{ asset('js/plugins/datatables-buttons-bs5/js/buttons.bootstrap5.min.js') }}"></script>
+  <script src="{{ asset('js/plugins/datatables-buttons-jszip/jszip.min.js') }}"></script>
+  <script src="{{ asset('js/plugins/datatables-buttons-pdfmake/pdfmake.min.js') }}"></script>
+  <script src="{{ asset('js/plugins/datatables-buttons-pdfmake/vfs_fonts.js') }}"></script>
+  <script src="{{ asset('js/plugins/datatables-buttons/buttons.print.min.js') }}"></script>
+  <script src="{{ asset('js/plugins/datatables-buttons/buttons.html5.min.js') }}"></script>
+  <script src="{{ asset('js/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+  <script src="{{ asset('js/plugins/datatables-responsive/js/responsive.bootstrap5.js') }}"></script>
 
     <script>
         $(document).ready(function() {
@@ -315,10 +325,10 @@ Stacks:
                 'El ingreso se ha relizado exitosamente.',
                 'success'
             );
-        
+
         @endif
         @if (session('success') == 'deleted')
-        
+
             toast.fire(
                 'Eliminado!',
                 'El registro ha sido eliminado.',
@@ -332,9 +342,19 @@ Stacks:
                 'success'
             );
         @endif
+
+        @if ($errors->any())
+            toast.fire({
+                title: 'Error',
+                text: "No podrás revertir esto!",
+                icon: 'error',
+                html:jQuery("#ERROR_COPY").html(),
+                showCloseButton: true,
+            });
+        @endif
     </script>
 
-    
+
     <!-- End js sweetalert2 -->
 
     <script src="{{ asset('js/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
@@ -353,7 +373,7 @@ Stacks:
     </script>
 
     @stack('scripts-extra')
-    
+
     <script>
         jQuery(document).ready(function($) {
             var validation_rules = {{ Js::from($validation_rules) }} ;
@@ -384,5 +404,5 @@ Stacks:
             });
         });
     </script>
-    
+
 @endsection

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -39,36 +40,41 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request){
-        
+
 
 
         $validator = Validator::make($request->all(),[
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8'],
+            'image' => ['image', 'max:2048'],
         ],
         [
             'name.required' => 'Por favor, ingrese un nombre.',
             'email.required' => 'Por favor, ingrese un email.',
             'email.unique'=> 'El email ya ha sido registrado.',
             'password.required' => 'Introduce una contraseña.',
+            'image.image' => 'El tipo de archivo subido debe ser una imagen..',
+            'image.uploaded' => 'No se pudo cargar una imagen. El tamaño máximo de la imagen es de 2 MB.',
         ]);
 
-        if ($validator->fails()) { 
+        if ($validator->fails()) {
             return redirect()->route('user.list')
                 ->withErrors($validator)
                 ->withInput();
         } else {
             $roles = $request->roles;
             if($request->file('image')){
+                /*
                 $file= $request->file('image');
                 $filename= date('YmdHi').$file->getClientOriginalName();
-                $file-> move(public_path('uploads/user'), $filename);
+                $file-> move(public_path('uploads/user'), $filename);*/
 
+                $path = $request->file('image')->storeAs('user-image',date('YmdHi').$request->file('image')->getClientOriginalName(),'public');
                 $user = User::create([
                     'name' => $request['name'],
                     'email' => $request['email'],
-                    'image' => $filename,
+                    'image' => $path,
                     'password' => Hash::make($request['password']),
                 ]);
             }else{
@@ -79,10 +85,10 @@ class UserController extends Controller
                 ]);
             };
             $user->syncRoles($roles);
-            
+
             return redirect()->route('user.list')
                 ->with('success', 'created');
-        }   
+        }
     }
 
     /**
@@ -118,30 +124,44 @@ class UserController extends Controller
         $validator = Validator::make($request->all(),[
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
+            'image' => ['image', 'max:2048']
         ],
         [
             'name.required' => 'Por favor, ingrese un nombre.',
             'email.required' => 'Por favor, ingrese un email.',
             'email.unique'=> 'El email ya ha sido registrado.',
+            'image.image' => 'El tipo de archivo subido debe ser una imagen..',
+            'image.uploaded' => 'No se pudo cargar una imagen. El tamaño máximo de la imagen es de 2 MB.',
         ]);
 
-        if ($validator->fails()) { 
+        if ($validator->fails()) {
             return redirect()->route('user.list')
                 ->withErrors($validator)
                 ->withInput();
         } else {
             $roles = $request->roles;
             $user = User::find($id);
-            $user->update([
-                'name' => $request['name'],
-                'email' => $request['email'],
-                'password' => Hash::make($request['password']),
-            ]);
+            if($request->file('image')){
+                $path = $request->file('image')->storeAs('user-image',date('YmdHi').$request->file('image')->getClientOriginalName(),'public');
+                $user->update([
+                    'name' => $request['name'],
+                    'email' => $request['email'],
+                    'image' => $path,
+
+                ]);
+
+            }else{
+                $user->update([
+                    'name' => $request['name'],
+                    'email' => $request['email'],
+                ]);
+            };
             $user->syncRoles($roles);
-            
+
+
             return redirect()->route('user.list')
                 ->with('success', 'created');
-        }   
+        }
     }
 
     /**
@@ -152,7 +172,12 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::find($id)->delete();
+
+        $user = User::where('id','=',$id)->first();
+        if ($user->image != null ) {
+            Storage::delete('public/'.$user->image);
+        }
+        User::destroy($id);
 
         return redirect()->route('user.list')
             ->with('success', 'deleted');

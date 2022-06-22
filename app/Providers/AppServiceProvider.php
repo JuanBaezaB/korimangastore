@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Blade;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,5 +25,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+        Blade::component('product-search', \App\View\Components\ProductSearch::class);
+        Blade::component('branch-select', \App\View\Components\BranchSelect::class);
     }
 }

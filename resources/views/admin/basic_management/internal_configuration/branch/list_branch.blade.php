@@ -44,11 +44,11 @@ $update_modal_fields = [
 @section('modal_create_contents')
     <div class="mb-3">
         <label class="col-form-label">Nombre:</label>
-        <input type="text" class="form-control" name="name" placeholder="Kori-concepción">
+        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="Kori-concepción">
     </div>
     <div class="mb-3">
         <label class="col-form-label">Dirección (opcional):</label>
-        <input type="text" class="form-control" id="autocomplete_search" name="address">
+        <input type="text" class="form-control @error('address') is-invalid @enderror" id="autocomplete_search" name="address">
     </div>
     <div class="mb-3">
         <input class="form-control" hidden name="longitude" id="longitude">
