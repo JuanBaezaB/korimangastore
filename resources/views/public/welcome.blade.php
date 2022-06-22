@@ -28,7 +28,11 @@
         }
 
         body {
-            margin: 0
+            margin: 0; 
+            
+            /* Show it is fixed to the top */
+            min-height: 75rem;
+            padding-top: 3.5rem;
         }
 
         a {
@@ -82,7 +86,7 @@
         .border-gray-200 {
             --border-opacity: 1;
             border-color: #edf2f7;
-            border-color: rgba(237, 242, 247, var(--border-opacity))
+            border-color: rgba(27, 242, 247, var(--border-opacity))
         }
 
         .border-t {
@@ -471,6 +475,7 @@
         </div>
     </nav>
 
+
     <!-- Contenido -->
     <div
         class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
@@ -610,7 +615,7 @@
             <div class="flex justify-center mt-4 sm:items-center sm:justify-between">
                 <div class="text-center text-sm text-gray-500 sm:text-left">
                     <div class="flex items-center">
-                        <h5>Copyright 2022.</h5>
+                        <h5>Kori - Copyright 2022.</h5>
                     </div>
                 </div>
 
