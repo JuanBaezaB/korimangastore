@@ -84,6 +84,25 @@
                             </thead>
                             <tbody>
                                 <tr>
+                                    <td class="text-end" colspan="3">Descuento</td>
+                                    <td>
+                                        <div class="btn-toolbar" role="toolbar">
+                                            <div class="btn-group" role="group">
+                                                <input type="radio" class="btn-check" name="discount-radio" id="discount-radio-amount" autocomplete="off" checked>
+                                                <label class="btn btn-outline-secondary" for="discount-radio-amount">$</label>
+                                                
+                                                <input type="radio" class="btn-check" name="discount-radio" id="discount-radio-percent" autocomplete="off">
+                                                <label class="btn btn-outline-secondary" for="discount-radio-percent">%</label>
+                                            
+                                            </div>
+                                            <div class="input-group">
+                                                <input type="number" id="discount-amount" class="form-control d-inline" value="0" min="0">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
                                     <td class="text-end" colspan="3"><strong>Total</strong></td>
                                     <td></td>
                                     <td></td>
@@ -147,6 +166,9 @@
             this.searchProduct = make$getter('searchProductSelector');
             this.numberBox = make$getter('numberBoxSelector');
 
+            this.discount = 0.0;
+            this.discountType = '$';
+
             this.removeButtonHtml = '<a class="btn btn-danger" id="btn-remove-stock"><i class="fa fa-minus"></i></a>';
 
             this.tbody = function() {
@@ -156,6 +178,7 @@
             this.getRows = function() {
                 var $t = _this.tbody();
                 var arr = $t.find('tr').get();
+                arr.pop();
                 arr.pop();
                 return arr;
             };
@@ -204,6 +227,15 @@
                 _this.onCart.forEach(function (x) {
                     s += x.total;
                 });
+
+                if (_this.discountType == '$') {
+                    s -= _this.discount;
+                } else {
+                    s -= s*_this.discount/100.0;
+                }
+
+                s = Math.max(0, s);
+
                 var tr = _this.tbody().children('tr:last-child').first();
                 tr.children('td:last-child').text('$ '+s);
             };
@@ -213,7 +245,7 @@
                 var $sp = _this.searchProduct();
                 var data = $sp.select2('data');
                 if (data.length == 0 || (data.length == 1 && !data[0].id && !data[0].text)) {
-                    console.error('[Cart] Expected data');
+                    _this.cartTable().trigger('cart:no-product');
                     return;
                 }
                 data = data[0];
@@ -288,51 +320,47 @@
                     cart.addProduct();
                 });
 
-                function queryAddStock(sign=1, opts={}) {
-                    sign = sign || 1;
+                $('#cart-table').on('cart:no-product', function() {
+                    Swal.fire('Error', 'Falta ingresar un producto', 'error');
+                });
 
-                    var $qnt = $('#qnt-product-stock');
-                    var qnt = opts.qnt || $qnt.val() * sign;
-                    var table = $('#product-table').DataTable();
-                    var branch_id = opts.branch_id || $('#change-branch-select').val();
-                    var product_id = opts.product_id || $('#select-product').val();
-
-                    var data = {
-                        quantity: qnt,
-                        branch_id: branch_id,
-                        product_id: product_id,
-                        reverse: opts.reverse,
-                        _token: $('meta[name=csrf-token]').attr('content')
-                    };
-                    $.ajax({
-                        url: '{{ route("stock.add") }}',
-                        dataType: 'json',
-                        method: 'POST',
-                        data: data
-                    })
-                    .done(function (data) {
-                        table.row.add(data).draw();
-
-                        if (!opts.noReset) {
-                            $qnt.val(1);
-                        }
-                    })
-                    .fail(function (jqXHR, textStatus, errorThrown) {
-                        console.log(jqXHR);
-                        document.write(jqXHR.responseText);
-                        alert(textStatus + ' ' + errorThrown);
-                    });
-
+                function getDiscountInput() {
+                    return $('#discount-amount');
                 }
 
-                window.queryAddStock = queryAddStock;
+                /**
+                 * Delimits the valid input range, if it less or more than the minimum or maximum, clamp to those values
+                 * Also update the Cart's discountType and discount value
+                 * 
+                 */
+                function makeLimiterForDiscountInput(mn, mx, opSymbol) {
+                    function limiter() {
+                        var $t = $('#discount-amount');
+                        var val = $t.val();
+                        $t.val(Math.max(mn, Math.min(val, mx)));
+                        val = $t.val();
+                        cart.discountType = opSymbol;
+                        cart.discount = val;
+                        cart.updateTotal();
+                    }
 
-                $('#btn-add-stock').click(function () {
-                    queryAddStock();
+                    return function () {
+                        limiter();
+                        getDiscountInput().data('limiter', limiter);
+                    };
+                }
+
+                var amountLimiter = makeLimiterForDiscountInput(0.0, Infinity, '$');
+                var percentLimiter = makeLimiterForDiscountInput(0.0, 100.0, '%');
+                $('#discount-radio-percent').click(percentLimiter);
+                $('#discount-radio-amount').click(amountLimiter);
+                getDiscountInput().change(function() {
+                    var $this = $(this);
+                    $this.data('limiter')();
                 });
-                $('#btn-remove-stock').click(function () {
-                    queryAddStock(-1);
-                });
+                amountLimiter();
+
+
             });
         });
     </script>
