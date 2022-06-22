@@ -58,33 +58,34 @@ class SaleController extends Controller
     public function store(Request $request)
     {
         //
-        $quantity = $request->get('quantity');
+        $request->validate([
+            'products' => 'array|required',
+            'products.*.id' => 'exists:products,id|required',
+            'products.*.n' => 'gt:0|integer|required',
+            'discount_amount' => 'gte:0|integer',
+            'branch_id' => 'exists:branches,id|required'
+        ]);
 
-        $normalizedQuantity = ($request->get('reverse')) ? -$quantity : $quantity;
+        $all = collect($request->all());
+        $discountAmount = $all->get('discount_amount');
+        $productsRaw = collect($all->get('products'));
+        $branch_id = $all->get('branch_id');
+        $products = $productsRaw->mapWithKeys(function ($item, $key) {
+            return [
+                $item['id'] => [
+                    'amount' => $item['n']
+                ]
+            ];
+        });
 
-        $branch_id = $request->get('branch_id');
-        $product_id = $request->get('product_id');
-        $product = Product::findOrFail($product_id);
-        $branch = $product->branches()->find($branch_id);
-        if (empty($branch)) {
-            if ($normalizedQuantity <= 0) {
-                throw new \Exception("expected positive quantity for non existent stock");
-            }
-            $product->branches()->attach($branch_id, ['stock' => $quantity]);
-        } else {
-            $stock = $product->branches()->newPivotStatementForId($branch)->value('stock');
-            if ($stock + $normalizedQuantity < 0) {
-                throw new \Exception("expected positive quantity for new stock value");
-            }
-            $product->branches()->updateExistingPivot($branch, ['stock' => $stock + $normalizedQuantity]);
-        }
-        $product->category->name;
-        $ret = [
-            'quantity' => $normalizedQuantity,
-            'branch' => $branch,
-            'product' => $product
-        ];
-        return response()->json($ret);
+        $sale = new Sale();
+        $sale->discount_amount = $discountAmount;
+        $sale->user_id = $request->user()->id;
+        $sale->branch_id = $branch_id;
+        $sale->save();
+
+        $sale->products()->sync($products);
+        return response()->json([ 'success' => true ]);
     }
 
     /**

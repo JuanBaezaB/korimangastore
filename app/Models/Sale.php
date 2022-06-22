@@ -9,6 +9,10 @@ class Sale extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'discount_amount'
+    ];
+
     public function products() {
         return $this->belongsToMany(Product::class)->withPivot('amount');
     }

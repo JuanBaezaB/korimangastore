@@ -109,6 +109,10 @@
                                 </tr>
                             </tbody>
                         </table>
+
+                        <button class="btn btn-primary mb-2 ms-2" id="btn-submit-cart">
+                            Vender
+                        </button>
                     </div>
                 </div>
                 
@@ -222,18 +226,25 @@
                 _this.updateTotal();
             };
 
-            this.updateTotal = function() {
+            this.getTotalRaw = function() {
                 var s = 0;
                 _this.onCart.forEach(function (x) {
                     s += x.total;
                 });
+                return s;
+            };
 
+            this.getDiscount = function () {
                 if (_this.discountType == '$') {
-                    s -= _this.discount;
+                    return _this.discount;
                 } else {
-                    s -= s*_this.discount/100.0;
+                    return Math.floor(_this.getTotalRaw()*_this.discount/100.0);
                 }
+            };
 
+            this.updateTotal = function() {
+                var s = _this.getTotalRaw();
+                s -= _this.getDiscount();
                 s = Math.max(0, s);
 
                 var tr = _this.tbody().children('tr:last-child').first();
@@ -296,6 +307,18 @@
                 var rows = _this.getRows();
                 $(rows[i]).remove();
                 _this.updateTotal();
+            };
+
+            this.toDict = function() {
+                return {
+                    'products': _this.onCart,
+                    'total': _this.getTotalRaw(),
+                    'discount_amount': _this.getDiscount(),
+                };
+            };
+
+            this.toJson = function() {
+                return JSON.stringify(_this.toDict());
             };
         }
 
@@ -360,6 +383,20 @@
                 });
                 amountLimiter();
 
+                $('#btn-submit-cart').click(function() {
+                    $.ajax({
+                        method: 'POST',
+                        url: '{{ route('sale.add') }}',
+                        contentType: 'application/json',
+                        data: JSON.stringify($.extend({}, cart.toDict(), { 'branch_id': $('#change-branch-select').val() }))
+                    })
+                    .done(function() {
+                        Swal.fire('Venta realizada', 'La venta fue realizada con exito.', 'success');
+                    })
+                    .fail(function() {
+                        Swal.fire('Error', 'La venta no se pudo realizar.', 'error');
+                    });
+                });
 
             });
         });
