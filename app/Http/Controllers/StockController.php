@@ -49,22 +49,26 @@ class StockController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * 
+     * @param integer $quantity
+     * @param string|integer $branch_id
+     * @param string|integer|\App\Models\Product $product
+     * @param bool $reverse
+     * @return array
      */
-    public function store(Request $request)
-    {
-        //
-        $quantity = $request->get('quantity');
-
-        $normalizedQuantity = ($request->get('reverse')) ? -$quantity : $quantity;
-
-        $branch_id = $request->get('branch_id');
-        $product_id = $request->get('product_id');
-        $product = Product::findOrFail($product_id);
+    public function change($quantity, $branch_id, $product, $reverse = false) {
+        /*
+            NOTA: este metodo no deberia ser en controller, porque OTROS controllers tambien
+            lo necesitan, una alternativa seria moverlo al modelo, pero la verdad no se que
+            podria ser mas adecuado y mejor practica
+        */
+        if (is_numeric($product)) {
+            $product = Product::findOrFail($product);
+        }
         $branch = $product->branches()->find($branch_id);
+
+
+        $normalizedQuantity = ($reverse) ? -$quantity : $quantity;
         if (empty($branch)) {
             if ($normalizedQuantity <= 0) {
                 throw new \Exception("expected positive quantity for non existent stock");
@@ -83,6 +87,24 @@ class StockController extends Controller
             'branch' => $branch,
             'product' => $product
         ];
+
+        return $ret;
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+        $quantity = $request->get('quantity');
+        $reverse = $request->get('reverse', false);
+        $branch_id = $request->get('branch_id');
+        $product_id = $request->get('product_id');
+        $ret = $this->change($quantity, $branch_id, $product_id, $reverse);
         return response()->json($ret);
     }
 

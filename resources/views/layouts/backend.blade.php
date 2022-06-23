@@ -22,6 +22,7 @@
 
     <!-- Fonts and Styles -->
     @yield('css_before')
+    @stack('css_before_stack')
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" id="css-main" href="{{ mix('css/dashmix.css') }}">
     <link rel="stylesheet" id="css-main" href="{{ asset('/fonts/fontawesome-free/css/all.css') }}">
@@ -33,6 +34,7 @@
     <!-- You can include a specific file from public/css/themes/ folder to alter the default color theme of the template. eg: -->
     <!-- <link rel="stylesheet" id="css-theme" href="{{ mix('css/themes/xwork.css') }}"> -->
     @yield('css_after')
+    @stack('css_after_stack')
 
     <!-- Scripts -->
     <script>

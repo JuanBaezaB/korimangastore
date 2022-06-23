@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Sale;
 use App\Models\Branch;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SaleController extends Controller
 {
@@ -57,33 +59,43 @@ class SaleController extends Controller
     public function store(Request $request)
     {
         //
-        $quantity = $request->get('quantity');
+        $request->validate([
+            'products' => 'array|required',
+            'products.*.id' => 'exists:products,id|required',
+            'products.*.n' => 'gt:0|integer|required',
+            'discount_amount' => 'gte:0|integer',
+            'branch_id' => 'exists:branches,id|required'
+        ]);
 
-        $normalizedQuantity = ($request->get('reverse')) ? -$quantity : $quantity;
+        $all = collect($request->all());
+        $discountAmount = $all->get('discount_amount');
+        $productsRaw = collect($all->get('products'));
+        $branch_id = $all->get('branch_id');
+        $branch = Branch::find($branch_id);
+        $products = $productsRaw->mapWithKeys(function ($item, $key) {
+            return [
+                $item['id'] => [
+                    'amount' => $item['n']
+                ]
+            ];
+        });
 
-        $branch_id = $request->get('branch_id');
-        $product_id = $request->get('product_id');
-        $product = Product::findOrFail($product_id);
-        $branch = $product->branches()->find($branch_id);
-        if (empty($branch)) {
-            if ($normalizedQuantity <= 0) {
-                throw new \Exception("expected positive quantity for non existent stock");
+        DB::transaction(function () 
+            use ($products, $branch, $discountAmount, $request, $branch_id) {
+            foreach($products as $id => $stuff) {
+                // TODO: cambiar este hack
+                (new StockController)->change(-$stuff['amount'], $branch, $id);
             }
-            $product->branches()->attach($branch_id, ['stock' => $quantity]);
-        } else {
-            $stock = $product->branches()->newPivotStatementForId($branch)->value('stock');
-            if ($stock + $normalizedQuantity < 0) {
-                throw new \Exception("expected positive quantity for new stock value");
-            }
-            $product->branches()->updateExistingPivot($branch, ['stock' => $stock + $normalizedQuantity]);
-        }
-        $product->category->name;
-        $ret = [
-            'quantity' => $normalizedQuantity,
-            'branch' => $branch,
-            'product' => $product
-        ];
-        return response()->json($ret);
+    
+            $sale = new Sale();
+            $sale->discount_amount = $discountAmount;
+            $sale->user_id = $request->user()->id;
+            $sale->branch_id = $branch_id;
+            $sale->save();
+    
+            $sale->products()->sync($products);
+        });
+        return response()->json([ 'success' => true ]);
     }
 
     /**
@@ -133,24 +145,30 @@ class SaleController extends Controller
 
     public function list(Request $request) {
         $givenId = $request->get('id', null);
+        if ($givenId == -1) {
+            $givenId = null;
+        }
 
         if (!$givenId) {
-            $products = Sale::with('branches', 'category')
-            ->withSum('branches', 'branch_product.stock')
-            ->get()
-            ->toArray();
+            $sales = Sale::with(['branch', 'products', 'user'])
+            ->withCount('products')
+            ->addSelect([
+                'total_price' => Product::selectRaw('SUM(product_sale.amount * products.price)')
+                                ->join('product_sale', 'product_sale.product_id', '=', 'products.id')
+                                ->whereColumn('product_sale.sale_id', 'sales.id')
+            ]);
         } else {
-            $products = Sale::with([
-                'branches' => function ($query) use ($givenId) {
-                    $query->whereKey($givenId);
-                },
-                'category'])
-            ->whereRelation('branches', 'branch_id', $givenId)
-            ->whereRelation('branches', 'stock', '>', 0)
-            ->get()
-            ->toArray();
+            $sales = Sale::with(['branch', 'products', 'user'])
+            ->withCount('products')
+            ->whereRelation('branch', 'id', $givenId)
+            ->addSelect([
+                'total_price' => Product::selectRaw('SUM(product_sale.amount * products.price)')
+                                ->join('product_sale', 'product_sale.product_id', '=', 'products.id')
+                                ->whereColumn('product_sale.sale_id', 'sales.id')
+            ]);
         }
-        return response()->json([ "data" => $products]);
+        $sales = $sales->get()->toArray();
+        return response()->json([ "data" => $sales]);
     }
     
     public function charts()

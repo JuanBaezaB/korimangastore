@@ -109,14 +109,19 @@ class BranchController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Get one branch by id, or the first one available
      *
      * @param Request $request
      * @return JsonResponse
      */
     public function get_one(Request $request)
     {
-        $branch = Branch::findOrFail($request->get('id'));
+        $id = $request->get('id');
+        if ($id) {
+            $branch = Branch::findOrFail($id);
+        } else {
+            $branch = Branch::first();
+        }
         return response()->json($branch);
     }
 

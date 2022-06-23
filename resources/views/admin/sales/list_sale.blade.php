@@ -15,7 +15,7 @@
     <div class="bg-body-light">
         <div class="content content-full">
             <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
-                <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3">Stock</h1>
+                <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3">Venta</h1>
                 <nav class="flex-shrink-0 my-2 my-sm-0 ms-sm-3" aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">Area de Ventas</li>
@@ -51,14 +51,16 @@
                 </div>
 
                 <!-- DataTables init on table by adding .js-dataTable-full class, functionality is initialized in js/pages/be_tables_datatables.min.js which was auto compiled from _js/pages/be_tables_datatables.js -->
-                <table id="product-table" class="table table-bordered table-striped table-vcenter table-hover w-100 display nowrap">
+                <table id="the-table" class="table table-bordered table-striped table-vcenter table-hover w-100 display nowrap">
                     <thead>
                         <tr>
-                            <th style="width: 9%">Unidades</th>
-                            <th style="width: 50%">Nombre</th>
-                            <th class="d-none d-sm-table-cell" style="width: 40%;">Tipo</th>
-                            <th class="d-none d-sm-table-cell" style="width: 15%;">Precio</th>
-                            <th style="width: 10%;">Acciones</th>
+                            <th style="">#</th>
+                            <th style="">Sucursal</th>
+                            <th style="">Cuando</th>
+                            <th class="" style="">Vendedor</th>
+                            <th class="" style="">n° Productos</th>
+                            <th class="" style="">Precio Total</th>
+                            <th style="">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -88,143 +90,6 @@
     <!-- Page JS Plugins -->
     <script src="{{ asset('js/plugins/select2/js/select2.full.js') }}"></script>
 
-    <script>
-        $(document).ready(function() {
-            let the_branch_id = $('meta[name=the_branch]').prop('content');
-            let maybe_id = (the_branch_id) ? {id: the_branch_id} : {};
-
-            let firstColumn;
-            if (!the_branch_id) {
-                firstColumn = { 
-                    data: null, 
-                    render: null,
-                    className: 'dt-control',
-                    defaultContent: '',
-                    searchable: null,
-                    orderable: null
-                };
-            } else {
-                firstColumn = { 
-                    data: null
-                };
-            }
-
-            let datatable = $('#product-table').DataTable({
-                ajax: {
-                    url: '{{ route("stock.data_table") }}',
-                    type: "POST",
-                    data: function (d) {
-                        return $.extend({}, d, maybe_id, {
-                            _token: $('meta[name=csrf-token]').prop('content')
-                        });
-                    }
-                },
-                "language": {
-                    "url": "//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
-                },
-                columns: [
-                    firstColumn,
-                    { data: 'name' },
-                    { data: 'category.name' },
-                    { data: 'price' },
-                    { 
-                        data: null,
-                        searchable: null,
-                        orderable: null,
-                        render: function (data, type, row, meta) {
-                            let actionUrl = "{{ route('product.delete', ':id') }}".replace(':id', row.id);
-                            let editUrl = "{{ route('product.edit', ':id') }}".replace(':id', row.id);
-                            return '';
-                            return '<form class=" delete" action="'+ actionUrl +'"method="POST">'
-                            + '<div class=" btn-group">'
-                            + '<a type="button" class="btn btn-sm btn btn-outline-primary" href="' 
-                            + editUrl + '" title="Actualizar">'
-                            + '<i class="fa fa-pencil-alt"></i>'
-                            + '</a>'
-                            + '@csrf'
-                            + '@method("DELETE")'
-                            + '<button type="submit" class="btn btn-sm btn btn-outline-danger" data-bs-toggle="tooltip" title="Eliminar">'
-                            + '<i class="fa fa-fw fa-trash"></i>'
-                            + '</button></div></form>';
-                        } 
-                    }
-                ],
-                dom: 'Bfrtip',
-                responsive: true,
-                    columnDefs: [
-                        { responsivePriority: 1, targets: 0 },
-                        { responsivePriority: 2, targets: -1 }
-                    ],
-                buttons: [{
-                    extend: 'excelHtml5',
-                    text: '<i class="fas fa-file-excel"></i>',
-                    titleAttr: 'Exportar a Excel',
-                    className:'btn  btn-success mb-2',
-                    exportOptions: {
-                        columns: [0, 1, 2]
-                    }
-                },
-                {
-                    extend: 'pdfHtml5',
-                    text: '<i class="fas fa-file-pdf"></i>',
-                    titleAttr: 'Exportar a PDF',
-                    className:'btn btn-danger mb-2',
-                    exportOptions: {
-                        columns: [0, 1, 2]
-                    }
-                },
-                {
-                    extend: 'print',
-                    text: '<i class="fas fa-print"></i>',
-                    titleAttr: 'Imprimir',
-                    className:'btn btn-warning mb-2',
-                    exportOptions: {
-                        columns: [0, 1, 2]
-                    }
-                }
-            ]
-            });
-
-
-        });
-        </script>
-
-        @empty($the_branch)
-            <script>
-                // basado en https://datatables.net/examples/api/row_details.html
-                function formatCollap(d) {
-                    let rows = d.branches.map( function (branch) {
-                        return '<tr><td>' + branch.name + '</td><td>' + branch.pivot.stock + '</td></tr>';
-                    });
-                    let total_stock = d.branches_sum_branch_productstock || 0;
-                    return (
-                        '<table cellpaddding="5" cellspacing="0" border="0" style="padding-left:50px;" >' +
-                        '<tbody>' +
-                        '<tr><td>Total</td><td>' + total_stock + '</td></tr>' +
-                        rows.join(' ') +
-                        '</tbody></table>'
-                    );
-                }
-
-                jQuery(function($) {
-                    $(document).ready(function() {
-                        let table = $('#product-table').DataTable();
-                        $('#product-table tbody').on('click', 'td.dt-control', function () {
-                            let $tr = $(this).closest('tr');
-                            let row = table.row($tr);
-
-                            if (row.child.isShown()) {
-                                row.child.hide();
-                                $tr.removeClass('shown');
-                            } else {
-                                row.child(formatCollap(row.data())).show();
-                                $tr.addClass('shown');
-                            }
-                        });
-                    });
-                });
-            </script>
-        @endempty
     @if (session('success') == 'created')
         <script>
             Swal.fire(
@@ -255,3 +120,79 @@
         </script>
     @endif
 @endsection
+
+@push('scripts-extra')
+<script>
+    $(document).ready(function() {
+        let the_branch_id = $('#change-branch-select').val();
+        let maybe_id = (the_branch_id) ? {id: the_branch_id} : {};
+
+        let datatable = $('#the-table').DataTable({
+            ajax: {
+                url: '{{ route("sale.data_table") }}',
+                type: "POST",
+                data: function (d) {
+                    return $.extend({}, d, maybe_id, {
+                        _token: $('meta[name=csrf-token]').prop('content')
+                    });
+                }
+            },
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
+            },
+            columns: [
+                { data: 'id' },
+                { data: 'branch.name' },
+                { data: 'created_at' },
+                { data: 'user.name' },
+                { data: 'products_count' },
+                { data: 'total_price' },
+                { 
+                    data: null,
+                    searchable: null,
+                    orderable: null,
+                    render: function (data, type, row, meta) {
+                        return ''; // agregar modal para ver detalles
+                    } 
+                }
+            ],
+            dom: 'Bfrtip',
+            responsive: true,
+                columnDefs: [
+                    { responsivePriority: 1, targets: 0 },
+                    { responsivePriority: 2, targets: -1 }
+                ],
+            buttons: [{
+                extend: 'excelHtml5',
+                text: '<i class="fas fa-file-excel"></i>',
+                titleAttr: 'Exportar a Excel',
+                className:'btn  btn-success mb-2',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5]
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                text: '<i class="fas fa-file-pdf"></i>',
+                titleAttr: 'Exportar a PDF',
+                className:'btn btn-danger mb-2',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5]
+                }
+            },
+            {
+                extend: 'print',
+                text: '<i class="fas fa-print"></i>',
+                titleAttr: 'Imprimir',
+                className:'btn btn-warning mb-2',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5]
+                }
+            }
+        ]
+        });
+
+
+    });
+</script>
+@endpush
