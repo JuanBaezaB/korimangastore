@@ -492,8 +492,8 @@
             <div class="flex justify-center pt-8 sm:justify-start sm:pt-0 ms-3 me-3">
                 <div class="logokori">
                     <a href="#">
-                        <img src="/media/login/logokori.png" alt="" width="160px" height="140px">
-                        <span style="font-size: 60px"><b>Kori</b>MangaStore</span>
+                        <img src="/media/login/logokori.png" alt="" width="80px" height="70px">
+                        <span style="font-size: 30px"><b>Kori</b>MangaStore</span>
                     </a>
 
                 </div>
@@ -514,24 +514,24 @@
                             <img src="https://wwwhatsnew.com/wp-content/uploads/2022/03/Estas-son-las-mejores-apps-de-fondos-de-pantalla-4K-y-QHD-para-2022.jpg"
                                 class="d-block w-100" alt="...">
                             <div class="carousel-caption d-none d-md-block">
-                                <h5>First slide label</h5>
-                                <p>Some representative placeholder content for the first slide.</p>
+                                <h5>Encuentra aquí tu manga favorito</h5>
+                                <p>Revisa nuestro amplio catálogo y consulta por el tuyo.</p>
                             </div>
                         </div>
                         <div class="carousel-item">
                             <img src="https://wwwhatsnew.com/wp-content/uploads/2022/03/Estas-son-las-mejores-apps-de-fondos-de-pantalla-4K-y-QHD-para-2022.jpg"
                                 class="d-block w-100" alt="...">
                             <div class="carousel-caption d-none d-md-block">
-                                <h5>Second slide label</h5>
-                                <p>Some representative placeholder content for the second slide.</p>
+                                <h5>Figuras</h5>
+                                <p>Tenemos figuras de Qposquet.</p>
                             </div>
                         </div>
                         <div class="carousel-item">
                             <img src="https://wwwhatsnew.com/wp-content/uploads/2022/03/Estas-son-las-mejores-apps-de-fondos-de-pantalla-4K-y-QHD-para-2022.jpg"
                                 class="d-block w-100" alt="...">
                             <div class="carousel-caption d-none d-md-block">
-                                <h5>Third slide label</h5>
-                                <p>Some representative placeholder content for the third slide.</p>
+                                <h5>Preventa</h5>
+                                <p>Preventa de One Piece en variados tomos.</p>
                             </div>
                         </div>
                     </div>
