@@ -548,6 +548,106 @@
                 </div>
             </div>
 
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <img src="https://thumbs.dreamstime.com/b/libro-gen%C3%A9rico-992522.jpg">
+                        <div class="card-body">
+                            <h5 class="card-title">El hombre y el gato N° 5</h5>
+                            <p class="card-text">$ 9.990</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a href="#" class="btn btn-primary">Detalles</a>
+                                </div>
+                                <a href="#" class="btn btn-success">Reservar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <img src="https://thumbs.dreamstime.com/b/libro-gen%C3%A9rico-992522.jpg">
+                        <div class="card-body">
+                            <h5 class="card-title">Captain Tsubasa N° 9</h5>
+                            <p class="card-text">$ 12.990</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a href="#" class="btn btn-primary">Detalles</a>
+                                </div>
+                                <a href="#" class="btn btn-success">Reservar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <img src="https://thumbs.dreamstime.com/b/libro-gen%C3%A9rico-992522.jpg">
+                        <div class="card-body">
+                            <h5 class="card-title">Mi nueva vida como villana N° 1</h5>
+                            <p class="card-text">$ 13.990</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a href="#" class="btn btn-primary">Detalles</a>
+                                </div>
+                                <a href="#" class="btn btn-success">Reservar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <img src="https://thumbs.dreamstime.com/b/libro-gen%C3%A9rico-992522.jpg">
+                        <div class="card-body">
+                            <h5 class="card-title">El hombre y el gato N° 1</h5>
+                            <p class="card-text">$ 9.990</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a href="#" class="btn btn-primary">Detalles</a>
+                                </div>
+                                <a href="#" class="btn btn-success">Reservar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <img src="https://thumbs.dreamstime.com/b/libro-gen%C3%A9rico-992522.jpg">
+                        <div class="card-body">
+                            <h5 class="card-title">El hombre y el gato N° 2</h5>
+                            <p class="card-text">$ 9.990</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a href="#" class="btn btn-primary">Detalles</a>
+                                </div>
+                                <a href="#" class="btn btn-success">Reservar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <img src="https://thumbs.dreamstime.com/b/libro-gen%C3%A9rico-992522.jpg">
+                        <div class="card-body">
+                            <h5 class="card-title">El hombre y el gato N° 3</h5>
+                            <p class="card-text">$ 9.990</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a href="#" class="btn btn-primary">Detalles</a>
+                                </div>
+                                <a href="#" class="btn btn-success">Reservar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
             <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
                 <div class="grid grid-cols-1 md:grid-cols-2">
                     <div class="p-6">
