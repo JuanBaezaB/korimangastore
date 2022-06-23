@@ -6,6 +6,7 @@ use App\Models\Sale;
 use App\Models\Branch;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SaleController extends Controller
 {
@@ -70,6 +71,7 @@ class SaleController extends Controller
         $discountAmount = $all->get('discount_amount');
         $productsRaw = collect($all->get('products'));
         $branch_id = $all->get('branch_id');
+        $branch = Branch::find($branch_id);
         $products = $productsRaw->mapWithKeys(function ($item, $key) {
             return [
                 $item['id'] => [
@@ -78,13 +80,21 @@ class SaleController extends Controller
             ];
         });
 
-        $sale = new Sale();
-        $sale->discount_amount = $discountAmount;
-        $sale->user_id = $request->user()->id;
-        $sale->branch_id = $branch_id;
-        $sale->save();
-
-        $sale->products()->sync($products);
+        DB::transaction(function () 
+            use ($products, $branch, $discountAmount, $request, $branch_id) {
+            foreach($products as $id => $stuff) {
+                // TODO: cambiar este hack
+                (new StockController)->change(-$stuff['amount'], $branch, $id);
+            }
+    
+            $sale = new Sale();
+            $sale->discount_amount = $discountAmount;
+            $sale->user_id = $request->user()->id;
+            $sale->branch_id = $branch_id;
+            $sale->save();
+    
+            $sale->products()->sync($products);
+        });
         return response()->json([ 'success' => true ]);
     }
 
