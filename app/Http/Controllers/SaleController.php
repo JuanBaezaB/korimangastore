@@ -178,7 +178,8 @@ class SaleController extends Controller
 
 
         //Ganancias y porcentaje
-        
+        $dateFrom = Carbon::now()->subDays(30);
+        $dateTo = Carbon::now();
 
         $previousDateFrom = Carbon::now()->subDays(60);
         $previousDateTo = Carbon::now()->subDays(31);
@@ -211,14 +212,14 @@ class SaleController extends Controller
 
         
 
-            $percentSales = devuelvePorcentaje($monthlySales);
-            $percentUsers = devuelvePorcentaje($monthlyUsers);
+           // $percentSales = devuelvePorcentaje($monthlySales);
+            //$percentUsers = devuelvePorcentaje($monthlyUsers);
 
         
-        return view('admin.basic_management.internal_configuration.sale.graphic.graphic', compact('salesMonth', 'cUsers', 'cSales', 'percentSales','percentUsers', 'cProducts', 'sales'));
+        return view('admin.basic_management.internal_configuration.sale.graphic.graphic', compact('salesMonth', 'cUsers', 'cSales', 'cProducts', 'sales'));
     }
 
-    
+    /*
     public function porcentajeGanancia($monthly)//necesito que reciba una clase (sale, user)
     {
         $dateFrom = Carbon::now()->subDays(30);
@@ -240,5 +241,5 @@ class SaleController extends Controller
 
         return 
     }
-    
+*/    
 }
