@@ -57,9 +57,9 @@
                             <th style="">#</th>
                             <th style="">Sucursal</th>
                             <th style="">Cuando</th>
-                            <th class="d-none d-sm-table-cell" style="">Vendedor</th>
-                            <th class="d-none d-sm-table-cell" style="">n° Productos</th>
-                            <th class="d-none d-sm-table-cell" style="">Precio Total</th>
+                            <th class="" style="">Vendedor</th>
+                            <th class="" style="">n° Productos</th>
+                            <th class="" style="">Precio Total</th>
                             <th style="">Acciones</th>
                         </tr>
                     </thead>
