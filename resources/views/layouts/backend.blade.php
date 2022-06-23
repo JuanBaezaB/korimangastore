@@ -8,7 +8,7 @@
     <title>Kori - Admin</title>
 
     <meta name="description"
-        content="Dashmix - Bootstrap 5 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
+        content="Es una tienda dedicada a la venta de mangas.">
     <meta name="author" content="pixelcave">
     <meta name="robots" content="noindex, nofollow">
 
@@ -530,7 +530,7 @@
     <!-- <script src="{{ mix('/js/laravel.app.js') }}"></script> -->
 
     @yield('js_after')
-    @stack('scripts-extra')
+
 </body>
 
 </html>
