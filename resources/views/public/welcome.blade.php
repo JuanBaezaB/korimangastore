@@ -7,6 +7,8 @@
 
     <title>Kori MangaStore - Home Page</title>
 
+    <link rel="icon" type="image/png" sizes="16x16"  href="/media/favicons/favicon.png">
+
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
@@ -14,7 +16,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <!-- MDB 
+    <!-- MDB
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.css" rel="stylesheet"/>
     -->
@@ -28,8 +30,8 @@
         }
 
         body {
-            margin: 0; 
-            
+            margin: 0;
+
             /* Show it is fixed to the top */
             min-height: 75rem;
             padding-top: 3.5rem;
@@ -468,7 +470,7 @@
                                              document.getElementById('logout-form').submit();">
                                 <b>
                                     <i class="fa-solid fa-door-closed"></i>
-                                    {{ __('Cerrar Sesión') }}  
+                                    {{ __('Cerrar Sesión') }}
                                 </b>
                             </a>
 
