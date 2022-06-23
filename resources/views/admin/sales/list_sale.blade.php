@@ -121,7 +121,7 @@
     @endif
 @endsection
 
-@push('scripts-extra')
+@push('js_after_stack')
 <script>
     $(document).ready(function() {
         let the_branch_id = $('#change-branch-select').val();

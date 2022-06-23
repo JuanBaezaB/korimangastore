@@ -532,6 +532,7 @@
     <!-- <script src="{{ mix('/js/laravel.app.js') }}"></script> -->
 
     @yield('js_after')
+    @stack('js_after_stack')
 
 </body>
 

@@ -1,5 +1,5 @@
 @once
-   @push('scripts-extra')
+   @push('js_after_stack')
        <script>
             jQuery(function($) {
                 $(document).ready(function () {
