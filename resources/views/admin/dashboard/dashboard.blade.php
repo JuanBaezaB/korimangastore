@@ -1,14 +1,23 @@
 @extends('layouts.backend')
 
 @section('content')
-    <div class="bg-body-light">
-        <div class="content content-full">
-            <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
-                <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3">Dashboard</h1>
-                <nav class="flex-shrink-0 my-2 my-sm-0 ms-sm-3" aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                    </ol>
-                </nav>
+     <!-- Hero -->
+     <div class="bg-image" style="background-image: url('/media/various/bg_dashboard_3.png');">
+        <div class="bg-primary-dark-op">
+            <div class="content content-full">
+                <div class="row my-3">
+                    <div class="col-md-6 d-md-flex align-items-md-center">
+                        <div class="py-4 py-md-0 text-center text-md-start">
+                            <h1 class="fs-2 text-white mb-2">Dashboard</h1>
+                            <h2 class="fs-lg fw-normal text-white-75 mb-0">Welcome to your overview</h2>
+                        </div>
+                    </div>
+                    <div class="col-md-6 d-md-flex align-items-md-center">
+                        <div class="row w-100 text-center">
+
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -18,7 +27,7 @@
     <div class="content">
         <div class="content">
             <!-- Simple -->
-            
+
             <div class="row">
                 <!-- Porcentaje de ventas -->
                 <div class="col-md-6 col-xl-3 ">
@@ -32,7 +41,7 @@
                                 @else
                                     <i class="fa fa-2x fa-arrow-down text-primary d-none"></i>
                                 @endif
-    
+
                             </div>
                             <div class="ms-3 text-end">
                                 <p class="fs-3 fw-medium mb-0">
@@ -88,7 +97,7 @@
                             <div class="me-3">
                                 <p class="fs-3 fw-medium mb-0">
                                     {{ $cProducts }}
-    
+
                                 </p>
                                 <p class="text-muted mb-0">
                                     Cantidad de Productos
@@ -145,7 +154,7 @@
                         </div>
                         <!-- END Bars Chart -->
                     </div>
-    
+
                     <!-- Tabla Productos mas vendidos -->
                     <div class="col-xl-6">
                         <div class="block block-rounded block-mode-loading-refresh h-100 mb-0">
@@ -195,7 +204,7 @@
                                 </tr>
                               </thead>
                               <tbody>
-    
+
                                 <tr>
                                   <td>
                                     <span class="fw-semibold">iPhone X</span>
@@ -207,7 +216,7 @@
                                     <span class="fw-semibold text-warning">Pending..</span>
                                   </td>
                                 </tr>
-    
+
                                 <tr>
                                   <td>
                                     <span class="fw-semibold">MacBook Pro 15"</span>
@@ -219,22 +228,22 @@
                                     <span class="fw-semibold text-warning">Pending..</span>
                                   </td>
                                 </tr>
-    
+
                               </tbody>
                             </table>
                           </div>
                         </div>
                         <!-- END Purchases -->
                       </div>
-    
+
                       {{$products}}
                 @endsection
-    
+
                 <!-- END Page Content -->
-    
-    
-    
-    
+
+
+
+
                 @section('js_after')
                     {{-- Setting JSconst labels = {!! json_encode($labels) !!};
                             const data = {!! json_encode($data) !!}; variables from PHP --}}
@@ -243,10 +252,10 @@
                         //
                     </script>
                     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js"></script>
-    
+
                     <script>
                         const $data = {{ Js::from($salesMonth) }};
-    
+
                         const ctx = document.getElementById('grafico1').getContext('2d');
                         const myChart = new Chart(ctx, {
                             type: 'bar',
@@ -284,7 +293,7 @@
                             }
                         });
                     </script>
-    
+
                     <script>
                         // Obtener una referencia al elemento canvas del DOM
                         const $grafica = document.querySelector("#grafico2");
@@ -322,4 +331,4 @@
                         });
                     </script>
                 @endsection
-    
+

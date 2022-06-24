@@ -452,7 +452,7 @@
                     @endif
                 @else
                     <div class="d-inline">
-                        <a href="{{ url('/home') }}" class="text-sm btn btn-info text-gray-700 dark:text-gray-500 underline">
+                        <a href="{{ url('/dashboard') }}" class="text-sm btn btn-info text-gray-700 dark:text-gray-500 underline">
                             <b>
                                 <i class="fa-solid fa-house-chimney-user pe-2"></i>
                                 Home
