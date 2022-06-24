@@ -361,7 +361,7 @@
             <div class="js-sidebar-scroll">
                 <!-- Side Navigation -->
                 <div class="content-side content-side-full">
-                    <ul class="nav-main">
+                    <ul class="nav-main">         
                         @include('layouts.navbar-backend')
                     </ul>
                 </div>

@@ -32,7 +32,6 @@ class SaleController extends Controller
 
         $the_compact = compact('branches', 'is_all_branches', 'the_branch');
         return response()->view('admin.sales.list_sale', $the_compact);
-
     }
 
     /**
@@ -83,22 +82,22 @@ class SaleController extends Controller
             ];
         });
 
-        DB::transaction(function () 
-            use ($products, $branch, $discountAmount, $request, $branch_id) {
-            foreach($products as $id => $stuff) {
+        DB::transaction(function ()
+        use ($products, $branch, $discountAmount, $request, $branch_id) {
+            foreach ($products as $id => $stuff) {
                 // TODO: cambiar este hack
                 (new StockController)->change(-$stuff['amount'], $branch, $id);
             }
-    
+
             $sale = new Sale();
             $sale->discount_amount = $discountAmount;
             $sale->user_id = $request->user()->id;
             $sale->branch_id = $branch_id;
             $sale->save();
-    
+
             $sale->products()->sync($products);
         });
-        return response()->json([ 'success' => true ]);
+        return response()->json(['success' => true]);
     }
 
     /**
@@ -146,7 +145,8 @@ class SaleController extends Controller
         //
     }
 
-    public function list(Request $request) {
+    public function list(Request $request)
+    {
         $givenId = $request->get('id', null);
         if ($givenId == -1) {
             $givenId = null;
@@ -154,108 +154,24 @@ class SaleController extends Controller
 
         if (!$givenId) {
             $sales = Sale::with(['branch', 'products', 'user'])
-            ->withCount('products')
-            ->addSelect([
-                'total_price' => Product::selectRaw('SUM(product_sale.amount * products.price)')
-                                ->join('product_sale', 'product_sale.product_id', '=', 'products.id')
-                                ->whereColumn('product_sale.sale_id', 'sales.id')
-            ]);
+                ->withCount('products')
+                ->addSelect([
+                    'total_price' => Product::selectRaw('SUM(product_sale.amount * products.price)')
+                        ->join('product_sale', 'product_sale.product_id', '=', 'products.id')
+                        ->whereColumn('product_sale.sale_id', 'sales.id')
+                ]);
         } else {
             $sales = Sale::with(['branch', 'products', 'user'])
-            ->withCount('products')
-            ->whereRelation('branch', 'id', $givenId)
-            ->addSelect([
-                'total_price' => Product::selectRaw('SUM(product_sale.amount * products.price)')
-                                ->join('product_sale', 'product_sale.product_id', '=', 'products.id')
-                                ->whereColumn('product_sale.sale_id', 'sales.id')
-            ]);
+                ->withCount('products')
+                ->whereRelation('branch', 'id', $givenId)
+                ->addSelect([
+                    'total_price' => Product::selectRaw('SUM(product_sale.amount * products.price)')
+                        ->join('product_sale', 'product_sale.product_id', '=', 'products.id')
+                        ->whereColumn('product_sale.sale_id', 'sales.id')
+                ]);
         }
         $sales = $sales->get()->toArray();
-        return response()->json([ "data" => $sales]);
-    }
-        
-
-
-    public function charts()
-    {
-        /*
-        $mes = substr($hoy, 0, 7);
-        $ventames = DB::table('ventas')->where('created_at', '>=', $mes . '-01')->where('created_at', '<=', $mes . '-31')->sum('valor');
-
-        $year = substr($hoy, 0, 4);
-        $ventanual = DB::table('ventas')->where('created_at', '>=', $year . '-01-01')->where('created_at', '<=', $year . '-12-31')->sum('valor');
-*/
-
-
-        $sales = Sale::all();
-        $cUsers  = User::count();
-        $cSales = Sale::count();
-        $cProducts = Product::count();
-
-
-        //Ganancias y porcentaje
-        $dateFrom = Carbon::now()->subDays(30);
-        $dateTo = Carbon::now();
-
-        $previousDateFrom = Carbon::now()->subDays(60);
-        $previousDateTo = Carbon::now()->subDays(31);
-        $previousMonthly = Sale::where('created_at', '>=', $dateFrom)->where('created_at', '<=', $dateTo)->count();
-
-        //Ultimos 30 usuarios
-        /*
-        $lastThirtyUsers = User::select('id')
-            ->where('name', 'user')
-            ->where('created_at', '>', now()->subDays(30)->endOfDay())
-            ->all();
-            */
-        $salesMonth = [];
-        
-            $salesMonth['Enero'] =  Sale::whereMonth('created_at', '=', '01')->whereYear('created_at', '=', date("Y"))->count('id');
-            $salesMonth['Febrero'] =  Sale::whereMonth('created_at', '=', '02')->whereYear('created_at', '=', date("Y"))->count('id');
-            $salesMonth['Marzo'] =  Sale::whereMonth('created_at', '=', '03')->whereYear('created_at', '=', date("Y"))->count('id');
-            $salesMonth['Abril'] =  Sale::whereMonth('created_at', '=', '04')->whereYear('created_at', '=', date("Y"))->count('id');
-            $salesMonth['Mayo'] =  Sale::whereMonth('created_at', '=', '05')->whereYear('created_at', '=', date("Y"))->count('id');
-            $salesMonth['Junio'] =  Sale::whereMonth('created_at', '=', '06')->whereYear('created_at', '=', date("Y"))->count('id');
-            $salesMonth['Julio'] =  Sale::whereMonth('created_at', '=', '07')->whereYear('created_at', '=', date("Y"))->count('id');
-            $salesMonth['Agosto'] =  Sale::whereMonth('created_at', '=', '08')->whereYear('created_at', '=', date("Y"))->count('id');
-            $salesMonth['Septiembre'] =  Sale::whereMonth('created_at', '=', '09')->whereYear('created_at', '=', date("Y"))->count('id');
-            $salesMonth['Octubre'] =  Sale::whereMonth('created_at', '=', '10')->whereYear('created_at', '=', date("Y"))->count('id');
-            $salesMonth['Noviembre'] =  Sale::whereMonth('created_at', '=', '11')->whereYear('created_at', '=', date("Y"))->count('id');
-            $salesMonth['Diciembre'] =  Sale::whereMonth('created_at', '=', '12')->whereYear('created_at', '=', date("Y"))->count('id');
-
-            $monthlySales = Sale::where('created_at', '>=', $dateFrom)->where('created_at', '<=', $dateTo)->count();
-            $monthlyUsers = User::where('created_at', '>=', $dateFrom)->where('created_at', '<=', $dateTo)->count();
-
-        
-
-           // $percentSales = devuelvePorcentaje($monthlySales);
-            //$percentUsers = devuelvePorcentaje($monthlyUsers);
-
-        
-        return view('admin.basic_management.internal_configuration.sale.graphic.graphic', compact('salesMonth', 'cUsers', 'cSales', 'cProducts', 'sales'));
+        return response()->json(["data" => $sales]);
     }
 
-    /*
-    public function porcentajeGanancia($monthly)//necesito que reciba una clase (sale, user)
-    {
-        $dateFrom = Carbon::now()->subDays(30);
-        $dateTo = Carbon::now();
-
-        if ($previousMonthly < $monthly) {
-            if ($previousMonthly > 0) {
-                $rest = $monthly - $previousMonthly;
-                $percent = $rest / $previousMonthly * 100; //incremento de porcentaje
-                $mark   ="+";
-            } else {
-                $percent = 100; //incremento de porcentaje
-            }
-        } else {
-            $mark="-";
-            $rest = $previousMonthly - $monthly;
-            $percent = $rest / $previousMonthly * 100; //disminucion de porcentaje
-        }
-
-        return 
-    }
-*/    
 }

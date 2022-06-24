@@ -8,24 +8,34 @@
         <!-- Simple -->
         <h2 class="content-heading">Estadisticas</h2>
         <div class="row">
-            <div class="col-md-6 col-xl-3 d-none">
+            
+            <!-- Porcentaje de ventas -->
+            <div class="col-md-6 col-xl-3 ">
                 <a class="block block-rounded block-link-pop" href="javascript:void(0)">
                     <div class="block-content block-content-full d-flex align-items-center justify-content-between">
                         <div>
-                            <i class="fa fa-2x fa-arrow-up text-primary"></i>
+                            @if ($percentListSales['mark'] == '+')
+                                <i class="fa fa-2x fa-arrow-up text-primary"></i>
+                            @elseif($percentListSales['mark'] == '- ' && $percentListSales['percent'] != '-')
+                                <i class="fa fa-2x fa-arrow-down text-primary"></i>
+                            @else
+                                <i class="fa fa-2x fa-arrow-down text-primary d-none"></i>
+                            @endif
+
                         </div>
                         <div class="ms-3 text-end">
                             <p class="fs-3 fw-medium mb-0">
-                                <!--$mark $pEarnings-->
+                                {{ $percentListSales['mark'] }}{{ $percentListSales['percent'] }}%
                             </p>
                             <p class="text-muted mb-0">
-                                Porcentaje de ganancias
+                                porcentaje de ventas
                             </p>
                         </div>
                     </div>
                 </a>
             </div>
-            <div class="col-md-6 col-xl-4">
+            <!-- Usuarios Registrados -->
+            <div class="col-md-6 col-xl-3   ">
                 <a class="block block-rounded block-link-pop" href="javascript:void(0)">
                     <div class="block-content block-content-full d-flex align-items-center justify-content-between">
                         <div>
@@ -42,7 +52,8 @@
                     </div>
                 </a>
             </div>
-            <div class="col-md-6 col-xl-4">
+            <!-- Ventas registradas-->
+            <div class="col-md-6 col-xl-3   ">
                 <a class="block block-rounded block-link-pop" href="javascript:void(0)">
                     <div class="block-content block-content-full d-flex align-items-center justify-content-between">
                         <div class="me-3">
@@ -59,7 +70,8 @@
                     </div>
                 </a>
             </div>
-            <div class="col-md-6 col-xl-4">
+            <!-- Ventas registradas-->
+            <div class="col-md-6 col-xl-3   ">
                 <a class="block block-rounded block-link-pop" href="javascript:void(0)">
                     <div class="block-content block-content-full d-flex align-items-center justify-content-between">
                         <div class="me-3">
@@ -79,7 +91,7 @@
             </div>
             <!-- END Simple -->
             <div class="row">
-                <div class="col-xl-12">
+                <div class="col-xl-12 ">
                     <!-- Lines Chart -->
                     <div class="block block-rounded">
                         <div class="block-header block-header-default">
@@ -99,10 +111,9 @@
                             </div>
                         </div>
                     </div>
-                    <!-- END Lines Chart -->
                 </div>
-                <div class="col-xl-6 d-none">
-                    <!-- Bars Chart -->
+                <!-- Grafico de barras -->
+                <div class="col-xl-6 ">
                     <div class="block block-rounded">
                         <div class="block-header block-header-default">
                             <h3 class="block-title">Productos más vendidos</h3>
@@ -123,9 +134,89 @@
                     </div>
                     <!-- END Bars Chart -->
                 </div>
-                
-                
 
+                <!-- Tabla Productos mas vendidos -->
+                <div class="col-xl-6">
+                    <div class="block block-rounded block-mode-loading-refresh h-100 mb-0">
+                      <div class="block-header block-header-default">
+                        <h3 class="block-title">Purchases</h3>
+                        <div class="block-options">
+                          <button type="button" class="btn-block-option" data-toggle="block-option" data-action="state_toggle" data-action-mode="demo">
+                            <i class="si si-refresh"></i>
+                          </button>
+                          <button type="button" class="btn-block-option">
+                            <i class="si si-cloud-download"></i>
+                          </button>
+                          <div class="dropdown">
+                            <button type="button" class="btn-block-option" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <i class="si si-wrench"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-end">
+                              <a class="dropdown-item" href="javascript:void(0)">
+                                <i class="fa fa-fw fa-sync fa-spin text-warning me-1"></i> Pending
+                              </a>
+                              <a class="dropdown-item" href="javascript:void(0)">
+                                <i class="far fa-fw fa-times-circle text-danger me-1"></i> Cancelled
+                              </a>
+                              <a class="dropdown-item" href="javascript:void(0)">
+                                <i class="far fa-fw fa-check-circle text-success me-1"></i> Cancelled
+                              </a>
+                              <div role="separator" class="dropdown-divider"></div>
+                              <a class="dropdown-item" href="javascript:void(0)">
+                                <i class="fa fa-fw fa-eye me-1"></i> View All
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="block-content block-content-full block-content-sm bg-body-dark">
+                        <form action="be_pages_dashboard.html" method="POST" onsubmit="return false;">
+                          <input type="text" class="form-control form-control-alt" placeholder="Search Purchases..">
+                        </form>
+                      </div>
+                      <div class="block-content">
+                        <table class="table table-striped table-hover table-borderless table-vcenter fs-sm">
+                          <thead>
+                            <tr class="text-uppercase">
+                              <th class="fw-bold">Producto</th>
+                              <th class="d-none d-sm-table-cell fw-bold">Fecha de compra</th>
+                              <th class="fw-bold">Cantidad</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+
+                            <tr>
+                              <td>
+                                <span class="fw-semibold">iPhone X</span>
+                              </td>
+                              <td class="d-none d-sm-table-cell">
+                                <span class="fs-sm text-muted">today</span>
+                              </td>
+                              <td>
+                                <span class="fw-semibold text-warning">Pending..</span>
+                              </td>
+                            </tr>
+
+                            <tr>
+                              <td>
+                                <span class="fw-semibold">MacBook Pro 15"</span>
+                              </td>
+                              <td class="d-none d-sm-table-cell">
+                                <span class="fs-sm text-muted">today</span>
+                              </td>
+                              <td>
+                                <span class="fw-semibold text-warning">Pending..</span>
+                              </td>
+                            </tr>
+
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <!-- END Purchases -->
+                  </div>
+
+                  {{$products}}
             @endsection
 
             <!-- END Page Content -->
@@ -143,7 +234,7 @@
                 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js"></script>
 
                 <script>
-                    const $data = {{Js::from($salesMonth)}};
+                    const $data = {{ Js::from($salesMonth) }};
 
                     const ctx = document.getElementById('grafico1').getContext('2d');
                     const myChart = new Chart(ctx, {
@@ -191,7 +282,8 @@
                     // Podemos tener varios conjuntos de datos. Comencemos con uno
                     const datosIngresos = {
                         data: [1500, 400, 2000,
-                        7000], // La data es un arreglo que debe tener la misma cantidad de valores que la cantidad de etiquetas
+                            7000
+                        ], // La data es un arreglo que debe tener la misma cantidad de valores que la cantidad de etiquetas
                         // Ahora debería haber tantos background colors como datos, es decir, para este ejemplo, 4
                         backgroundColor: [
                             'rgba(163,221,203,0.2)',
