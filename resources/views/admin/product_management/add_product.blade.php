@@ -20,6 +20,13 @@
 
     <!-- Page Content -->
     <div class="content">
+        @if ($errors->any())
+            <div id="ERROR_COPY" style="display: none" class="alert alert-danger">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }} <br></li>
+                @endforeach
+            </div>
+        @endif
         <!-- Elements -->
         <div class="block block-rounded">
             <div class="block-header block-header-default">
@@ -320,6 +327,17 @@
     });
 </script>
 
+@if ($errors->any())
+<script>
+    Swal.fire({
+        title: 'Error',
+        text: "No podrás revertir esto!",
+        icon: 'error',
+        html:jQuery("#ERROR_COPY").html(),
+        showCloseButton: true,
+    });
+</script>
+@endif
 
 
 

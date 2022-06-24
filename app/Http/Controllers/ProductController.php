@@ -142,13 +142,13 @@ class ProductController extends Controller
         $figureExcludeUnless = self::makeExcludeUnlessCategoryId($request, Product::TYPE_FIGURE);
         $figureRequiredIf = self::makeRequiredIfCategoryId($request, Product::TYPE_FIGURE);
         return [
-            'name' => 'required|string|lt:200',
-            'price' => 'required|integer|gt:0',
-            'description' => 'lt:2000',
+            'name' => 'required|string|min:1|max:200',
+            'price' => 'required|integer|min:0',
+            'description' => 'max:2000',
             'provider_id' => 'nullable|exists:App\Models\Provider,id',
             'series' => 'array',
             'series.*' => 'exists:App\Models\Serie,id',
-            'category_id' => 'required|exists:App\Models\Category,id', /* TODO: deberia ser cambiado en formulario */
+            'category_id' => 'required|exists:App\Models\Category,id',
             /* MANGA */
             'editorial_id' => [$mangaExcludeUnless, $mangaRequiredIf, 'exists:App\Models\Editorial,id'],
             'format_id' => [$mangaExcludeUnless, $mangaRequiredIf, 'exists:App\Models\Format,id'],
@@ -175,10 +175,10 @@ class ProductController extends Controller
         //
         
         $validator = Validator::make($request->all(), self::makeRules($request));
-        
-        if ($validator->fails()) {
+        $validator->validate();
+        /*if ($validator->fails()) {
             dd($validator);
-        }
+        }*/
         try {
 
             $datos = request()->except(['_token']);
