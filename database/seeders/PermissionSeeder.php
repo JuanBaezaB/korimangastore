@@ -215,13 +215,13 @@ class PermissionSeeder extends Seeder
             'display_name'=>'Ver ventas',
             'group'=>'Venta',
             'description'=>'Permite visualizar las ventas realizadas.'
-        ])->assignRole('Admin');
+        ])->syncRoles([['Admin','Vendedor']]);
         Permission::Create([
             'name'=>'sale.modify',
             'display_name'=>'Realizar ventas',
-            'group'=>'Categoria',
+            'group'=>'Venta',
             'description'=>'Permite realizar ventas.'
-        ])->assignRole('Admin');
+        ])->syncRoles([['Admin','Vendedor']]);
 
     }
 }

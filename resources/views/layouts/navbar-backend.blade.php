@@ -1,5 +1,5 @@
 <li class="nav-main-item">
-    
+
     <a class="nav-main-link{{ request()->is('/dashboard') ? ' active' : '' }}"
         href="{{ route('index.graphic') }}">
         <i class="nav-main-link-icon fa fa-location-arrow"></i>
@@ -183,30 +183,35 @@
 
 
 <!-- Gestion de ventas -->
-<li class="nav-main-heading">Area de ventas</li>
-<li class="nav-main-item {{ request()->is('area-de-ventas/*') ? ' open' : '' }}">
-    <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="true"
-        href="#">
-        <i
-            class="nav-main-link-icon fa-solid fa-cart-shopping {{ request()->is('area-de-ventas/*') ? 'fa-bounce' : '' }}"></i>
-        <span class="nav-main-link-name">Ventas</span>
-    </a>
-    <ul class="nav-main-submenu">
-        <li class="nav-main-item">
-            <a class="nav-main-link{{ request()->is('area-de-ventas/venta') ? ' active' : '' }}"
-                href="{{ route('sale.list') }}">
-                <span class="nav-main-link-name">Listado</span>
-            </a>
-        </li>
-
-        <li class="nav-main-item">
-            <a class="nav-main-link{{ request()->is('area-de-ventas/venta/crear') ? ' active' : '' }}"
-                href="{{ route('sale.create') }}">
-                <span class="nav-main-link-name">Realizar venta</span>
-            </a>
-        </li>
-    </ul>
-</li>
+@canany(['sale.list', 'sale.modify'])
+    <li class="nav-main-heading">Area de ventas</li>
+    <li class="nav-main-item {{ request()->is('area-de-ventas/*') ? ' open' : '' }}">
+        <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="true"
+            href="#">
+            <i
+                class="nav-main-link-icon fa-solid fa-cart-shopping {{ request()->is('area-de-ventas/*') ? 'fa-bounce' : '' }}"></i>
+            <span class="nav-main-link-name">Ventas</span>
+        </a>
+        <ul class="nav-main-submenu">
+            @canany(['sale.list'])
+                <li class="nav-main-item">
+                    <a class="nav-main-link{{ request()->is('area-de-ventas/venta') ? ' active' : '' }}"
+                        href="{{ route('sale.list') }}">
+                        <span class="nav-main-link-name">Listado</span>
+                    </a>
+                </li>
+            @endcan
+            @canany(['sale.modify'])
+                <li class="nav-main-item">
+                    <a class="nav-main-link{{ request()->is('area-de-ventas/venta/crear') ? ' active' : '' }}"
+                        href="{{ route('sale.create') }}">
+                        <span class="nav-main-link-name">Realizar venta</span>
+                    </a>
+                </li>
+            @endcan
+        </ul>
+    </li>
+@endcan
 
 <!-- Gestion base -->
 @canany(['branch.list', 'provider.list', 'user.list', 'role.list', 'permission.list'])
