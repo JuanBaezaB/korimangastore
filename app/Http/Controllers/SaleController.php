@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Sale;
 use App\Models\User;
-use App\Models\Product;
 use App\Models\Branch;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
@@ -61,35 +61,6 @@ class SaleController extends Controller
     public function store(Request $request)
     {
         //
-<<<<<<< Updated upstream
-        $quantity = $request->get('quantity');
-
-        $normalizedQuantity = ($request->get('reverse')) ? -$quantity : $quantity;
-
-        $branch_id = $request->get('branch_id');
-        $product_id = $request->get('product_id');
-        $product = Product::findOrFail($product_id);
-        $branch = $product->branches()->find($branch_id);
-        if (empty($branch)) {
-            if ($normalizedQuantity <= 0) {
-                throw new \Exception("expected positive quantity for non existent stock");
-            }
-            $product->branches()->attach($branch_id, ['stock' => $quantity]);
-        } else {
-            $stock = $product->branches()->newPivotStatementForId($branch)->value('stock');
-            if ($stock + $normalizedQuantity < 0) {
-                throw new \Exception("expected positive quantity for new stock value");
-            }
-            $product->branches()->updateExistingPivot($branch, ['stock' => $stock + $normalizedQuantity]);
-        }
-        $product->category->name;
-        $ret = [
-            'quantity' => $normalizedQuantity,
-            'branch' => $branch,
-            'product' => $product
-        ];
-        return response()->json($ret);
-=======
         $request->validate([
             'products' => 'array|required',
             'products.*.id' => 'exists:products,id|required',
@@ -127,7 +98,6 @@ class SaleController extends Controller
             $sale->products()->sync($products);
         });
         return response()->json(['success' => true]);
->>>>>>> Stashed changes
     }
 
     /**
@@ -178,26 +148,11 @@ class SaleController extends Controller
     public function list(Request $request)
     {
         $givenId = $request->get('id', null);
+        if ($givenId == -1) {
+            $givenId = null;
+        }
 
         if (!$givenId) {
-<<<<<<< Updated upstream
-            $products = Sale::with('branches', 'category')
-            ->withSum('branches', 'branch_product.stock')
-            ->get()
-            ->toArray();
-        } else {
-            $products = Sale::with([
-                'branches' => function ($query) use ($givenId) {
-                    $query->whereKey($givenId);
-                },
-                'category'])
-            ->whereRelation('branches', 'branch_id', $givenId)
-            ->whereRelation('branches', 'stock', '>', 0)
-            ->get()
-            ->toArray();
-        }
-        return response()->json([ "data" => $products]);
-=======
             $sales = Sale::with(['branch', 'products', 'user'])
                 ->withCount('products')
                 ->addSelect([
@@ -217,80 +172,6 @@ class SaleController extends Controller
         }
         $sales = $sales->get()->toArray();
         return response()->json(["data" => $sales]);
->>>>>>> Stashed changes
     }
 
-
-
-    public function charts()
-    {
-        $salesMonth = [];
-        $percentListSales = [];
-        $percentListUser = [];
-
-        $sales = Sale::all();
-        $cUsers  = User::count();
-        $cSales = Sale::count();
-        $cProducts = Product::count();
-
-        $dateFrom = Carbon::now()->subDays(30);
-        $dateTo = Carbon::now();
-
-        $previousDateFrom = Carbon::now()->subDays(60);
-        $previousDateTo = Carbon::now()->subDays(31);
-
-        //Variables function retPercent
-
-        $monthlySales = Sale::where('created_at', '>=', $dateFrom)->where('created_at', '<=', $dateTo)->count();
-        $previousMonthlySales = Sale::where('created_at', '>=', $previousDateFrom)->where('created_at', '<=', $previousDateTo)->count();
-
-        $monthlyUsers = User::where('created_at', '>=', $dateFrom)->where('created_at', '<=', $dateTo)->count();
-        $previousMonthlyUser = User::where('created_at', '>=', $previousDateFrom)->where('created_at', '<=', $previousDateTo)->count();
-
-
-
-
-        $salesMonth['Enero'] =  Sale::whereMonth('created_at', '=', '01')->whereYear('created_at', '=', date("Y"))->count('id');
-        $salesMonth['Febrero'] =  Sale::whereMonth('created_at', '=', '02')->whereYear('created_at', '=', date("Y"))->count('id');
-        $salesMonth['Marzo'] =  Sale::whereMonth('created_at', '=', '03')->whereYear('created_at', '=', date("Y"))->count('id');
-        $salesMonth['Abril'] =  Sale::whereMonth('created_at', '=', '04')->whereYear('created_at', '=', date("Y"))->count('id');
-        $salesMonth['Mayo'] =  Sale::whereMonth('created_at', '=', '05')->whereYear('created_at', '=', date("Y"))->count('id');
-        $salesMonth['Junio'] =  Sale::whereMonth('created_at', '=', '06')->whereYear('created_at', '=', date("Y"))->count('id');
-        $salesMonth['Julio'] =  Sale::whereMonth('created_at', '=', '07')->whereYear('created_at', '=', date("Y"))->count('id');
-        $salesMonth['Agosto'] =  Sale::whereMonth('created_at', '=', '08')->whereYear('created_at', '=', date("Y"))->count('id');
-        $salesMonth['Septiembre'] =  Sale::whereMonth('created_at', '=', '09')->whereYear('created_at', '=', date("Y"))->count('id');
-        $salesMonth['Octubre'] =  Sale::whereMonth('created_at', '=', '10')->whereYear('created_at', '=', date("Y"))->count('id');
-        $salesMonth['Noviembre'] =  Sale::whereMonth('created_at', '=', '11')->whereYear('created_at', '=', date("Y"))->count('id');
-        $salesMonth['Diciembre'] =  Sale::whereMonth('created_at', '=', '12')->whereYear('created_at', '=', date("Y"))->count('id');
-
-
-        function retPercent($monthly, $previousMonthly) //necesito que reciba una clase (sale, user)
-        {
-
-            $list_data = [];
-            if ($previousMonthly < $monthly) {
-                if ($previousMonthly > 0) {
-                    $sustract = $monthly - $previousMonthly;
-                    $list_data['mark']  = "+";
-                    $list_data['percent'] = $sustract / $previousMonthly * 100; //incremento de porcentaje
-                } else {
-                    $list_data['mark']  = "+";
-                    $list_data['percent'] = 100; //incremento de porcentaje
-
-                }
-            } else {
-                $sustract = $previousMonthly - $monthly;
-                $list_data['mark'] = "-";
-                $list_data['percent'] = $sustract / $previousMonthly * 100; //disminucion de porcentaje
-            }
-            return $list_data;
-        }
-        $percentListSales = retPercent($monthlySales, $previousMonthlySales);
-        $percentListUsers = retPercent($monthlyUsers, $previousMonthlyUser);
-
-
-
-
-        return view('admin.basic_management.internal_configuration.sale.graphic.graphic', compact('salesMonth', 'cUsers', 'cSales', 'cProducts', 'sales', 'percentListUsers', 'percentListSales'));
-    }
 }

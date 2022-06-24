@@ -10,6 +10,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SerieController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\CreativePersonController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MangaController;
 use App\Http\Controllers\FigureTypeController;
 use App\Http\Controllers\StockController;
@@ -73,8 +74,6 @@ Route::group(['middleware' => ['role:Admin|Vendedor']], function () {
     Route::get('/area-de-ventas/venta/sucursal/{id}', [SaleController::class, 'index'])->name('sale.get_one');
     Route::get('/area-de-ventas/venta/crear', [SaleController::class, 'create'])->name('sale.create');
     Route::post('/area-de-ventas/venta/agregar', [SaleController::class, 'store'])->name('sale.add');
-    Route::get('/area-de-ventas/venta/grafico', [SaleController::class, 'charts'])->name('sale.graphic');
-
 
 
     /*  PRODUCT MANAGEMENT */
@@ -154,11 +153,11 @@ Route::group(['middleware' => ['role:Admin|Vendedor']], function () {
     Route::patch('/gestion-base/gestion-usuarios/permisos/{id}', [PermissionController::class, 'update'])->name('permission.update')->middleware('can:permission.modify');
 
 
-    /*  Grafico */
-    Route::get('/gestion-base/configuacion-base/venta', [SaleController::class, 'index'])->name('sale.list')->middleware('auth');
-    Route::get('/gestion-base/configuacion-base/venta/grafico', [SaleController::class, 'charts'])->name('sale.graphic')->middleware('auth');
     /*  Soporte */
     Route::view('/soporte/preguntas-frecuentes-admin', 'admin.support.adminfaq')->name('support.adminfaq')->middleware('auth');
     Route::view('/soporte/manual-admin', 'admin.support.adminmanual')->name('support.adminmanual')->middleware('auth');
+
+    /*Dashboard*/
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('index.graphic');
 
 });
