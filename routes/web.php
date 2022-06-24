@@ -49,7 +49,7 @@ Route::view('/forms/be_forms_validation', 'admin.forms.be_forms_validation')->mi
 
 
 
-Route::group(['middleware' => ['role:Admin|Vendedor']], function () { 
+Route::group(['middleware' => ['role:Admin|Vendedor']], function () {
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     /* Producto */
@@ -151,7 +151,6 @@ Route::group(['middleware' => ['role:Admin|Vendedor']], function () {
     Route::post('/gestion-base/gestion-usuarios/permisos', [PermissionController::class, 'store'])->name('permission.add')->middleware('can:permission.modify');
     Route::delete('/gestion-base/gestion-usuarios/permisos/{id}', [PermissionController::class, 'destroy'])->name('permission.delete')->middleware('can:permission.modify');
     Route::patch('/gestion-base/gestion-usuarios/permisos/{id}', [PermissionController::class, 'update'])->name('permission.update')->middleware('can:permission.modify');
-
 
     /*  Soporte */
     Route::view('/soporte/preguntas-frecuentes-admin', 'admin.support.adminfaq')->name('support.adminfaq')->middleware('auth');
