@@ -8,7 +8,7 @@
     <title>Kori - Admin</title>
 
     <meta name="description"
-        content="Dashmix - Bootstrap 5 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
+        content="Es una tienda dedicada a la venta de mangas.">
     <meta name="author" content="pixelcave">
     <meta name="robots" content="noindex, nofollow">
 
@@ -16,12 +16,20 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Icons -->
-    <link rel="shortcut icon" href="{{ asset('media/favicons/favicon.png') }}">
-    <link rel="icon" sizes="192x192" type="image/png" href="{{ asset('media/favicons/favicon-192x192.png') }}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('media/favicons/apple-touch-icon-180x180.png') }}">
+    <link rel="shortcut icon" href="{{ asset('media/favicons/kori/favicon-32x32.png') }}">
+    <link rel="icon" sizes="192x192" type="image/png" href="{{ asset('media/favicons/kori/android-chrome-192x192.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{asset('media/favicons/kori/apple-touch-icon.png')}}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{asset('media/favicons/kori/favicon-32x32.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{asset('media/favicons/kori/favicon-16x16.png')}}">
+    <link rel="manifest" href="{{asset('media/favicons/kori/site.webmanifest')}}">
+    <link rel="mask-icon" href="{{asset('media/favicons/kori/safari-pinned-tab.svg')}}" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+
 
     <!-- Fonts and Styles -->
     @yield('css_before')
+    @stack('css_before_stack')
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" id="css-main" href="{{ mix('css/dashmix.css') }}">
     <link rel="stylesheet" id="css-main" href="{{ asset('/fonts/fontawesome-free/css/all.css') }}">
@@ -33,6 +41,7 @@
     <!-- You can include a specific file from public/css/themes/ folder to alter the default color theme of the template. eg: -->
     <!-- <link rel="stylesheet" id="css-theme" href="{{ mix('css/themes/xwork.css') }}"> -->
     @yield('css_after')
+    @stack('css_after_stack')
 
     <!-- Scripts -->
     <script>
@@ -352,7 +361,7 @@
             <div class="js-sidebar-scroll">
                 <!-- Side Navigation -->
                 <div class="content-side content-side-full">
-                    <ul class="nav-main">
+                    <ul class="nav-main">         
                         @include('layouts.navbar-backend')
                     </ul>
                 </div>
@@ -530,7 +539,8 @@
     <!-- <script src="{{ mix('/js/laravel.app.js') }}"></script> -->
 
     @yield('js_after')
-    @stack('scripts-extra')
+    @stack('js_after_stack')
+
 </body>
 
 </html>

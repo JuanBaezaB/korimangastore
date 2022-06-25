@@ -26,6 +26,10 @@ class Branch extends Model
     public function products() {
         return $this->belongsToMany(Product::class)->withPivot('stock');
     }
+
+    public function sales() {
+        return $this->hasMany(Sale::class);
+    }
 }
 
 

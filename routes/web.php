@@ -10,6 +10,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SerieController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\CreativePersonController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MangaController;
 use App\Http\Controllers\FigureTypeController;
 use App\Http\Controllers\StockController;
@@ -48,7 +49,10 @@ Route::view('/forms/be_forms_validation', 'admin.forms.be_forms_validation')->mi
 
 
 
-Route::group(['middleware' => ['role:Admin|Vendedor']], function () { 
+Route::group(['middleware' => ['role:Admin|Vendedor']], function () {
+
+    /*Dashboard*/
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('index.graphic');
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     /* Producto */
@@ -68,12 +72,11 @@ Route::group(['middleware' => ['role:Admin|Vendedor']], function () {
     Route::post('/gestion-de-inventario/stock/agregar', [StockController::class, 'store'])->name('stock.add')->middleware('can:stock.modify');
 
     /* Sales */
-    Route::get('/area-de-ventas/venta', [SaleController::class, 'index'])->name('sale.list');
-    Route::post('/area-de-ventas/venta', [SaleController::class, 'list'])->name('sale.data_table');
-    Route::get('/area-de-ventas/venta/sucursal/{id}', [SaleController::class, 'index'])->name('sale.get_one');
-    Route::get('/area-de-ventas/venta/crear', [SaleController::class, 'create'])->name('sale.create');
-    Route::post('/area-de-ventas/venta/agregar', [SaleController::class, 'store'])->name('sale.add');
-    Route::get('/area-de-ventas/venta/grafico', [SaleController::class, 'charts'])->name('sale.graphic');
+    Route::get('/area-de-ventas/venta', [SaleController::class, 'index'])->name('sale.list')->middleware('can:sale.list');
+    Route::post('/area-de-ventas/venta', [SaleController::class, 'list'])->name('sale.data_table')->middleware('can:sale.modify');
+    Route::get('/area-de-ventas/venta/sucursal/{id}', [SaleController::class, 'index'])->name('sale.get_one')->middleware('can:sale.modify');
+    Route::get('/area-de-ventas/venta/crear', [SaleController::class, 'create'])->name('sale.create')->middleware('can:sale.modify');
+    Route::post('/area-de-ventas/venta/agregar', [SaleController::class, 'store'])->name('sale.add')->middleware('can:sale.modify');
 
 
 
@@ -156,5 +159,7 @@ Route::group(['middleware' => ['role:Admin|Vendedor']], function () {
     /*  Soporte */
     Route::view('/soporte/preguntas-frecuentes-admin', 'admin.support.adminfaq')->name('support.adminfaq')->middleware('auth');
     Route::view('/soporte/manual-admin', 'admin.support.adminmanual')->name('support.adminmanual')->middleware('auth');
+
+
 
 });

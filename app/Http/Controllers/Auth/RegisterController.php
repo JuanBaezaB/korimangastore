@@ -43,7 +43,7 @@ class RegisterController extends Controller
     public function redirectPath()
     {
         if (auth()->user()->hasRole('Admin')) {
-            return '/home';
+            return '/dashboard';
         }
         if (auth()->user()->hasRole('User')) {
             return '/';

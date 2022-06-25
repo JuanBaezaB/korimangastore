@@ -12,7 +12,7 @@ $list_columns = 'admin.basic_management.internal_configuration.branch.branch_col
 $modal_edit_contents = 'admin.basic_management.internal_configuration.branch.branch_edit';
 $export_columns = [0, 1, 2, 3, 4];
 
-$validation_rules = [
+$validation_messages = [
     'name' => [
         'required' => 'Por favor, ingrese un nombre para la sucursal.',
         'maxlength' => 'Por favor, ingrese no más de 200 caracteres.'
@@ -20,7 +20,7 @@ $validation_rules = [
     'address' => 'Por favor, ingrese una dirección.'
 ];
 
-$validation_messages = [
+$validation_rules = [
     'name' => [
         'required' => true,
         'maxlength' => 200

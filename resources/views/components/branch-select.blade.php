@@ -1,5 +1,5 @@
 @once
-   @push('scripts-extra')
+   @push('js_after_stack')
        <script>
             jQuery(function($) {
                 $(document).ready(function () {
@@ -24,21 +24,13 @@
                         placeholder: 'Seleccionar sucursal'
                     });
                     var current = $this.attr('current') | $this.val();
-                    if (current == -1) {
-                        var option = new Option('Todas', -1, true, true);
-                        $this.append(option).trigger('change', [true]);
-                        $this.trigger({
-                            type: 'select2:select',
-                            params: {
-                                data: { id: -1, text: 'Todas' }
-                            }
-                        });
-                    } else {
+
+                    function ajaxAddOption(current) {
                         $.ajax({
                             type: 'POST',
                             url: '{{ route("branch.get_one") }}',
                             data: JSON.stringify({ 
-                                id: $this.attr('current') | $this.val(),
+                                id: current,
                                 _token: $('meta[name=csrf-token]').attr('content')
                             }),
                             contentType: 'aplication/json;'
@@ -55,6 +47,24 @@
                         });
                     }
 
+                    @if($allBranches)
+                        if (current == -1) {
+                            var option = new Option('Todas', -1, true, true);
+                            $this.append(option).trigger('change', [true]);
+                            $this.trigger({
+                                type: 'select2:select',
+                                params: {
+                                    data: { id: -1, text: 'Todas' }
+                                }
+                            });
+                        } else {
+                            ajaxAddOption(current);
+                        }
+                    @else
+                        ajaxAddOption();
+                    @endif
+
+                    @if($redirectTemplate)
                     $this.on('change', function(evt, dont) {
                         if (dont) return;
                         var url = '{{ $redirectTemplate }}';
@@ -66,6 +76,7 @@
                             location.href = allUrl;
                         }
                     });
+                    @endif
                 });
             });
        </script>

@@ -15,11 +15,11 @@
     <div class="bg-body-light">
         <div class="content content-full">
             <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
-                <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3">Agregar Stock</h1>
+                <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3">Venta</h1>
                 <nav class="flex-shrink-0 my-2 my-sm-0 ms-sm-3" aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item">Stock</li>
-                        <li class="breadcrumb-item active" aria-current="page">Gestion de Productos</li>
+                        <li class="breadcrumb-item">Area de Ventas</li>
+                        <li class="breadcrumb-item active" aria-current="page">Venta</li>
                     </ol>
                 </nav>
             </div>
@@ -33,7 +33,7 @@
         <!-- Elements -->
         <div class="block block-rounded">
             <div class="block-header block-header-default">
-                <h3 class="block-title">Productos</h3>
+                <h3 class="block-title">Realizar Venta</h3>
                 <div class="block-options">
                     
                 </div>
@@ -43,11 +43,10 @@
                 <div class="row items-push">
                     <div class="col-lg-8 col-md-6">
                         <div class="">
-                            <select id="change-branch-select" class="js-select2 form-select" style="width: 100%;" autocomplete="off" data-placeholder="Elige una sucursal..." >
-                                @foreach($branches as $branch)
-                                    <option value="{{ $branch->id }}" {{ (isset($the_branch->id) && $the_branch->id==$branch->id) ? 'selected' : '' }}>{{ $branch->name }}</option>
-                                @endforeach
-                            </select>
+                            <x-branch-select
+                            style="width: 100%;"
+                            id="change-branch-select"
+                            :current="app('request')->input('sucursal')" />
                         </div>
                     
                     </div>
@@ -59,14 +58,11 @@
                     <div class="col-lg-4 col-md-6">
                         <div class="row">
                             <div class="col-sm-6">
-                                <div class="mb-3"><input type="number" id="qnt-product-stock" class="form-control" min="1" value="1" autocomplete="off"></input></div>
+                                <div class="mb-3"><input type="number" id="qnt-product" class="form-control" min="1" value="1" autocomplete="off"></input></div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="mb-3">
-                                    <div class="btn-group" role="group" aria-label="Basic example">
-                                        <a class="btn btn-success" id="btn-add-stock"><i class="fa fa-plus"></i></a>
-                                        <a class="btn btn-danger" id="btn-remove-stock"><i class="fa fa-minus"></i></a>
-                                    </div>
+                                    <a class="btn btn-success" id="btn-add-product"><i class="fa fa-plus"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -74,20 +70,53 @@
 
                 </div>
 
-                <!-- DataTables init on table by adding .js-dataTable-full class, functionality is initialized in js/pages/be_tables_datatables.min.js which was auto compiled from _js/pages/be_tables_datatables.js -->
-                <table id="product-table" class="table table-bordered table-striped table-vcenter table-hover w-100 display nowrap">
-                    <thead>
-                        <tr>
-                            <th style="width: 9%">Unidades</th>
-                            <th style="width: 50%">Sucursal</th>
-                            <th style="width: 50%">Nombre</th>
-                            <th class="d-none d-sm-table-cell" style="width: 40%;">Tipo</th>
-                            <th style="width: 10%;">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
+                <div class="block-content">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-vcenter fs-sm" id='cart-table'>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Producto</th>
+                                    <th>Cantidad</th>
+                                    <th>Precio</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-end" colspan="3">Descuento</td>
+                                    <td>
+                                        <div class="btn-toolbar" role="toolbar">
+                                            <div class="btn-group" role="group">
+                                                <input type="radio" class="btn-check" name="discount-radio" id="discount-radio-amount" autocomplete="off" checked>
+                                                <label class="btn btn-outline-secondary" for="discount-radio-amount">$</label>
+                                                
+                                                <input type="radio" class="btn-check" name="discount-radio" id="discount-radio-percent" autocomplete="off">
+                                                <label class="btn btn-outline-secondary" for="discount-radio-percent">%</label>
+                                            
+                                            </div>
+                                            <div class="input-group">
+                                                <input type="number" id="discount-amount" class="form-control d-inline" value="0" min="0">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-end" colspan="3"><strong>Total</strong></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <button class="btn btn-primary mb-2 ms-2" id="btn-submit-cart">
+                            Vender
+                        </button>
+                    </div>
+                </div>
+                
+
             </div>
         </div>
         <!-- END Elements -->
@@ -113,123 +142,265 @@
     <script src="{{ asset('js/plugins/select2/js/select2.full.js') }}"></script>
 
     <script>
-        $(document).ready(function() {
+        /*
+            opts = {
+                $ jQuery global object
+                cartTableSelector string
+                searchProductSelector string
+                numberBoxSelector string
+            }
 
-            let datatable = $('#product-table').DataTable({
-                "language": {
-                    "url": "//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
-                },
-                columns: [
-                    { data: 'quantity', orderable: false, searchable: false },
-                    { data: 'branch.name' },
-                    { data: 'product.name' },
-                    { data: 'product.category.name' },
-                    { 
-                        data: null,
-                        searchable: null,
-                        orderable: null,
-                        render: function (data, type, row, meta) {
-                            let a =$(
-                            '<a type="submit" class="btn btn-sm btn btn-outline-danger" data-bs-toggle="tooltip" title="Revertir" >'
-                            + '<i class="fa fa-fw fa-rotate-left"></i>'
-                            + '</a>');
-                            
-                            return a.prop('outerHTML');
-                        } 
+        */
+        function Cart(opts) {
+            opts = opts || {};
+            var _this = this;
+            this.onCart = [];
+            this.cartTableSelector = opts.cartTableSelector;
+            this.searchProductSelector = opts.searchProductSelector;
+            this.numberBoxSelector = opts.numberBoxSelector;
+            this.$ = opts.$;
+
+            function make$getter(prop) {
+                return function() {
+                    return _this.$(_this[prop]);
+                };
+            }
+
+            this.cartTable = make$getter('cartTableSelector');
+            this.searchProduct = make$getter('searchProductSelector');
+            this.numberBox = make$getter('numberBoxSelector');
+
+            this.discount = 0.0;
+            this.discountType = '$';
+
+            this.removeButtonHtml = '<a class="btn btn-danger" id="btn-remove-stock"><i class="fa fa-minus"></i></a>';
+
+            this.tbody = function() {
+                return _this.cartTable().find('tbody');
+            };
+
+            this.getRows = function() {
+                var $t = _this.tbody();
+                var arr = $t.find('tr').get();
+                arr.pop();
+                arr.pop();
+                return arr;
+            };
+
+            this.updateRow = function(i) {
+                if (i !== 0 && !i) {
+                    console.error('[Cart] no index given to update, given ' + i);
+                    return;
+                }
+                var data = _this.onCart[i];
+                var rows = _this.getRows();
+                var row;
+                if (i >= rows.length) {
+                    var $tbody = _this.tbody();
+                    var td = '<td></td>';
+                    var tds = td+td+td+td+td;
+                    row = $('<tr>'+tds+'</tr>');
+                    var removeButtonHtml = _this.removeButtonHtml;
+                    var removeButton = _this.$(removeButtonHtml);
+                    
+                    if (rows.length == 0) {
+                        $tbody.prepend(row);
+                    } else {
+                        _this.$(rows[rows.length - 1]).after(row);
                     }
-                ],
-                dom: 'Bfrtip',
-                responsive: true,
-                    columnDefs: [
-                        { responsivePriority: 1, targets: 0 },
-                        { responsivePriority: 2, targets: -1 },
-                        {   targets: 4,
-                            createdCell: function (td, _, data) {
-                                let d = {
-                                    qnt: data.quantity,
-                                    branch_id: data.branch.id,
-                                    product_id: data.product.id,
-                                    reverse: true,
-                                    noReset: true
-                                };
-                                $(td).find('a[title=Revertir]').click(function () {
-                                    window.queryAddStock(1, d);
-                                });
+                    row.children(':last-child').append(removeButton);
+                    removeButton.click(function() {
+                        _this.removeProductById(data.id);
+                    });
+                } else {
+                    row = _this.$(rows[i]);
+                }
+                row.children('td:nth-child(1)').first().text(data.id);
+                row.children('td:nth-child(2)').first().text(data.name);
+                row.children('td:nth-child(3)').first().text(data.n);
+                row.children('td:nth-child(4)').first().text('$ ' + data.total);
+                
+                var actionColumn = row.children('td:nth-child(5)').first();
+                actionColumn.data('cart-data', data);
 
-                            }
-                        }
-                    ],
-                buttons: []
+                _this.updateTotal();
+            };
+
+            this.getTotalRaw = function() {
+                var s = 0;
+                _this.onCart.forEach(function (x) {
+                    s += x.total;
+                });
+                return s;
+            };
+
+            this.getDiscount = function () {
+                if (_this.discountType == '$') {
+                    return _this.discount;
+                } else {
+                    return Math.floor(_this.getTotalRaw()*_this.discount/100.0);
+                }
+            };
+
+            this.updateTotal = function() {
+                var s = _this.getTotalRaw();
+                s -= _this.getDiscount();
+                s = Math.max(0, s);
+
+                var tr = _this.tbody().children('tr:last-child').first();
+                tr.children('td:last-child').text('$ '+s);
+            };
+
+            this.addProduct = function() {
+                var $ = _this.$;
+                var $sp = _this.searchProduct();
+                var data = $sp.select2('data');
+                if (data.length == 0 || (data.length == 1 && !data[0].id && !data[0].text)) {
+                    _this.cartTable().trigger('cart:no-product');
+                    return;
+                }
+                data = data[0];
+
+                var found = null;
+                var foundI = -1;
+                _this.onCart.forEach(function(x, i) {
+                    if (x.id == data.id) {
+                        found = x;
+                        foundI = i;
+                    }
+                });
+
+                var n = parseInt(_this.numberBox().val());
+                if (!found) {
+                    var i = _this.onCart.length;
+                    _this.onCart.push({
+                        id: data.id,
+                        name: data.name,
+                        n: n,
+                        unit_price: data.price,
+                        total: data.price * n
+                    });
+                    _this.updateRow(i);
+                } else {
+                    found.name = data.name;
+                    found.n += n;
+                    found.unit_price = data.price;
+                    found.total = found.n * found.unit_price;
+                    _this.updateRow(foundI);
+                }
+
+            };
+
+            this.removeProductById = function(id) {
+                var i = -1;
+                _this.onCart.forEach(function(x, idx) {
+                    if (x.id == id) {
+                        i = idx;
+                    }
+                });
+                if (i == -1) return;
+                _this.removeProduct(i);
+            };
+
+            this.removeProduct = function(i) {
+                _this.onCart.splice(i, 1);
+                var rows = _this.getRows();
+                $(rows[i]).remove();
+                _this.updateTotal();
+            };
+
+            this.toDict = function() {
+                return {
+                    'products': _this.onCart,
+                    'total': _this.getTotalRaw(),
+                    'discount_amount': _this.getDiscount(),
+                };
+            };
+
+            this.toJson = function() {
+                return JSON.stringify(_this.toDict());
+            };
+        }
+
+
+        jQuery(function ($) {
+            $(document).ready(function () {
+                
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')
+                    }
+                });
+
+                var cart = new Cart({
+                    '$': $,
+                    'cartTableSelector': '#cart-table',
+                    'searchProductSelector': '#select-product',
+                    'numberBoxSelector': '#qnt-product'
+                });
+                window.cart = cart;
+                $('#btn-add-product').click(function() {
+                    cart.addProduct();
+                });
+
+                $('#cart-table').on('cart:no-product', function() {
+                    Swal.fire('Error', 'Falta ingresar un producto', 'error');
+                });
+
+                function getDiscountInput() {
+                    return $('#discount-amount');
+                }
+
+                /**
+                 * Delimits the valid input range, if it less or more than the minimum or maximum, clamp to those values
+                 * Also update the Cart's discountType and discount value
+                 * 
+                 */
+                function makeLimiterForDiscountInput(mn, mx, opSymbol) {
+                    function limiter() {
+                        var $t = $('#discount-amount');
+                        var val = $t.val();
+                        $t.val(Math.max(mn, Math.min(val, mx)));
+                        val = $t.val();
+                        cart.discountType = opSymbol;
+                        cart.discount = val;
+                        cart.updateTotal();
+                    }
+
+                    return function () {
+                        limiter();
+                        getDiscountInput().data('limiter', limiter);
+                    };
+                }
+
+                var amountLimiter = makeLimiterForDiscountInput(0.0, Infinity, '$');
+                var percentLimiter = makeLimiterForDiscountInput(0.0, 100.0, '%');
+                $('#discount-radio-percent').click(percentLimiter);
+                $('#discount-radio-amount').click(amountLimiter);
+                getDiscountInput().change(function() {
+                    var $this = $(this);
+                    $this.data('limiter')();
+                });
+                amountLimiter();
+
+                $('#btn-submit-cart').click(function() {
+                    $.ajax({
+                        method: 'POST',
+                        url: '{{ route('sale.add') }}',
+                        contentType: 'application/json',
+                        data: JSON.stringify($.extend({}, cart.toDict(), { 'branch_id': $('#change-branch-select').val() }))
+                    })
+                    .done(function() {
+                        Swal.fire('Venta realizada', 'La venta fue realizada con exito.', 'success');
+                    })
+                    .fail(function() {
+                        Swal.fire('Error', 'La venta no se pudo realizar.', 'error');
+                    });
+                });
+
             });
-
-
         });
-        </script>
-
-        <script>
-            jQuery(function ($) {
-                $(document).ready(function () {
-                    $('#change-branch-select').select2();
-                });
-            });
-        </script>
-
-        <script>
-            jQuery(function ($) {
-                $(document).ready(function () {
-                    $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')
-                        }
-                    });
-                    function queryAddStock(sign=1, opts={}) {
-                        sign = sign || 1;
-
-                        var $qnt = $('#qnt-product-stock');
-                        var qnt = opts.qnt || $qnt.val() * sign;
-                        var table = $('#product-table').DataTable();
-                        var branch_id = opts.branch_id || $('#change-branch-select').val();
-                        var product_id = opts.product_id || $('#select-product').val();
-
-                        var data = {
-                            quantity: qnt,
-                            branch_id: branch_id,
-                            product_id: product_id,
-                            reverse: opts.reverse,
-                            _token: $('meta[name=csrf-token]').attr('content')
-                        };
-                        $.ajax({
-                            url: '{{ route("stock.add") }}',
-                            dataType: 'json',
-                            method: 'POST',
-                            data: data
-                        })
-                        .done(function (data) {
-                            table.row.add(data).draw();
-
-                            if (!opts.noReset) {
-                                $qnt.val(1);
-                            }
-                        })
-                        .fail(function (jqXHR, textStatus, errorThrown) {
-                            console.log(jqXHR);
-                            document.write(jqXHR.responseText);
-                            alert(textStatus + ' ' + errorThrown);
-                        });
-
-                    }
-
-                    window.queryAddStock = queryAddStock;
-
-                    $('#btn-add-stock').click(function () {
-                        queryAddStock();
-                    });
-                    $('#btn-remove-stock').click(function () {
-                        queryAddStock(-1);
-                    });
-                });
-            });
-        </script>
+    </script>
 
         
 

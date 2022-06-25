@@ -117,7 +117,7 @@ Stacks:
                                     <!-- Modal Actualizar-->
                                     <div class="modal fade modal-update" id="update_item{{ $an_item->id }}" tabindex="-1"
                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog modal-lg">
+                                        <div class="modal-dialog modal-lg modal-dialog-slideleft">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title " id="exampleModalLabel">Actualizar {{ strtolower($nombre_crud) }}
@@ -160,7 +160,7 @@ Stacks:
 
     <!-- Modal Ingresar-->
     <div class="modal fade " id="add_item" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-lg modal-dialog-slideleft">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title " id="exampleModalLabel">Ingresar {{ strtolower($nombre_crud) }}</h5>
@@ -186,7 +186,7 @@ Stacks:
     <!-- Modal Actualizar-->
     <div class="modal fade modal-update" id="update_item" tabindex="-1"
         aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-lg modal-dialog-slideleft">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title " id="exampleModalLabel">Actualizar {{ strtolower($nombre_crud) }}
