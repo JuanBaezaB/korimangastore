@@ -414,6 +414,13 @@
         body {
             font-family: 'Nunito', sans-serif;
         }
+
+        .mangas{
+            max-width: 300px;
+            max-height: 700px;
+            object-fit: contain;
+        }
+
     </style>
 </head>
 
@@ -489,7 +496,7 @@
 
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
 
-            <div class="flex justify-center pt-8 sm:justify-start sm:pt-0 ms-3 me-3">
+            <div class="flex justify-center pt-8 sm:justify-start sm:pt-0 ms-3 me-3 pb-3">
                 <div class="logokori">
                     <a href="#">
                         <img src="/media/login/logokori.png" alt="" width="80px" height="70px">
@@ -499,6 +506,7 @@
                 </div>
             </div>
 
+            <!-- Carrusel -->
             <div class="card dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg mt-4 mb-4">
                 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
                     <div class="carousel-indicators">
@@ -548,10 +556,11 @@
                 </div>
             </div>
 
+            <!-- Productos -->
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                 <div class="col">
                     <div class="card shadow-sm">
-                        <img src="https://thumbs.dreamstime.com/b/libro-gen%C3%A9rico-992522.jpg">
+                        <img class="mangas" src="https://www.normaeditorial.com/upload/media/albumes/0001/17/cdcf47aecb0a210dec3d7cdff3dfbdd2c0a82995.jpeg">
                         <div class="card-body">
                             <h5 class="card-title">El hombre y el gato N° 5</h5>
                             <p class="card-text">$ 9.990</p>
@@ -567,7 +576,7 @@
 
                 <div class="col">
                     <div class="card shadow-sm">
-                        <img src="https://thumbs.dreamstime.com/b/libro-gen%C3%A9rico-992522.jpg">
+                        <img class="mangas" src="https://thumbs.dreamstime.com/b/libro-gen%C3%A9rico-992522.jpg">
                         <div class="card-body">
                             <h5 class="card-title">Captain Tsubasa N° 9</h5>
                             <p class="card-text">$ 12.990</p>
@@ -583,7 +592,7 @@
 
                 <div class="col">
                     <div class="card shadow-sm">
-                        <img src="https://thumbs.dreamstime.com/b/libro-gen%C3%A9rico-992522.jpg">
+                        <img class="mangas" src="https://thumbs.dreamstime.com/b/libro-gen%C3%A9rico-992522.jpg">
                         <div class="card-body">
                             <h5 class="card-title">Mi nueva vida como villana N° 1</h5>
                             <p class="card-text">$ 13.990</p>
@@ -599,7 +608,7 @@
 
                 <div class="col">
                     <div class="card shadow-sm">
-                        <img src="https://thumbs.dreamstime.com/b/libro-gen%C3%A9rico-992522.jpg">
+                        <img class="mangas" src="https://thumbs.dreamstime.com/b/libro-gen%C3%A9rico-992522.jpg">
                         <div class="card-body">
                             <h5 class="card-title">El hombre y el gato N° 1</h5>
                             <p class="card-text">$ 9.990</p>
@@ -615,7 +624,7 @@
 
                 <div class="col">
                     <div class="card shadow-sm">
-                        <img src="https://thumbs.dreamstime.com/b/libro-gen%C3%A9rico-992522.jpg">
+                        <img class="mangas" src="https://thumbs.dreamstime.com/b/libro-gen%C3%A9rico-992522.jpg">
                         <div class="card-body">
                             <h5 class="card-title">El hombre y el gato N° 2</h5>
                             <p class="card-text">$ 9.990</p>
@@ -631,7 +640,7 @@
 
                 <div class="col">
                     <div class="card shadow-sm">
-                        <img src="https://thumbs.dreamstime.com/b/libro-gen%C3%A9rico-992522.jpg">
+                        <img class="mangas" src="https://thumbs.dreamstime.com/b/libro-gen%C3%A9rico-992522.jpg">
                         <div class="card-body">
                             <h5 class="card-title">El hombre y el gato N° 3</h5>
                             <p class="card-text">$ 9.990</p>
