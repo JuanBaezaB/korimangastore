@@ -7,6 +7,8 @@
 
     <title>Kori MangaStore - Home Page</title>
 
+    <link rel="icon" type="image/png" sizes="16x16" href="/media/favicons/favicon.png">
+
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
@@ -14,7 +16,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <!-- MDB 
+    <!-- MDB
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.css" rel="stylesheet"/>
     -->
@@ -28,8 +30,8 @@
         }
 
         body {
-            margin: 0; 
-            
+            margin: 0;
+
             /* Show it is fixed to the top */
             min-height: 75rem;
             padding-top: 3.5rem;
@@ -303,6 +305,7 @@
             grid-template-columns: repeat(1, minmax(0, 1fr))
         }
 
+
         @media (min-width:640px) {
             .sm\:rounded-lg {
                 border-radius: .5rem
@@ -428,67 +431,93 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
         <div class="container-fluid">
+
             <a class="navbar-brand" href="#" style="color: #f7fafc" style="text-decoration-line: none">
                 <img src="/media/login/logonav.png" alt="" width="32" height="28">
                 <b>Kori</b>MangaStore
             </a>
-            <div class="d-inlineflex pe-1">
-                <!-- Authentication Links -->
-                @guest
-                    @if (Route::has('login'))
-                        <a style="color: #fff" class="text-sm btn btn-secondary text-gray-700 dark:text-gray-500 underline"  href="{{ route('login') }}">
-                            <b>
-                                <i class="fa-solid fa-user-plus pe-2"></i>
-                                {{ __('Acceso') }}
-                            </b>
-                        </a>
-                    @endif
 
-                    @if (Route::has('register'))
-                        <a class="text-sm btn btn-warning text-gray-700 dark:text-gray-500 underline" class="nav-link" href="{{ route('register') }}">
-                            <b>
-                                <i class="fa-solid fa-user-plus pe-2"></i>
-                                {{ __('Registro') }}
-                            </b>
-                        </a>
-                    @endif
-                @else
-                     @hasrole('Admin')
-                        <div class="d-inline">
-                            <a href="{{ url('/home') }}" class="text-sm btn btn-info text-gray-700 dark:text-gray-500 underline">
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" style="color: #49F8FF" aria-current="page" href="#">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Mangas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled">Figuras</a>
+                    </li>
+                </ul>
+
+
+                <div class="d-inlineflex pe-1">
+                    <!-- Authentication Links -->
+                    @guest
+                        @if (Route::has('login'))
+                            <a style="color: #fff"
+                                class="text-sm btn btn-secondary text-gray-700 dark:text-gray-500 underline"
+                                href="{{ route('login') }}">
                                 <b>
-                                    <i class="fa-solid fa-chart-line pe-2"></i>
-                                    Dashboard
+                                    <i class="fa-solid fa-user-plus pe-2"></i>
+                                    {{ __('Acceso') }}
                                 </b>
                             </a>
-                        </div>
-                    @endhasrole
-                    <div class="d-inline dropdown">
-                        <a id="navbarDropdown" class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            <b>
-                                {{ Auth::user()->name }}
-                            </b>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('logout') }}"
-                               onclick="event.preventDefault();
+                        @endif
+
+                        @if (Route::has('register'))
+                            <a class="text-sm btn btn-warning text-gray-700 dark:text-gray-500 underline" class="nav-link"
+                                href="{{ route('register') }}">
+                                <b>
+                                    <i class="fa-solid fa-user-plus pe-2"></i>
+                                    {{ __('Registro') }}
+                                </b>
+                            </a>
+                        @endif
+                    @else
+                        @hasrole('Admin')
+                            <div class="d-inline">
+                                <a href="{{ url('/home') }}"
+                                    class="text-sm btn btn-info text-gray-700 dark:text-gray-500 underline">
+                                    <b>
+                                        <i class="fa-solid fa-chart-line pe-2"></i>
+                                        Dashboard
+                                    </b>
+                                </a>
+                            </div>
+                        @endhasrole
+                        <div class="d-inline dropdown">
+                            <a id="navbarDropdown" class="btn btn-secondary dropdown-toggle" href="#" role="button"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <b>
+                                    {{ Auth::user()->name }}
+                                </b>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
-                                <b>
-                                    <i class="fa-solid fa-door-closed"></i>
-                                    {{ __('Cerrar Sesión') }}  
-                                </b>
-                            </a>
+                                    <b>
+                                        <i class="fa-solid fa-door-closed"></i>
+                                        {{ __('Cerrar Sesión') }}
+                                    </b>
+                                </a>
 
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </div>
                         </div>
-                    </div>
-                @endguest
+                    @endguest
+                </div>
             </div>
-        </div>
     </nav>
-
 
     <!-- Contenido -->
     <div
