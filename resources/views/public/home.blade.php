@@ -19,9 +19,8 @@
         }
 
         .presentacion{
-            background-image: url("/media/login/portada2.png");
+            background-image: url("/media/login/portada3.png");
             background-position: center;
-            opacity: 0.5;
         }
 
     </style>
