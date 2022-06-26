@@ -1249,12 +1249,12 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
 /******/ 		var installedChunks = {
 /******/ 			"/js/laravel.app": 0,
+/******/ 			"css/dashmix": 0,
 /******/ 			"css/app": 0,
 /******/ 			"css/themes/xsmooth": 0,
 /******/ 			"css/themes/xmodern": 0,
 /******/ 			"css/themes/xinspire": 0,
 /******/ 			"css/themes/xeco": 0,
-/******/ 			"css/dashmix": 0,
 /******/ 			"css/themes/xplay": 0,
 /******/ 			"css/themes/xpro": 0,
 /******/ 			"css/themes/xdream": 0,
@@ -1308,17 +1308,17 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["css/app","css/themes/xsmooth","css/themes/xmodern","css/themes/xinspire","css/themes/xeco","css/dashmix","css/themes/xplay","css/themes/xpro","css/themes/xdream","css/themes/xwork"], () => (__webpack_require__("./resources/js/app.js")))
-/******/ 	__webpack_require__.O(undefined, ["css/app","css/themes/xsmooth","css/themes/xmodern","css/themes/xinspire","css/themes/xeco","css/dashmix","css/themes/xplay","css/themes/xpro","css/themes/xdream","css/themes/xwork"], () => (__webpack_require__("./resources/sass/main.scss")))
-/******/ 	__webpack_require__.O(undefined, ["css/app","css/themes/xsmooth","css/themes/xmodern","css/themes/xinspire","css/themes/xeco","css/dashmix","css/themes/xplay","css/themes/xpro","css/themes/xdream","css/themes/xwork"], () => (__webpack_require__("./resources/sass/dashmix/themes/xeco.scss")))
-/******/ 	__webpack_require__.O(undefined, ["css/app","css/themes/xsmooth","css/themes/xmodern","css/themes/xinspire","css/themes/xeco","css/dashmix","css/themes/xplay","css/themes/xpro","css/themes/xdream","css/themes/xwork"], () => (__webpack_require__("./resources/sass/dashmix/themes/xinspire.scss")))
-/******/ 	__webpack_require__.O(undefined, ["css/app","css/themes/xsmooth","css/themes/xmodern","css/themes/xinspire","css/themes/xeco","css/dashmix","css/themes/xplay","css/themes/xpro","css/themes/xdream","css/themes/xwork"], () => (__webpack_require__("./resources/sass/dashmix/themes/xmodern.scss")))
-/******/ 	__webpack_require__.O(undefined, ["css/app","css/themes/xsmooth","css/themes/xmodern","css/themes/xinspire","css/themes/xeco","css/dashmix","css/themes/xplay","css/themes/xpro","css/themes/xdream","css/themes/xwork"], () => (__webpack_require__("./resources/sass/dashmix/themes/xsmooth.scss")))
-/******/ 	__webpack_require__.O(undefined, ["css/app","css/themes/xsmooth","css/themes/xmodern","css/themes/xinspire","css/themes/xeco","css/dashmix","css/themes/xplay","css/themes/xpro","css/themes/xdream","css/themes/xwork"], () => (__webpack_require__("./resources/sass/dashmix/themes/xwork.scss")))
-/******/ 	__webpack_require__.O(undefined, ["css/app","css/themes/xsmooth","css/themes/xmodern","css/themes/xinspire","css/themes/xeco","css/dashmix","css/themes/xplay","css/themes/xpro","css/themes/xdream","css/themes/xwork"], () => (__webpack_require__("./resources/sass/dashmix/themes/xdream.scss")))
-/******/ 	__webpack_require__.O(undefined, ["css/app","css/themes/xsmooth","css/themes/xmodern","css/themes/xinspire","css/themes/xeco","css/dashmix","css/themes/xplay","css/themes/xpro","css/themes/xdream","css/themes/xwork"], () => (__webpack_require__("./resources/sass/dashmix/themes/xpro.scss")))
-/******/ 	__webpack_require__.O(undefined, ["css/app","css/themes/xsmooth","css/themes/xmodern","css/themes/xinspire","css/themes/xeco","css/dashmix","css/themes/xplay","css/themes/xpro","css/themes/xdream","css/themes/xwork"], () => (__webpack_require__("./resources/sass/dashmix/themes/xplay.scss")))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/app","css/themes/xsmooth","css/themes/xmodern","css/themes/xinspire","css/themes/xeco","css/dashmix","css/themes/xplay","css/themes/xpro","css/themes/xdream","css/themes/xwork"], () => (__webpack_require__("./resources/sass/app.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css/dashmix","css/app","css/themes/xsmooth","css/themes/xmodern","css/themes/xinspire","css/themes/xeco","css/themes/xplay","css/themes/xpro","css/themes/xdream","css/themes/xwork"], () => (__webpack_require__("./resources/js/app.js")))
+/******/ 	__webpack_require__.O(undefined, ["css/dashmix","css/app","css/themes/xsmooth","css/themes/xmodern","css/themes/xinspire","css/themes/xeco","css/themes/xplay","css/themes/xpro","css/themes/xdream","css/themes/xwork"], () => (__webpack_require__("./resources/sass/main.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css/dashmix","css/app","css/themes/xsmooth","css/themes/xmodern","css/themes/xinspire","css/themes/xeco","css/themes/xplay","css/themes/xpro","css/themes/xdream","css/themes/xwork"], () => (__webpack_require__("./resources/sass/dashmix/themes/xeco.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css/dashmix","css/app","css/themes/xsmooth","css/themes/xmodern","css/themes/xinspire","css/themes/xeco","css/themes/xplay","css/themes/xpro","css/themes/xdream","css/themes/xwork"], () => (__webpack_require__("./resources/sass/dashmix/themes/xinspire.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css/dashmix","css/app","css/themes/xsmooth","css/themes/xmodern","css/themes/xinspire","css/themes/xeco","css/themes/xplay","css/themes/xpro","css/themes/xdream","css/themes/xwork"], () => (__webpack_require__("./resources/sass/dashmix/themes/xmodern.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css/dashmix","css/app","css/themes/xsmooth","css/themes/xmodern","css/themes/xinspire","css/themes/xeco","css/themes/xplay","css/themes/xpro","css/themes/xdream","css/themes/xwork"], () => (__webpack_require__("./resources/sass/dashmix/themes/xsmooth.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css/dashmix","css/app","css/themes/xsmooth","css/themes/xmodern","css/themes/xinspire","css/themes/xeco","css/themes/xplay","css/themes/xpro","css/themes/xdream","css/themes/xwork"], () => (__webpack_require__("./resources/sass/dashmix/themes/xwork.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css/dashmix","css/app","css/themes/xsmooth","css/themes/xmodern","css/themes/xinspire","css/themes/xeco","css/themes/xplay","css/themes/xpro","css/themes/xdream","css/themes/xwork"], () => (__webpack_require__("./resources/sass/dashmix/themes/xdream.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css/dashmix","css/app","css/themes/xsmooth","css/themes/xmodern","css/themes/xinspire","css/themes/xeco","css/themes/xplay","css/themes/xpro","css/themes/xdream","css/themes/xwork"], () => (__webpack_require__("./resources/sass/dashmix/themes/xpro.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css/dashmix","css/app","css/themes/xsmooth","css/themes/xmodern","css/themes/xinspire","css/themes/xeco","css/themes/xplay","css/themes/xpro","css/themes/xdream","css/themes/xwork"], () => (__webpack_require__("./resources/sass/dashmix/themes/xplay.scss")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/dashmix","css/app","css/themes/xsmooth","css/themes/xmodern","css/themes/xinspire","css/themes/xeco","css/themes/xplay","css/themes/xpro","css/themes/xdream","css/themes/xwork"], () => (__webpack_require__("./resources/sass/app.scss")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()
