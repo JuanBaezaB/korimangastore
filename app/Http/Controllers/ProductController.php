@@ -224,7 +224,7 @@ class ProductController extends Controller
             }
             DB::commit();
         } catch(\Throwable $th) {
-            DB::commit();
+            DB::rollBack();
             throw $th;
         }
         return redirect()->route('product.list')
