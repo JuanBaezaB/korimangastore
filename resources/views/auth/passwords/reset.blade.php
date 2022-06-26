@@ -1,5 +1,6 @@
 @extends('layouts.master')
 
+@section('title') {{'Restablecer contraseña'}} @endsection
 
 @section('content')
     <!-- Page Content -->

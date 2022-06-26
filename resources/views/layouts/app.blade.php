@@ -1,94 +1,63 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <!-- Icons -->
+
+    <title>Korimangastore - @yield('title')</title>
+
+    <!-- favicons -->
     <link rel="shortcut icon" href="{{ asset('media/favicons/kori/favicon-32x32.png') }}">
-    <link rel="icon" sizes="192x192" type="image/png" href="{{ asset('media/favicons/kori/android-chrome-192x192.png') }}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{{asset('media/favicons/kori/apple-touch-icon.png')}}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{asset('media/favicons/kori/favicon-32x32.png')}}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{asset('media/favicons/kori/favicon-16x16.png')}}">
-    <link rel="manifest" href="{{asset('media/favicons/kori/site.webmanifest')}}">
-    <link rel="mask-icon" href="{{asset('media/favicons/kori/safari-pinned-tab.svg')}}" color="#5bbad5">
+    <link rel="icon" sizes="192x192" type="image/png"
+        href="{{ asset('media/favicons/kori/android-chrome-192x192.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('media/favicons/kori/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('media/favicons/kori/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('media/favicons/kori/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ asset('media/favicons/kori/site.webmanifest') }}">
+    <link rel="mask-icon" href="{{ asset('media/favicons/kori/safari-pinned-tab.svg') }}" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <!-- Icons-->
+    <link rel="stylesheet" id="css-main" href="{{ asset('/fonts/fontawesome-free/css/all.css') }}">
 
     <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Styles -->
+    @yield('css_before')
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/laravel.app.js') }}" defer></script>
+    <script>
+        window.Laravel = {!! json_encode(['csrfToken' => csrf_token()]) !!};
+    </script>
+
 </head>
+
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
+    @include('layouts.navbar-app')
 
-                    </ul>
+    <main class="py-4">
+        @yield('content')
+    </main>
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Acceso') }}</a>
-                                </li>
-                            @endif
+    @include('layouts.footer-app')
 
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Registro') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
+    @yield('js_after')
 
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <main class="py-4">
-            @yield('content')
-        </main>
-    </div>
 </body>
+
 </html>

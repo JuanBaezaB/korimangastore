@@ -14,23 +14,27 @@
    <link rel="mask-icon" href="{{asset('media/favicons/kori/safari-pinned-tab.svg')}}" color="#5bbad5">
    <meta name="msapplication-TileColor" content="#ffffff">
    <meta name="theme-color" content="#ffffff">
-    <!-- Fonts -->
-    <link rel="stylesheet" id="css-main" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,400i,600,700">
+
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Kori @yield('title')</title>
-
+    <title>Korimangastore - @yield('title')</title>
 
 
     <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Styles -->
     <link rel="stylesheet" id="css-main" href="{{ mix('css/dashmix.css') }}">
     <link rel="stylesheet" id="css-main" href="{{ asset('/fonts/fontawesome-free/css/all.css') }}">
+
+    <!-- Scripts -->
+    <script>
+        window.Laravel = {!! json_encode(['csrfToken' => csrf_token()]) !!};
+    </script>
 
 </head>
 <body>

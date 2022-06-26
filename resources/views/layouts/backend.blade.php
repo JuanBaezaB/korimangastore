@@ -5,11 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
-    <title>Kori - Admin</title>
+    <title>Korimangastore - @yield('title')</title>
 
     <meta name="description"
         content="Es una tienda dedicada a la venta de mangas.">
-    <meta name="author" content="pixelcave">
+    <meta name="author" content="">
     <meta name="robots" content="noindex, nofollow">
 
     <!-- CSRF Token -->
@@ -27,10 +27,14 @@
     <meta name="theme-color" content="#ffffff">
 
 
-    <!-- Fonts and Styles -->
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
     @yield('css_before')
     @stack('css_before_stack')
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" id="css-main" href="{{ mix('css/dashmix.css') }}">
     <link rel="stylesheet" id="css-main" href="{{ asset('/fonts/fontawesome-free/css/all.css') }}">
 
@@ -361,7 +365,7 @@
             <div class="js-sidebar-scroll">
                 <!-- Side Navigation -->
                 <div class="content-side content-side-full">
-                    <ul class="nav-main">         
+                    <ul class="nav-main">
                         @include('layouts.navbar-backend')
                     </ul>
                 </div>
