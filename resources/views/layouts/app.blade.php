@@ -28,8 +28,12 @@
     <!-- Icons-->
     <link rel="stylesheet" id="css-main" href="{{ asset('/fonts/fontawesome-free/css/all.css') }}">
 
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Fonts and Styles -->
+    <!-- Styles -->
     @yield('css_before')
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
