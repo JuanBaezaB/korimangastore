@@ -1,4 +1,7 @@
 @extends('layouts.master')
+
+@section('title') {{'Restablecer contraseña'}} @endsection
+
 @section('content')
     <!-- Page Content -->
     <div class="bg-image" style="background-image: url('/media/login/fondo2.jpg');">

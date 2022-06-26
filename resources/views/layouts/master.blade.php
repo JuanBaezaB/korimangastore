@@ -20,8 +20,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Kori @yield('title')</title>
-
+    <title>Korimangastore - @yield('title')</title>
 
 
     <!-- Fonts -->
@@ -31,6 +30,11 @@
     <!-- Styles -->
     <link rel="stylesheet" id="css-main" href="{{ mix('css/dashmix.css') }}">
     <link rel="stylesheet" id="css-main" href="{{ asset('/fonts/fontawesome-free/css/all.css') }}">
+
+    <!-- Scripts -->
+    <script>
+        window.Laravel = {!! json_encode(['csrfToken' => csrf_token()]) !!};
+    </script>
 
 </head>
 <body>

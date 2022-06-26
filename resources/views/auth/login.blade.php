@@ -1,5 +1,7 @@
 @extends('layouts.master')
 
+@section('title') {{'Login'}} @endsection
+
 @section('content')
     <div class="bg-image" style="background-image: url('/media/login/fondo2.jpg');">
         <div class="row g-0 bg-login-op">

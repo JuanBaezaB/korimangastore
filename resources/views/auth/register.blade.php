@@ -1,5 +1,7 @@
 @extends('layouts.master')
 
+@section('title') {{'Register'}} @endsection
+
 @section('content')
     <!-- Page Content -->
     <div class="bg-image" style="background-image: url('/media/register/FondoRegister.jpg');">
