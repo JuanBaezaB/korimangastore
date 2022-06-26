@@ -14,6 +14,7 @@ use App\Models\Format;
 use App\Models\Manga;
 use App\Models\FigureType;
 use App\Models\Figure;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -179,6 +180,7 @@ class ProductController extends Controller
         /*if ($validator->fails()) {
             dd($validator);
         }*/
+        DB::beginTransaction();
         try {
 
             $datos = request()->except(['_token']);
@@ -220,9 +222,10 @@ class ProductController extends Controller
                 $figure->save();
 
             }
-
+            DB::commit();
         } catch(\Throwable $th) {
-            dd($th);
+            DB::commit();
+            throw $th;
         }
         return redirect()->route('product.list')
             ->with('success', 'created');
@@ -284,11 +287,14 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $validator = Validator::make($request->all(), self::makeRules($request));
+        $validator->validate();
+
         $data = request()->except(['_token', '_method']);
         $data = collect($data);
         
+        DB::beginTransaction();
         try {
-            // TODO: validacion
             $categoryId = $data->get('category_id');
 
             $productData = $data->only([
@@ -354,11 +360,10 @@ class ProductController extends Controller
                 $figure->save();
 
             }
-
+            DB::commit();
         } catch (\Throwable $th) {
-            return response()->json([
-                'text' => $th->getMessage()
-            ]);
+            DB::rollBack();
+            throw $th;
         }
 
         return redirect()->route('product.list')
