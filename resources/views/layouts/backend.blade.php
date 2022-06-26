@@ -9,7 +9,7 @@
 
     <meta name="description"
         content="Es una tienda dedicada a la venta de mangas.">
-    <meta name="author" content="pixelcave">
+    <meta name="author" content="">
     <meta name="robots" content="noindex, nofollow">
 
     <!-- CSRF Token -->
