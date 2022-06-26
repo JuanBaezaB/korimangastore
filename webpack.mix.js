@@ -22,6 +22,7 @@ mix
     .sass('resources/sass/dashmix/themes/xdream.scss', 'public/css/themes/')
     .sass('resources/sass/dashmix/themes/xpro.scss', 'public/css/themes/')
     .sass('resources/sass/dashmix/themes/xplay.scss', 'public/css/themes/')
+    .sass('resources/sass/app.scss', 'public/css')
 
     /* JS */
     .js('resources/js/app.js', 'public/js/laravel.app.js')
@@ -31,6 +32,7 @@ mix
     .js('resources/js/pages/tables_datatables.js', 'public/js/pages/tables_datatables.js')
     .js('resources/js/pages/update_modal.js', 'public/js/pages/update_modal.js')
 
+    .sourceMaps()
     /* Tools */
     .browserSync('localhost:8000')
     .disableNotifications()
