@@ -18,6 +18,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SaleController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,14 +31,10 @@ use App\Http\Controllers\SaleController;
 |
 */
 
-Route::get('/', function () {
-    return view('public.welcome');
-});
-
+Route::get('/', [HomeController::class, 'index'])->name('index.home');
 
 
 Auth::routes();
-
 
 
 Route::view('/forms/be_forms_elements', 'admin.forms.be_forms_elements')->middleware('auth');
@@ -54,7 +51,6 @@ Route::group(['middleware' => ['role:Admin|Vendedor']], function () {
     /*Dashboard*/
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('index.graphic');
 
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     /* Producto */
     Route::get('/gestion-de-productos/producto', [ProductController::class, 'index'])->name('product.list')->middleware('can:product.list');
     Route::get('/gestion-de-productos/producto/crear', [ProductController::class, 'create'])->name('product.create')->middleware('can:product.modify');
