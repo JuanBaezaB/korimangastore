@@ -50,7 +50,7 @@
 
     @include('layouts.navbar-app')
 
-    <main class="py-4">
+    <main class="py-1">
         @yield('content')
     </main>
 
