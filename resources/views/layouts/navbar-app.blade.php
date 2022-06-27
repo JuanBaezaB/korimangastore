@@ -32,29 +32,29 @@
                 @guest
                     @if (Route::has('login'))
                         <a style="color: #fff"
-                            class="text-sm btn btn-secondary text-gray-700 dark:text-gray-500 underline"
+                            class="text-sm btn btn-outline-info text-gray-700 dark:text-gray-500 underline me-2"
                             href="{{ route('login') }}">
                             <b>
-                                <i class="fa-solid fa-user-plus pe-2"></i>
-                                {{ __('Acceso') }}
+                                <i class="fa-solid fa-right-to-bracket pe-2"></i>
+                                {{ __('Inicia Sesión') }}
                             </b>
                         </a>
                     @endif
 
                     @if (Route::has('register'))
-                        <a class="text-sm btn btn-warning text-gray-700 dark:text-gray-500 underline" class="nav-link"
+                        <a class="text-sm btn btn-outline-warning text-gray-700 dark:text-gray-500 underline" class="nav-link"
                             href="{{ route('register') }}">
                             <b>
                                 <i class="fa-solid fa-user-plus pe-2"></i>
-                                {{ __('Registro') }}
+                                {{ __('Registrate') }}
                             </b>
                         </a>
                     @endif
                 @else
                     @hasrole('Admin')
                         <div class="d-inline">
-                            <a href="{{ url('/home') }}"
-                                class="text-sm btn btn-info text-gray-700 dark:text-gray-500 underline">
+                            <a href="{{ url('/dashboard') }}"
+                                class="text-sm btn btn-outline-light text-gray-700 dark:text-gray-500 underline me-2">
                                 <b>
                                     <i class="fa-solid fa-chart-line pe-2"></i>
                                     Dashboard
@@ -63,18 +63,36 @@
                         </div>
                     @endhasrole
                     <div class="d-inline dropdown">
-                        <a id="navbarDropdown" class="btn btn-secondary dropdown-toggle" href="#" role="button"
+                        <a id="navbarDropdown" class="btn btn-outline-info dropdown-toggle" href="#" role="button"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             <b>
+                                <i class="fa-solid fa-circle-user pe-2"></i>
                                 {{ Auth::user()->name }}
                             </b>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <!-- Option -->
+                            <li><a class="dropdown-item" href="#">
+                                <b>
+                                    <i class="fa-solid fa-user-gear pe-2"></i>
+                                    Configurar mi perfil
+                                </b></a>
+                            </li>
+                            
+                            <!-- Option -->
+                            <li><a class="dropdown-item" href="#">
+                                <b>
+                                    <i class="fa-solid fa-box-archive pe-2"></i>
+                                    Mis reservas
+                                </b></a>
+                            </li>
+
+                            <!-- Option -->
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                                          document.getElementById('logout-form').submit();">
-                                <b>
-                                    <i class="fa-solid fa-door-closed"></i>
+                                <b class="text-danger">
+                                    <i class="fa-solid fa-right-from-bracket pe-2"></i>
                                     {{ __('Cerrar Sesión') }}
                                 </b>
                             </a>
