@@ -44,7 +44,10 @@ Route::view('/forms/be_forms_plugins', 'admin.forms.be_forms_plugins')->middlewa
 Route::view('/forms/be_forms_editors', 'admin.forms.be_forms_editors')->middleware('auth');
 Route::view('/forms/be_forms_validation', 'admin.forms.be_forms_validation')->middleware('auth');
 
-
+Route::view('/importar', 'admin.product_management.import_products')->name('product.import');
+Route::post('/importar-manga', [ProductController::class, 'mangaimport'])->name('product.mangaimport');
+Route::post('/importar-product', [ProductController::class, 'productimport'])->name('product.genericimport');
+Route::post('/importar-figure', [ProductController::class, 'figureimport'])->name('product.figureimport');
 
 Route::group(['middleware' => ['role:Admin|Vendedor']], function () {
 
