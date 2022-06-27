@@ -18,11 +18,35 @@
                 <li class="nav-item">
                     <a class="nav-link active" style="color: #49F8FF" aria-current="page" href="#">Inicio</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Mangas</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Mangas
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                        <li><p class="dropdown-item disabled"><b>Categorías:</b></p></li>
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Series
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                      <li><a class="dropdown-item" href="#">Action</a></li>
+                      <li><a class="dropdown-item" href="#">Another action</a></li>
+                      <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link disabled">Figuras</a>
+                    <a class="nav-link">Figuras</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link">Promociones</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link">Nosotros</a>
                 </li>
             </ul>
 
