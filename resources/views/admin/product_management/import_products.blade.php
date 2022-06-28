@@ -52,16 +52,6 @@
                 <h3 class="block-title">{{ 'Importar' }}</h3>
             </div>
             <div class="block-content block-content-full">
-                @if ($errors->any())
-                    <ul>
-                        <div id="ERROR_COPY" style="display: none" class="alert alert-danger">
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }} <br></li>
-                            @endforeach
-                        </div>
-                    </ul>
-                    <br />
-                @endif
                 <h2 class="content-heading pt-0">Manga</h2>
                 <div class="row push">
                     <div class="col-lg-4">
@@ -99,8 +89,7 @@
                         </p>
                     </div>
                     <div class="col-lg-8 col-xl-5">
-                        <form id="form-figure" class=""
-                            enctype="multipart/form-data" method="POST">
+                        <form id="form-figure" class="" enctype="multipart/form-data" method="POST">
                             @csrf
                             <div class="mb-3">
                                 <label class="form-label">Importar productos tipo figura:</label>
@@ -129,8 +118,7 @@
                         </p>
                     </div>
                     <div class="col-lg-8 col-xl-5 overflow-hidden">
-                        <form id="form-product" class=""
-                            enctype="multipart/form-data" method="POST">
+                        <form id="form-product" class="" enctype="multipart/form-data" method="POST">
                             @csrf
                             <div class="mb-3">
                                 <label class="form-label">Importar productos genericos:</label>
@@ -183,18 +171,6 @@
             }
         });
 
-        @if ($errors->any())
-            toast.fire({
-                title: 'Error',
-                icon: 'error',
-                html: jQuery("#ERROR_COPY").html(),
-                showCloseButton: true,
-            });
-
-        @endif
-
-
-
         $(document).ready(function(e) {
             $('#upload-modal').hide();
 
@@ -207,7 +183,7 @@
                     }
                 });
                 $.ajax({
-                    type: 'POST',
+                    method: 'POST',
                     url: "{{ route('product.mangaimport') }}",
                     data: formData,
                     cache: false,
@@ -229,16 +205,26 @@
                         });
                         //this.reset();
                     },
-                    error: function(err) {
-                        toast.fire({
-                            title: "¡Error!",
-                            text: "Hubo un problema al subir planilla.",
-                            icon: "error",
-                            buttons: [
-                                'Aceptar'
-                            ]
+                    error: function(response) {
+                        response = response.responseJSON;
+                        console.log(response);
+                        var $div = $('<div class="d-none alert alert-danger"><ul></ul></div>');
+                        var $ul = $div.find('ul');
+                        var errors = response.errors;
+
+                        errors.forEach(function(suberrors) {
+                            suberrors = suberrors[0];
+                            var $li = $('<li>');
+                            $li.text(suberrors);
+                            $ul.append($li);
                         });
-                        console.log(err);
+                        toast.fire({
+                            title: "¡Error! Hubo un problema al subir planilla.",
+                            icon: "error",
+                            html: $div.html()
+                        });
+
+                        console.log(response);
                         console.log("Fallo la importacion");
                     },
                     complete: function() {
@@ -279,16 +265,26 @@
                         });
                         //this.reset();
                     },
-                    error: function(err) {
-                        toast.fire({
-                            title: "¡Error!",
-                            text: "Hubo un problema al subir planilla.",
-                            icon: "error",
-                            buttons: [
-                                'Aceptar'
-                            ]
+                    error: function(response) {
+                        response = response.responseJSON;
+                        console.log(response);
+                        var $div = $('<div class="d-none alert alert-danger"><ul></ul></div>');
+                        var $ul = $div.find('ul');
+                        var errors = response.errors;
+
+                        errors.forEach(function(suberrors) {
+                            suberrors = suberrors[0];
+                            var $li = $('<li>');
+                            $li.text(suberrors);
+                            $ul.append($li);
                         });
-                        console.log(err);
+                        toast.fire({
+                            title: "¡Error! Hubo un problema al subir planilla.",
+                            icon: "error",
+                            html: $div.html()
+                        });
+
+                        console.log(response);
                         console.log("Fallo la importacion");
                     },
                     complete: function() {
@@ -328,16 +324,26 @@
                         });
                         //this.reset();
                     },
-                    error: function(err) {
-                        toast.fire({
-                            title: "¡Error!",
-                            text: "Hubo un problema al subir planilla.",
-                            icon: "error",
-                            buttons: [
-                                'Aceptar'
-                            ]
+                    error: function(response) {
+                        response = response.responseJSON;
+                        console.log(response);
+                        var $div = $('<div class="d-none alert alert-danger"><ul></ul></div>');
+                        var $ul = $div.find('ul');
+                        var errors = response.errors;
+
+                        errors.forEach(function(suberrors) {
+                            suberrors = suberrors[0];
+                            var $li = $('<li>');
+                            $li.text(suberrors);
+                            $ul.append($li);
                         });
-                        console.log(err);
+                        toast.fire({
+                            title: "¡Error! Hubo un problema al subir planilla.",
+                            icon: "error",
+                            html: $div.html()
+                        });
+
+                        console.log(response);
                         console.log("Fallo la importacion");
                     },
                     complete: function() {
