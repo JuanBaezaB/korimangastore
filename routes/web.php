@@ -72,7 +72,7 @@ Route::group(['middleware' => ['role:Admin|Vendedor']], function () {
 
     /* Sales */
     Route::get('/area-de-ventas/venta', [SaleController::class, 'index'])->name('sale.list')->middleware('can:sale.list');
-    Route::post('/area-de-ventas/venta', [SaleController::class, 'list'])->name('sale.data_table')->middleware('can:sale.modify');
+    Route::post('/area-de-ventas/venta', [SaleController::class, 'list'])->name('sale.data_table')->middleware('can:sale.list');
     Route::get('/area-de-ventas/venta/sucursal/{id}', [SaleController::class, 'index'])->name('sale.get_one')->middleware('can:sale.modify');
     Route::get('/area-de-ventas/venta/crear', [SaleController::class, 'create'])->name('sale.create')->middleware('can:sale.modify');
     Route::post('/area-de-ventas/venta/agregar', [SaleController::class, 'store'])->name('sale.add')->middleware('can:sale.modify');
