@@ -15,12 +15,8 @@ use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Concerns\SkipsErrors;
 use Maatwebsite\Excel\Concerns\SkipsOnError;
-use Maatwebsite\Excel\Concerns\SkipsFailures;
-use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Throwable;
 
 class FigureImport implements ToCollection, WithHeadingRow, SkipsOnError, WithValidation
@@ -95,9 +91,9 @@ class FigureImport implements ToCollection, WithHeadingRow, SkipsOnError, WithVa
     public function rules(): array {
         return [
             "*.nombre" => ['required', 'string', 'max:255'],
-            "*.decripcion" => ['nullable', 'string', 'max:255'],
-            "*.precio" => ['required'],
-            "*.proveedor" => ['required'],
+            "*.decripcion" => ['nullable', 'string', 'max:2000'],
+            "*.precio" => ['required','numeric','min:0','max:1000000'],
+            "*.proveedor" => ['nullable'],
             "*.serie" => ['required'],
             "*.tipo" => ['required'],
             "*.sucursal" => ['required'],

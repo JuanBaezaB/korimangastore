@@ -65,7 +65,7 @@ Route::group(['middleware' => ['role:Admin|Vendedor']], function () {
 
     /* Stock */
     Route::get('/gestion-de-inventario/stock', [StockController::class, 'index'])->name('stock.list')->middleware('can:stock.list');
-    Route::post('/gestion-de-inventario/stock', [StockController::class, 'list'])->name('stock.data_table')->middleware('can:stock.modify');
+    Route::post('/gestion-de-inventario/stock', [StockController::class, 'list'])->name('stock.data_table')->middleware('can:stock.list');
     Route::get('/gestion-de-inventario/stock/sucursal/{id}', [StockController::class, 'index'])->name('stock.get_one')->middleware('can:stock.modify');
     Route::get('/gestion-de-inventario/stock/crear', [StockController::class, 'create'])->name('stock.create')->middleware('can:stock.modify');
     Route::post('/gestion-de-inventario/stock/agregar', [StockController::class, 'store'])->name('stock.add')->middleware('can:stock.modify');

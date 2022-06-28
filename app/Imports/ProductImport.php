@@ -10,11 +10,14 @@ use App\Models\Serie;
 
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
+use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
-use Illuminate\Validation\Rule;
+use Maatwebsite\Excel\Concerns\SkipsErrors;
+use Maatwebsite\Excel\Concerns\SkipsOnError;
+class ProductImport implements ToCollection, WithHeadingRow, SkipsOnError, WithValidation {
 
-class ProductImport implements ToCollection, WithHeadingRow{
+    use Importable, SkipsErrors;
     /**
      * @param Collection $collection
      */
@@ -71,5 +74,17 @@ class ProductImport implements ToCollection, WithHeadingRow{
                 }
             }
         }
+    }
+    public function rules(): array {
+        return [
+            "*.nombre" => ['required', 'string', 'max:255'],
+            "*.decripcion" => ['nullable', 'string', 'max:2000'],
+            "*.precio" => ['required','numeric','min:0','max:1000000'],
+            "*.categoria" => ['required'],
+            "*.proveedor" => ['nullable'],
+            "*.serie" => ['required'],
+            "*.sucursal" => ['required'],
+            "*.stock" => ['required'],
+        ];
     }
 }

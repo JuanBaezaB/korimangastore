@@ -410,20 +410,22 @@ class ProductController extends Controller
     public function mangaimport(Request $request) {
         if ($request->hasFile('file')) {
             $file = $request->file('file');
-            Excel::import(new MangaImport, $file);
+            $import = new MangaImport;
+            $import->import($file);
 
-            return redirect()->route('product.list')
-            ->with('success', 'imported');
+            //$import->errors();
+            return Response()->json(['response' => 'Excel cargado exitosamente!']);
         }
     }
 
     public function productimport(Request $request) {
         if ($request->hasFile('file')) {
             $file = $request->file('file');
-            Excel::import(new ProductImport, $file);
+            $import = new ProductImport;
+            $import->import($file);
 
-            return redirect()->route('product.list')
-            ->with('success', 'imported');
+            //$import->errors();
+            return Response()->json(['response' => 'Excel cargado exitosamente!']);
         }
     }
 
@@ -433,10 +435,8 @@ class ProductController extends Controller
             $import = new FigureImport;
             $import->import($file);
 
-            //dd($import->errors());
-
-            return redirect()->route('product.list')
-            ->with('success', 'imported');
+            //$import->errors();
+            return Response()->json(['response' => 'Excel cargado exitosamente!']);
         }
     }
 }
