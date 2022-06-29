@@ -94,6 +94,7 @@ $validation_messages = [
 @endsection
 
 @section('breadcrumb')
+    <li class="breadcrumb-item">Gestión base</li>
     <li class="breadcrumb-item">Gestión de usuarios</li>
     <li class="breadcrumb-item active" aria-current="page">Usuarios</li>
 @endsection

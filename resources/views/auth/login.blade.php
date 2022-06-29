@@ -10,12 +10,12 @@
                 <div class="p-3 w-100">
                     <!-- Header -->
                     <div class="mb-3 text-center">
-                        <a href="index.html">
+                        <a href="/">
                             <div class="logokori">
                                 <img src="/media/login/logokori.png" alt="" width="20%" height="20%">
                             </div>
                         </a>
-                        <a class="link-fx fw-bold fs-1" href="index.html">
+                        <a class="link-fx fw-bold fs-1" href="/">
                             <span class="text-dark">Kori</span><span class="text-primary">MangaStore</span>
                         </a>
                         <p class="text-uppercase fw-bold fs-sm text-muted">Inicia sesión</p>

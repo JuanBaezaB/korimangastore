@@ -9,12 +9,12 @@
     <div class="bg-body-light">
         <div class="content content-full">
             <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
-                <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3">Añadir Producto</h1>
+                <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3">Añadir producto</h1>
                 <nav class="flex-shrink-0 my-2 my-sm-0 ms-sm-3" aria-label="breadcrumb">
                     <ol class="breadcrumb">
-
-                        <li class="breadcrumb-item active" aria-current="page">Productos</li>
-                        <li class="breadcrumb-item active" aria-current="page">Gestion de Producto</li>
+                        <li class="breadcrumb-item" aria-current="page">Gestión de Productos</li>
+                        <li class="breadcrumb-item">Productos</li> 
+                        <li class="breadcrumb-item active">Añadir nuevo</li> 
                     </ol>
                 </nav>
             </div>
@@ -186,7 +186,7 @@
                     </div>
 
                     <div class="mb-3 text-end" >
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <a type="button" class="btn btn-secondary" href="{{ route('product.list') }}">Cancelar</a>
                         <button type="submit" class="btn btn-primary">{{ empty($is_edit) ? 'Añadir' : 'Actualizar'}}</button>
                     </div>
                 </form>
