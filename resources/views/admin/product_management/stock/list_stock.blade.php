@@ -1,5 +1,9 @@
 @extends('layouts.backend')
 
+@section('title')
+    {{ 'Listado stock' }}
+@endsection
+
 @section('css_after')
     <meta name="the_branch" content="{{ isset($the_branch->id) ? $the_branch->id : '' }}">
 
@@ -23,7 +27,7 @@
                     </ol>
                 </nav>
             </div>
-           
+
         </div>
     </div>
     <!-- END Hero -->
@@ -95,8 +99,8 @@
 
             let firstColumn;
             if (!the_branch_id) {
-                firstColumn = { 
-                    data: null, 
+                firstColumn = {
+                    data: null,
                     render: null,
                     className: 'dt-control',
                     defaultContent: '',
@@ -104,7 +108,7 @@
                     orderable: null
                 };
             } else {
-                firstColumn = { 
+                firstColumn = {
                     data: null
                 };
             }
@@ -127,7 +131,7 @@
                     { data: 'name' },
                     { data: 'category.name' },
                     { data: 'price' },
-                    { 
+                    {
                         data: null,
                         searchable: null,
                         orderable: null,
@@ -136,7 +140,7 @@
                             let editUrl = "{{ route('product.edit', ':id') }}".replace(':id', row.id);
                             return '<form class=" delete" action="'+ actionUrl +'"method="POST">'
                             + '<div class=" btn-group">'
-                            + '<a type="button" class="btn btn-sm btn btn-outline-primary" href="' 
+                            + '<a type="button" class="btn btn-sm btn btn-outline-primary" href="'
                             + editUrl + '" title="Actualizar">'
                             + '<i class="fa fa-pencil-alt"></i>'
                             + '</a>'
@@ -145,7 +149,7 @@
                             + '<button type="submit" class="btn btn-sm btn btn-outline-danger" data-bs-toggle="tooltip" title="Eliminar">'
                             + '<i class="fa fa-fw fa-trash"></i>'
                             + '</button></div></form>';
-                        } 
+                        }
                     }
                 ],
                 dom: 'Bfrtip',

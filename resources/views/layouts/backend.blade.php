@@ -322,7 +322,7 @@
                             D<span class="opacity-75">x</span>
                         </span>
                         <span class="smini-hidden">
-                            Dash<span class="opacity-75">mix</span>
+                            Kori<span class="opacity-75">MangaStore</span>
                         </span>
                     </a>
                     <!-- END Logo -->

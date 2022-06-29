@@ -1,5 +1,9 @@
 @extends('layouts.backend')
 
+@section('title')
+    {{ 'Realizar venta' }}
+@endsection
+
 @section('css_after')
     <meta name="the_branch" content="{{ isset($the_branch->id) ? $the_branch->id : '' }}">
 
@@ -23,7 +27,7 @@
                     </ol>
                 </nav>
             </div>
-            
+
         </div>
     </div>
     <!-- END Hero -->
@@ -35,10 +39,10 @@
             <div class="block-header block-header-default">
                 <h3 class="block-title">Realizar Venta</h3>
                 <div class="block-options">
-                    
+
                 </div>
             </div>
-            
+
             <div class="block-content block-content-full">
                 <div class="row items-push">
                     <div class="col-lg-8 col-md-6">
@@ -48,7 +52,7 @@
                             id="change-branch-select"
                             :current="app('request')->input('sucursal')" />
                         </div>
-                    
+
                     </div>
                     <div class="col-lg-8 col-md-6">
                         <div class="">
@@ -90,10 +94,10 @@
                                             <div class="btn-group" role="group">
                                                 <input type="radio" class="btn-check" name="discount-radio" id="discount-radio-amount" autocomplete="off" checked>
                                                 <label class="btn btn-outline-secondary" for="discount-radio-amount">$</label>
-                                                
+
                                                 <input type="radio" class="btn-check" name="discount-radio" id="discount-radio-percent" autocomplete="off">
                                                 <label class="btn btn-outline-secondary" for="discount-radio-percent">%</label>
-                                            
+
                                             </div>
                                             <div class="input-group">
                                                 <input type="number" id="discount-amount" class="form-control d-inline" value="0" min="0">
@@ -115,7 +119,7 @@
                         </button>
                     </div>
                 </div>
-                
+
 
             </div>
         </div>
@@ -202,7 +206,7 @@
                     row = $('<tr>'+tds+'</tr>');
                     var removeButtonHtml = _this.removeButtonHtml;
                     var removeButton = _this.$(removeButtonHtml);
-                    
+
                     if (rows.length == 0) {
                         $tbody.prepend(row);
                     } else {
@@ -219,7 +223,7 @@
                 row.children('td:nth-child(2)').first().text(data.name);
                 row.children('td:nth-child(3)').first().text(data.n);
                 row.children('td:nth-child(4)').first().text('$ ' + data.total);
-                
+
                 var actionColumn = row.children('td:nth-child(5)').first();
                 actionColumn.data('cart-data', data);
 
@@ -325,7 +329,7 @@
 
         jQuery(function ($) {
             $(document).ready(function () {
-                
+
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')
@@ -354,7 +358,7 @@
                 /**
                  * Delimits the valid input range, if it less or more than the minimum or maximum, clamp to those values
                  * Also update the Cart's discountType and discount value
-                 * 
+                 *
                  */
                 function makeLimiterForDiscountInput(mn, mx, opSymbol) {
                     function limiter() {
@@ -402,7 +406,7 @@
         });
     </script>
 
-        
+
 
     @if (session('success') == 'created')
         <script>

@@ -1,5 +1,9 @@
 @extends('layouts.backend')
 
+@section('title')
+    {{ 'Añadir stock' }}
+@endsection
+
 @section('css_after')
     <meta name="the_branch" content="{{ isset($the_branch->id) ? $the_branch->id : '' }}">
 
@@ -23,7 +27,7 @@
                     </ol>
                 </nav>
             </div>
-            
+
         </div>
     </div>
     <!-- END Hero -->
@@ -35,10 +39,10 @@
             <div class="block-header block-header-default">
                 <h3 class="block-title">Productos</h3>
                 <div class="block-options">
-                    
+
                 </div>
             </div>
-            
+
             <div class="block-content block-content-full">
                 <div class="row items-push">
                     <div class="col-lg-8 col-md-6">
@@ -49,7 +53,7 @@
                                 @endforeach
                             </select>
                         </div>
-                    
+
                     </div>
                     <div class="col-lg-8 col-md-6">
                         <div class="">
@@ -124,7 +128,7 @@
                     { data: 'branch.name' },
                     { data: 'product.name' },
                     { data: 'product.category.name' },
-                    { 
+                    {
                         data: null,
                         searchable: null,
                         orderable: null,
@@ -133,9 +137,9 @@
                             '<a type="submit" class="btn btn-sm btn btn-outline-danger" data-bs-toggle="tooltip" title="Revertir" >'
                             + '<i class="fa fa-fw fa-rotate-left"></i>'
                             + '</a>');
-                            
+
                             return a.prop('outerHTML');
-                        } 
+                        }
                     }
                 ],
                 dom: 'Bfrtip',
@@ -231,7 +235,7 @@
             });
         </script>
 
-        
+
 
     @if (session('success') == 'created')
         <script>

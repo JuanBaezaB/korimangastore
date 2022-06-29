@@ -1,5 +1,9 @@
 @extends('layouts.backend')
 
+@section('title')
+    {{ 'Listado producto' }}
+@endsection
+
 @section('css_after')
     <link rel="stylesheet" href="{{ asset('js/plugins/datatables-bs5/css/dataTables.bootstrap5.min.css') }}">
     <link rel="stylesheet" href="{{ asset('js/plugins/datatables-buttons-bs5/css/buttons.bootstrap5.min.css') }}">

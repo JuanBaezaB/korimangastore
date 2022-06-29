@@ -1,5 +1,9 @@
 @extends('layouts.backend')
 
+@section('title')
+    {{ 'Listado ventas' }}
+@endsection
+
 @section('css_after')
     <meta name="the_branch" content="{{ isset($the_branch->id) ? $the_branch->id : '' }}">
 
@@ -23,7 +27,7 @@
                     </ol>
                 </nav>
             </div>
-           
+
         </div>
     </div>
     <!-- END Hero -->
@@ -40,11 +44,11 @@
                     <div class="d-flex flex-column col-sm-8 pb-3 flex-sm-row justify-content-sm-start align-items-sm-center">
                         Sucursal
                         <div class="mx-sm-2 flex-grow-1">
-                            <x-branch-select 
-                            :redirect-template="URL::route('sale.list', ['sucursal' => 'id'])" 
+                            <x-branch-select
+                            :redirect-template="URL::route('sale.list', ['sucursal' => 'id'])"
                             :redirect="route('sale.list')"
-                            :current="app('request')->input('sucursal', -1)" 
-                            :allBranches="true" 
+                            :current="app('request')->input('sucursal', -1)"
+                            :allBranches="true"
                             id="change-branch-select" style="width: 100%;" />
                         </div>
                     </div>
@@ -147,13 +151,13 @@
                 { data: 'user.name' },
                 { data: 'products_count' },
                 { data: 'total_price' },
-                { 
+                {
                     data: null,
                     searchable: null,
                     orderable: null,
                     render: function (data, type, row, meta) {
                         return ''; // agregar modal para ver detalles
-                    } 
+                    }
                 }
             ],
             dom: 'Bfrtip',

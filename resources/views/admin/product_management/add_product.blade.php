@@ -1,5 +1,9 @@
 @extends('layouts.backend')
 
+@section('title')
+    {{ 'Añadir producto' }}
+@endsection
+
 @section('content')
     <!-- Hero -->
     <div class="bg-body-light">

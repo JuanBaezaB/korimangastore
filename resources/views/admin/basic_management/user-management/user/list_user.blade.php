@@ -1,7 +1,7 @@
 @extends('admin.template_list_no_ajax')
 
 @php
-$nombre_crud = 'User';
+$nombre_crud = 'Usuario';
 $add_action_route = 'user.add';
 $update_action_route = 'user.update';
 $delete_action_route = 'user.delete';

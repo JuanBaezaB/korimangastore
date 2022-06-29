@@ -1,5 +1,9 @@
 @extends('layouts.backend')
 
+@section('title')
+    {{ 'Dashboard' }}
+@endsection
+
 @section('content')
      <!-- Hero -->
      <div class="bg-image" style="background-image: url('/media/various/bg_dashboard_3.png');">
