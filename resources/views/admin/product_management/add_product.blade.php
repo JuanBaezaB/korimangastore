@@ -35,6 +35,15 @@
                         <label class="col-form-label">Nombre:</label>
                         <input type="text" class="form-control" name="name" value="{{ isset($product) ? $product->name : '' }}" required>
                     </div>
+                    <div class="mb-3">
+                        <label class="col-form-label">Código:</label>
+                        <div class="input-group">
+                            <div class="input-group-text">
+                                <input type="checkbox" class="form-check-input mt-0" name="has_p_code" value="{{ (isset($product->code) && !Str::startsWith($product->code, 'KORI')) ? 'on' : 'off' }}">
+                            </div>
+                            <input type="text" class="form-control" name="p_code" value="{{ isset($product->code) ? $product->code : '' }}">
+                        </div>
+                    </div>
                     <input type="hidden" name="status" value="{{ isset($product->status) ? $product->status : 'Habilitado' }}">
                     <div class="mb-3">
                         <label class="col-form-label">Precio:</label>
@@ -320,7 +329,14 @@
     });
 </script>
 
-
+<script>
+// enable p-code checkbox on event in p-code and disable when field is empty
+jQuery(function ($) {
+    $('[name=p_code]').on('keyup', function(event) {
+        $('[name=has_p_code]').prop('checked', !!$(this).val());
+    });
+});
+</script>
 
 
 @endsection

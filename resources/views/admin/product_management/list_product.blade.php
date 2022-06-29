@@ -14,8 +14,8 @@
                 <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3">Listado productos</h1>
                 <nav class="flex-shrink-0 my-2 my-sm-0 ms-sm-3" aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item">Productos</li>
-                        <li class="breadcrumb-item active" aria-current="page">Gestion de Productos</li>
+                        <li class="breadcrumb-item">Gestion de Productos</li>
+                        <li class="breadcrumb-item active" aria-current="page">Productos</li>
                     </ol>
                 </nav>
             </div>
@@ -36,6 +36,7 @@
                     <thead>
                         <tr>
                             <th>Nombre</th>
+                            <th>Código</th>
                             <th class="d-none d-sm-table-cell" style="width: 30%;">Tipo</th>
                             <th class="d-none d-sm-table-cell" style="width: 15%;">Precio</th>
                             <th style="width: 10%;">Acciones</th>
@@ -46,6 +47,9 @@
                         <tr>
                             <td class="fw-semibold">
                                 {{ $product->name }}
+                            </td>
+                            <td>
+                                {{ $product->code }}
                             </td>
                             <td class="d-none d-sm-table-cell">
                                 {{ $product->category->name }}
