@@ -53,7 +53,7 @@
                 </div>
                 <!-- Nested row for non-featured blog posts-->
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-sm-12 col-md-6 col-lg-4">
                         <!-- Blog post-->
                         <div class="card mb-4">
                             <a href="#!"><img class="mangas card-img-top" src="https://www.normaeditorial.com/upload/media/albumes/0001/17/cdcf47aecb0a210dec3d7cdff3dfbdd2c0a82995.jpeg" alt="..." /></a>
@@ -64,6 +64,8 @@
                                 <a class="btn btn-primary" href="#!">Read more →</a>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-4">
                         <!-- Blog post-->
                         <div class="card mb-4">
                             <a href="#!"><img class="mangas card-img-top" src="https://www.normaeditorial.com/upload/media/albumes/0001/19/8fc996cb156fc9af4b082ff601b86a7740d42b2c.jpeg" alt="..." /></a>
@@ -75,7 +77,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-sm-12 col-md-6 col-lg-4">
                         <!-- Blog post-->
                         <div class="card mb-4">
                             <a href="#!"><img class="mangas card-img-top" src="https://www.normaeditorial.com/upload/media/albumes/0001/18/5002f1fe13c8bee43dc73547bbadb272d6f9cefd.jpeg" alt="..." /></a>
@@ -86,6 +88,12 @@
                                 <a class="btn btn-primary" href="#!">Read more →</a>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-lg-4">
+
+                    </div>
+                    <div class="col-lg-6">
+                        
                         <!-- Blog post-->
                         <div class="card mb-4">
                             <a href="#!"><img class="mangas card-img-top" src="https://www.normaeditorial.com/upload/media/albumes/0001/22/ca2b786a5a7ac145f03ec96875d88744abd87ba2.jpeg" alt="..." /></a>
