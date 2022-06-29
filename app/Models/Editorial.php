@@ -11,7 +11,6 @@ class Editorial extends Model
 
     static $rules = [
         'name' => 'required',
-        'origin' => 'required'
     ];
 
     protected $table = 'editorials';
