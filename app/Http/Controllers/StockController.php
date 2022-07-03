@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Branch;
 use App\Models\Product;
+use App\Models\User;
+use App\Notifications\OutOfStock;
 use Illuminate\Http\Request;
 use Laravel\Ui\Presets\React;
 
@@ -49,7 +51,7 @@ class StockController extends Controller
     }
 
     /**
-     * 
+     *
      * @param integer $quantity
      * @param string|integer $branch_id
      * @param string|integer|\App\Models\Product $product
@@ -74,12 +76,16 @@ class StockController extends Controller
                 throw new \Exception("expected positive quantity for non existent stock");
             }
             $product->branches()->attach($branch_id, ['stock' => $quantity]);
+
         } else {
             $stock = $product->branches()->newPivotStatementForId($branch)->value('stock');
             if ($stock + $normalizedQuantity < 0) {
                 throw new \Exception("expected positive quantity for new stock value");
             }
             $product->branches()->updateExistingPivot($branch, ['stock' => $stock + $normalizedQuantity]);
+            if($stock + $normalizedQuantity == 0){
+                $usuarios = User::whereHas("roles", function($q){ $q->where("name", "Admin"); })->get()->each(function(User $user)use($product, $branch){$user->notify(new OutOfStock($product, $branch));});
+            }
         }
         $product->category->name;
         $ret = [

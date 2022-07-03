@@ -14,6 +14,7 @@ use App\Models\Format;
 use App\Models\Manga;
 use App\Models\FigureType;
 use App\Models\Figure;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -135,37 +136,37 @@ class ProductController extends Controller
         });
     }
 
-    static protected function makeExcludeIfCategoryId($request, $id) {
-        return 'exclude_if:category_id,' . $id;
+    static protected function makeExcludeUnlessCategoryId($request, $id) {
+        return 'exclude_unless:category_id,' . $id;
     }
 
     static protected function makeRules($request) {
-        $mangaExcludeIf = self::makeExcludeIfCategoryId($request, Product::TYPE_MANGA);
+        $mangaExcludeUnless = self::makeExcludeUnlessCategoryId($request, Product::TYPE_MANGA);
         $mangaRequiredIf = self::makeRequiredIfCategoryId($request, Product::TYPE_MANGA);
 
 
-        $figureExcludeIf = self::makeExcludeIfCategoryId($request, Product::TYPE_FIGURE);
+        $figureExcludeUnless = self::makeExcludeUnlessCategoryId($request, Product::TYPE_FIGURE);
         $figureRequiredIf = self::makeRequiredIfCategoryId($request, Product::TYPE_FIGURE);
         return [
-            'name' => 'required|string|lt:200',
-            'price' => 'required|integer|gt:0',
-            'description' => 'lt:2000',
+            'name' => 'required|string|min:1|max:200',
+            'price' => 'required|integer|min:0',
+            'description' => 'max:2000',
             'provider_id' => 'nullable|exists:App\Models\Provider,id',
             'series' => 'array',
             'series.*' => 'exists:App\Models\Serie,id',
-            'category_id' => 'required|exists:App\Models\Category,id', /* TODO: deberia ser cambiado en formulario */
+            'category_id' => 'required|exists:App\Models\Category,id',
             /* MANGA */
-            'editorial_id' => [$mangaExcludeIf, $mangaRequiredIf, 'exists:App\Models\Editorial,id'],
-            'format_id' => [$mangaExcludeIf, $mangaRequiredIf, 'exists:App\Models\Format,id'],
-            'genres' => [$mangaExcludeIf, 'nullable', 'array'],
-            'genres.*' => [$mangaExcludeIf, 'exists:App\Models\Genre,id'],
-            'arts' => [$mangaExcludeIf, 'nullable','array'],
-            'arts.*' => [$mangaExcludeIf, 'exists:App\Models\CreativePerson,id'],
-            'stories' => [$mangaExcludeIf, 'nullable','array'],
-            'stories.*' => [$mangaExcludeIf, 'exists:App\Models\CreativePerson,id'],
+            'editorial_id' => [$mangaExcludeUnless, $mangaRequiredIf, 'exists:App\Models\Editorial,id'],
+            'format_id' => [$mangaExcludeUnless, $mangaRequiredIf, 'exists:App\Models\Format,id'],
+            'genres' => [$mangaExcludeUnless, 'nullable', 'array'],
+            'genres.*' => [$mangaExcludeUnless, 'exists:App\Models\Genre,id'],
+            'arts' => [$mangaExcludeUnless, 'nullable','array'],
+            'arts.*' => [$mangaExcludeUnless, 'exists:App\Models\CreativePerson,id'],
+            'stories' => [$mangaExcludeUnless, 'nullable','array'],
+            'stories.*' => [$mangaExcludeUnless, 'exists:App\Models\CreativePerson,id'],
             /* FIGURE */
-            'figure_type_id' => [$figureExcludeIf, $figureRequiredIf, 'exists:App\Models\FigureType,id']
-
+            'figure_type_id' => [$figureExcludeUnless, $figureRequiredIf, 'exists:App\Models\FigureType,id']
+            
         ];
     }
 
@@ -178,12 +179,13 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         //
-        /*
+        
         $validator = Validator::make($request->all(), self::makeRules($request));
-
-        if ($validator->fails()) {
+        $validator->validate();
+        /*if ($validator->fails()) {
             dd($validator);
         }*/
+        DB::beginTransaction();
         try {
 
             $datos = request()->except(['_token']);
@@ -225,9 +227,10 @@ class ProductController extends Controller
                 $figure->save();
 
             }
-
+            DB::commit();
         } catch(\Throwable $th) {
-            dd($th);
+            DB::rollBack();
+            throw $th;
         }
         return redirect()->route('product.list')
             ->with('success', 'created');
@@ -289,11 +292,14 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $validator = Validator::make($request->all(), self::makeRules($request));
+        $validator->validate();
+
         $data = request()->except(['_token', '_method']);
         $data = collect($data);
-
+        
+        DB::beginTransaction();
         try {
-            // TODO: validacion
             $categoryId = $data->get('category_id');
 
             $productData = $data->only([
@@ -359,11 +365,10 @@ class ProductController extends Controller
                 $figure->save();
 
             }
-
+            DB::commit();
         } catch (\Throwable $th) {
-            return response()->json([
-                'text' => $th->getMessage()
-            ]);
+            DB::rollBack();
+            throw $th;
         }
 
         return redirect()->route('product.list')

@@ -19,11 +19,12 @@
     <div class="bg-body-light">
         <div class="content content-full">
             <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
-                <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3">Venta</h1>
+                <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3">Realizar venta</h1>
                 <nav class="flex-shrink-0 my-2 my-sm-0 ms-sm-3" aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item">Area de Ventas</li>
-                        <li class="breadcrumb-item active" aria-current="page">Venta</li>
+                        <li class="breadcrumb-item">Área de Ventas</li>
+                        <li class="breadcrumb-item" aria-current="page">Ventas</li>
+                        <li class="breadcrumb-item active">Realizar venta</li>
                     </ol>
                 </nav>
             </div>
@@ -114,9 +115,11 @@
                             </tbody>
                         </table>
 
-                        <button class="btn btn-primary mb-2 ms-2" id="btn-submit-cart">
-                            Vender
-                        </button>
+                        <div class="mb-3 text-end">
+                            <button class="btn btn-primary mb-2 ms-2" id="btn-submit-cart">
+                                Vender
+                            </button>
+                        </div>
                     </div>
                 </div>
 
