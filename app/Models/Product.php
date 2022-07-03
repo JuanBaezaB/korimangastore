@@ -48,5 +48,5 @@ class Product extends Model
     public function productable() {
         return $this->morphTo();
     }
-    
+
 }
