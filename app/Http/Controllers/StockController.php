@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\OutOfStockEvent;
 use App\Models\Branch;
 use App\Models\Product;
 use App\Models\User;
 use App\Notifications\OutOfStock;
 use Illuminate\Http\Request;
 use Laravel\Ui\Presets\React;
+use OuterIterator;
 
 class StockController extends Controller
 {
@@ -84,7 +86,7 @@ class StockController extends Controller
             }
             $product->branches()->updateExistingPivot($branch, ['stock' => $stock + $normalizedQuantity]);
             if($stock + $normalizedQuantity == 0){
-                $usuarios = User::whereHas("roles", function($q){ $q->where("name", "Admin"); })->get()->each(function(User $user)use($product, $branch){$user->notify(new OutOfStock($product, $branch));});
+                event(new OutOfStockEvent($product, $branch));
             }
         }
         $product->category->name;
