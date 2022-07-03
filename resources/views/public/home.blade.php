@@ -36,6 +36,26 @@
             </div>
         </div>
     </header>
+
+    <!-- Products-->
+    <section class="product">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 text-center">
+                    <div class="card border-0 bg-info">
+                        <div class="card-body">
+                            <img class="card-img-top" src="https://www.normaeditorial.com/upload/media/albumes/0001/17/cdcf47aecb0a210dec3d7cdff3dfbdd2c0a82995.jpeg" alt="">
+                        </div>
+                    </div>
+                    <h6>Nombre Manga</h6>
+                    <p>$12.990</p>
+                    <button>Reservar</button>
+                    <button>Agregar al Carrito</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Page content-->
     <div class="container">
         <div class="row">

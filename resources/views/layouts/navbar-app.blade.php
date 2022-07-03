@@ -50,6 +50,10 @@
                 </li>
             </ul>
 
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+                <input type="search" class="form-control form-control-dark bg-dark btn-outline-info text-white" placeholder="🔍︎ Busca aquí tu producto..." aria-label="Search">
+            </form>
+
 
             <div class="d-inlineflex pe-1">
                 <!-- Authentication Links -->
