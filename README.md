@@ -1,5 +1,6 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/JuanBaezaB/korimangastore/public/media/logo/logo2.png?token=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" width="400"></a></p>
+![logo2](https://user-images.githubusercontent.com/51477488/177023477-a483797c-dc0c-4ebd-8ed1-cf248670c73d.png)
 
 
 ## Korimangastore - Laravel 8 ##
