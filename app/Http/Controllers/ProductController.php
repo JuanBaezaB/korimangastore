@@ -18,6 +18,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
+use App\Imports\FigureImport;
+use App\Imports\ProductImport;
+use App\Imports\MangaImport;
+use Maatwebsite\Excel\Facades\Excel;
+
 class ProductController extends Controller
 {
     /**
@@ -31,7 +36,7 @@ class ProductController extends Controller
         } catch (\Throwable $th) {
             return response()->json($products);
         }
-        
+
         return response()->view('admin.product_management.list_product', compact('products'));
     }
 
@@ -54,8 +59,8 @@ class ProductController extends Controller
             $figure_types = FigureType::all();
 
             $the_compact = compact(
-                'providers', 'series', 'publishers', 
-                'genres', 'formats', 'creatives', 
+                'providers', 'series', 'publishers',
+                'genres', 'formats', 'creatives',
                 'figure_types',
                 'categories'
             );
@@ -68,7 +73,7 @@ class ProductController extends Controller
 
     /**
      * make an array to pass to Product::create or Product's update method
-     * 
+     *
      * @param \Illuminate\Support\Collection $data
      * @return \Illuminate\Support\Collection
      */
@@ -85,7 +90,7 @@ class ProductController extends Controller
 
     /**
      * make an array to pass to Manga::create or Manga's update method
-     * 
+     *
      * @param \Illuminate\Support\Collection $data
      * @return \Illuminate\Support\Collection
      */
@@ -104,7 +109,7 @@ class ProductController extends Controller
 
     /**
      * make an array to pass to Manga->creativePeople()->sync
-     * 
+     *
      * @param array $illustrators
      * @param array $writers
      * @return \Illuminate\Support\Collection
@@ -134,7 +139,7 @@ class ProductController extends Controller
     static protected function makeExcludeUnlessCategoryId($request, $id) {
         return 'exclude_unless:category_id,' . $id;
     }
-    
+
     static protected function makeRules($request) {
         $mangaExcludeUnless = self::makeExcludeUnlessCategoryId($request, Product::TYPE_MANGA);
         $mangaRequiredIf = self::makeRequiredIfCategoryId($request, Product::TYPE_MANGA);
@@ -264,8 +269,8 @@ class ProductController extends Controller
             $is_edit = true;
             $the_compact = compact(
                 'product',
-                'providers', 'series', 'publishers', 
-                'genres', 'formats', 'creatives', 
+                'providers', 'series', 'publishers',
+                'genres', 'formats', 'creatives',
                 'categories',
                 'figure_types',
                 'is_edit'
@@ -310,12 +315,12 @@ class ProductController extends Controller
             $oldCategory = $product->category;
             $oldProductable = $product->productable;
             $category = Category::findOrFail($productData->get('category_id'));
-            
+
             $series = $data->get('series', []);
             $product->series()->sync( $series);
             $product->update($productData->toArray());
             $product->save();
-            
+
             $hasCategoryChanged = $category->id != $oldCategory->id;
             if ($hasCategoryChanged) {
                 $product->category()->associate($categoryId);
@@ -331,7 +336,7 @@ class ProductController extends Controller
                 if ($hasCategoryChanged || empty($manga)) {
                     $manga = Manga::create($dataManga->toArray());
                     $manga->product()->save($product);
-                    
+
                 } else {
                     $manga->update($dataManga->toArray());
                     $manga->save();
@@ -405,5 +410,38 @@ class ProductController extends Controller
 
         $ret['results'] = $results;
         return response()->json($ret);
+    }
+
+    public function mangaimport(Request $request) {
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $import = new MangaImport;
+            $import->import($file);
+
+            //$import->errors();
+            return Response()->json(['response' => 'Excel cargado exitosamente!']);
+        }
+    }
+
+    public function productimport(Request $request) {
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $import = new ProductImport;
+            $import->import($file);
+
+            //$import->errors();
+            return Response()->json(['response' => 'Excel cargado exitosamente!']);
+        }
+    }
+
+    public function figureimport(Request $request) {
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $import = new FigureImport;
+            $import->import($file);
+
+            //$import->errors();
+            return Response()->json(['response' => 'Excel cargado exitosamente!']);
+        }
     }
 }

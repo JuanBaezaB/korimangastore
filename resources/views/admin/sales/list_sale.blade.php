@@ -1,5 +1,9 @@
 @extends('layouts.backend')
 
+@section('title')
+    {{ 'Listado ventas' }}
+@endsection
+
 @section('css_after')
     <meta name="the_branch" content="{{ isset($the_branch->id) ? $the_branch->id : '' }}">
 
@@ -15,15 +19,16 @@
     <div class="bg-body-light">
         <div class="content content-full">
             <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
-                <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3">Venta</h1>
+                <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3">Listado ventas</h1>
                 <nav class="flex-shrink-0 my-2 my-sm-0 ms-sm-3" aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item">Area de Ventas</li>
-                        <li class="breadcrumb-item active" aria-current="page">Venta</li>
+                        <li class="breadcrumb-item">Área de Ventas</li>
+                        <li class="breadcrumb-item " aria-current="page">Ventas</li>
+                        <li class="breadcrumb-item active">Listado</li>
                     </ol>
                 </nav>
             </div>
-           
+
         </div>
     </div>
     <!-- END Hero -->
@@ -34,17 +39,22 @@
         <div class="block block-rounded">
             <div class="block-header block-header-default">
                 <h3 class="block-title">Productos</h3>
+                <div class="block-options">
+                    <a class="btn btn-sm btn-alt-secondary btn-primary" href="{{ route('sale.create') }}">
+                        <i class="fa fa-fw fa fa-plus"></i> Realizar venta
+                    </a>   
+                </div>
             </div>
             <div class="block-content block-content-full">
                 <div class="row items-push">
                     <div class="d-flex flex-column col-sm-8 pb-3 flex-sm-row justify-content-sm-start align-items-sm-center">
                         Sucursal
                         <div class="mx-sm-2 flex-grow-1">
-                            <x-branch-select 
-                            :redirect-template="URL::route('sale.list', ['sucursal' => 'id'])" 
+                            <x-branch-select
+                            :redirect-template="URL::route('sale.list', ['sucursal' => 'id'])"
                             :redirect="route('sale.list')"
-                            :current="app('request')->input('sucursal', -1)" 
-                            :allBranches="true" 
+                            :current="app('request')->input('sucursal', -1)"
+                            :allBranches="true"
                             id="change-branch-select" style="width: 100%;" />
                         </div>
                     </div>
@@ -147,13 +157,13 @@
                 { data: 'user.name' },
                 { data: 'products_count' },
                 { data: 'total_price' },
-                { 
+                {
                     data: null,
                     searchable: null,
                     orderable: null,
                     render: function (data, type, row, meta) {
                         return ''; // agregar modal para ver detalles
-                    } 
+                    }
                 }
             ],
             dom: 'Bfrtip',

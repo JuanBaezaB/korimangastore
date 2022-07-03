@@ -18,6 +18,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SaleController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,14 +31,10 @@ use App\Http\Controllers\SaleController;
 |
 */
 
-Route::get('/', function () {
-    return view('public.welcome');
-});
-
+Route::get('/', [HomeController::class, 'index'])->name('index.home');
 
 
 Auth::routes();
-
 
 
 Route::view('/forms/be_forms_elements', 'admin.forms.be_forms_elements')->middleware('auth');
@@ -47,14 +44,16 @@ Route::view('/forms/be_forms_plugins', 'admin.forms.be_forms_plugins')->middlewa
 Route::view('/forms/be_forms_editors', 'admin.forms.be_forms_editors')->middleware('auth');
 Route::view('/forms/be_forms_validation', 'admin.forms.be_forms_validation')->middleware('auth');
 
-
+Route::view('/importar', 'admin.product_management.import_products')->name('product.import');
+Route::post('/importar-manga', [ProductController::class, 'mangaimport'])->name('product.mangaimport');
+Route::post('/importar-product', [ProductController::class, 'productimport'])->name('product.genericimport');
+Route::post('/importar-figure', [ProductController::class, 'figureimport'])->name('product.figureimport');
 
 Route::group(['middleware' => ['role:Admin|Vendedor']], function () {
 
     /*Dashboard*/
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('index.graphic');
 
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     /* Producto */
     Route::get('/gestion-de-productos/producto', [ProductController::class, 'index'])->name('product.list')->middleware('can:product.list');
     Route::get('/gestion-de-productos/producto/crear', [ProductController::class, 'create'])->name('product.create')->middleware('can:product.modify');
@@ -66,14 +65,14 @@ Route::group(['middleware' => ['role:Admin|Vendedor']], function () {
 
     /* Stock */
     Route::get('/gestion-de-inventario/stock', [StockController::class, 'index'])->name('stock.list')->middleware('can:stock.list');
-    Route::post('/gestion-de-inventario/stock', [StockController::class, 'list'])->name('stock.data_table')->middleware('can:stock.modify');
+    Route::post('/gestion-de-inventario/stock', [StockController::class, 'list'])->name('stock.data_table')->middleware('can:stock.list');
     Route::get('/gestion-de-inventario/stock/sucursal/{id}', [StockController::class, 'index'])->name('stock.get_one')->middleware('can:stock.modify');
     Route::get('/gestion-de-inventario/stock/crear', [StockController::class, 'create'])->name('stock.create')->middleware('can:stock.modify');
     Route::post('/gestion-de-inventario/stock/agregar', [StockController::class, 'store'])->name('stock.add')->middleware('can:stock.modify');
 
     /* Sales */
     Route::get('/area-de-ventas/venta', [SaleController::class, 'index'])->name('sale.list')->middleware('can:sale.list');
-    Route::post('/area-de-ventas/venta', [SaleController::class, 'list'])->name('sale.data_table')->middleware('can:sale.modify');
+    Route::post('/area-de-ventas/venta', [SaleController::class, 'list'])->name('sale.data_table')->middleware('can:sale.list');
     Route::get('/area-de-ventas/venta/sucursal/{id}', [SaleController::class, 'index'])->name('sale.get_one')->middleware('can:sale.modify');
     Route::get('/area-de-ventas/venta/crear', [SaleController::class, 'create'])->name('sale.create')->middleware('can:sale.modify');
     Route::post('/area-de-ventas/venta/agregar', [SaleController::class, 'store'])->name('sale.add')->middleware('can:sale.modify');

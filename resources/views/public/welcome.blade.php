@@ -25,6 +25,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
+    <!-- MDB
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.css" rel="stylesheet"/>
+    -->
 
     <!-- Styles -->
     <style>
@@ -35,7 +39,11 @@
         }
 
         body {
-            margin: 0
+            margin: 0;
+
+            /* Show it is fixed to the top */
+            min-height: 75rem;
+            padding-top: 3.5rem;
         }
 
         a {
@@ -89,7 +97,7 @@
         .border-gray-200 {
             --border-opacity: 1;
             border-color: #edf2f7;
-            border-color: rgba(237, 242, 247, var(--border-opacity))
+            border-color: rgba(27, 242, 247, var(--border-opacity))
         }
 
         .border-t {
@@ -306,6 +314,7 @@
             grid-template-columns: repeat(1, minmax(0, 1fr))
         }
 
+
         @media (min-width:640px) {
             .sm\:rounded-lg {
                 border-radius: .5rem
@@ -417,67 +426,106 @@
         body {
             font-family: 'Nunito', sans-serif;
         }
+
+        .mangas{
+            max-width: 300px;
+            max-height: 700px;
+            object-fit: contain;
+        }
+
     </style>
 </head>
 
 <body class="antialiased">
-
     <!-- Navbar -->
-    <nav class="navbar bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
         <div class="container-fluid">
+
             <a class="navbar-brand" href="#" style="color: #f7fafc" style="text-decoration-line: none">
                 <img src="/media/login/logonav.png" alt="" width="32" height="28">
-                <b>Kori</b>
-                <h6>MangaStore</h6>
+                <b>Kori</b>MangaStore
             </a>
-            <div class="d-inlineflex pe-1">
-                <!-- Authentication Links -->
-                @guest
-                    @if (Route::has('login'))
-                        <a style="color: #fff" class="text-sm btn btn-secondary text-gray-700 dark:text-gray-500 underline"  href="{{ route('login') }}">
-                            <b>
-                                <i class="fa-solid fa-user-plus pe-2"></i>
-                                {{ __('Acceso') }}
-                            </b>
-                        </a>
-                    @endif
 
-                    @if (Route::has('register'))
-                        <a class="text-sm btn btn-warning text-gray-700 dark:text-gray-500 underline" class="nav-link" href="{{ route('register') }}">
-                            <b>
-                                <i class="fa-solid fa-user-plus pe-2"></i>
-                                {{ __('Registro') }}
-                            </b>
-                        </a>
-                    @endif
-                @else
-                    <div class="d-inline">
-                        <a href="{{ url('/dashboard') }}" class="text-sm btn btn-info text-gray-700 dark:text-gray-500 underline">
-                            <b>
-                                <i class="fa-solid fa-house-chimney-user pe-2"></i>
-                                Home
-                            </b>
-                        </a>
-                    </div>
-                    <div class="d-inline dropdown">
-                        <a id="navbarDropdown" class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ Auth::user()->name }}
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('logout') }}"
-                               onclick="event.preventDefault();
-                                             document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" style="color: #49F8FF" aria-current="page" href="#">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Mangas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled">Figuras</a>
+                    </li>
+                </ul>
+
+
+                <div class="d-inlineflex pe-1">
+                    <!-- Authentication Links -->
+                    @guest
+                        @if (Route::has('login'))
+                            <a style="color: #fff"
+                                class="text-sm btn btn-secondary text-gray-700 dark:text-gray-500 underline"
+                                href="{{ route('login') }}">
+                                <b>
+                                    <i class="fa-solid fa-user-plus pe-2"></i>
+                                    {{ __('Acceso') }}
+                                </b>
                             </a>
+                        @endif
 
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
+                        @if (Route::has('register'))
+                            <a class="text-sm btn btn-warning text-gray-700 dark:text-gray-500 underline" class="nav-link"
+                                href="{{ route('register') }}">
+                                <b>
+                                    <i class="fa-solid fa-user-plus pe-2"></i>
+                                    {{ __('Registro') }}
+                                </b>
+                            </a>
+                        @endif
+                    @else
+                        @hasrole('Admin')
+                            <div class="d-inline">
+                                <a href="{{ url('/home') }}"
+                                    class="text-sm btn btn-info text-gray-700 dark:text-gray-500 underline">
+                                    <b>
+                                        <i class="fa-solid fa-chart-line pe-2"></i>
+                                        Dashboard
+                                    </b>
+                                </a>
+                            </div>
+                        @endhasrole
+                        <div class="d-inline dropdown">
+                            <a id="navbarDropdown" class="btn btn-secondary dropdown-toggle" href="#" role="button"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <b>
+                                    {{ Auth::user()->name }}
+                                </b>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                             document.getElementById('logout-form').submit();">
+                                    <b>
+                                        <i class="fa-solid fa-door-closed"></i>
+                                        {{ __('Cerrar Sesión') }}
+                                    </b>
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </div>
                         </div>
-                    </div>
-                @endguest
+                    @endguest
+                </div>
             </div>
-        </div>
     </nav>
 
     <!-- Contenido -->
@@ -486,16 +534,17 @@
 
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
 
-            <div class="flex justify-center pt-8 sm:justify-start sm:pt-0 ms-3 me-3">
+            <div class="flex justify-center pt-8 sm:justify-start sm:pt-0 ms-3 me-3 pb-3">
                 <div class="logokori">
                     <a href="#">
-                        <img src="/media/login/logokori.png" alt="" width="160px" height="140px">
-                        <span style="font-size: 60px"><b>Kori</b>MangaStore</span>
+                        <img src="/media/login/logokori.png" alt="" width="80px" height="70px">
+                        <span style="font-size: 30px"><b>Kori</b>MangaStore</span>
                     </a>
 
                 </div>
             </div>
 
+            <!-- Carrusel -->
             <div class="card dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg mt-4 mb-4">
                 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
                     <div class="carousel-indicators">
@@ -511,24 +560,24 @@
                             <img src="https://wwwhatsnew.com/wp-content/uploads/2022/03/Estas-son-las-mejores-apps-de-fondos-de-pantalla-4K-y-QHD-para-2022.jpg"
                                 class="d-block w-100" alt="...">
                             <div class="carousel-caption d-none d-md-block">
-                                <h5>First slide label</h5>
-                                <p>Some representative placeholder content for the first slide.</p>
+                                <h5>Encuentra aquí tu manga favorito</h5>
+                                <p>Revisa nuestro amplio catálogo y consulta por el tuyo.</p>
                             </div>
                         </div>
                         <div class="carousel-item">
                             <img src="https://wwwhatsnew.com/wp-content/uploads/2022/03/Estas-son-las-mejores-apps-de-fondos-de-pantalla-4K-y-QHD-para-2022.jpg"
                                 class="d-block w-100" alt="...">
                             <div class="carousel-caption d-none d-md-block">
-                                <h5>Second slide label</h5>
-                                <p>Some representative placeholder content for the second slide.</p>
+                                <h5>Figuras</h5>
+                                <p>Tenemos figuras de Qposquet.</p>
                             </div>
                         </div>
                         <div class="carousel-item">
                             <img src="https://wwwhatsnew.com/wp-content/uploads/2022/03/Estas-son-las-mejores-apps-de-fondos-de-pantalla-4K-y-QHD-para-2022.jpg"
                                 class="d-block w-100" alt="...">
                             <div class="carousel-caption d-none d-md-block">
-                                <h5>Third slide label</h5>
-                                <p>Some representative placeholder content for the third slide.</p>
+                                <h5>Preventa</h5>
+                                <p>Preventa de One Piece en variados tomos.</p>
                             </div>
                         </div>
                     </div>
@@ -543,6 +592,107 @@
                         <span class="visually-hidden">Next</span>
                     </button>
                 </div>
+            </div>
+
+            <!-- Productos -->
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <img class="mangas" src="https://www.normaeditorial.com/upload/media/albumes/0001/17/cdcf47aecb0a210dec3d7cdff3dfbdd2c0a82995.jpeg">
+                        <div class="card-body">
+                            <h5 class="card-title">El hombre y el gato N° 5</h5>
+                            <p class="card-text">$ 9.990</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a href="#" class="btn btn-primary">Detalles</a>
+                                </div>
+                                <a href="#" class="btn btn-success">Reservar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <img class="mangas" src="https://thumbs.dreamstime.com/b/libro-gen%C3%A9rico-992522.jpg">
+                        <div class="card-body">
+                            <h5 class="card-title">Captain Tsubasa N° 9</h5>
+                            <p class="card-text">$ 12.990</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a href="#" class="btn btn-primary">Detalles</a>
+                                </div>
+                                <a href="#" class="btn btn-success">Reservar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <img class="mangas" src="https://thumbs.dreamstime.com/b/libro-gen%C3%A9rico-992522.jpg">
+                        <div class="card-body">
+                            <h5 class="card-title">Mi nueva vida como villana N° 1</h5>
+                            <p class="card-text">$ 13.990</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a href="#" class="btn btn-primary">Detalles</a>
+                                </div>
+                                <a href="#" class="btn btn-success">Reservar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <img class="mangas" src="https://thumbs.dreamstime.com/b/libro-gen%C3%A9rico-992522.jpg">
+                        <div class="card-body">
+                            <h5 class="card-title">El hombre y el gato N° 1</h5>
+                            <p class="card-text">$ 9.990</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a href="#" class="btn btn-primary">Detalles</a>
+                                </div>
+                                <a href="#" class="btn btn-success">Reservar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <img class="mangas" src="https://thumbs.dreamstime.com/b/libro-gen%C3%A9rico-992522.jpg">
+                        <div class="card-body">
+                            <h5 class="card-title">El hombre y el gato N° 2</h5>
+                            <p class="card-text">$ 9.990</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a href="#" class="btn btn-primary">Detalles</a>
+                                </div>
+                                <a href="#" class="btn btn-success">Reservar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <img class="mangas" src="https://thumbs.dreamstime.com/b/libro-gen%C3%A9rico-992522.jpg">
+                        <div class="card-body">
+                            <h5 class="card-title">El hombre y el gato N° 3</h5>
+                            <p class="card-text">$ 9.990</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a href="#" class="btn btn-primary">Detalles</a>
+                                </div>
+                                <a href="#" class="btn btn-success">Reservar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
 
             <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
@@ -619,7 +769,7 @@
             <div class="flex justify-center mt-4 sm:items-center sm:justify-between">
                 <div class="text-center text-sm text-gray-500 sm:text-left">
                     <div class="flex items-center">
-                        <h5>Copyright 2022.</h5>
+                        <h5>Kori - Copyright 2022.</h5>
                     </div>
                 </div>
 

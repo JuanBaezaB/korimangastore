@@ -1,5 +1,6 @@
 @extends('layouts.master')
 
+@section('title') {{'Restablecer contraseña'}} @endsection
 
 @section('content')
     <!-- Page Content -->
@@ -10,15 +11,17 @@
                 <div class="block block-transparent block-rounded w-100 mb-0 overflow-hidden">
                     <div class="block-content block-content-full px-lg-5 px-xl-6 py-4 py-md-5 py-lg-6 bg-body-extra-light">
                         <!-- Header -->
-                        <div class="mb-2 text-center">
-                            <a class="link-fx fw-bold fs-1" href="index.php">
-                                <div class="logokori">
-                                    <img src="/media/login/logokori.png" alt="" width="20%" height="20%">
-                                </div>
-                                <span class="text-dark">Kori</span><span class="text-primary">Mangastore</span>
-                            </a>
-                            <p class="text-uppercase fw-bold fs-sm text-muted">Restablecer contraseña</p>
-                        </div>
+                        <div class="mb-3 text-center">
+                        <a href="/">
+                            <div class="logokori">
+                                <img src="/media/login/logokori.png" alt="" width="20%" height="20%">
+                            </div>
+                        </a>
+                        <a class="link-fx fw-bold fs-1" href="/">
+                            <span class="text-dark">Kori</span><span class="text-primary">MangaStore</span>
+                        </a>
+                        <p class="text-uppercase fw-bold fs-sm text-muted">Restablecer contraseña</p>
+                    </div>
                         <!-- END Header -->
 
                         <form method="POST" action="{{ route('password.update') }}">

@@ -36,6 +36,13 @@
                         </a>
                     </li>
                 @endcan
+
+                <li class="nav-main-item">
+                    <a class="nav-main-link{{ request()->is('importar') ? ' active' : '' }}"
+                        href="{{ route('product.import') }}">
+                        <span class="nav-main-link-name">Importar</span>
+                    </a>
+                </li>
             </ul>
         </li>
     @endcan
@@ -48,7 +55,7 @@
                 href="#">
                 <i
                     class="nav-main-link-icon fa fa-sliders {{ request()->is('gestion-de-productos/carateristicas/*') ? 'fa-bounce' : '' }}"></i>
-                <span class="nav-main-link-name">Caracteristicas</span><!-- Gestion de productos -->
+                <span class="nav-main-link-name">Características</span><!-- Gestion de productos -->
             </a>
             <ul class="nav-main-submenu">
                 @canany(['serie.list', 'category.list'])
@@ -184,7 +191,7 @@
 
 <!-- Gestion de ventas -->
 @canany(['sale.list', 'sale.modify'])
-    <li class="nav-main-heading">Area de ventas</li>
+    <li class="nav-main-heading">Área de ventas</li>
     <li class="nav-main-item {{ request()->is('area-de-ventas/*') ? ' open' : '' }}">
         <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="true"
             href="#">

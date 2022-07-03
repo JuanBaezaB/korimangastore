@@ -53,6 +53,7 @@ $validation_messages = [
 @endsection
 
 @section('breadcrumb')
+    <li class="breadcrumb-item">Gestión base</li>
     <li class="breadcrumb-item">Configuración interna</li>
     <li class="breadcrumb-item active" aria-current="page">Proveedor</li>
 @endsection

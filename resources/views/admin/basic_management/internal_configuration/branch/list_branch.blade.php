@@ -75,6 +75,7 @@ $update_modal_fields = [
 @endsection
 
 @section('breadcrumb')
+    <li class="breadcrumb-item">Gestión base</li>
     <li class="breadcrumb-item">Configuración interna</li>
     <li class="breadcrumb-item active" aria-current="page">Sucursal</li>
 @endsection
