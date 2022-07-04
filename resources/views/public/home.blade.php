@@ -41,16 +41,16 @@
     <section class="product">
         <div class="container">
             <div class="row">
-                <div class="col-lg-3 text-center">
+                <div class="col-lg-3 col-md-6 col-sm-12 pt-1 pb-1 text-center">
                     <div class="card border-0 bg-info">
                         <div class="card-body">
                             <img class="card-img-top" src="https://www.normaeditorial.com/upload/media/albumes/0001/17/cdcf47aecb0a210dec3d7cdff3dfbdd2c0a82995.jpeg" alt="">
                         </div>
+                        <h6>Nombre Manga</h6>
+                        <p>$12.990</p>
+                        <button type="button" class="btn btn-outline-dark ms-4 me-4 mb-2"><i class="pe-2 fa-solid fa-bookmark"></i>Reservar</button>
+                    <button type="button" class="btn btn-outline-dark ms-4 me-4 mb-3"><i class="pe-2 fa-solid fa-cart-plus"></i>Agregar al Carrito</button>
                     </div>
-                    <h6>Nombre Manga</h6>
-                    <p>$12.990</p>
-                    <button>Reservar</button>
-                    <button>Agregar al Carrito</button>
                 </div>
             </div>
         </div>

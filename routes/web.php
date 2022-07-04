@@ -33,6 +33,8 @@ use App\Http\Controllers\HomeController;
 
 Route::get('/', [HomeController::class, 'index'])->name('index.home');
 
+/*  Nosotros */
+Route::view('/nosotros', 'public.about-us')->name('about-us');
 
 Auth::routes();
 
@@ -43,6 +45,7 @@ Route::view('/forms/be_forms_input_groups', 'admin.forms.be_forms_input_groups')
 Route::view('/forms/be_forms_plugins', 'admin.forms.be_forms_plugins')->middleware('auth');
 Route::view('/forms/be_forms_editors', 'admin.forms.be_forms_editors')->middleware('auth');
 Route::view('/forms/be_forms_validation', 'admin.forms.be_forms_validation')->middleware('auth');
+
 
 
 
@@ -156,6 +159,6 @@ Route::group(['middleware' => ['role:Admin|Vendedor']], function () {
     Route::view('/soporte/preguntas-frecuentes-admin', 'admin.support.adminfaq')->name('support.adminfaq')->middleware('auth');
     Route::view('/soporte/manual-admin', 'admin.support.adminmanual')->name('support.adminmanual')->middleware('auth');
 
-
+    
 
 });

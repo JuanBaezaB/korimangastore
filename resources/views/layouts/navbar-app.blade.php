@@ -16,7 +16,7 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" style="color: #49F8FF" aria-current="page" href="#">Inicio</a>
+                    <a class="nav-link {{ request()->is('/') ? 'text-info' : '' }}" href="{{ route('index.home') }}">Inicio</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -43,10 +43,10 @@
                     <a class="nav-link">Figuras</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link">Promociones</a>
+                    <a class="nav-link">Novedades</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link">Nosotros</a>
+                    <a class="nav-link {{ request()->is('nosotros*') ? 'text-info' : '' }}" href="{{ route('about-us') }}">Nosotros</a>
                 </li>
             </ul>
 
