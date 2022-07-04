@@ -123,7 +123,7 @@
                                 style="">
                                 @foreach ($branches as $branch)
                                     <a class="dropdown-item" href="javascript:void(0)"
-                                        onclick="fetchSalesByBranch($branch->id)">{{ $branch->name }}</a>
+                                        onclick="fetchSalesByBranch({{ $branch->id }})">{{ $branch->name }}</a>
                                 @endforeach
 
                             </div>
@@ -390,26 +390,16 @@
         </script>
         {{-- Traer Ventas para grafico por sucursal --}}
         <script>
-            $(function() {
-                $("#lista[name='name']").change(function() {
-                    var tu_variable_seleccionada = $(this).val();
-                    $.ajax({
-                        type: "POST",
-                        //Se omite la url por que es la misma página
-                        //url: "tu_url",
-                        //Variable envíada por ajax que recibe php
-                        data: {
-                            selected: tu_variable_seleccionada
-                        },
-                        success: function(data) {
-                            // Si todo sale bien, puedes agregar algo
-                        },
-                        error: function(data) {
-                            // Si fue error, recibes el error 
-                        }
-                    });
+            function fetchSalesByBranch($id) {
+                $.ajax({
+                    type: 'get',
+                    url: '{{route("sale.fetch")}}' + $id,
+                    dataType: 'json',
+                    success: function(response) {
+                        console.log(sales.response);
+                    }
                 });
-            });
+            }
         </script>
         {{-- Script grafico de barras --}}
         <script>
@@ -454,8 +444,8 @@
         {{-- Script grafico de torta --}}
         <script>
             /*const $datasales = {{ Js::from($productSales) }};
-                            Object.values($datasales)
-                            Object.keys($datasales)*/
+                                    Object.values($datasales)
+                                    Object.keys($datasales)*/
             // Obtener una referencia al elemento canvas del DOM
             const $grafica = document.querySelector("#grafico2"); // Las etiquetas son las porciones de la gráfica
             const etiquetas = ["Figuras", "Mangas", "Ropa",

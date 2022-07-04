@@ -112,7 +112,7 @@ class DashboardController extends Controller
         return $list_data;
     }
 
-    function dataMonth($param)
+    function dataMonth($param)//la puedo dejar como busqueda exclusiva de usuarios y dejar aparte la busqueda de ventas por id de sucursal en otra funcion
     {
         if ($param == 'Sales') {
             $prueba = new Sale();
@@ -149,8 +149,8 @@ class DashboardController extends Controller
         return $dataMonth;
     }
     
-    public function fetchSales($branch){
-        $respose = Sale::where('branch_id', '=', $branch->id);
+    public function fetchSales($id){
+        $respose = Sale::where('branch_id', '=', $id);
         return response()->json([
            'sales'=>$respose, 
         ]);
