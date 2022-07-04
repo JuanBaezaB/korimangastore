@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
+use App\Models\UserLastLogin;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -41,6 +43,12 @@ class LoginController extends Controller
             return '/';
         }
         return '/';
+    }
+    function authenticated(Request $request, $user){
+        UserLastLogin::create([
+            'user_id'=>Auth::user()->id,
+            'added_on'=>now(),
+        ]);
 
     }
 }

@@ -5,8 +5,8 @@
 @endsection
 
 @section('content')
-     <!-- Hero -->
-     <div class="bg-image" style="background-image: url('/media/various/bg_dashboard_3.png');">
+    <!-- Hero -->
+    <div class="bg-image" style="background-image: url('/media/various/bg_dashboard_3.png');">
         <div class="bg-primary-dark-op">
             <div class="content content-full">
                 <div class="row my-3">
@@ -121,9 +121,9 @@
                             </button>
                             <div class="dropdown-menu dropdown-menu-end fs-sm" aria-labelledby="dropdown-analytics-overview"
                                 style="">
-
                                 @foreach ($branches as $branch)
-                                    <a class="dropdown-item" href="javascript:void(0)">{{ $branch->name }}</a>
+                                    <a class="dropdown-item" href="javascript:void(0)"
+                                        onclick="fetchSalesByBranch($branch->id)">{{ $branch->name }}</a>
                                 @endforeach
 
                             </div>
@@ -225,9 +225,9 @@
                 <div class="block block-rounded">
                     <div class="block-header block-header-default">
                         <h3 class="block-title">Grafico de productos más vendidos por categoría</h3>
-                        
-                            
-                        
+
+
+
                         <div class="block-options">
                             <button type="button" class="btn-block-option" data-toggle="block-option"
                                 data-action="state_toggle" data-action-mode="demo">
@@ -316,7 +316,6 @@
                 <!-- END Purchases -->
             </div>
         </div>
-              
     @endsection
 
     @section('js_after')
@@ -389,8 +388,29 @@
             }
             init();
         </script>
-
-
+        {{-- Traer Ventas para grafico por sucursal --}}
+        <script>
+            $(function() {
+                $("#lista[name='name']").change(function() {
+                    var tu_variable_seleccionada = $(this).val();
+                    $.ajax({
+                        type: "POST",
+                        //Se omite la url por que es la misma página
+                        //url: "tu_url",
+                        //Variable envíada por ajax que recibe php
+                        data: {
+                            selected: tu_variable_seleccionada
+                        },
+                        success: function(data) {
+                            // Si todo sale bien, puedes agregar algo
+                        },
+                        error: function(data) {
+                            // Si fue error, recibes el error 
+                        }
+                    });
+                });
+            });
+        </script>
         {{-- Script grafico de barras --}}
         <script>
             const $data = {{ Js::from($salesMonthParam) }};
@@ -433,10 +453,9 @@
         </script>
         {{-- Script grafico de torta --}}
         <script>
-
             /*const $datasales = {{ Js::from($productSales) }};
-            Object.values($datasales)
-            Object.keys($datasales)*/
+                            Object.values($datasales)
+                            Object.keys($datasales)*/
             // Obtener una referencia al elemento canvas del DOM
             const $grafica = document.querySelector("#grafico2"); // Las etiquetas son las porciones de la gráfica
             const etiquetas = ["Figuras", "Mangas", "Ropa",

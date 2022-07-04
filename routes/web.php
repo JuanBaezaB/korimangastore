@@ -159,6 +159,7 @@ Route::group(['middleware' => ['role:Admin|Vendedor']], function () {
     Route::view('/soporte/preguntas-frecuentes-admin', 'admin.support.adminfaq')->name('support.adminfaq')->middleware('auth');
     Route::view('/soporte/manual-admin', 'admin.support.adminmanual')->name('support.adminmanual')->middleware('auth');
 
-
+    /*Prueba */
+    Route::post('/fetch-sales', [DashboardController::class, 'fetchSales'])->name('sale.fetch')->middleware('can:sale.fetch');
 
 });

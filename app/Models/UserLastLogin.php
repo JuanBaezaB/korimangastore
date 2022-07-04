@@ -10,11 +10,10 @@ class UserLastLogin extends Model
 {
     use HasFactory;
 
-
-    protected $listen = [
-        'Illuminate\Auth\Events\Registered' => [
-            'App\Listeners\LogRegisteredUser',
-        ]
+    public $timestamps = false;
+    protected $fillable = [
+        'user_id',
+        'added_on',
     ];
 
     

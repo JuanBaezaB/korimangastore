@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\Sale;
 use App\Models\User;
 use Carbon\Carbon;
+use Facade\FlareClient\Http\Response;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
@@ -146,5 +147,12 @@ class DashboardController extends Controller
         $dataMonth['Diciembre'] =  $prueba::whereMonth('created_at', '=', '12')->whereYear('created_at', '=', date("Y"))->count('id');
 
         return $dataMonth;
+    }
+    
+    public function fetchSales($branch){
+        $respose = Sale::where('branch_id', '=', $branch->id);
+        return response()->json([
+           'sales'=>$respose, 
+        ]);
     }
 }
