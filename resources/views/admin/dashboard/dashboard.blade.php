@@ -319,6 +319,7 @@
     @endsection
 
     @section('js_after')
+    <script src="{{asset('js/lib/jquery.min.js')}}"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js"></script>
         {{-- Script para esconder los graficos dependiendo de lo que quiera ver en el grafico --}}
         <script>
@@ -390,10 +391,17 @@
         </script>
         {{-- Traer Ventas para grafico por sucursal --}}
         <script>
+            
+
             function fetchSalesByBranch($id) {
+                $.ajaxSetup({
+                    headers:{
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                })
                 $.ajax({
-                    type: 'get',
-                    url: '{{route("sale.fetch")}}' + $id,
+                    type: 'GET',
+                    url: '{{route("sale.fetch", ":id")}}'.replace(':id', $id),
                     dataType: 'json',
                     success: function(response) {
                         console.log(sales.response);
@@ -412,7 +420,6 @@
                     datasets: [{
                         label: 'Grafico de Ventas',
                         data: Object.values($data),
-                        //data: [3, 5, 7, 8, 7, 2, 3, 6, 8, 5, 3, 9],
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
                             'rgba(54, 162, 235, 0.2)',
@@ -448,9 +455,7 @@
                                     Object.keys($datasales)*/
             // Obtener una referencia al elemento canvas del DOM
             const $grafica = document.querySelector("#grafico2"); // Las etiquetas son las porciones de la gráfica
-            const etiquetas = ["Figuras", "Mangas", "Ropa",
-                "Pines"
-            ] // Podemos tener varios conjuntos de datos. Comencemos con uno
+            const etiquetas = ["Figuras", "Mangas", "Ropa","Pines"] // Podemos tener varios conjuntos de datos. Comencemos con uno
             const datosIngresos = {
                 data: [1500, 400, 2000,
                     7000
@@ -485,9 +490,6 @@
         <script>
             const $datos = {{ Js::from($usersMonthParam) }};
             //const ctx = document.getElementById('grafico1').getContext('2d');
-            var xValues = [50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150];
-            var yValues = [7, 8, 8, 9, 9, 9, 10, 11, 14, 14, 15];
-
             new Chart("grafico3", {
                 type: "line",
                 data: {

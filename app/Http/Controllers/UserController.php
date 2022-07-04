@@ -182,4 +182,8 @@ class UserController extends Controller
         return redirect()->route('user.list')
             ->with('success', 'deleted');
     }
+    public function profile(){
+        return response()->view('admin.basic_management.user-management.user.profile');
+        
+    }
 }

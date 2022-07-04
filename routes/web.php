@@ -160,6 +160,9 @@ Route::group(['middleware' => ['role:Admin|Vendedor']], function () {
     Route::view('/soporte/manual-admin', 'admin.support.adminmanual')->name('support.adminmanual')->middleware('auth');
 
     /*Prueba */
-    Route::post('/fetch-sales', [DashboardController::class, 'fetchSales'])->name('sale.fetch')->middleware('can:sale.fetch');
+    Route::get('/fetch-sales/{id}', [DashboardController::class, 'fetchSales'])->name('sale.fetch');
+    
+    /*Perfil De Usuario */
+    Route::get('/perfil', [UserController::class, 'profile'])->name('user.profile');
 
 });

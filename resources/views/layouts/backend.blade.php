@@ -415,7 +415,7 @@
                                 User Options
                             </div>
                             <div class="p-2">
-                                <a class="dropdown-item" href="javascript:void(0)">
+                                <a class="dropdown-item" href="{{route('user.profile')}}">
                                     <i class="far fa-fw fa-user me-1"></i> Profile
                                 </a>
                                 <div role="separator" class="dropdown-divider"></div>
