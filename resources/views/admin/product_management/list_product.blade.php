@@ -46,6 +46,7 @@
                     <thead>
                         <tr>
                             <th>Nombre</th>
+                            <th>Código</th>
                             <th class="d-none d-sm-table-cell" style="width: 30%;">Tipo</th>
                             <th class="d-none d-sm-table-cell" style="width: 15%;">Precio</th>
                             <th style="width: 10%;">Acciones</th>
@@ -56,6 +57,9 @@
                         <tr>
                             <td class="fw-semibold">
                                 {{ $product->name }}
+                            </td>
+                            <td>
+                                {{ $product->code }}
                             </td>
                             <td class="d-none d-sm-table-cell">
                                 {{ $product->category->name }}
