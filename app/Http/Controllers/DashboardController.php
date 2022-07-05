@@ -50,25 +50,23 @@ class DashboardController extends Controller
         $percentListSales = DashboardController::retPercent($monthlySales, $previousMonthlySales);
         $percentListUsers = DashboardController::retPercent($monthlyUsers, $previousMonthlyUser);
 
+        //Datos grafico de torta
+
+
+
+        //mostSelledProducts;
+
         //usuarios y ventas por mes (Graficos)
-        $salesMonthParam = DashboardController::dataMonth('Sales');
-        $usersMonthParam = DashboardController::dataMonth('Users');
-        $categories = Category::select('name');
-        
-        //Join entre tablas sales y product_id para insertar en tabla
-        $productSales = DB::table('product_sale')
-            ->rightJoin('products', 'products.id', '=', 'product_sale.product_id')
-            ->select('category_id')
-            ->get();
+        $usersMonthParam = DashboardController::dataMonthUsers();
 
         //necesito llenar un arreglo con los tipos de categorias y despues sumar las categorias para entregar un arreglo en el compact 
-        $list_product = [];
+        $mostSelledProducts = DashboardController::mostSelledProducts();
 
-       
+
         return view(
             'admin.dashboard.dashboard',
             compact(
-                'salesMonthParam',
+                
                 'usersMonthParam',
                 'cUsers',
                 'cSales',
@@ -77,10 +75,9 @@ class DashboardController extends Controller
                 'percentListUsers',
                 'percentListSales',
                 'products',
-                'productSales',
                 'users',
                 'branches',
-                'list_product'
+                'mostSelledProducts',
             )
         );
     }
@@ -112,47 +109,55 @@ class DashboardController extends Controller
         return $list_data;
     }
 
-    function dataMonth($param)//la puedo dejar como busqueda exclusiva de usuarios y dejar aparte la busqueda de ventas por id de sucursal en otra funcion
+    function dataMonthSales($branch)
     {
-        if ($param == 'Sales') {
-            $prueba = new Sale();
-            /*
-            $dataMonth['Enero'] =  $prueba::where('branch_id' == $branch)->whereMonth('created_at', '=', '01')->whereYear('created_at', '=', date("Y"))->count('id');
-            $dataMonth['Febrero'] =  $prueba::where('branch_id' == $branch)->whereMonth('created_at', '=', '02')->whereYear('created_at', '=', date("Y"))->count('id');
-            $dataMonth['Marzo'] =  $prueba::where('branch_id' == $branch)->whereMonth('created_at', '=', '03')->whereYear('created_at', '=', date("Y"))->count('id');
-            $dataMonth['Abril'] =  $prueba::where('branch_id' == $branch)->whereMonth('created_at', '=', '04')->whereYear('created_at', '=', date("Y"))->count('id');
-            $dataMonth['Mayo'] =  $prueba::where('branch_id' == $branch)->whereMonth('created_at', '=', '05')->whereYear('created_at', '=', date("Y"))->count('id');
-            $dataMonth['Junio'] =  $prueba::where('branch_id' == $branch)->whereMonth('created_at', '=', '06')->whereYear('created_at', '=', date("Y"))->count('id');
-            $dataMonth['Julio'] =  $prueba::where('branch_id' == $branch)->whereMonth('created_at', '=', '07')->whereYear('created_at', '=', date("Y"))->count('id');
-            $dataMonth['Agosto'] =  $prueba::where('branch_id' == $branch)->whereMonth('created_at', '=', '08')->whereYear('created_at', '=', date("Y"))->count('id');
-            $dataMonth['Septiembre'] =  $prueba::where('branch_id' == $branch)->whereMonth('created_at', '=', '09')->whereYear('created_at', '=', date("Y"))->count('id');
-            $dataMonth['Octubre'] =  $prueba::where('branch_id' == $branch)->whereMonth('created_at', '=', '10')->whereYear('created_at', '=', date("Y"))->count('id');
-            $dataMonth['Noviembre'] =  $prueba::where('branch_id' == $branch)->whereMonth('created_at', '=', '11')->whereYear('created_at', '=', date("Y"))->count('id');
-            $dataMonth['Diciembre'] =  $prueba::where('branch_id' == $branch)->whereMonth('created_at', '=', '12')->whereYear('created_at', '=', date("Y"))->count('id');*/
-        } else {
-            $prueba = new User();
-        }
+        $dataMonthsales['Enero'] =  Sale::whereMonth('created_at', '=', '01')->whereYear('created_at', '=', date("Y"))->where('branch_id', '=', $branch)->count('id');
+        $dataMonthsales['Febrero'] =  Sale::whereMonth('created_at', '=', '02')->whereYear('created_at', '=', date("Y"))->where('branch_id', '=', $branch)->count('id');
+        $dataMonthsales['Marzo'] =  Sale::whereMonth('created_at', '=', '03')->whereYear('created_at', '=', date("Y"))->where('branch_id', '=', $branch)->count('id');
+        $dataMonthsales['Abril'] =  Sale::whereMonth('created_at', '=', '04')->whereYear('created_at', '=', date("Y"))->where('branch_id', '=', $branch)->count('id');
+        $dataMonthsales['Mayo'] =  Sale::whereMonth('created_at', '=', '05')->whereYear('created_at', '=', date("Y"))->where('branch_id', '=', $branch)->count('id');
+        $dataMonthsales['Junio'] =  Sale::whereMonth('created_at', '=', '06')->whereYear('created_at', '=', date("Y"))->where('branch_id', '=', $branch)->count('id');
+        $dataMonthsales['Julio'] =  Sale::whereMonth('created_at', '=', '07')->whereYear('created_at', '=', date("Y"))->where('branch_id', '=', $branch)->count('id');
+        $dataMonthsales['Agosto'] =  Sale::whereMonth('created_at', '=', '08')->whereYear('created_at', '=', date("Y"))->where('branch_id', '=', $branch)->count('id');
+        $dataMonthsales['Septiembre'] =  Sale::whereMonth('created_at', '=', '09')->whereYear('created_at', '=', date("Y"))->where('branch_id', '=', $branch)->count('id');
+        $dataMonthsales['Octubre'] =  Sale::whereMonth('created_at', '=', '10')->whereYear('created_at', '=', date("Y"))->where('branch_id', '=', $branch)->count('id');
+        $dataMonthsales['Noviembre'] =  Sale::whereMonth('created_at', '=', '11')->whereYear('created_at', '=', date("Y"))->where('branch_id', '=', $branch)->count('id');
+        $dataMonthsales['Diciembre'] =  Sale::whereMonth('created_at', '=', '12')->whereYear('created_at', '=', date("Y"))->where('branch_id', '=', $branch)->count('id');
 
-        $dataMonth['Enero'] =  $prueba::whereMonth('created_at', '=', '01')->whereYear('created_at', '=', date("Y"))->count('id');
-        $dataMonth['Febrero'] =  $prueba::whereMonth('created_at', '=', '02')->whereYear('created_at', '=', date("Y"))->count('id');
-        $dataMonth['Marzo'] =  $prueba::whereMonth('created_at', '=', '03')->whereYear('created_at', '=', date("Y"))->count('id');
-        $dataMonth['Abril'] =  $prueba::whereMonth('created_at', '=', '04')->whereYear('created_at', '=', date("Y"))->count('id');
-        $dataMonth['Mayo'] =  $prueba::whereMonth('created_at', '=', '05')->whereYear('created_at', '=', date("Y"))->count('id');
-        $dataMonth['Junio'] =  $prueba::whereMonth('created_at', '=', '06')->whereYear('created_at', '=', date("Y"))->count('id');
-        $dataMonth['Julio'] =  $prueba::whereMonth('created_at', '=', '07')->whereYear('created_at', '=', date("Y"))->count('id');
-        $dataMonth['Agosto'] =  $prueba::whereMonth('created_at', '=', '08')->whereYear('created_at', '=', date("Y"))->count('id');
-        $dataMonth['Septiembre'] =  $prueba::whereMonth('created_at', '=', '09')->whereYear('created_at', '=', date("Y"))->count('id');
-        $dataMonth['Octubre'] =  $prueba::whereMonth('created_at', '=', '10')->whereYear('created_at', '=', date("Y"))->count('id');
-        $dataMonth['Noviembre'] =  $prueba::whereMonth('created_at', '=', '11')->whereYear('created_at', '=', date("Y"))->count('id');
-        $dataMonth['Diciembre'] =  $prueba::whereMonth('created_at', '=', '12')->whereYear('created_at', '=', date("Y"))->count('id');
-
-        return $dataMonth;
-    }
-    
-    public function fetchSales($id){
-        $respose = Sale::where('branch_id', '=', $id);
         return response()->json([
-           'sales'=>$respose, 
+            'sales' => $dataMonthsales,
         ]);
+    }
+
+    function dataMonthUsers()
+    {
+        $dataMonthUser['Enero'] =  User::whereMonth('created_at', '=', '01')->whereYear('created_at', '=', date("Y"))->count('id');
+        $dataMonthUser['Febrero'] =  User::whereMonth('created_at', '=', '02')->whereYear('created_at', '=', date("Y"))->count('id');
+        $dataMonthUser['Marzo'] =  User::whereMonth('created_at', '=', '03')->whereYear('created_at', '=', date("Y"))->count('id');
+        $dataMonthUser['Abril'] =  User::whereMonth('created_at', '=', '04')->whereYear('created_at', '=', date("Y"))->count('id');
+        $dataMonthUser['Mayo'] =  User::whereMonth('created_at', '=', '05')->whereYear('created_at', '=', date("Y"))->count('id');
+        $dataMonthUser['Junio'] =  User::whereMonth('created_at', '=', '06')->whereYear('created_at', '=', date("Y"))->count('id');
+        $dataMonthUser['Julio'] =  User::whereMonth('created_at', '=', '07')->whereYear('created_at', '=', date("Y"))->count('id');
+        $dataMonthUser['Agosto'] =  User::whereMonth('created_at', '=', '08')->whereYear('created_at', '=', date("Y"))->count('id');
+        $dataMonthUser['Septiembre'] =  User::whereMonth('created_at', '=', '09')->whereYear('created_at', '=', date("Y"))->count('id');
+        $dataMonthUser['Octubre'] =  User::whereMonth('created_at', '=', '10')->whereYear('created_at', '=', date("Y"))->count('id');
+        $dataMonthUser['Noviembre'] =  User::whereMonth('created_at', '=', '11')->whereYear('created_at', '=', date("Y"))->count('id');
+        $dataMonthUser['Diciembre'] =  User::whereMonth('created_at', '=', '12')->whereYear('created_at', '=', date("Y"))->count('id');
+
+        return $dataMonthUser;
+    }
+
+    public function mostSelledProducts()
+    {
+        $listMostSales = [];
+        $category = Category::all();
+        foreach ($category as $categories) {
+            $listMostSales[(string)$categories->name] = DB::table('products')
+                ->leftjoin('product_sale', 'product_sale.product_id', '=', 'products.id')
+                ->leftjoin('categories', 'categories.id', '=', 'products.category_id')
+                ->where('categories.name', '=', $categories->name)
+                ->count();
+        }
+        return $listMostSales;
     }
 }

@@ -89,7 +89,7 @@
                     </div>
                 </a>
             </div>
-            <!-- Productos registradas-->
+            <!-- Productos registrados-->
             <div class="col-md-6 col-xl-3">
                 <a class="block block-rounded block-link-pop" href="javascript:void(0)">
                     <div class="block-content block-content-full d-flex align-items-center justify-content-between">
@@ -289,8 +289,7 @@
                             <thead>
                                 <tr class="text-uppercase">
                                     <th class="fw-bold">Producto</th>
-                                    <th class="d-none d-sm-table-cell fw-bold">Fecha de compra</th>
-                                    <th class="fw-bold">Cantidad</th>
+                                    <th class="d-none d-sm-table-cell fw-bold">Categoria</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -302,10 +301,6 @@
                                         <td class="d-none d-sm-table-cell">
                                             {{ $product->category->name }}
                                         </td>
-                                        <td class="d-none d-sm-table-cell">
-                                            $ {{ $product->price }}
-                                        </td>
-
                                     </tr>
                                 @endforeach
 
@@ -404,14 +399,15 @@
                     url: '{{route("sale.fetch", ":id")}}'.replace(':id', $id),
                     dataType: 'json',
                     success: function(response) {
-                        console.log(sales.response);
+                        return response;
                     }
                 });
             }
         </script>
-        {{-- Script grafico de barras --}}
+        
+        {{-- Script grafico de barras{{ Js::from($salesMonthParam) }}; --}}
         <script>
-            const $data = {{ Js::from($salesMonthParam) }};
+            const $data = //aca necesito pasar lo que me esta mostrando el ajax
             const ctx = document.getElementById('grafico1').getContext('2d');
             const myChart = new Chart(ctx, {
                 type: 'bar',
@@ -436,7 +432,7 @@
                             'rgba(153, 102, 255, 1)',
                             'rgba(255, 159, 64, 1)'
                         ],
-                        borderWidth: 1
+                        borderWidth: 3
                     }]
                 },
                 options: {
@@ -450,16 +446,11 @@
         </script>
         {{-- Script grafico de torta --}}
         <script>
-            /*const $datasales = {{ Js::from($productSales) }};
-                                    Object.values($datasales)
-                                    Object.keys($datasales)*/
             // Obtener una referencia al elemento canvas del DOM
+            const $dataKake = {{ Js::from($mostSelledProducts) }};
             const $grafica = document.querySelector("#grafico2"); // Las etiquetas son las porciones de la gráfica
-            const etiquetas = ["Figuras", "Mangas", "Ropa","Pines"] // Podemos tener varios conjuntos de datos. Comencemos con uno
             const datosIngresos = {
-                data: [1500, 400, 2000,
-                    7000
-                ], // La data es un arreglo que debe tener la misma cantidad de valores que la cantidad de etiquetas
+                data: Object.values($dataKake), // La data es un arreglo que debe tener la misma cantidad de valores que la cantidad de etiquetas
                 // Ahora debería haber tantos background colors como datos, es decir, para este ejemplo, 4
                 backgroundColor: [
                     'rgba(163,221,203,0.2)',
@@ -473,15 +464,14 @@
                     'rgba(230,181,102,1)',
                     'rgba(229,112,126,1)',
                 ], // Color del borde
-                borderWidth: 1, // Ancho del borde
+                borderWidth: 3, // Ancho del borde
             };
             new Chart($grafica, {
                 type: 'pie', // Tipo de gráfica. Puede ser dougnhut o pie
                 data: {
-                    labels: etiquetas,
+                    labels: Object.keys($dataKake),
                     datasets: [
                         datosIngresos,
-                        // Aquí más datos...
                     ]
                 },
             });
