@@ -23,6 +23,16 @@
             background-position: center;
         }
 
+        .producto{
+            transition: background-color .5s;
+        }
+
+        .producto:hover{
+            background-color: #00cbcc;
+
+        }
+
+
     </style>
 @endsection
 
@@ -41,15 +51,43 @@
     <section class="product">
         <div class="container">
             <div class="row">
-                <div class="col-lg-3 col-md-6 col-sm-12 pt-1 pb-1 text-center">
-                    <div class="card border-0 bg-info">
+
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 pt-1 pb-1 text-center">
+                    <div class="producto card border-dark">
                         <div class="card-body">
                             <img class="card-img-top" src="https://www.normaeditorial.com/upload/media/albumes/0001/17/cdcf47aecb0a210dec3d7cdff3dfbdd2c0a82995.jpeg" alt="">
                         </div>
                         <h6>Nombre Manga</h6>
                         <p>$12.990</p>
                         <button type="button" class="btn btn-outline-dark ms-4 me-4 mb-2"><i class="pe-2 fa-solid fa-bookmark"></i>Reservar</button>
-                    <button type="button" class="btn btn-outline-dark ms-4 me-4 mb-3"><i class="pe-2 fa-solid fa-cart-plus"></i>Agregar al Carrito</button>
+                        <button type="button" class="btn btn-outline-dark ms-4 me-4 mb-3"><i class="pe-2 fa-solid fa-cart-plus"></i>Agregar al Carrito</button>
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 pt-1 pb-1 text-center">
+                    <div class="producto card border-dark">
+                        <div class="card-body">
+                            <img class="card-img-top" src="https://www.normaeditorial.com/upload/media/albumes/0001/17/cdcf47aecb0a210dec3d7cdff3dfbdd2c0a82995.jpeg" alt="">
+                        </div>
+                        <h6>Nombre Manga</h6>
+                        <p>$12.990</p>
+                        <button type="button" class="btn btn-outline-dark ms-4 me-4 mb-2"><i class="pe-2 fa-solid fa-bookmark"></i>Reservar</button>
+                        <button type="button" class="btn btn-outline-dark ms-4 me-4 mb-3"><i class="pe-2 fa-solid fa-cart-plus"></i>Agregar al Carrito</button>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 pt-1 pb-1 text-center">
+                    <div class="producto card border-dark">
+                        <div class="card-body">
+                            <img class="card-img-top" src="https://www.normaeditorial.com/upload/media/albumes/0001/17/cdcf47aecb0a210dec3d7cdff3dfbdd2c0a82995.jpeg" alt="">
+                        </div>
+                        <h6>Nombre Manga</h6>
+                        <p>$12.990</p>
+                        <button type="button" class="btn btn-outline-dark ms-4 me-4 mb-2"><i class="pe-2 fa-solid fa-bookmark"></i>Reservar</button>
+                        <button type="button" class="btn btn-outline-dark ms-4 me-4 mb-3"><i class="pe-2 fa-solid fa-cart-plus"></i>Agregar al Carrito</button>
                     </div>
                 </div>
             </div>
@@ -62,7 +100,7 @@
             <!-- Blog entries-->
             <div class="col-lg-8">
                 <!-- Featured blog post-->
-                <div class="card mb-4">
+                <div class="card border-dark mb-4">
                     <a href="#!"><img class="card-img-top" src="/media/login/portada1.png" alt="..." /></a>
                     <div class="card-body">
                         <div class="small text-muted">January 1, 2022</div>
@@ -113,7 +151,7 @@
                                 <div class="small text-muted">January 1, 2022</div>
                                 <h2 class="card-title h4">Manga 4</h2>
                                 <p class="card-text desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam.</p>
-                                
+
                                 <a class="btn btn-primary" href="#!">Read more →</a>
                             </div>
                         </div>
