@@ -8,7 +8,7 @@
 
 
     <!-- Hero -->
-    <div class="bg-image" style="background-image: url('assets/media/photos/photo17@2x.jpg');">
+    <div class="bg-image" style="background-image: url('https://cdn.wallpapersafari.com/64/23/LChQ6l.png');">
       <div class="bg-black-75">
         <div class="content content-full">
           <div class="py-5 text-center">
@@ -50,27 +50,15 @@
               </div>
               <div class="col-lg-8 col-xl-5">
                 <div class="mb-4">
-                  <label class="form-label" for="dm-profile-edit-username">Username</label>
+                  <label class="form-label" for="dm-profile-edit-name">Nombre</label>
                   <input type="text" class="form-control" id="dm-profile-edit-username" name="dm-profile-edit-username" placeholder="Enter your username.." value="{{Auth::user()->name}}">
                 </div>
                 <div class="mb-4">
-                  <label class="form-label" for="dm-profile-edit-name">Name</label>
-                  <input type="text" class="form-control" id="dm-profile-edit-name" name="dm-profile-edit-name" placeholder="Enter your name.." value="John Doe">
-                </div>
-                <div class="mb-4">
-                  <label class="form-label" for="dm-profile-edit-email">Email Address</label>
+                  <label class="form-label" for="dm-profile-edit-email">Direccion de correo</label>
                   <input type="email" class="form-control" id="dm-profile-edit-email" name="dm-profile-edit-email" placeholder="Enter your email.." value="{{Auth::user()->email}}">
                 </div>
                 <div class="mb-4">
-                  <label class="form-label" for="dm-profile-edit-job-title">Job Title</label>
-                  <input type="text" class="form-control" id="dm-profile-edit-job-title" name="dm-profile-edit-job-title" placeholder="Add your job title.." value="Product Manager">
-                </div>
-                <div class="mb-4">
-                  <label class="form-label" for="dm-profile-edit-company">Company</label>
-                  <input type="text" class="form-control" id="dm-profile-edit-company" name="dm-profile-edit-company" value="@ProXdesign" readonly="">
-                </div>
-                <div class="mb-4">
-                  <label class="form-label">Your Avatar</label>
+                  <label class="form-label">Tu avatar</label>
                   <div class="push">
                     @if (Auth::user()->image != null)
                 <img class="img-avatar img-avatar96 img-avatar-thumb" src="{{ asset('storage/' . Auth::user()->image) }}">
@@ -79,7 +67,7 @@
                 <img class="img-avatar img-avatar96 img-avatar-thumb" src="{{ asset('media/avatars/avatar10.jpg') }}" alt="">
             @endif
                   </div>
-                  <label class="form-label" for="dm-profile-edit-avatar">Choose a new avatar</label>
+                  <label class="form-label" for="dm-profile-edit-avatar">Selecciona un nuevo avatar</label>
                   <input class="form-control" type="file" id="dm-profile-edit-avatar">
                 </div>
               </div>
@@ -88,7 +76,7 @@
 
             <!-- Change Password -->
             <h2 class="content-heading pt-0">
-              <i class="fa fa-fw fa-asterisk text-muted me-1"></i> Change Password
+              <i class="fa fa-fw fa-asterisk text-muted me-1"></i> Cambio de contraseña
             </h2>
             <div class="row push">
               <div class="col-lg-4">
@@ -98,25 +86,24 @@
               </div>
               <div class="col-lg-8 col-xl-5">
                 <div class="mb-4">
-                  <label class="form-label" for="dm-profile-edit-password">Current Password</label>
+                  <label class="form-label" for="dm-profile-edit-password">Contraseña actual</label>
                   <input type="password" class="form-control" id="dm-profile-edit-password" name="dm-profile-edit-password">
                 </div>
                 <div class="row mb-4">
                   <div class="col-12">
-                    <label class="form-label" for="dm-profile-edit-password-new">New Password</label>
+                    <label class="form-label" for="dm-profile-edit-password-new">Nueva contraseña</label>
                     <input type="password" class="form-control" id="dm-profile-edit-password-new" name="dm-profile-edit-password-new">
                   </div>
                 </div>
                 <div class="row mb-4">
                   <div class="col-12">
-                    <label class="form-label" for="dm-profile-edit-password-new-confirm">Confirm New Password</label>
+                    <label class="form-label" for="dm-profile-edit-password-new-confirm">Confirme su nueva contraseña</label>
                     <input type="password" class="form-control" id="dm-profile-edit-password-new-confirm" name="dm-profile-edit-password-new-confirm">
                   </div>
                 </div>
               </div>
             </div>
             <!-- END Change Password -->
-            
 @endsection
 
-   
+

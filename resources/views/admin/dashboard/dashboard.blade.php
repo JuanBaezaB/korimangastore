@@ -311,6 +311,7 @@
                 <!-- END Purchases -->
             </div>
         </div>
+        
     @endsection
 
     @section('js_after')
@@ -386,8 +387,6 @@
         </script>
         {{-- Traer Ventas para grafico por sucursal --}}
         <script>
-            
-
             function fetchSalesByBranch($id) {
                 $.ajaxSetup({
                     headers:{
@@ -404,7 +403,6 @@
                 });
             }
         </script>
-        
         {{-- Script grafico de barras{{ Js::from($salesMonthParam) }}; --}}
         <script>
             const $data = //aca necesito pasar lo que me esta mostrando el ajax
