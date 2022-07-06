@@ -65,7 +65,6 @@ class CriticalStock extends Notification
             'product_name' => $this->product->name,
             'branch_name' => $this->branch->name,
             'stock' => $this->stock,
-            'time' => Carbon::now()->diffForHumans(),
         ];
     }
 }
