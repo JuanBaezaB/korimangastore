@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\OutOfStockEvent;
 use App\Models\Branch;
 use App\Models\Product;
 use App\Models\User;
 use App\Notifications\OutOfStock;
 use Illuminate\Http\Request;
 use Laravel\Ui\Presets\React;
+use OuterIterator;
 
 class StockController extends Controller
 {

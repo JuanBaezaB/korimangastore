@@ -62,7 +62,6 @@ class OutOfStock extends Notification
             'product_id' => $this->product->id,
             'product_name' => $this->product->name,
             'branch_name' => $this->branch->name,
-            'time' => Carbon::now()->diffForHumans(),
         ];
     }
 }

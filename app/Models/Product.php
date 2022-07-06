@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Events\OutOfStockEvent;
 
 class Product extends Model
 {
@@ -64,8 +65,10 @@ class Product extends Model
         } else {
             $branch_id = $branch;
         }
+        
+        $maybeBranch = Branch::find($branch_id);
 
-        if(!$branch_id || !Branch::find($branch_id)) {
+        if(!$branch_id || !$maybeBranch) {
             throw new \Exception("Branch with id " . $branch_id . " does not exist");
         }
 
@@ -80,6 +83,9 @@ class Product extends Model
                     . " Delta: " . $stock);
             }
             $this->branches()->updateExistingPivot($branch_id, ['stock' => $resultingStock]);
+            if($resultingStock==0){
+                event(new OutOfStockEvent($this, $maybeBranch));
+            }
         } else {
             if ($stock <= 0) {
                 throw new \Exception(

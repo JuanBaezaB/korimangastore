@@ -19,6 +19,8 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NotificationController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,6 +55,9 @@ Route::group(['middleware' => ['role:Admin|Vendedor']], function () {
 
     /*Dashboard*/
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('index.graphic');
+
+     /*Notificaciones*/
+    Route::post('/mark-as-read', [NotificationController::class, 'markNotification'])->name('markNotification');
 
     /* Producto */
     Route::get('/gestion-de-productos/producto', [ProductController::class, 'index'])->name('product.list')->middleware('can:product.list');
