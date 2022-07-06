@@ -13,6 +13,7 @@ use App\Models\Genre;
 use App\Models\Serie;
 
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -104,24 +105,30 @@ class MangaImport implements ToCollection, WithHeadingRow, SkipsOnError, WithVal
                 // Ingresar stock
                 $branches = explode(";", $row['sucursal']);
                 $stocks = explode(";", $row['stock']);
-                for ($i = 0; $i < count($branches); $i++) {
-                    $branches[$i] = trim($branches[$i]);
-                    if (!empty($branches[$i])) {
-                        $branch = Branch::firstWhere('name', $branches[$i]);
-                        if ($branch == null) {
-                            $branch = new Branch();
-                            $branch->name = $branches[$i];
-                            $branch->save();
+
+                if(sizeof($branches) != sizeof($branches)) {
+                    throw new \Exception("the number of branches is different from the number of stocks");
+                }else{
+                    for ($i = 0; $i < sizeof($branches); $i++) {
+                        $branches[$i] = trim($branches[$i]);
+                        if (!empty($branches[$i])) {
+                            $branch = Branch::firstWhere('name', $branches[$i]);
+                            if ($branch == null) {
+                                $branch = new Branch();
+                                $branch->name = $branches[$i];
+                                $branch->save();
+                            }
+                            $stock = intval($stocks[$i]);
+                            $product->branches()->attach($branch, ['stock' => $stock]);
                         }
-                        $stock = intval($stocks[$i]);
-                        $product->branches()->attach($branch, ['stock' => $stock]);
                     }
                 }
 
+
             } else {
                 $product = Product::firstWhere('code', trim($row['codigo']));
-                if ($product =! null) {
-                    $product = Product::where('id',$product->id)->update([
+                if ($product != null) {
+                    $product->update([
                         'name' => trim($row['nombre']),
                         'description' => trim($row['descripcion']),
                         'price' => trim($row['precio']),
@@ -139,9 +146,10 @@ class MangaImport implements ToCollection, WithHeadingRow, SkipsOnError, WithVal
                                 $serie->name = $serie_manga;
                                 $serie->save();
                             }
-                            array_push($series_id, $serie->id);
+                            array_push($series_id,$serie->id);
                         }
-                    }$product->series()->sync( $series_id);
+                    }
+                    $product->series()->sync($series_id);
 
                     // Ingresar manga
                     $editorial = Editorial::firstWhere('name', trim($row['editorial']));
@@ -150,14 +158,14 @@ class MangaImport implements ToCollection, WithHeadingRow, SkipsOnError, WithVal
                         $editorial->name = trim($row['editorial']);
                         $editorial->save();
                     }
-        
+
                     $format = Format::firstWhere('name', trim($row['formato']));
                     if ($format == null && $row['formato'] != null) {
                         $format = new Format();
                         $format->name = trim($row['formato']);
                         $format->save();
                     }
-                    
+
                     $manga = $product->productable;
                     $manga->update([
                         'editorial_id' => isset($editorial->id) ? $editorial->id : null,
@@ -180,7 +188,28 @@ class MangaImport implements ToCollection, WithHeadingRow, SkipsOnError, WithVal
                             }
                         }
                     }$manga->genres()->sync($genres_id);
-                    
+
+                    // Ingresar stock
+                    $branches = explode(";", $row['sucursal']);
+                    $stocks = explode(";", $row['stock']);
+                    if(sizeof($branches) != sizeof($branches)) {
+                        throw new \Exception("the number of branches is different from the number of stocks");
+                    }else{
+                        for ($i = 0; $i < sizeof($branches); $i++) {
+                            $branches[$i] = trim($branches[$i]);
+                            if (!empty($branches[$i])) {
+                                $branch = Branch::firstWhere('name', $branches[$i]);
+                                if ($branch == null) {
+                                    $branch = new Branch();
+                                    $branch->name = $branches[$i];
+                                    $branch->save();
+                                }
+                                $stock = intval($stocks[$i]);
+                                $product->changeStock($branch->id, $stock);
+                            }
+                        }
+                    }
+
                 }else{
                     $product = Product::create([
                         'name' => trim($row['nombre']),
@@ -203,8 +232,8 @@ class MangaImport implements ToCollection, WithHeadingRow, SkipsOnError, WithVal
                             $product->series()->attach($serie);
                         }
                     }
-        
-        
+
+
                     // Ingresar manga
                     $editorial = Editorial::firstWhere('name', trim($row['editorial']));
                     if ($editorial == null && trim($row['editorial']) != null) {
@@ -212,19 +241,19 @@ class MangaImport implements ToCollection, WithHeadingRow, SkipsOnError, WithVal
                         $editorial->name = trim($row['editorial']);
                         $editorial->save();
                     }
-        
+
                     $format = Format::firstWhere('name', trim($row['formato']));
                     if ($format == null && $row['formato'] != null) {
                         $format = new Format();
                         $format->name = trim($row['formato']);
                         $format->save();
                     }
-        
+
                     $manga = Manga::create([
                         'editorial_id' => isset($editorial->id) ? $editorial->id : null,
                         'format_id' => isset($format->id) ? $format->id : null,
                     ]);
-        
+
                     $manga->product()->save($product);
                     $genres = explode(";", $row['genero']);
                     if ($genres != null) {
@@ -241,22 +270,26 @@ class MangaImport implements ToCollection, WithHeadingRow, SkipsOnError, WithVal
                             }
                         }
                     }
-        
-        
+
+
                     // Ingresar stock
                     $branches = explode(";", $row['sucursal']);
                     $stocks = explode(";", $row['stock']);
-                    for ($i = 0; $i < count($branches); $i++) {
-                        $branches[$i] = trim($branches[$i]);
-                        if (!empty($branches[$i])) {
-                            $branch = Branch::firstWhere('name', $branches[$i]);
-                            if ($branch == null) {
-                                $branch = new Branch();
-                                $branch->name = $branches[$i];
-                                $branch->save();
+                    if(sizeof($branches) != sizeof($branches)) {
+                        throw new \Exception("the number of branches is different from the number of stocks");
+                    }else{
+                        for ($i = 0; $i < sizeof($branches); $i++) {
+                            $branches[$i] = trim($branches[$i]);
+                            if (!empty($branches[$i])) {
+                                $branch = Branch::firstWhere('name', $branches[$i]);
+                                if ($branch == null) {
+                                    $branch = new Branch();
+                                    $branch->name = $branches[$i];
+                                    $branch->save();
+                                }
+                                $stock = intval($stocks[$i]);
+                                $product->branches()->attach($branch, ['stock' => $stock]);
                             }
-                            $stock = intval($stocks[$i]);
-                            $product->branches()->attach($branch, ['stock' => $stock]);
                         }
                     }
                 }
@@ -274,8 +307,8 @@ class MangaImport implements ToCollection, WithHeadingRow, SkipsOnError, WithVal
             "*.editorial" => ['required'],
             "*.formato" => ['nullable'],
             "*.genero" => ['nullable'],
-            "*.sucursal" => ['required'],
-            "*.stock" => ['required'],
+            "*.sucursal" => ['nullable'],
+            "*.stock" => ['nullable'],
         ];
     }
 }

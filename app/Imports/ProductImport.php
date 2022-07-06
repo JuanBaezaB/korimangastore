@@ -66,17 +66,21 @@ class ProductImport implements ToCollection, WithHeadingRow, SkipsOnError, WithV
             // Ingresar stock
             $branches = explode(";", $row['sucursal']);
             $stocks = explode(";", $row['stock']);
-            for ($i = 0; $i < count($branches); $i++) {
-                $branches[$i] = trim($branches[$i]);
-                if (!empty($branches[$i])) {
-                    $branch = Branch::firstWhere('name', $branches[$i]);
-                    if ($branch == null) {
-                        $branch = new Branch();
-                        $branch->name = $branches[$i];
-                        $branch->save();
+            if(sizeof($branches) != sizeof($branches)) {
+                throw new \Exception("the number of branches is different from the number of stocks");
+            }else{
+                for ($i = 0; $i < sizeof($branches); $i++) {
+                    $branches[$i] = trim($branches[$i]);
+                    if (!empty($branches[$i])) {
+                        $branch = Branch::firstWhere('name', $branches[$i]);
+                        if ($branch == null) {
+                            $branch = new Branch();
+                            $branch->name = $branches[$i];
+                            $branch->save();
+                        }
+                        $stock = intval($stocks[$i]);
+                        $product->branches()->attach($branch, ['stock' => $stock]);
                     }
-                    $stock = intval($stocks[$i]);
-                    $product->branches()->attach($branch, ['stock' => $stock]);
                 }
             }
         }
