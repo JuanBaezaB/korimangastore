@@ -1,16 +1,20 @@
 @extends('layouts.backend')
 
+@section('title')
+    {{ 'Añadir producto' }}
+@endsection
+
 @section('content')
     <!-- Hero -->
     <div class="bg-body-light">
         <div class="content content-full">
             <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
-                <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3">Añadir Producto</h1>
+                <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3">Añadir producto</h1>
                 <nav class="flex-shrink-0 my-2 my-sm-0 ms-sm-3" aria-label="breadcrumb">
                     <ol class="breadcrumb">
-
-                        <li class="breadcrumb-item active" aria-current="page">Productos</li>
-                        <li class="breadcrumb-item active" aria-current="page">Gestion de Producto</li>
+                        <li class="breadcrumb-item" aria-current="page">Gestión de Productos</li>
+                        <li class="breadcrumb-item">Productos</li> 
+                        <li class="breadcrumb-item active">Añadir nuevo</li> 
                     </ol>
                 </nav>
             </div>
@@ -20,6 +24,13 @@
 
     <!-- Page Content -->
     <div class="content">
+        @if ($errors->any())
+            <div id="ERROR_COPY" style="display: none" class="alert alert-danger">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }} <br></li>
+                @endforeach
+            </div>
+        @endif
         <!-- Elements -->
         <div class="block block-rounded">
             <div class="block-header block-header-default">
@@ -34,6 +45,15 @@
                     <div class="mb-3">
                         <label class="col-form-label">Nombre:</label>
                         <input type="text" class="form-control" name="name" value="{{ isset($product) ? $product->name : '' }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label">Código:</label>
+                        <div class="input-group">
+                            <div class="input-group-text">
+                                <input type="checkbox" class="form-check-input mt-0" name="has_p_code" value="{{ (isset($product->code) && !Str::startsWith($product->code, 'KORI')) ? 'on' : 'off' }}">
+                            </div>
+                            <input type="text" class="form-control" name="p_code" value="{{ isset($product->code) ? $product->code : '' }}">
+                        </div>
                     </div>
                     <input type="hidden" name="status" value="{{ isset($product->status) ? $product->status : 'Habilitado' }}">
                     <div class="mb-3">
@@ -182,7 +202,7 @@
                     </div>
 
                     <div class="mb-3 text-end" >
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <a type="button" class="btn btn-secondary" href="{{ route('product.list') }}">Cancelar</a>
                         <button type="submit" class="btn btn-primary">{{ empty($is_edit) ? 'Añadir' : 'Actualizar'}}</button>
                     </div>
                 </form>
@@ -320,7 +340,26 @@
     });
 </script>
 
+@if ($errors->any())
+<script>
+    Swal.fire({
+        title: 'Error',
+        text: "No podrás revertir esto!",
+        icon: 'error',
+        html:jQuery("#ERROR_COPY").html(),
+        showCloseButton: true,
+    });
+</script>
+@endif
 
+<script>
+// enable p-code checkbox on event in p-code and disable when field is empty
+jQuery(function ($) {
+    $('[name=p_code]').on('keyup', function(event) {
+        $('[name=has_p_code]').prop('checked', !!$(this).val());
+    });
+});
+</script>
 
 
 @endsection

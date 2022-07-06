@@ -63,6 +63,7 @@
 @endsection
 
 @section('breadcrumb')
+    <li class="breadcrumb-item">Gestión de productos</li>
     <li class="breadcrumb-item">Caracteristicas</li>
     <li class="breadcrumb-item">Manga</li>
     <li class="breadcrumb-item active" aria-current="page">Editorial</li>

@@ -16,6 +16,7 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('code', 13);
             $table->longText('description')->nullable();
             $table->integer('price');
             $table->enum('status', ['Habilitado', 'Deshabilitado'])->nullable();

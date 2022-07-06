@@ -1,9 +1,13 @@
 @extends('layouts.backend')
 
+@section('title')
+    {{ 'Listado producto' }}
+@endsection
+
 @section('css_after')
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.dataTables.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css">
+    <link rel="stylesheet" href="{{ asset('js/plugins/datatables-bs5/css/dataTables.bootstrap5.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('js/plugins/datatables-buttons-bs5/css/buttons.bootstrap5.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('js\plugins/datatables-responsive/css/responsive.bootstrap5.min.css') }}">
 @endsection
 
 @section('content')
@@ -14,8 +18,9 @@
                 <h1 class="flex-grow-1 fs-3 fw-semibold my-2 my-sm-3">Listado productos</h1>
                 <nav class="flex-shrink-0 my-2 my-sm-0 ms-sm-3" aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item">Productos</li>
-                        <li class="breadcrumb-item active" aria-current="page">Gestion de Productos</li>
+                        <li class="breadcrumb-item" aria-current="page">Gestión de Productos</li>
+                        <li class="breadcrumb-item">Productos</li> 
+                        <li class="breadcrumb-item active">Listado</li> 
                     </ol>
                 </nav>
             </div>
@@ -29,6 +34,11 @@
         <div class="block block-rounded">
             <div class="block-header block-header-default">
                 <h3 class="block-title">Productos</h3>
+                <div class="block-options">
+                    <a class="btn btn-sm btn-alt-secondary btn-primary" href="{{ route('product.create') }}">
+                        <i class="fa fa-fw fa fa-plus"></i> Añadir nuevo
+                    </a>   
+                </div>
             </div>
             <div class="block-content block-content-full">
                 <!-- DataTables init on table by adding .js-dataTable-full class, functionality is initialized in js/pages/be_tables_datatables.min.js which was auto compiled from _js/pages/be_tables_datatables.js -->
@@ -36,6 +46,7 @@
                     <thead>
                         <tr>
                             <th>Nombre</th>
+                            <th>Código</th>
                             <th class="d-none d-sm-table-cell" style="width: 30%;">Tipo</th>
                             <th class="d-none d-sm-table-cell" style="width: 15%;">Precio</th>
                             <th style="width: 10%;">Acciones</th>
@@ -46,6 +57,9 @@
                         <tr>
                             <td class="fw-semibold">
                                 {{ $product->name }}
+                            </td>
+                            <td>
+                                {{ $product->code }}
                             </td>
                             <td class="d-none d-sm-table-cell">
                                 {{ $product->category->name }}
@@ -85,17 +99,17 @@
 
 @section('js_after')
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap4.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.1.1/js/dataTables.buttons.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.1.1/js/buttons.bootstrap4.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.1.1/js/buttons.html5.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.1.1/js/buttons.print.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap4.min.js"></script>
+    <script src="{{ asset('js/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/datatables-bs5/js/dataTables.bootstrap5.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/datatables-buttons/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/datatables-buttons-bs5/js/buttons.bootstrap5.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/datatables-buttons-jszip/jszip.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/datatables-buttons-pdfmake/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/datatables-buttons-pdfmake/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('js/plugins/datatables-buttons/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/datatables-buttons/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/datatables-responsive/js/responsive.bootstrap5.js') }}"></script>
 
     <script>
         $(document).ready(function() {
@@ -129,7 +143,7 @@
                 },
                 {
                     extend: 'print',
-                    text: '<i class="fas fa-print"></i>',
+                    text: '<i style="color:white" class="fas fa-print"></i>',
                     titleAttr: 'Imprimir',
                     className:'btn btn-warning mb-2',
                     exportOptions: {
@@ -186,10 +200,10 @@
                 'El ingreso se ha relizado exitosamente.',
                 'success'
             );
-        
+
         @endif
         @if (session('success') == 'deleted')
-        
+
             toast.fire(
                 'Eliminado!',
                 'El registro ha sido eliminado.',

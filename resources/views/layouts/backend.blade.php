@@ -322,7 +322,7 @@
                             D<span class="opacity-75">x</span>
                         </span>
                         <span class="smini-hidden">
-                            Dash<span class="opacity-75">mix</span>
+                            Kori<span class="opacity-75">MangaStore</span>
                         </span>
                     </a>
                     <!-- END Logo -->
@@ -444,37 +444,7 @@
                     <!-- END User Dropdown -->
 
                     <!-- Notifications Dropdown -->
-                    <div class="dropdown d-inline-block">
-                        <button type="button" class="btn btn-alt-secondary" id="page-header-notifications-dropdown"
-                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-fw fa-bell"></i>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
-                            aria-labelledby="page-header-notifications-dropdown">
-                            <div class="bg-primary-dark rounded-top fw-semibold text-white text-center p-3">
-                                Notifications
-                            </div>
-                            <ul class="nav-items my-2">
-                                <li>
-                                    <a class="d-flex text-dark py-2" href="javascript:void(0)">
-                                        <div class="flex-shrink-0 mx-3">
-                                            <i class="fa fa-fw fa-check-circle text-success"></i>
-                                        </div>
-                                        <div class="flex-grow-1 fs-sm pe-2">
-                                            <div class="fw-semibold">App was updated to v5.6!</div>
-                                            <div class="text-muted">3 min ago</div>
-                                        </div>
-                                    </a>
-                                </li>
-
-                            </ul>
-                            <div class="p-2 border-top">
-                                <a class="btn btn-alt-primary w-100 text-center" href="javascript:void(0)">
-                                    <i class="fa fa-fw fa-eye opacity-50 me-1"></i> View All
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                    @include('layouts.notifications-backend')
                     <!-- END Notifications Dropdown -->
 
                     <!-- Toggle Side Overlay -->
@@ -544,6 +514,28 @@
 
     @yield('js_after')
     @stack('js_after_stack')
+    @if(auth()->user()->hasRole('Admin'))
+    <script>
+    function sendMarkRequest(id = null) {
+        return $.ajax("{{ route('markNotification') }}", {
+            method: 'POST',
+            data: {
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                id
+            }
+        });
+    }
+    $(function() {
+        $('.mark-as-read').click(function() {
+            let request = sendMarkRequest($(this).data('id'));
+            request.done(() => {
+                $(this).parents('div.alert').remove();
+            });
+        });
+    });
+    </script>
+@endif
+
 
 </body>
 

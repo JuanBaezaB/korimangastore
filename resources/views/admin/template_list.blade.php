@@ -20,6 +20,7 @@ Stacks:
 - scripts-extra
 
 */ ?>
+@section('title') {{$nombre_crud}} @endsection
 
 @section('css_after')
     <link rel="stylesheet" href="{{ asset('js/plugins/select2/css/select2.min.css') }}">
@@ -56,6 +57,9 @@ Stacks:
                         <i class="fa fa-fw fa fa-plus"></i> Ingresar {{ mb_strtolower($nombre_crud) }}
                     </button>
                 </div>
+            </div>
+
+            <div class="block-content block-content-full">
                 @if ($errors->any())
                     <ul>
                         <div id="ERROR_COPY" style="display: none" class="alert alert-danger">
@@ -66,9 +70,7 @@ Stacks:
                     </ul>
                     <br />
                 @endif
-            </div>
 
-            <div class="block-content block-content-full">
                 <!-- DataTables init on table by adding .js-dataTable-full class, functionality is initialized in js/pages/be_tables_datatables.min.js which was auto compiled from _js/pages/be_tables_datatables.js -->
                 <table id="product-table" class="table table-bordered table-striped table-vcenter table-hover w-100 display">
                     <thead>
@@ -88,7 +90,7 @@ Stacks:
                                         method="POST" enctype="multipart/form-data">
                                         <div class=" btn-group">
                                             @hasSection('update-modal')
-                                            <button type="button" class="btn btn-sm btn btn-outline-primary x-edit-button"
+                                            <button type="button" class="btn btn-sm btn-outline-primary x-edit-button"
                                                 data-bs-toggle="modal" data-bs-target="#update_item"
                                                 data-bs-whatever="@mdo" title="Actualizar"
                                                 x-data-id="{{ $an_item->id }}">
@@ -96,7 +98,7 @@ Stacks:
                                             </button>
                                             @endif
                                             @sectionMissing('update-modal')
-                                            <button type="button" class="btn btn-sm btn btn-outline-primary"
+                                            <button type="button" class="btn btn-sm btn-outline-primary"
                                                 data-bs-toggle="modal" data-bs-target="#update_item{{ $an_item->id }}"
                                                 data-bs-whatever="@mdo" title="Actualizar">
                                                 <i class="fa fa-pencil-alt"></i>
@@ -105,7 +107,7 @@ Stacks:
 
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn btn-outline-danger"
+                                            <button type="submit" class="btn btn-sm btn-outline-danger"
                                                 data-bs-toggle="tooltip" title="Eliminar">
                                                 <i class="fa fa-fw fa-trash"></i>
                                             </button>
@@ -216,18 +218,18 @@ Stacks:
 
 @section('js_after')
     <!-- Datatable -->
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-     <script src="{{ asset('js/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-  <script src="{{ asset('js/plugins/datatables-bs5/js/dataTables.bootstrap5.min.js') }}"></script>
-  <script src="{{ asset('js/plugins/datatables-buttons/dataTables.buttons.min.js') }}"></script>
-  <script src="{{ asset('js/plugins/datatables-buttons-bs5/js/buttons.bootstrap5.min.js') }}"></script>
-  <script src="{{ asset('js/plugins/datatables-buttons-jszip/jszip.min.js') }}"></script>
-  <script src="{{ asset('js/plugins/datatables-buttons-pdfmake/pdfmake.min.js') }}"></script>
-  <script src="{{ asset('js/plugins/datatables-buttons-pdfmake/vfs_fonts.js') }}"></script>
-  <script src="{{ asset('js/plugins/datatables-buttons/buttons.print.min.js') }}"></script>
-  <script src="{{ asset('js/plugins/datatables-buttons/buttons.html5.min.js') }}"></script>
-  <script src="{{ asset('js/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
-  <script src="{{ asset('js/plugins/datatables-responsive/js/responsive.bootstrap5.js') }}"></script>
+    <script src="{{ asset('js/lib/jquery.min.js')}}"></script>
+    <script src="{{ asset('js/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/datatables-bs5/js/dataTables.bootstrap5.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/datatables-buttons/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/datatables-buttons-bs5/js/buttons.bootstrap5.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/datatables-buttons-jszip/jszip.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/datatables-buttons-pdfmake/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/datatables-buttons-pdfmake/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('js/plugins/datatables-buttons/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/datatables-buttons/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('js/plugins/datatables-responsive/js/responsive.bootstrap5.js') }}"></script>
 
     <script>
         $(document).ready(function() {
