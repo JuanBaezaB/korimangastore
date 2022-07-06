@@ -10,7 +10,7 @@
 @section('content')
 <header class="py-5 bg-image-full" style="background-image: url('/media/login/portada1.png')">
     <div class="text-center my-5">
-        <img class="img-fluid mb-4" src="/media/login/logonav.png" alt="..." width="150px" height="150px"/>
+        <img class="img-fluid mb-4" src="/media/login/logosombra.png" alt="..." width="150px" height="150px"/>
         <h1 class="text-white fs-3"><b>Kori</b>MangaStore</h1>
         <p class="text-white-50 mb-0">Landing Page Template</p>
     </div>
