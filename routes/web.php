@@ -36,6 +36,10 @@ Route::get('/', [HomeController::class, 'index'])->name('index.home');
 /*  Nosotros */
 Route::view('/nosotros', 'public.about-us')->name('about-us');
 
+/*  Nosotros */
+Route::view('/articulo', 'public.article')->name('article');
+
+
 Auth::routes();
 
 
@@ -159,6 +163,6 @@ Route::group(['middleware' => ['role:Admin|Vendedor']], function () {
     Route::view('/soporte/preguntas-frecuentes-admin', 'admin.support.adminfaq')->name('support.adminfaq')->middleware('auth');
     Route::view('/soporte/manual-admin', 'admin.support.adminmanual')->name('support.adminmanual')->middleware('auth');
 
-    
+
 
 });

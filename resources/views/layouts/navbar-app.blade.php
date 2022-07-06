@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
     <div class="container-fluid">
 
-        <a class="navbar-brand" href="#" style="color: #f7fafc" style="text-decoration-line: none">
+        <a class="navbar-brand" href="/" style="color: #f7fafc" style="text-decoration-line: none">
             <img src="/media/login/logonav.png" alt="" width="32" height="28">
             <b>Kori</b>MangaStore
         </a>
@@ -106,7 +106,7 @@
                                     Configurar mi perfil
                                 </b></a>
                             </li>
-                            
+
                             <!-- Option -->
                             <li><a class="dropdown-item" href="#">
                                 <b>
