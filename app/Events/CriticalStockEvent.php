@@ -2,8 +2,6 @@
 
 namespace App\Events;
 
-use App\Models\Branch;
-use App\Models\Product;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -12,19 +10,20 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class OutOfStockEvent
+class CriticalStockEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-    public $product, $branch;
+    public $product, $branch, $stock;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(Product $product, Branch $branch){
+    public function __construct(Product $product, Branch $branch, $stock){
         $this->product = $product;
         $this->branch = $branch;
+        $this->stock = $stock;
     }
 
     /**
