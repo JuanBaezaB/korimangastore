@@ -51,7 +51,7 @@
             </ul>
 
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-                <input type="search" class="form-control form-control-dark bg-dark btn-outline-info text-white" placeholder="🔍︎ Busca aquí tu producto..." aria-label="Search">
+                <input type="search" class="form-control form-control-dark bg-dark btn-outline-info text-white mb-1 mt-1" placeholder="🔍︎ Busca aquí tu producto..." aria-label="Search">
             </form>
 
 
@@ -59,8 +59,8 @@
                 <!-- Authentication Links -->
                 @guest
                     @if (Route::has('login'))
-                        <a style="color: #fff"
-                            class="text-sm btn btn-outline-info text-gray-700 dark:text-gray-500 underline me-2"
+                        <a style="color: #fff; text-overflow: ellipsis;"
+                            class="text-sm btn btn-outline-info text-gray-700 dark:text-gray-500 underline me-2 mb-1 mt-1"
                             href="{{ route('login') }}">
                             <b>
                                 <i class="fa-solid fa-right-to-bracket pe-2"></i>
@@ -70,7 +70,7 @@
                     @endif
 
                     @if (Route::has('register'))
-                        <a class="text-sm btn btn-outline-warning text-gray-700 dark:text-gray-500 underline" class="nav-link"
+                        <a class="text-sm btn btn-outline-warning text-gray-700 dark:text-gray-500 underline mb-1 mt-1" class="nav-link"
                             href="{{ route('register') }}">
                             <b>
                                 <i class="fa-solid fa-user-plus pe-2"></i>
