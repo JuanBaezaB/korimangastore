@@ -85,8 +85,7 @@ class SaleController extends Controller
         DB::transaction(function ()
         use ($products, $branch, $discountAmount, $request, $branch_id) {
             foreach ($products as $id => $stuff) {
-                // TODO: cambiar este hack
-                (new StockController)->change(-$stuff['amount'], $branch, $id);
+                Product::findOrFail($id)->changeStock($branch, -$stuff['amount']);
             }
 
             $sale = new Sale();
