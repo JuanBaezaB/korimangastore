@@ -32,7 +32,7 @@
             <div class="col-lg-6 text-center">
                 <h2><b>¿Tienes un problema?</b> ¡Infórmanos aquí!</h2>
                 <hr>
-                <form action="GET" >
+                <form action="" >
                     <div class="input-group mb-3">
                         <span class="input-group-text"><i class="fa-solid fa-at"></i></span>
                         <input type="text" class="form-control" placeholder="Correo electrónico" aria-label="Username" aria-describedby="basic-addon1">
