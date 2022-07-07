@@ -38,8 +38,11 @@ Route::get('/', [HomeController::class, 'index'])->name('index.home');
 /*  Nosotros */
 Route::view('/nosotros', 'public.about-us')->name('about-us');
 
-/*  Nosotros */
+/*  Articulo */
 Route::view('/articulo', 'public.article')->name('article');
+
+/*  Articulo */
+Route::view('/soporte', 'public.user-support')->name('user-support');
 
 
 Auth::routes();

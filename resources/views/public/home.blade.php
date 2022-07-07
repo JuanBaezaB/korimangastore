@@ -28,7 +28,7 @@
         }
 
         .producto:hover{
-            background-color: #00cbcc;
+            background-color: #00ffff;
 
         }
 
@@ -43,7 +43,7 @@
 
 @section('content')
     <!-- Page header with logo and tagline-->
-    <header class="presentacion py-5 bg-light border-bottom mb-4">
+    <header class="presentacion py-5 bg-light border-bottom pb-4">
         <div class="container">
             <div class="text-center my-5">
                 <h1 class="fw-bolder">Bienvenido a Kori MangaStore</h1>
@@ -52,8 +52,13 @@
         </div>
     </header>
 
+    <!-- Slider-->
+    <section class="sliderpromo">
+
+    </section>
+
     <!-- Products-->
-    <section class="product">
+    <section class="product bg-dark pt-5">
         <div class="container">
             <div class="row">
 
@@ -175,8 +180,8 @@
         </div>
         <!-- Pagination-->
         <nav aria-label="Pagination">
-            <hr class="my-3" />
-            <ul class="pagination justify-content-center my-4">
+            <hr class="mt-3" />
+            <ul class="pagination justify-content-center pb-3">
                 <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true"><i class="fa-solid fa-circle-arrow-left"></i></a></li>
                 <li class="page-item active" aria-current="page"><a class="page-link" href="#!">1</a></li>
                 <li class="page-item"><a class="page-link" href="#!">2</a></li>
@@ -186,11 +191,6 @@
                 <li class="page-item"><a class="page-link" href="#!"><i class="fa-solid fa-circle-arrow-right"></i></a></li>
             </ul>
         </nav>
-    </section>
-
-    <!-- Slider-->
-    <section class="sliderpromo">
-
     </section>
 
 @endsection

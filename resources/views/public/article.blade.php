@@ -8,7 +8,7 @@
     <style>
         .marca{
         text-shadow: 2px 2px 2px black;
-    }
+        }
 
     </style>
 @endsection
