@@ -29,16 +29,7 @@
                         <li><a class="dropdown-item" href="#">Something else here</a></li>
                     </ul>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Series
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                      <li><a class="dropdown-item" href="#">Action</a></li>
-                      <li><a class="dropdown-item" href="#">Another action</a></li>
-                      <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                </li>
+
                 <li class="nav-item">
                     <a class="nav-link">Figuras</a>
                 </li>
@@ -48,11 +39,26 @@
                 <li class="nav-item">
                     <a class="nav-link {{ request()->is('nosotros*') ? 'text-info' : '' }}" href="{{ route('about-us') }}">Nosotros</a>
                 </li>
+                <li class="nav-item dropdown d-none d-lg-block d-xl-none">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Buscar
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                        <li class="nav-item">
+                            <div class="ms-3 me-3" style="width: 250px">
+                                <input type="search" class="form-control form-control-dark bg-dark btn-outline-info text-white mb-1 mt-1" placeholder="🔍︎ Busca aquí tu producto..." aria-label="Search">
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+
             </ul>
 
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 d-lg-none d-xl-block">
                 <input type="search" class="form-control form-control-dark bg-dark btn-outline-info text-white mb-1 mt-1" placeholder="🔍︎ Busca aquí tu producto..." aria-label="Search">
             </form>
+
+
 
 
             <div class="d-inlineflex pe-1">
@@ -86,6 +92,18 @@
                                 <b>
                                     <i class="fa-solid fa-chart-line pe-2"></i>
                                     Dashboard
+                                </b>
+                            </a>
+                        </div>
+                    @endhasrole
+
+                    @hasrole('User')
+                        <div class="d-inline">
+                            <a href="#"
+                                class="text-sm btn btn-outline-light text-gray-700 dark:text-gray-500 underline me-2">
+                                <b>
+                                    <i class="fa-solid fa-cart-shopping pe-2"></i>
+                                    Carrito
                                 </b>
                             </a>
                         </div>
