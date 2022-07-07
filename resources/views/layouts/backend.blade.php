@@ -512,6 +512,8 @@
     <!-- Laravel Original JS -->
     <!-- <script src="{{ mix('/js/laravel.app.js') }}"></script> -->
 
+    <script src="{{ mix('js/utils.js') }}"></script>
+
     @yield('js_after')
     @stack('js_after_stack')
     @if(auth()->user()->hasRole('Admin'))

@@ -99,7 +99,7 @@ class Product extends Model
         return [
             'product' => $this,
             'quantity' => $stock,
-            'branch' => $branch
+            'branch' => $maybeBranch
         ];
     }
     

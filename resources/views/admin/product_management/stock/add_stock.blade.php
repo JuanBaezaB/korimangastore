@@ -64,7 +64,7 @@
                     <div class="col-lg-4 col-md-6">
                         <div class="row">
                             <div class="col-sm-6">
-                                <div class="mb-3"><input type="number" id="qnt-product-stock" class="form-control" min="1" value="1" autocomplete="off"></input></div>
+                                <div class="mb-3"><input type="number" id="qnt-product-stock" class="form-control" min="1" value="1" autocomplete="off" /></div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="mb-3">
@@ -117,60 +117,6 @@
     <!-- Page JS Plugins -->
     <script src="{{ asset('js/plugins/select2/js/select2.full.js') }}"></script>
 
-    <script>
-        $(document).ready(function() {
-
-            let datatable = $('#product-table').DataTable({
-                "language": {
-                    "url": "//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
-                },
-                columns: [
-                    { data: 'quantity', orderable: false, searchable: false },
-                    { data: 'branch.name' },
-                    { data: 'product.name' },
-                    { data: 'product.category.name' },
-                    {
-                        data: null,
-                        searchable: null,
-                        orderable: null,
-                        render: function (data, type, row, meta) {
-                            let a =$(
-                            '<a type="submit" class="btn btn-sm btn btn-outline-danger" data-bs-toggle="tooltip" title="Revertir" >'
-                            + '<i class="fa fa-fw fa-rotate-left"></i>'
-                            + '</a>');
-
-                            return a.prop('outerHTML');
-                        }
-                    }
-                ],
-                dom: 'Bfrtip',
-                responsive: true,
-                    columnDefs: [
-                        { responsivePriority: 1, targets: 0 },
-                        { responsivePriority: 2, targets: -1 },
-                        {   targets: 4,
-                            createdCell: function (td, _, data) {
-                                let d = {
-                                    qnt: data.quantity,
-                                    branch_id: data.branch.id,
-                                    product_id: data.product.id,
-                                    reverse: true,
-                                    noReset: true
-                                };
-                                $(td).find('a[title=Revertir]').click(function () {
-                                    window.queryAddStock(1, d);
-                                });
-
-                            }
-                        }
-                    ],
-                buttons: []
-            });
-
-
-        });
-        </script>
-
         <script>
             jQuery(function ($) {
                 $(document).ready(function () {
@@ -181,18 +127,54 @@
 
         <script>
             jQuery(function ($) {
+
+                function addRow(data) {
+                    var $tbody = $('#product-table tbody');
+                    var $el = $('<tr>'
+                            + '<td></td><td></td><td></td><td></td><td>'
+                            + '<a type="submit" class="btn btn-sm btn btn-outline-danger" data-bs-toggle="tooltip" title="Revertir" >'
+                            + '<i class="fa fa-fw fa-rotate-left"></i>'
+                            + '</a>'
+                            +'</td></tr>');
+                    $tbody.prepend($el);
+                    $el.find('a').on('click', function() {
+                        var d = $.extend({}, data);
+                        d.reverse = true;
+                        d.noReset = true;
+                        window.queryAddStock(1, d);
+                    });
+                    var order = [
+                        'quantity',
+                        'branch.name',
+                        'product.name',
+                        'product.category.name',
+                        null
+                    ];
+
+                    for (var i = 0; i < order.length; ++i) {
+                        var colKey = order[i];
+                        if (colKey) {
+                            var $child = $el.children(':nth-child(' + (i + 1) + ')');
+                            $child.text(U.dot(data, colKey));
+                        }
+                    }
+                    
+                }
+
                 $(document).ready(function () {
                     $.ajaxSetup({
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')
                         }
                     });
+                    /**
+                     * 
+                    */
                     function queryAddStock(sign=1, opts={}) {
                         sign = sign || 1;
 
                         var $qnt = $('#qnt-product-stock');
                         var qnt = opts.qnt || $qnt.val() * sign;
-                        var table = $('#product-table').DataTable();
                         var branch_id = opts.branch_id || $('#change-branch-select').val();
                         var product_id = opts.product_id || $('#select-product').val();
 
@@ -210,7 +192,7 @@
                             data: data
                         })
                         .done(function (data) {
-                            table.row.add(data).draw();
+                            addRow(data);
 
                             if (!opts.noReset) {
                                 $qnt.val(1);
