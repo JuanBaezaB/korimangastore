@@ -69,33 +69,9 @@ class StockController extends Controller
         if (is_numeric($product)) {
             $product = Product::findOrFail($product);
         }
-        $branch = $product->branches()->find($branch_id);
-
-
         $normalizedQuantity = ($reverse) ? -$quantity : $quantity;
-        if (empty($branch)) {
-            if ($normalizedQuantity <= 0) {
-                throw new \Exception("expected positive quantity for non existent stock");
-            }
-            $product->branches()->attach($branch_id, ['stock' => $quantity]);
-
-        } else {
-            $stock = $product->branches()->newPivotStatementForId($branch)->value('stock');
-            if ($stock + $normalizedQuantity < 0) {
-                throw new \Exception("expected positive quantity for new stock value");
-            }
-            $product->branches()->updateExistingPivot($branch, ['stock' => $stock + $normalizedQuantity]);
-            if($stock + $normalizedQuantity == 0){
-                event(new OutOfStockEvent($product, $branch));
-            }
-        }
-        $product->category->name;
-        $ret = [
-            'quantity' => $normalizedQuantity,
-            'branch' => $branch,
-            'product' => $product
-        ];
-
+        $ret = $product->changeStock($branch_id, $normalizedQuantity);
+        $product->category->name; // hack to load category relation and its name
         return $ret;
     }
 

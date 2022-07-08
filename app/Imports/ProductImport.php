@@ -9,6 +9,7 @@ use App\Models\Provider;
 use App\Models\Serie;
 
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -36,8 +37,13 @@ class ProductImport implements ToCollection, WithHeadingRow, SkipsOnError, WithV
                 $provider->name = trim($row['proveedor']);
                 $provider->save();
             }
+            $code = 'KORI' . Str::random(9);
+            while(count(Product::where('code', $code)->get()) != 0) {
+                $code = 'KORI' . Str::random(9);
+            }
             $product = Product::create([
                 'name' => trim($row['nombre']),
+                'code'=> $code,
                 'description' => trim($row['descripcion']),
                 'price' => trim($row['precio']),
                 'category_id' => isset($category->id) ? $category->id : null,
@@ -60,17 +66,21 @@ class ProductImport implements ToCollection, WithHeadingRow, SkipsOnError, WithV
             // Ingresar stock
             $branches = explode(";", $row['sucursal']);
             $stocks = explode(";", $row['stock']);
-            for ($i = 0; $i < count($branches); $i++) {
-                $branches[$i] = trim($branches[$i]);
-                if (!empty($branches[$i])) {
-                    $branch = Branch::firstWhere('name', $branches[$i]);
-                    if ($branch == null) {
-                        $branch = new Branch();
-                        $branch->name = $branches[$i];
-                        $branch->save();
+            if(sizeof($branches) != sizeof($branches)) {
+                throw new \Exception("the number of branches is different from the number of stocks");
+            }else{
+                for ($i = 0; $i < sizeof($branches); $i++) {
+                    $branches[$i] = trim($branches[$i]);
+                    if (!empty($branches[$i])) {
+                        $branch = Branch::firstWhere('name', $branches[$i]);
+                        if ($branch == null) {
+                            $branch = new Branch();
+                            $branch->name = $branches[$i];
+                            $branch->save();
+                        }
+                        $stock = intval($stocks[$i]);
+                        $product->branches()->attach($branch, ['stock' => $stock]);
                     }
-                    $stock = intval($stocks[$i]);
-                    $product->branches()->attach($branch, ['stock' => $stock]);
                 }
             }
         }

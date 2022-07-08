@@ -35,6 +35,12 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/', [HomeController::class, 'index'])->name('index.home');
 
+/*  Nosotros */
+Route::view('/nosotros', 'public.about-us')->name('about-us');
+
+/*  Nosotros */
+Route::view('/articulo', 'public.article')->name('article');
+
 
 Auth::routes();
 
@@ -46,10 +52,11 @@ Route::view('/forms/be_forms_plugins', 'admin.forms.be_forms_plugins')->middlewa
 Route::view('/forms/be_forms_editors', 'admin.forms.be_forms_editors')->middleware('auth');
 Route::view('/forms/be_forms_validation', 'admin.forms.be_forms_validation')->middleware('auth');
 
-Route::view('/importar', 'admin.product_management.import_products')->name('product.import');
+Route::view('/gestion-de-productos/producto/importar', 'admin.product_management.import_products')->name('product.import');
 Route::post('/importar-manga', [ProductController::class, 'mangaimport'])->name('product.mangaimport');
 Route::post('/importar-product', [ProductController::class, 'productimport'])->name('product.genericimport');
 Route::post('/importar-figure', [ProductController::class, 'figureimport'])->name('product.figureimport');
+
 
 Route::group(['middleware' => ['role:Admin|Vendedor']], function () {
 
