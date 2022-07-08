@@ -38,6 +38,25 @@
             text-decoration-color: white;
         }
 
+        .botoncito{
+        transition: background-color .5s;
+        background-color: black;
+        border: white;
+        border-style: solid;
+        border-radius: 10px;
+        color: white;
+        text-decoration: none;
+    }
+
+    .botoncito p{
+        color: white;
+    }
+
+    .botoncito:hover{
+        background-color: #006574;
+        text-decoration: none;
+    }
+
     </style>
 @endsection
 
@@ -70,8 +89,9 @@
                             </div>
                             <h6 class="text-dark">Nombre Manga</h6>
                             <h5 class="text-dark">$12.990</h5>
-                            <a href="/reservar" type="button" class="btn btn-dark ms-4 me-4 mb-2"><i class="pe-2 fa-solid fa-bookmark"></i>Reservar</a>
-                            <a href="/comprar" type="button" class="btn btn-dark ms-4 me-4 mb-3"><i class="pe-2 fa-solid fa-cart-plus"></i>Agregar al Carrito</a>
+
+                            <a href="/reservar" type="button" class="botoncito ms-4 me-4 mb-2 ps-5 pe-5 pt-2 pb-2 text-light"><i class="pe-2 fa-solid fa-bookmark"></i>Reservar</a>
+                            <a href="/comprar" type="button" class="botoncito ms-4 me-4 mb-3 ps-5 pe-5 pt-2 pb-2 text-light"><i class="pe-2 fa-solid fa-cart-plus"></i>Agregar al Carrito</a>
 
 
                         </div>
@@ -86,8 +106,8 @@
                             </div>
                             <h6 class="text-dark">Nombre Manga</h6>
                             <h5 class="text-dark">$12.990</h5>
-                            <a href="/reservar" type="button" class="btn btn-outline-dark ms-4 me-4 mb-2"><i class="pe-2 fa-solid fa-bookmark"></i>Reservar</a>
-                            <a href="/comprar" type="button" class="btn btn-outline-dark ms-4 me-4 mb-3"><i class="pe-2 fa-solid fa-cart-plus"></i>Agregar al Carrito</a>
+                            <a href="/reservar" type="button" class="btn btn-dark ms-4 me-4 mb-2"><i class="pe-2 fa-solid fa-bookmark"></i>Reservar</a>
+                            <a href="/comprar" type="button" class="btn btn-dark ms-4 me-4 mb-3"><i class="pe-2 fa-solid fa-cart-plus"></i>Agregar al Carrito</a>
                         </div>
                     </a>
                 </div>

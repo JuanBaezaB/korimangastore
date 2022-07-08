@@ -24,9 +24,11 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                         <li><p class="dropdown-item disabled"><b>Categorías:</b></p></li>
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        <li><a class="dropdown-item" href="#">Editoriales</a></li>
+                        <li><a class="dropdown-item" href="#">Países</a></li>
+                        <li><a class="dropdown-item" href="#">Series</a></li>
+                        <li><a class="dropdown-item" href="#">Género</a></li>
+                        <li><a class="dropdown-item" href="#">Autores</a></li>
                     </ul>
                 </li>
 
