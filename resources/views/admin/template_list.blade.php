@@ -231,55 +231,8 @@ Stacks:
     <script src="{{ asset('js/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('js/plugins/datatables-responsive/js/responsive.bootstrap5.js') }}"></script>
 
-    <script>
-        $(document).ready(function() {
-            let export_columns = {{ Js::from($export_columns) }};
-            $('#product-table').DataTable({
-                "language": {
-                    "url": "//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
-                },
-                dom: 'Bfrtip',
-                responsive: true,
-                columnDefs: [{
-                        responsivePriority: 1,
-                        targets: 0
-                    },
-                    {
-                        responsivePriority: 2,
-                        targets: -1
-                    }
-                ],
-                buttons: [{
-                        extend: 'excelHtml5',
-                        text: '<i class="fas fa-file-excel"></i>',
-                        titleAttr: 'Exportar a Excel',
-                        className: 'btn  btn-success mb-2',
-                        exportOptions: {
-                            columns: export_columns
-                        }
-                    },
-                    {
-                        extend: 'pdfHtml5',
-                        text: '<i class="fas fa-file-pdf"></i>',
-                        titleAttr: 'Exportar a PDF',
-                        className: 'btn btn-danger mb-2',
-                        exportOptions: {
-                            columns: export_columns
-                        }
-                    },
-                    {
-                        extend: 'print',
-                        text: '<i style="color:white" class="fas fa-print"></i>',
-                        titleAttr: 'Imprimir',
-                        className: 'btn btn-warning mb-2',
-                        exportOptions: {
-                            columns: export_columns
-                        }
-                    }
-                ]
-            });
-        });
-    </script>
+    <script>let export_columns = {{ Js::from($export_columns) }};</script>
+    <script src="{{asset('js/pages/tables_datatables.js')}}"></script>
     <!-- End Datatable -->
 
     <!-- js sweetalert2 -->
