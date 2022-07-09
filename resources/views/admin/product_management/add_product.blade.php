@@ -24,6 +24,13 @@
 
     <!-- Page Content -->
     <div class="content">
+        @if ($errors->any())
+            <div id="ERROR_COPY" style="display: none" class="alert alert-danger">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }} <br></li>
+                @endforeach
+            </div>
+        @endif
         <!-- Elements -->
         <div class="block block-rounded">
             <div class="block-header block-header-default">
@@ -38,6 +45,15 @@
                     <div class="mb-3">
                         <label class="col-form-label">Nombre:</label>
                         <input type="text" class="form-control" name="name" value="{{ isset($product) ? $product->name : '' }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label">Código:</label>
+                        <div class="input-group">
+                            <div class="input-group-text">
+                                <input type="checkbox" class="form-check-input mt-0" name="has_p_code" value="{{ (isset($product->code) && !Str::startsWith($product->code, 'KORI')) ? 'on' : 'off' }}">
+                            </div>
+                            <input type="text" class="form-control" name="p_code" value="{{ isset($product->code) ? $product->code : '' }}">
+                        </div>
                     </div>
                     <input type="hidden" name="status" value="{{ isset($product->status) ? $product->status : 'Habilitado' }}">
                     <div class="mb-3">
@@ -324,7 +340,26 @@
     });
 </script>
 
+@if ($errors->any())
+<script>
+    Swal.fire({
+        title: 'Error',
+        text: "No podrás revertir esto!",
+        icon: 'error',
+        html:jQuery("#ERROR_COPY").html(),
+        showCloseButton: true,
+    });
+</script>
+@endif
 
+<script>
+// enable p-code checkbox on event in p-code and disable when field is empty
+jQuery(function ($) {
+    $('[name=p_code]').on('keyup', function(event) {
+        $('[name=has_p_code]').prop('checked', !!$(this).val());
+    });
+});
+</script>
 
 
 @endsection

@@ -198,15 +198,15 @@ class PermissionSeeder extends Seeder
         /* Categoria */
         Permission::Create([
             'name'=>'category.list',
-            'display_name'=>'Ver categorias',
-            'group'=>'Categoria',
-            'description'=>'Permite visualizar las categorias existentes.'
+            'display_name'=>'Ver categorías',
+            'group'=>'Categoría',
+            'description'=>'Permite visualizar las categorías existentes.'
         ])->assignRole('Admin');
         Permission::Create([
             'name'=>'category.modify',
-            'display_name'=>'Modificar categorias',
-            'group'=>'Categoria',
-            'description'=>'Permite ingresar, actualizar y eliminar categorias.'
+            'display_name'=>'Modificar categorías',
+            'group'=>'Categoría',
+            'description'=>'Permite ingresar, actualizar y eliminar categorías.'
         ])->assignRole('Admin');
 
         /* Ventas */

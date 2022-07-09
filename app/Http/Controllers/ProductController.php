@@ -14,6 +14,8 @@ use App\Models\Format;
 use App\Models\Manga;
 use App\Models\FigureType;
 use App\Models\Figure;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -77,14 +79,21 @@ class ProductController extends Controller
      * @return \Illuminate\Support\Collection
      */
     protected static function collectProductData($data) {
-        return $data->only([
+        $ret = collect($data->only([
             'name',
             'description',
             'price',
             'status',
             'provider_id',
-            'category_id'
-        ]);
+            'category_id',
+            'has_p_code',
+            'p_code'
+        ]));
+
+        $ret->put('has_code', $ret->pull('has_p_code') == 'on');
+        $ret->put('code', $ret->pull('p_code'));
+
+        return $ret;
     }
 
     /**
@@ -135,37 +144,38 @@ class ProductController extends Controller
         });
     }
 
-    static protected function makeExcludeIfCategoryId($request, $id) {
-        return 'exclude_if:category_id,' . $id;
+    static protected function makeExcludeUnlessCategoryId($request, $id) {
+        return 'exclude_unless:category_id,' . $id;
     }
 
     static protected function makeRules($request) {
-        $mangaExcludeIf = self::makeExcludeIfCategoryId($request, Product::TYPE_MANGA);
+        $mangaExcludeUnless = self::makeExcludeUnlessCategoryId($request, Product::TYPE_MANGA);
         $mangaRequiredIf = self::makeRequiredIfCategoryId($request, Product::TYPE_MANGA);
 
 
-        $figureExcludeIf = self::makeExcludeIfCategoryId($request, Product::TYPE_FIGURE);
+        $figureExcludeUnless = self::makeExcludeUnlessCategoryId($request, Product::TYPE_FIGURE);
         $figureRequiredIf = self::makeRequiredIfCategoryId($request, Product::TYPE_FIGURE);
         return [
-            'name' => 'required|string|lt:200',
-            'price' => 'required|integer|gt:0',
-            'description' => 'lt:2000',
+            'name' => 'required|string|min:1|max:200',
+            'price' => 'required|integer|min:0',
+            'p_code' => 'required_if:has_p_code,on|string|max:13',
+            'description' => 'max:2000',
             'provider_id' => 'nullable|exists:App\Models\Provider,id',
             'series' => 'array',
             'series.*' => 'exists:App\Models\Serie,id',
-            'category_id' => 'required|exists:App\Models\Category,id', /* TODO: deberia ser cambiado en formulario */
+            'category_id' => 'required|exists:App\Models\Category,id',
             /* MANGA */
-            'editorial_id' => [$mangaExcludeIf, $mangaRequiredIf, 'exists:App\Models\Editorial,id'],
-            'format_id' => [$mangaExcludeIf, $mangaRequiredIf, 'exists:App\Models\Format,id'],
-            'genres' => [$mangaExcludeIf, 'nullable', 'array'],
-            'genres.*' => [$mangaExcludeIf, 'exists:App\Models\Genre,id'],
-            'arts' => [$mangaExcludeIf, 'nullable','array'],
-            'arts.*' => [$mangaExcludeIf, 'exists:App\Models\CreativePerson,id'],
-            'stories' => [$mangaExcludeIf, 'nullable','array'],
-            'stories.*' => [$mangaExcludeIf, 'exists:App\Models\CreativePerson,id'],
+            'editorial_id' => [$mangaExcludeUnless, $mangaRequiredIf, 'exists:App\Models\Editorial,id'],
+            'format_id' => [$mangaExcludeUnless, $mangaRequiredIf, 'exists:App\Models\Format,id'],
+            'genres' => [$mangaExcludeUnless, 'nullable', 'array'],
+            'genres.*' => [$mangaExcludeUnless, 'exists:App\Models\Genre,id'],
+            'arts' => [$mangaExcludeUnless, 'nullable','array'],
+            'arts.*' => [$mangaExcludeUnless, 'exists:App\Models\CreativePerson,id'],
+            'stories' => [$mangaExcludeUnless, 'nullable','array'],
+            'stories.*' => [$mangaExcludeUnless, 'exists:App\Models\CreativePerson,id'],
             /* FIGURE */
-            'figure_type_id' => [$figureExcludeIf, $figureRequiredIf, 'exists:App\Models\FigureType,id']
-
+            'figure_type_id' => [$figureExcludeUnless, $figureRequiredIf, 'exists:App\Models\FigureType,id']
+            
         ];
     }
 
@@ -178,12 +188,13 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         //
-        /*
+        
         $validator = Validator::make($request->all(), self::makeRules($request));
-
-        if ($validator->fails()) {
+        $validator->validate();
+        /*if ($validator->fails()) {
             dd($validator);
         }*/
+        DB::beginTransaction();
         try {
 
             $datos = request()->except(['_token']);
@@ -191,6 +202,17 @@ class ProductController extends Controller
 
 
             $datosProducto = self::collectProductData($datos);
+            $has_code = $datosProducto->pull('has_code');
+            if ($has_code) {
+            } else {
+                $datosProducto->pull('code');
+                $code = 'KORI' . Str::random(9);
+                while(count(Product::where('code', $code)->get()) != 0) {
+                    $code = 'KORI' . Str::random(9);
+                }
+                $datosProducto->put('code', $code);
+            }
+
             $category = Category::findOrFail($datosProducto->get('category_id'));
 
             $product = Product::create($datosProducto->toArray());
@@ -225,9 +247,10 @@ class ProductController extends Controller
                 $figure->save();
 
             }
-
+            DB::commit();
         } catch(\Throwable $th) {
-            dd($th);
+            DB::rollBack();
+            throw $th;
         }
         return redirect()->route('product.list')
             ->with('success', 'created');
@@ -289,23 +312,45 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $validator = Validator::make($request->all(), self::makeRules($request));
+        $validator->validate();
+
         $data = request()->except(['_token', '_method']);
         $data = collect($data);
-
+        
+        DB::beginTransaction();
         try {
-            // TODO: validacion
             $categoryId = $data->get('category_id');
 
-            $productData = $data->only([
-                'name',
-                'description',
-                'price',
-                'status',
-                'provider_id'
-            ]);
-            $productData->put('category_id', $categoryId);
+            $productData = self::collectProductData($data);
 
             $product = Product::findOrFail($id);
+
+            $oldCode = $product->code;
+
+            $has_code = $productData->pull('has_code');
+            if ($has_code) {
+                $code = $productData->get('code');
+                if ($code != $oldCode) {
+                    $conflicts = Product::where('code', $code)->get();
+                    if (count($conflicts) > 0) {
+                        // change to utilize custom exception that reports conflicts
+                        // guide: https://laravel.com/docs/8.x/errors
+                        // throw new ConflictFieldException('code', $code, $conflicts);
+                        throw new \Exception('Code already used');
+                    }
+                }
+
+            } else {
+                if (!Str::startsWith($oldCode, 'KORI')) {
+                    $code = 'KORI' . Str::random(9);
+                    while(count(Product::where('code', $code)->get()) != 0) {
+                        $code = 'KORI' . Str::random(9);
+                    }
+                    $productData->put('code', $code);
+                }
+            }
+
             $oldCategory = $product->category;
             $oldProductable = $product->productable;
             $category = Category::findOrFail($productData->get('category_id'));
@@ -359,11 +404,10 @@ class ProductController extends Controller
                 $figure->save();
 
             }
-
+            DB::commit();
         } catch (\Throwable $th) {
-            return response()->json([
-                'text' => $th->getMessage()
-            ]);
+            DB::rollBack();
+            throw $th;
         }
 
         return redirect()->route('product.list')

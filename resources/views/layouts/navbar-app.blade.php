@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
     <div class="container-fluid">
 
-        <a class="navbar-brand" href="#" style="color: #f7fafc" style="text-decoration-line: none">
+        <a class="navbar-brand" href="/" style="color: #f7fafc" style="text-decoration-line: none">
             <img src="/media/login/logonav.png" alt="" width="32" height="28">
             <b>Kori</b>MangaStore
         </a>
@@ -16,7 +16,7 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" style="color: #49F8FF" aria-current="page" href="#">Inicio</a>
+                    <a class="nav-link {{ request()->is('/') ? 'text-info' : '' }}" href="{{ route('index.home') }}">Inicio</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -43,20 +43,24 @@
                     <a class="nav-link">Figuras</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link">Promociones</a>
+                    <a class="nav-link">Novedades</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link">Nosotros</a>
+                    <a class="nav-link {{ request()->is('nosotros*') ? 'text-info' : '' }}" href="{{ route('about-us') }}">Nosotros</a>
                 </li>
             </ul>
+
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+                <input type="search" class="form-control form-control-dark bg-dark btn-outline-info text-white mb-1 mt-1" placeholder="🔍︎ Busca aquí tu producto..." aria-label="Search">
+            </form>
 
 
             <div class="d-inlineflex pe-1">
                 <!-- Authentication Links -->
                 @guest
                     @if (Route::has('login'))
-                        <a style="color: #fff"
-                            class="text-sm btn btn-outline-info text-gray-700 dark:text-gray-500 underline me-2"
+                        <a style="color: #fff; text-overflow: ellipsis;"
+                            class="text-sm btn btn-outline-info text-gray-700 dark:text-gray-500 underline me-2 mb-1 mt-1"
                             href="{{ route('login') }}">
                             <b>
                                 <i class="fa-solid fa-right-to-bracket pe-2"></i>
@@ -66,7 +70,7 @@
                     @endif
 
                     @if (Route::has('register'))
-                        <a class="text-sm btn btn-outline-warning text-gray-700 dark:text-gray-500 underline" class="nav-link"
+                        <a class="text-sm btn btn-outline-warning text-gray-700 dark:text-gray-500 underline mb-1 mt-1" class="nav-link"
                             href="{{ route('register') }}">
                             <b>
                                 <i class="fa-solid fa-user-plus pe-2"></i>
@@ -102,7 +106,7 @@
                                     Configurar mi perfil
                                 </b></a>
                             </li>
-                            
+
                             <!-- Option -->
                             <li><a class="dropdown-item" href="#">
                                 <b>
