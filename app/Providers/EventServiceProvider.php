@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Events\CriticalStockEvent;
 use App\Events\OutOfStockEvent;
+use App\Listeners\CriticalStockListener;
 use App\Listeners\OutOfStockListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -22,7 +24,10 @@ class EventServiceProvider extends ServiceProvider
         ],
         OutOfStockEvent::class => [
             OutOfStockListener::class,
-        ]
+        ],
+        CriticalStockEvent::class => [
+            CriticalStockListener::class,
+        ],
     ];
 
     /**

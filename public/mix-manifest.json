@@ -3,6 +3,7 @@
     "/js/dashmix.app.js": "/js/dashmix.app.js",
     "/js/pages/tables_datatables.js": "/js/pages/tables_datatables.js",
     "/js/pages/update_modal.js": "/js/pages/update_modal.js",
+    "/js/utils.js": "/js/utils.js",
     "/css/dashmix.css": "/css/dashmix.css",
     "/css/app.css": "/css/app.css",
     "/css/themes/xsmooth.css": "/css/themes/xsmooth.css",

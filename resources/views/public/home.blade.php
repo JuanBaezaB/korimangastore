@@ -32,8 +32,11 @@
 
         }
 
-
-
+        .btn-dark:hover{
+            text-decoration: underline;
+            text-decoration-style: double;
+            text-decoration-color: white;
+        }
 
     </style>
 @endsection
@@ -56,14 +59,14 @@
 
                 <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 pt-1 pb-1 text-center">
                     <a href="/articulo" style="text-decoration: none">
-                        <div class="producto card border-dark">
+                        <div class="producto card shadow">
                             <div class="card-body">
                                 <img class="card-img-top" src="https://www.normaeditorial.com/upload/media/albumes/0001/17/cdcf47aecb0a210dec3d7cdff3dfbdd2c0a82995.jpeg" alt="">
                             </div>
                             <h6 class="text-dark">Nombre Manga</h6>
                             <h5 class="text-dark">$12.990</h5>
-                            <a href="/reservar" type="button" class="btn btn-outline-dark ms-4 me-4 mb-2"><i class="pe-2 fa-solid fa-bookmark"></i>Reservar</a>
-                            <a href="/comprar" type="button" class="btn btn-outline-dark ms-4 me-4 mb-3"><i class="pe-2 fa-solid fa-cart-plus"></i>Agregar al Carrito</a>
+                            <a href="/reservar" type="button" class="btn btn-dark ms-4 me-4 mb-2"><i class="pe-2 fa-solid fa-bookmark"></i>Reservar</a>
+                            <a href="/comprar" type="button" class="btn btn-dark ms-4 me-4 mb-3"><i class="pe-2 fa-solid fa-cart-plus"></i>Agregar al Carrito</a>
 
 
                         </div>
@@ -72,21 +75,7 @@
 
                 <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 pt-1 pb-1 text-center">
                     <a href="/articulo" style="text-decoration: none">
-                        <div class="producto card border-dark">
-                            <div class="card-body">
-                                <img class="card-img-top" src="https://www.normaeditorial.com/upload/media/albumes/0001/17/cdcf47aecb0a210dec3d7cdff3dfbdd2c0a82995.jpeg" alt="">
-                            </div>
-                            <h6 class="text-dark">Nombre Manga</h6>
-                            <h5 class="text-dark">$12.990</h5>
-                            <a href="/reservar" type="button" class="btn btn-outline-dark ms-4 me-4 mb-2"><i class="pe-2 fa-solid fa-bookmark"></i>Reservar</a>
-                            <a href="/comprar" type="button" class="btn btn-outline-dark ms-4 me-4 mb-3"><i class="pe-2 fa-solid fa-cart-plus"></i>Agregar al Carrito</a>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 pt-1 pb-1 text-center">
-                    <a href="/articulo" style="text-decoration: none">
-                        <div class="producto card border-dark">
+                        <div class="producto card shadow">
                             <div class="card-body">
                                 <img class="card-img-top" src="https://www.normaeditorial.com/upload/media/albumes/0001/17/cdcf47aecb0a210dec3d7cdff3dfbdd2c0a82995.jpeg" alt="">
                             </div>
@@ -100,7 +89,7 @@
 
                 <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 pt-1 pb-1 text-center">
                     <a href="/articulo" style="text-decoration: none">
-                        <div class="producto card border-dark">
+                        <div class="producto card shadow">
                             <div class="card-body">
                                 <img class="card-img-top" src="https://www.normaeditorial.com/upload/media/albumes/0001/17/cdcf47aecb0a210dec3d7cdff3dfbdd2c0a82995.jpeg" alt="">
                             </div>
@@ -114,7 +103,7 @@
 
                 <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 pt-1 pb-1 text-center">
                     <a href="/articulo" style="text-decoration: none">
-                        <div class="producto card border-dark">
+                        <div class="producto card shadow">
                             <div class="card-body">
                                 <img class="card-img-top" src="https://www.normaeditorial.com/upload/media/albumes/0001/17/cdcf47aecb0a210dec3d7cdff3dfbdd2c0a82995.jpeg" alt="">
                             </div>
@@ -128,7 +117,7 @@
 
                 <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 pt-1 pb-1 text-center">
                     <a href="/articulo" style="text-decoration: none">
-                        <div class="producto card border-dark">
+                        <div class="producto card shadow">
                             <div class="card-body">
                                 <img class="card-img-top" src="https://www.normaeditorial.com/upload/media/albumes/0001/17/cdcf47aecb0a210dec3d7cdff3dfbdd2c0a82995.jpeg" alt="">
                             </div>
@@ -142,7 +131,7 @@
 
                 <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 pt-1 pb-1 text-center">
                     <a href="/articulo" style="text-decoration: none">
-                        <div class="producto card border-dark">
+                        <div class="producto card shadow">
                             <div class="card-body">
                                 <img class="card-img-top" src="https://www.normaeditorial.com/upload/media/albumes/0001/17/cdcf47aecb0a210dec3d7cdff3dfbdd2c0a82995.jpeg" alt="">
                             </div>
@@ -156,7 +145,21 @@
 
                 <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 pt-1 pb-1 text-center">
                     <a href="/articulo" style="text-decoration: none">
-                        <div class="producto card border-dark">
+                        <div class="producto card shadow">
+                            <div class="card-body">
+                                <img class="card-img-top" src="https://www.normaeditorial.com/upload/media/albumes/0001/17/cdcf47aecb0a210dec3d7cdff3dfbdd2c0a82995.jpeg" alt="">
+                            </div>
+                            <h6 class="text-dark">Nombre Manga</h6>
+                            <h5 class="text-dark">$12.990</h5>
+                            <a href="/reservar" type="button" class="btn btn-outline-dark ms-4 me-4 mb-2"><i class="pe-2 fa-solid fa-bookmark"></i>Reservar</a>
+                            <a href="/comprar" type="button" class="btn btn-outline-dark ms-4 me-4 mb-3"><i class="pe-2 fa-solid fa-cart-plus"></i>Agregar al Carrito</a>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 pt-1 pb-1 text-center">
+                    <a href="/articulo" style="text-decoration: none">
+                        <div class="producto card shadow">
                             <div class="card-body">
                                 <img class="card-img-top" src="https://www.normaeditorial.com/upload/media/albumes/0001/17/cdcf47aecb0a210dec3d7cdff3dfbdd2c0a82995.jpeg" alt="">
                             </div>
