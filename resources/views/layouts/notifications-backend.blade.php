@@ -8,7 +8,7 @@
         <i class="fa fa-fw fa-bell"></i>
 
     </button>
-    <div class="dropdown-menu dropdown-menu-xl dropdown-menu-end p-0"
+    <div class="dropdown-menu dropdown-menu-xxl dropdown-menu-end p-0"
         aria-labelledby="page-header-notifications-dropdown">
         <div class="bg-primary-dark rounded-top fw-semibold text-white text-center p-3">
             Notificationes
@@ -18,21 +18,36 @@
 
             @foreach (auth()->user()->unreadNotifications as $notification)
                 <li>
-
                     <a class="d-flex text-dark py-2">
-                        <div class="flex-shrink-0 mx-3">
-                            <i class="fa fa-fw fa-times-circle text-danger"></i>
-                        </div>
-                        <div class="flex-grow-1 fs-sm pe-2">
-                            <div class="fw-semibold">El producto {{ $notification->data['product_name'] }} de la
-                                sucurlar
-                                {{ $notification->data['branch_name'] }} se ha quedado sin stock</div>
-                            <div class="text-muted">{{ $notification->created_at->diffForHumans() }}</div>
-                        </div>
-                        <div class="flex-shrink-0 mx-3">
-                            <button  data-bs-toggle="tooltip" data-bs-placement="top" title="Marcar como leído" type="submit" class="mark-as-read btn btn-sm btn-alt-primary"
-                                data-id="{{ $notification->id }}"><i class="fa fa-fw fa-eye"></i></button>
-                        </div>
+                        @if ($notification->data['type']=='CriticalStock' )
+                            <div class="flex-shrink-0 mx-3">
+                                <i class="fa fa-fw fa-exclamation-circle text-warning"></i>
+                            </div>
+                            <div class="flex-grow-1 fs-sm pe-2">
+                                <div class="fw-semibold">El producto {{ $notification->data['product_name'] }} de la
+                                    sucursal
+                                    {{ $notification->data['branch_name'] }} se está agotando(stock = {{ $notification->data['stock'] }}).</div>
+                                <div class="text-muted">{{ $notification->created_at->diffForHumans() }}</div>
+                            </div>
+                            <div class="flex-shrink-0 mx-3">
+                                <button  data-bs-toggle="tooltip" data-bs-placement="top" title="Marcar como leído" type="submit" class="mark-as-read btn btn-sm btn-alt-primary"
+                                    data-id="{{ $notification->id }}"><i class="fa fa-fw fa-eye"></i></button>
+                            </div>
+                        @elseif ($notification->data['type']=='OutOfStock')
+                            <div class="flex-shrink-0 mx-3">
+                                <i class="fa fa-fw fa-times-circle text-danger"></i>
+                            </div>
+                            <div class="flex-grow-1 fs-sm pe-2">
+                                <div class="fw-semibold">El producto {{ $notification->data['product_name'] }} de la
+                                    sucurlar
+                                    {{ $notification->data['branch_name'] }} se ha quedado sin stock</div>
+                                <div class="text-muted">{{ $notification->created_at->diffForHumans() }}</div>
+                            </div>
+                            <div class="flex-shrink-0 mx-3">
+                                <button  data-bs-toggle="tooltip" data-bs-placement="top" title="Marcar como leído" type="submit" class="mark-as-read btn btn-sm btn-alt-primary"
+                                    data-id="{{ $notification->id }}"><i class="fa fa-fw fa-eye"></i></button>
+                            </div>
+                        @endif
                     </a>
                 </li>
             @endforeach

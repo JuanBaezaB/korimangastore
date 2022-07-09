@@ -2,6 +2,8 @@
 
 namespace App\Events;
 
+use App\Models\Branch;
+use App\Models\Product;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -20,10 +22,9 @@ class CriticalStockEvent
      *
      * @return void
      */
-    public function __construct(Product $product, Branch $branch, $stock){
+    public function __construct(Product $product, Branch $branch){
         $this->product = $product;
         $this->branch = $branch;
-        $this->stock = $stock;
     }
 
     /**

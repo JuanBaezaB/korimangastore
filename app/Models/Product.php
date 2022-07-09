@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\CriticalStockEvent;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Events\OutOfStockEvent;
@@ -65,7 +66,7 @@ class Product extends Model
         } else {
             $branch_id = $branch;
         }
-        
+
         $maybeBranch = Branch::find($branch_id);
 
         if(!$branch_id || !$maybeBranch) {
@@ -79,28 +80,31 @@ class Product extends Model
             if ($resultingStock < 0) {
                 throw new \Exception(
                     "Expected positive quantity resultant of the added stock amount."
-                    . "Current stock: " . $existentStock 
+                    . "Current stock: " . $existentStock
                     . " Delta: " . $stock);
             }
             $this->branches()->updateExistingPivot($branch_id, ['stock' => $resultingStock]);
             if($resultingStock==0){
                 event(new OutOfStockEvent($this, $maybeBranch));
             }
+            if($resultingStock <= 5 && $resultingStock > 0){
+                event(new CriticalStockEvent($this, $maybeBranch));
+            }
         } else {
             if ($stock <= 0) {
                 throw new \Exception(
-                    "New stock for branch can't be negative for product " 
-                    . $this->id 
+                    "New stock for branch can't be negative for product "
+                    . $this->id
                     . " name=" . $this->name);
             }
             $this->branches()->attach($branch_id, ['stock' => $stock]);
         }
-        
+
         return [
             'product' => $this,
             'quantity' => $stock,
             'branch' => $branch
         ];
     }
-    
+
 }

@@ -29,9 +29,9 @@ class CriticalStockListener
      */
     public function handle(CriticalStockEvent $event){
         User::whereHas("roles", function ($q) {
-            $q->where("name", "Admin");
+            $q->where("name", "Admin")->orWhere('name','Vendedor');;
         })->get()->each(function (User $user) use ($event) {
-            Notification::send($user,new CriticalStock($event->product, $event->branch, $event->stock));
+            Notification::send($user,new CriticalStock($event->product, $event->branch));
         });
     }
 }
