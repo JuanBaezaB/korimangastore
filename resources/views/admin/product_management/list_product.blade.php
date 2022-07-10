@@ -5,6 +5,7 @@
 @endsection
 
 @section('css_after')
+    <link rel="stylesheet" href="">
     <link rel="stylesheet" href="{{ asset('js/plugins/datatables-bs5/css/dataTables.bootstrap5.min.css') }}">
     <link rel="stylesheet" href="{{ asset('js/plugins/datatables-buttons-bs5/css/buttons.bootstrap5.min.css') }}">
     <link rel="stylesheet" href="{{ asset('js\plugins/datatables-responsive/css/responsive.bootstrap5.min.css') }}">
@@ -19,8 +20,8 @@
                 <nav class="flex-shrink-0 my-2 my-sm-0 ms-sm-3" aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item" aria-current="page">Gestión de Productos</li>
-                        <li class="breadcrumb-item">Productos</li> 
-                        <li class="breadcrumb-item active">Listado</li> 
+                        <li class="breadcrumb-item">Productos</li>
+                        <li class="breadcrumb-item active">Listado</li>
                     </ol>
                 </nav>
             </div>
@@ -37,41 +38,42 @@
                 <div class="block-options">
                     <a class="btn btn-sm btn-alt-secondary btn-primary" href="{{ route('product.create') }}">
                         <i class="fa fa-fw fa fa-plus"></i> Añadir nuevo
-                    </a>   
+                    </a>
                 </div>
             </div>
             <div class="block-content block-content-full">
                 <!-- DataTables init on table by adding .js-dataTable-full class, functionality is initialized in js/pages/be_tables_datatables.min.js which was auto compiled from _js/pages/be_tables_datatables.js -->
-                <table id="product-table" class="table table-bordered table-striped table-vcenter table-hover w-100 display nowrap">
+                <table id="product-table" style="width: 100%;" class="table table-bordered table-striped table-vcenter">
                     <thead>
                         <tr>
-                            <th>Nombre</th>
+                            <th data-priority="1">Nombre</th>
                             <th>Código</th>
-                            <th class="d-none d-sm-table-cell" style="width: 30%;">Tipo</th>
-                            <th class="d-none d-sm-table-cell" style="width: 15%;">Precio</th>
-                            <th style="width: 10%;">Acciones</th>
+                            <th class=" d-sm-table-cell">Tipo</th>
+                            <th class=" d-sm-table-cell">Precio</th>
+                            <th data-priority="2" style="width: 10%;">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($products as $product)
-                        <tr>
-                            <td class="fw-semibold">
-                                {{ $product->name }}
-                            </td>
-                            <td>
-                                {{ $product->code }}
-                            </td>
-                            <td class="d-none d-sm-table-cell">
-                                {{ $product->category->name }}
-                            </td>
-                            <td class="d-none d-sm-table-cell">
-                                $ {{ $product->price }}
-                            </td>
-                            <td class="">
+                        @foreach ($products as $product)
+                            <tr>
+                                <td class="fw-semibold">
+                                    {{ $product->name }}
+                                </td>
+                                <td>
+                                    {{ $product->code }}
+                                </td>
+                                <td class="d-sm-table-cell">
+                                    {{ $product->category->name }}
+                                </td>
+                                <td class="d-sm-table-cell">
+                                    $ {{ $product->price }}
+                                </td>
+                                <td class="">
                                     <form class=" delete" action="{{ route('product.delete', $product->id) }}"
                                         method="POST">
                                         <div class=" btn-group">
-                                            <a type="button" class="btn btn-sm btn btn-outline-primary" href="{{ route('product.edit', $product->id) }}" title="Actualizar">
+                                            <a type="button" class="btn btn-sm btn btn-outline-primary"
+                                                href="{{ route('product.edit', $product->id) }}" title="Actualizar">
                                                 <i class="fa fa-pencil-alt"></i>
                                             </a>
 
@@ -85,7 +87,7 @@
                                         </div>
                                     </form>
                                 </td>
-                        </tr>
+                            </tr>
                         @endforeach
 
                     </tbody>
@@ -98,7 +100,7 @@
 @endsection
 
 @section('js_after')
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="{{ asset('js/lib/jquery.min.js') }}"></script>
     <script src="{{ asset('js/plugins/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('js/plugins/datatables-bs5/js/dataTables.bootstrap5.min.js') }}"></script>
     <script src="{{ asset('js/plugins/datatables-buttons/dataTables.buttons.min.js') }}"></script>
@@ -110,54 +112,15 @@
     <script src="{{ asset('js/plugins/datatables-buttons/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('js/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('js/plugins/datatables-responsive/js/responsive.bootstrap5.js') }}"></script>
-
     <script>
-        $(document).ready(function() {
-            $('#product-table').DataTable({
-                "language": {
-                    "url": "//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
-                },
-                dom: 'Bfrtip',
-                responsive: true,
-                    columnDefs: [
-                        { responsivePriority: 1, targets: 0 },
-                        { responsivePriority: 2, targets: -1 }
-                    ],
-                buttons: [{
-                    extend: 'excelHtml5',
-                    text: '<i class="fas fa-file-excel"></i>',
-                    titleAttr: 'Exportar a Excel',
-                    className:'btn  btn-success mb-2',
-                    exportOptions: {
-                        columns: [0, 1, 2]
-                    }
-                },
-                {
-                    extend: 'pdfHtml5',
-                    text: '<i class="fas fa-file-pdf"></i>',
-                    titleAttr: 'Exportar a PDF',
-                    className:'btn btn-danger mb-2',
-                    exportOptions: {
-                        columns: [0, 1, 2]
-                    }
-                },
-                {
-                    extend: 'print',
-                    text: '<i style="color:white" class="fas fa-print"></i>',
-                    titleAttr: 'Imprimir',
-                    className:'btn btn-warning mb-2',
-                    exportOptions: {
-                        columns: [0, 1, 2]
-                    }
-                }
-            ]
-            });
-        });
+            let export_columns = [0, 1, 2, 3];
     </script>
 
+    <script src="{{asset('js/pages/tables_datatables.js')}}"></script>
 
-   <script>
-       let toast = Swal.mixin({
+
+    <script>
+        let toast = Swal.mixin({
             buttonsStyling: false,
             target: '#page-container',
             customClass: {
@@ -200,7 +163,6 @@
                 'El ingreso se ha relizado exitosamente.',
                 'success'
             );
-
         @endif
         @if (session('success') == 'deleted')
 
@@ -217,5 +179,5 @@
                 'success'
             );
         @endif
-   </script>
+    </script>
 @endsection
