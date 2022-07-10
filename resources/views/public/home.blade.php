@@ -112,9 +112,9 @@
     </header>
 
     <!-- Slider-->
-    <section class="pt-3 mt-0">
+    <section class="pt-3 mt-0 mw-100">
 
-        <div class="container">
+        <div class="container mw-100 ps-5 pe-5">
             <div class="text-center">
                 <h3><b>Categorías Destacadas</b></h3>
                 <hr>
@@ -122,7 +122,7 @@
             </div>
             <div class="carousel pb-5">
                 <div class="carousel__contenedor pb-2">
-                    <button aria-label="Anterior" class="carousel__anterior"><i class="fa-solid fa-chevron-left"></i></button>
+                    <button aria-label="Anterior" class="carousel__anterior d-sm-none d-md-block"><i class="fa-solid fa-chevron-left"></i></button>
 
                     <div class="carousel__lista pt-2 shadow">
                         <a href="" class="text-decoration-none">
@@ -414,8 +414,8 @@
         },
         responsive: [
             {
-            // screens greater than >= 775px
-            breakpoint: 576,
+            // screens greater than >= 690px
+            breakpoint: 690,
             settings: {
                 // Set to `auto` and provide item width to adjust to viewport
                 slidesToShow: 2,
@@ -424,11 +424,20 @@
                 duration: 0.5
             }
             },{
-            // screens greater than >= 1024px
-            breakpoint: 800,
+            // screens greater than >= 970px
+            breakpoint: 970,
+            settings: {
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                itemWidth: 150,
+                duration: 0.5
+            }
+            },{
+            // screens greater than >= 1280px
+            breakpoint: 1280,
             settings: {
                 slidesToShow: 4,
-                slidesToScroll: 2,
+                slidesToScroll: 1,
                 itemWidth: 150,
                 duration: 0.5
             }
