@@ -29,6 +29,8 @@
                         <li><a class="dropdown-item" href="#">Series</a></li>
                         <li><a class="dropdown-item" href="#">Género</a></li>
                         <li><a class="dropdown-item" href="#">Autores</a></li>
+                        <li><a class="dropdown-item" href="#">Bolsas</a></li>
+                        <li><a class="dropdown-item" href="#">Otros</a></li>
                     </ul>
                 </li>
 
