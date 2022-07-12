@@ -19,11 +19,10 @@ class CriticalStock extends Notification
      *
      * @return void
      */
-    public function __construct(Product $product, Branch $branch, $stock)
+    public function __construct(Product $product, Branch $branch)
     {
         $this->product = $product;
         $this->branch = $branch;
-        $this->stock = $stock;
     }
 
     /**
@@ -64,8 +63,8 @@ class CriticalStock extends Notification
             'product_id' => $this->product->id,
             'product_name' => $this->product->name,
             'branch_name' => $this->branch->name,
-            'stock' => $this->stock,
-            'time' => Carbon::now()->diffForHumans(),
+            'stock'=> $this->product->branches()->newPivotStatementForId($this->branch->id)->value('stock'),
+            'type' => 'CriticalStock',
         ];
     }
 }

@@ -13,7 +13,7 @@
                     <div class="col-md-6 d-md-flex align-items-md-center">
                         <div class="py-4 py-md-0 text-center text-md-start">
                             <h1 class="fs-2 text-white mb-2">Dashboard</h1>
-                            <h2 class="fs-lg fw-normal text-white-75 mb-0">Welcome to your overview</h2>
+                            <h2 hidden class="fs-lg fw-normal text-white-75 mb-0">Welcome to your overview</h2>
                         </div>
                     </div>
                     <div class="col-md-6 d-md-flex align-items-md-center">

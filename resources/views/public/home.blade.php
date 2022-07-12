@@ -5,6 +5,7 @@
 @endsection
 
 @section('css_before')
+    <link rel="stylesheet" href="{{asset('js/plugins/glider/glider.min.css')}}">
     <style>
         .mangas{
             height: 600px;
@@ -23,12 +24,85 @@
             background-position: center;
         }
 
+        .producto{
+            transition: background-color .5s;
+        }
+
+        .producto:hover{
+            background-color: #00ffff;
+
+        }
+
+        .btn-dark:hover{
+            text-decoration: underline;
+            text-decoration-style: double;
+            text-decoration-color: white;
+        }
+
+        .botoncito{
+        transition: background-color .5s;
+        background-color: black;
+        border: white;
+        border-style: solid;
+        border-radius: 10px;
+        color: white;
+        text-decoration: none;
+    }
+
+    .botoncito p{
+        color: white;
+    }
+
+    .botoncito:hover{
+        background-color: #006574;
+        text-decoration: none;
+    }
+
+    .carousel__anterior, .carousel__siguiente{
+        position: absolute;
+        display: block;
+        width: 30px;
+        height: 30px;
+        border: none;
+        top: calc(50% - 35px);
+        cursor: pointer;
+        line-height: 30px;
+        text-align: center;
+        background: none;
+        color: black;
+        opacity: 50%;
+        transition: opacity .5s;
+
+    }
+
+    .carousel__anterior:hover, .carousel__siguiente:hover{
+        opacity: 100%;
+
+    }
+
+    .carousel__anterior{
+        left: -30px;
+    }
+
+    .carousel__siguiente{
+        right: -30px;
+    }
+
+    .carousel__lista{
+        overflow: hidden;
+    }
+
+    .carousel__elemento{
+        text-align: center;
+    }
+
+
     </style>
 @endsection
 
 @section('content')
     <!-- Page header with logo and tagline-->
-    <header class="presentacion py-5 bg-light border-bottom mb-4">
+    <header class="presentacion py-5 bg-light pb-4">
         <div class="container">
             <div class="text-center my-5">
                 <h1 class="fw-bolder">Bienvenido a Kori MangaStore</h1>
@@ -36,135 +110,380 @@
             </div>
         </div>
     </header>
-    <!-- Page content-->
-    <div class="container">
-        <div class="row">
-            <!-- Blog entries-->
-            <div class="col-lg-8">
-                <!-- Featured blog post-->
-                <div class="card mb-4">
-                    <a href="#!"><img class="card-img-top" src="/media/login/portada1.png" alt="..." /></a>
-                    <div class="card-body">
-                        <div class="small text-muted">January 1, 2022</div>
-                        <h2 class="card-title">Featured Post Title</h2>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
-                        <a class="btn btn-primary" href="#!">Read more →</a>
-                    </div>
-                </div>
-                <!-- Nested row for non-featured blog posts-->
-                <div class="row">
-                    <div class="col-sm-12 col-md-6 col-lg-4">
-                        <!-- Blog post-->
-                        <div class="card mb-4">
-                            <a href="#!"><img class="mangas card-img-top" src="https://www.normaeditorial.com/upload/media/albumes/0001/17/cdcf47aecb0a210dec3d7cdff3dfbdd2c0a82995.jpeg" alt="..." /></a>
-                            <div class="card-body">
-                                <div class="small text-muted">January 1, 2022</div>
-                                <h2 class="card-title h4">Manga 1</h2>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-                                <a class="btn btn-primary" href="#!">Read more →</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-md-6 col-lg-4">
-                        <!-- Blog post-->
-                        <div class="card mb-4">
-                            <a href="#!"><img class="mangas card-img-top" src="https://www.normaeditorial.com/upload/media/albumes/0001/19/8fc996cb156fc9af4b082ff601b86a7740d42b2c.jpeg" alt="..." /></a>
-                            <div class="card-body">
-                                <div class="small text-muted">January 1, 2022</div>
-                                <h2 class="card-title h4">Manga 2</h2>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-                                <a class="btn btn-primary" href="#!">Read more →</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-md-6 col-lg-4">
-                        <!-- Blog post-->
-                        <div class="card mb-4">
-                            <a href="#!"><img class="mangas card-img-top" src="https://www.normaeditorial.com/upload/media/albumes/0001/18/5002f1fe13c8bee43dc73547bbadb272d6f9cefd.jpeg" alt="..." /></a>
-                            <div class="card-body">
-                                <div class="small text-muted">January 1, 2022</div>
-                                <h2 class="card-title h4">Manga 3</h2>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-                                <a class="btn btn-primary" href="#!">Read more →</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
 
-                    </div>
-                    <div class="col-lg-6">
-                        
-                        <!-- Blog post-->
-                        <div class="card mb-4">
-                            <a href="#!"><img class="mangas card-img-top" src="https://www.normaeditorial.com/upload/media/albumes/0001/22/ca2b786a5a7ac145f03ec96875d88744abd87ba2.jpeg" alt="..." /></a>
-                            <div class="card-body">
-                                <div class="small text-muted">January 1, 2022</div>
-                                <h2 class="card-title h4">Manga 4</h2>
-                                <p class="card-text desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam.</p>
-                                
-                                <a class="btn btn-primary" href="#!">Read more →</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Pagination-->
-                <nav aria-label="Pagination">
-                    <hr class="my-0" />
-                    <ul class="pagination justify-content-center my-4">
-                        <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true"><i class="fa-solid fa-circle-arrow-left"></i></a></li>
-                        <li class="page-item active" aria-current="page"><a class="page-link" href="#!">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#!">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#!">3</a></li>
-                        <li class="page-item disabled"><a class="page-link" href="#!">...</a></li>
-                        <li class="page-item"><a class="page-link" href="#!">15</a></li>
-                        <li class="page-item"><a class="page-link" href="#!"><i class="fa-solid fa-circle-arrow-right"></i></a></li>
-                    </ul>
-                </nav>
+    <!-- Slider-->
+    <section class="pt-3 mt-0 mw-100">
+
+        <div class="container mw-100 ps-5 pe-5">
+            <div class="text-center">
+                <h3><b>Categorías Destacadas</b></h3>
+                <hr>
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elitof.</p>
             </div>
-            <!-- Side widgets-->
-            <div class="col-lg-4">
-                <!-- Search widget-->
-                <div class="card mb-4">
-                    <div class="card-header bg-info"><b>¡Busca tu producto aquí!</b></div>
-                    <div class="card-body bg-info">
-                        <div class="input-group">
-                            <input class="form-control" type="text" placeholder="Ingresa el nombre de lo que buscas" aria-label="Enter search term..." aria-describedby="button-search" />
-                            <button class="btn btn-dark" id="button-search" type="button">Buscar</button>
-                        </div>
-                    </div>
-                </div>
-                <!-- Categories widget-->
-                <div class="card mb-4">
-                    <div class="card-header bg-info"><b>Categorías</b></div>
-                    <div class="card-body bg-light">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <ul class="list-unstyled mb-0">
-                                    <li><a href="#!">Mangas</a></li>
-                                    <li><a href="#!">Figuras</a></li>
-                                    <li><a href="#!">Poleras</a></li>
-                                </ul>
+            <div class="carousel pb-5">
+                <div class="carousel__contenedor pb-2">
+                    <button aria-label="Anterior" class="carousel__anterior d-sm-none d-md-block"><i class="fa-solid fa-chevron-left"></i></button>
+
+                    <div class="carousel__lista pt-2 shadow">
+                        <a href="" class="text-decoration-none">
+                            <div class="carousel__elemento">
+                                <img src="/media/categories/cat-1.jpg" alt="">
+                                <p class="text-dark fw-bold">Ivrea (Argentina)</p>
                             </div>
-                            <div class="col-sm-6">
-                                <ul class="list-unstyled mb-0">
-                                    <li><a href="#!">Bolsas</a></li>
-                                    <li><a href="#!">Llaveros</a></li>
-                                    <li><a href="#!">Y más...</a></li>
-                                </ul>
+                        </a>
+                        <a href="" class="text-decoration-none">
+                            <div class="carousel__elemento">
+                                <img src="/media/categories/cat-2.jpg" alt="">
+                                <p class="text-dark fw-bold">Ivrea (España)</p>
                             </div>
-                        </div>
+                        </a>
+                        <a href="" class="text-decoration-none">
+                            <div class="carousel__elemento">
+                                <img src="/media/categories/cat-3.jpg" alt="">
+                                <p class="text-dark fw-bold">One Piece</p>
+                            </div>
+                        </a>
+                        <a href="" class="text-decoration-none">
+                            <div class="carousel__elemento">
+                                <img src="/media/categories/cat-4.jpg" alt="">
+                                <p class="text-dark fw-bold">Spy x Family</p>
+                            </div>
+                        </a>
+                        <a href="" class="text-decoration-none">
+                            <div class="carousel__elemento">
+                                <img src="/media/categories/cat-5.jpg" alt="">
+                                <p class="text-dark fw-bold">Bolsas para Mangas</p>
+                            </div>
+                        </a>
+                        <a href="" class="text-decoration-none">
+                            <div class="carousel__elemento">
+                                <img src="/media/categories/cat-6.jpg" alt="">
+                                <p class="text-dark fw-bold">Figuras</p>
+                            </div>
+                        </a>
                     </div>
+
+                    <button aria-label="Siguiente" class="carousel__siguiente"><i class="fa-solid fa-chevron-right"></i></button>
                 </div>
-                <!-- Side widget-->
-                <div class="card mb-4">
-                    <div class="card-header bg-dark text-info"><b>Avisos</b></div>
-                    <div class="card-body bg-dark text-info">Algún aviso, alerta, o apartado de promociones.</div>
-                </div>
+
+                <div role="tablist" class="carousel__indicadores"></div>
+
             </div>
         </div>
-    </div>
+
+    </section>
+
+    <!-- Products-->
+    <section class="product bg-dark pt-3">
+        <div class="container">
+            <div class="text-center text-light">
+                <h3><b>Productos Destacados</b></h3>
+                <hr>
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elitof.</p>
+            </div>
+            <div class="row">
+
+                <!-- Articulo -->
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 pt-1 pb-1 text-center">
+                    <a href="/articulo" style="text-decoration: none">
+                        <div class="producto card shadow">
+                            <div class="card-body">
+                                <img class="card-img-top" src="https://www.normaeditorial.com/upload/media/albumes/0001/17/cdcf47aecb0a210dec3d7cdff3dfbdd2c0a82995.jpeg" alt="">
+                            </div>
+                            <h6 class="text-dark">Nombre Manga</h6>
+                            <h5 class="text-dark">$12.990</h5>
+
+                            <a href="/reservar" type="button" class="botoncito ms-4 me-4 mb-2 ps-2 pe-2 pt-2 pb-2 text-light"><i class="pe-2 fa-solid fa-bookmark"></i>Reservar</a>
+                            <a href="/comprar" type="button" class="botoncito ms-4 me-4 mb-3 ps-2 pe-2 pt-2 pb-2 text-light"><i class="pe-2 fa-solid fa-cart-plus"></i>Agregar al Carrito</a>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Articulo -->
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 pt-1 pb-1 text-center">
+                    <a href="/articulo" style="text-decoration: none">
+                        <div class="producto card shadow">
+                            <div class="card-body">
+                                <img class="card-img-top" src="https://www.normaeditorial.com/upload/media/albumes/0001/17/cdcf47aecb0a210dec3d7cdff3dfbdd2c0a82995.jpeg" alt="">
+                            </div>
+                            <h6 class="text-dark">Nombre Manga</h6>
+                            <h5 class="text-dark">$12.990</h5>
+
+                            <a href="/reservar" type="button" class="botoncito ms-4 me-4 mb-2 ps-2 pe-2 pt-2 pb-2 text-light"><i class="pe-2 fa-solid fa-bookmark"></i>Reservar</a>
+                            <a href="/comprar" type="button" class="botoncito ms-4 me-4 mb-3 ps-2 pe-2 pt-2 pb-2 text-light"><i class="pe-2 fa-solid fa-cart-plus"></i>Agregar al Carrito</a>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Articulo -->
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 pt-1 pb-1 text-center">
+                    <a href="/articulo" style="text-decoration: none">
+                        <div class="producto card shadow">
+                            <div class="card-body">
+                                <img class="card-img-top" src="https://www.normaeditorial.com/upload/media/albumes/0001/17/cdcf47aecb0a210dec3d7cdff3dfbdd2c0a82995.jpeg" alt="">
+                            </div>
+                            <h6 class="text-dark">Nombre Manga</h6>
+                            <h5 class="text-dark">$12.990</h5>
+
+                            <a href="/reservar" type="button" class="botoncito ms-4 me-4 mb-2 ps-2 pe-2 pt-2 pb-2 text-light"><i class="pe-2 fa-solid fa-bookmark"></i>Reservar</a>
+                            <a href="/comprar" type="button" class="botoncito ms-4 me-4 mb-3 ps-2 pe-2 pt-2 pb-2 text-light"><i class="pe-2 fa-solid fa-cart-plus"></i>Agregar al Carrito</a>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Articulo -->
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 pt-1 pb-1 text-center">
+                    <a href="/articulo" style="text-decoration: none">
+                        <div class="producto card shadow">
+                            <div class="card-body">
+                                <img class="card-img-top" src="https://www.normaeditorial.com/upload/media/albumes/0001/17/cdcf47aecb0a210dec3d7cdff3dfbdd2c0a82995.jpeg" alt="">
+                            </div>
+                            <h6 class="text-dark">Nombre Manga</h6>
+                            <h5 class="text-dark">$12.990</h5>
+
+                            <a href="/reservar" type="button" class="botoncito ms-4 me-4 mb-2 ps-2 pe-2 pt-2 pb-2 text-light"><i class="pe-2 fa-solid fa-bookmark"></i>Reservar</a>
+                            <a href="/comprar" type="button" class="botoncito ms-4 me-4 mb-3 ps-2 pe-2 pt-2 pb-2 text-light"><i class="pe-2 fa-solid fa-cart-plus"></i>Agregar al Carrito</a>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Articulo -->
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 pt-1 pb-1 text-center">
+                    <a href="/articulo" style="text-decoration: none">
+                        <div class="producto card shadow">
+                            <div class="card-body">
+                                <img class="card-img-top" src="https://www.normaeditorial.com/upload/media/albumes/0001/17/cdcf47aecb0a210dec3d7cdff3dfbdd2c0a82995.jpeg" alt="">
+                            </div>
+                            <h6 class="text-dark">Nombre Manga</h6>
+                            <h5 class="text-dark">$12.990</h5>
+
+                            <a href="/reservar" type="button" class="botoncito ms-4 me-4 mb-2 ps-2 pe-2 pt-2 pb-2 text-light"><i class="pe-2 fa-solid fa-bookmark"></i>Reservar</a>
+                            <a href="/comprar" type="button" class="botoncito ms-4 me-4 mb-3 ps-2 pe-2 pt-2 pb-2 text-light"><i class="pe-2 fa-solid fa-cart-plus"></i>Agregar al Carrito</a>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Articulo -->
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 pt-1 pb-1 text-center">
+                    <a href="/articulo" style="text-decoration: none">
+                        <div class="producto card shadow">
+                            <div class="card-body">
+                                <img class="card-img-top" src="https://www.normaeditorial.com/upload/media/albumes/0001/17/cdcf47aecb0a210dec3d7cdff3dfbdd2c0a82995.jpeg" alt="">
+                            </div>
+                            <h6 class="text-dark">Nombre Manga</h6>
+                            <h5 class="text-dark">$12.990</h5>
+
+                            <a href="/reservar" type="button" class="botoncito ms-4 me-4 mb-2 ps-2 pe-2 pt-2 pb-2 text-light"><i class="pe-2 fa-solid fa-bookmark"></i>Reservar</a>
+                            <a href="/comprar" type="button" class="botoncito ms-4 me-4 mb-3 ps-2 pe-2 pt-2 pb-2 text-light"><i class="pe-2 fa-solid fa-cart-plus"></i>Agregar al Carrito</a>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Articulo -->
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 pt-1 pb-1 text-center">
+                    <a href="/articulo" style="text-decoration: none">
+                        <div class="producto card shadow">
+                            <div class="card-body">
+                                <img class="card-img-top" src="https://www.normaeditorial.com/upload/media/albumes/0001/17/cdcf47aecb0a210dec3d7cdff3dfbdd2c0a82995.jpeg" alt="">
+                            </div>
+                            <h6 class="text-dark">Nombre Manga</h6>
+                            <h5 class="text-dark">$12.990</h5>
+
+                            <a href="/reservar" type="button" class="botoncito ms-4 me-4 mb-2 ps-2 pe-2 pt-2 pb-2 text-light"><i class="pe-2 fa-solid fa-bookmark"></i>Reservar</a>
+                            <a href="/comprar" type="button" class="botoncito ms-4 me-4 mb-3 ps-2 pe-2 pt-2 pb-2 text-light"><i class="pe-2 fa-solid fa-cart-plus"></i>Agregar al Carrito</a>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Articulo -->
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 pt-1 pb-1 text-center">
+                    <a href="/articulo" style="text-decoration: none">
+                        <div class="producto card shadow">
+                            <div class="card-body">
+                                <img class="card-img-top" src="https://www.normaeditorial.com/upload/media/albumes/0001/17/cdcf47aecb0a210dec3d7cdff3dfbdd2c0a82995.jpeg" alt="">
+                            </div>
+                            <h6 class="text-dark">Nombre Manga</h6>
+                            <h5 class="text-dark">$12.990</h5>
+
+                            <a href="/reservar" type="button" class="botoncito ms-4 me-4 mb-2 ps-2 pe-2 pt-2 pb-2 text-light"><i class="pe-2 fa-solid fa-bookmark"></i>Reservar</a>
+                            <a href="/comprar" type="button" class="botoncito ms-4 me-4 mb-3 ps-2 pe-2 pt-2 pb-2 text-light"><i class="pe-2 fa-solid fa-cart-plus"></i>Agregar al Carrito</a>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Articulo -->
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 pt-1 pb-1 text-center">
+                    <a href="/articulo" style="text-decoration: none">
+                        <div class="producto card shadow">
+                            <div class="card-body">
+                                <img class="card-img-top" src="https://www.normaeditorial.com/upload/media/albumes/0001/17/cdcf47aecb0a210dec3d7cdff3dfbdd2c0a82995.jpeg" alt="">
+                            </div>
+                            <h6 class="text-dark">Nombre Manga</h6>
+                            <h5 class="text-dark">$12.990</h5>
+
+                            <a href="/reservar" type="button" class="botoncito ms-4 me-4 mb-2 ps-2 pe-2 pt-2 pb-2 text-light"><i class="pe-2 fa-solid fa-bookmark"></i>Reservar</a>
+                            <a href="/comprar" type="button" class="botoncito ms-4 me-4 mb-3 ps-2 pe-2 pt-2 pb-2 text-light"><i class="pe-2 fa-solid fa-cart-plus"></i>Agregar al Carrito</a>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Articulo -->
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 pt-1 pb-1 text-center">
+                    <a href="/articulo" style="text-decoration: none">
+                        <div class="producto card shadow">
+                            <div class="card-body">
+                                <img class="card-img-top" src="https://www.normaeditorial.com/upload/media/albumes/0001/17/cdcf47aecb0a210dec3d7cdff3dfbdd2c0a82995.jpeg" alt="">
+                            </div>
+                            <h6 class="text-dark">Nombre Manga</h6>
+                            <h5 class="text-dark">$12.990</h5>
+
+                            <a href="/reservar" type="button" class="botoncito ms-4 me-4 mb-2 ps-2 pe-2 pt-2 pb-2 text-light"><i class="pe-2 fa-solid fa-bookmark"></i>Reservar</a>
+                            <a href="/comprar" type="button" class="botoncito ms-4 me-4 mb-3 ps-2 pe-2 pt-2 pb-2 text-light"><i class="pe-2 fa-solid fa-cart-plus"></i>Agregar al Carrito</a>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Articulo -->
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 pt-1 pb-1 text-center">
+                    <a href="/articulo" style="text-decoration: none">
+                        <div class="producto card shadow">
+                            <div class="card-body">
+                                <img class="card-img-top" src="https://www.normaeditorial.com/upload/media/albumes/0001/17/cdcf47aecb0a210dec3d7cdff3dfbdd2c0a82995.jpeg" alt="">
+                            </div>
+                            <h6 class="text-dark">Nombre Manga</h6>
+                            <h5 class="text-dark">$12.990</h5>
+
+                            <a href="/reservar" type="button" class="botoncito ms-4 me-4 mb-2 ps-2 pe-2 pt-2 pb-2 text-light"><i class="pe-2 fa-solid fa-bookmark"></i>Reservar</a>
+                            <a href="/comprar" type="button" class="botoncito ms-4 me-4 mb-3 ps-2 pe-2 pt-2 pb-2 text-light"><i class="pe-2 fa-solid fa-cart-plus"></i>Agregar al Carrito</a>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Articulo -->
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 pt-1 pb-1 text-center">
+                    <a href="/articulo" style="text-decoration: none">
+                        <div class="producto card shadow">
+                            <div class="card-body">
+                                <img class="card-img-top" src="https://www.normaeditorial.com/upload/media/albumes/0001/17/cdcf47aecb0a210dec3d7cdff3dfbdd2c0a82995.jpeg" alt="">
+                            </div>
+                            <h6 class="text-dark">Nombre Manga</h6>
+                            <h5 class="text-dark">$12.990</h5>
+
+                            <a href="/reservar" type="button" class="botoncito ms-4 me-4 mb-2 ps-2 pe-2 pt-2 pb-2 text-light"><i class="pe-2 fa-solid fa-bookmark"></i>Reservar</a>
+                            <a href="/comprar" type="button" class="botoncito ms-4 me-4 mb-3 ps-2 pe-2 pt-2 pb-2 text-light"><i class="pe-2 fa-solid fa-cart-plus"></i>Agregar al Carrito</a>
+                        </div>
+                    </a>
+                </div>
+
+
+
+        </div>
+        <!-- Pagination-->
+        <nav aria-label="Pagination">
+            <hr class="mt-3" />
+            <ul class="pagination justify-content-center pb-3">
+                <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true"><i class="fa-solid fa-circle-arrow-left"></i></a></li>
+                <li class="page-item active" aria-current="page"><a class="page-link" href="#!">1</a></li>
+                <li class="page-item"><a class="page-link" href="#!">2</a></li>
+                <li class="page-item"><a class="page-link" href="#!">3</a></li>
+                <li class="page-item disabled"><a class="page-link" href="#!">...</a></li>
+                <li class="page-item"><a class="page-link" href="#!">15</a></li>
+                <li class="page-item"><a class="page-link" href="#!"><i class="fa-solid fa-circle-arrow-right"></i></a></li>
+            </ul>
+        </nav>
+    </section>
+
 @endsection
 
 
 @section('js_after')
+    <script src="{{asset('js/plugins/glider/glider.min.js')}}"></script>
+    <script src="{{asset('js/lib/jquery.min.js')}}"></script>
+    <script>
+        var slider = new Glider(document.querySelector('.carousel__lista'), {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        itemWidth: 150,
+        duration: 0.5,
+        rewind: true,
+        draggable: true,
+        dots: '.carousel__indicadores',
+        arrows: {
+            prev: '.carousel__anterior',
+            next: '.carousel__siguiente'
+        },
+        responsive: [
+            {
+            // screens greater than >= 690px
+            breakpoint: 690,
+            settings: {
+                // Set to `auto` and provide item width to adjust to viewport
+                slidesToShow: 2,
+                slidesToScroll: 1,
+                itemWidth: 150,
+                duration: 0.5
+            }
+            },{
+            // screens greater than >= 970px
+            breakpoint: 970,
+            settings: {
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                itemWidth: 150,
+                duration: 0.5
+            }
+            },{
+            // screens greater than >= 1280px
+            breakpoint: 1280,
+            settings: {
+                slidesToShow: 4,
+                slidesToScroll: 1,
+                itemWidth: 150,
+                duration: 0.5
+            }
+            }
+        ]
+        });
+
+        slideAutoPaly(slider, '.glider');
+
+        function slideAutoPaly(glider, selector, delay = 5000, repeat = true) {
+            let autoplay = null;
+            const slidesCount = glider.track.childElementCount;
+            let nextIndex = 1;
+            let pause = true;
+
+            function slide() {
+                autoplay = setInterval(() => {
+                    if (nextIndex >= slidesCount) {
+                        if (!repeat) {
+                            clearInterval(autoplay);
+                        } else {
+                            nextIndex = 0;
+                        }
+                    }
+                    glider.scrollItem(nextIndex++);
+                }, delay);
+            }
+
+            slide();
+
+            var element = document.querySelector(selector);
+            element.addEventListener('mouseover', (event) => {
+                if (pause) {
+                    clearInterval(autoplay);
+                    pause = false;
+                }
+            }, 300);
+
+            element.addEventListener('mouseout', (event) => {
+                if (!pause) {
+                    slide();
+                    pause = true;
+                }
+            }, 300);
+        }
+    </script>
+
+
 @endsection

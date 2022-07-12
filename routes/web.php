@@ -19,6 +19,8 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NotificationController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +35,15 @@ use App\Http\Controllers\HomeController;
 
 Route::get('/', [HomeController::class, 'index'])->name('index.home');
 
+/*  Nosotros */
+Route::view('/nosotros', 'public.about-us')->name('about-us');
+
+/*  Articulo */
+Route::view('/articulo', 'public.article')->name('article');
+
+/*  Articulo */
+Route::view('/soporte', 'public.user-support')->name('user-support');
+
 
 Auth::routes();
 
@@ -44,15 +55,19 @@ Route::view('/forms/be_forms_plugins', 'admin.forms.be_forms_plugins')->middlewa
 Route::view('/forms/be_forms_editors', 'admin.forms.be_forms_editors')->middleware('auth');
 Route::view('/forms/be_forms_validation', 'admin.forms.be_forms_validation')->middleware('auth');
 
-Route::view('/importar', 'admin.product_management.import_products')->name('product.import');
+Route::view('/gestion-de-productos/producto/importar', 'admin.product_management.import_products')->name('product.import');
 Route::post('/importar-manga', [ProductController::class, 'mangaimport'])->name('product.mangaimport');
 Route::post('/importar-product', [ProductController::class, 'productimport'])->name('product.genericimport');
 Route::post('/importar-figure', [ProductController::class, 'figureimport'])->name('product.figureimport');
+
 
 Route::group(['middleware' => ['role:Admin|Vendedor']], function () {
 
     /*Dashboard*/
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('index.graphic');
+
+     /*Notificaciones*/
+    Route::post('/mark-as-read', [NotificationController::class, 'markNotification'])->name('markNotification');
 
     /* Producto */
     Route::get('/gestion-de-productos/producto', [ProductController::class, 'index'])->name('product.list')->middleware('can:product.list');

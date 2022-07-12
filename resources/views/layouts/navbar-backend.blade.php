@@ -38,7 +38,7 @@
                 @endcan
 
                 <li class="nav-main-item">
-                    <a class="nav-main-link{{ request()->is('importar') ? ' active' : '' }}"
+                    <a class="nav-main-link{{ request()->is('gestion-de-productos/producto/importar') ? ' active' : '' }}"
                         href="{{ route('product.import') }}">
                         <span class="nav-main-link-name">Importar</span>
                     </a>

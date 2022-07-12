@@ -1,4 +1,4 @@
-<p align="center"><a href="http://168.232.165.28/" target="_blank"><img src="/public/media/logo/logo2.png" width="300"></a></p>
+<p align="center"><a href="http://168.232.165.28/" target="_blank"><img src="/public/media/logo/logo3.png" width="300"></a></p>
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="200"></a></p>
 ## Korimangastore - Laravel 8 ##
 

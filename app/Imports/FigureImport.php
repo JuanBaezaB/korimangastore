@@ -11,6 +11,7 @@ use App\Models\FigureType;
 use App\Models\Figure;
 
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -37,53 +38,177 @@ class FigureImport implements ToCollection, WithHeadingRow, SkipsOnError, WithVa
                 $provider->name = trim($row['proveedor']);
                 $provider->save();
             }
-            $product = Product::create([
-                'name' => trim($row['nombre']),
-                'description' => trim($row['descripcion']),
-                'price' => trim($row['precio']),
-                'category_id' => isset($category->id) ? $category->id : null,
-                'provider_id' => isset($provider->id) ? $provider->id : null,
-            ]);
-            $series = explode(";", $row['serie']);
-            foreach ($series as $serie_manga) {
-                $serie_manga = trim($serie_manga);
-                if (!empty($serie_manga)) {
-                    $serie = Serie::firstWhere('name', $serie_manga);
-                    if ($serie == null) {
-                        $serie = new Serie();
-                        $serie->name = $serie_manga;
-                        $serie->save();
-                    }
-                    $product->series()->attach($serie);
+
+            if(trim($row['codigo']) == "-"){
+                $code = 'KORI' . Str::random(9);
+                while(count(Product::where('code', $code)->get()) != 0) {
+                    $code = 'KORI' . Str::random(9);
                 }
-            }
-
-
-            $figuretype = FigureType::firstWhere('name', trim($row['tipo']));
-            if ($figuretype == null && trim($row['tipo']) != null) {
-                $figuretype = new FigureType();
-                $figuretype->name = trim($row['tipo']);
-                $figuretype->save();
-            }
-            $figure = Figure::create([
-                'figure_type_id' => isset($figuretype->id) ? $figuretype->id : null,
-            ]);
-            $figure->product()->save($product);
-
-            // Ingresar stock
-            $branches = explode(";", $row['sucursal']);
-            $stocks = explode(";", $row['stock']);
-            for ($i = 0; $i < count($branches); $i++) {
-                $branches[$i] = trim($branches[$i]);
-                if (!empty($branches[$i])) {
-                    $branch = Branch::firstWhere('name', $branches[$i]);
-                    if ($branch == null) {
-                        $branch = new Branch();
-                        $branch->name = $branches[$i];
-                        $branch->save();
+                $product = Product::create([
+                    'name' => trim($row['nombre']),
+                    'code'=> $code,
+                    'description' => trim($row['descripcion']),
+                    'price' => trim($row['precio']),
+                    'category_id' => isset($category->id) ? $category->id : null,
+                    'provider_id' => isset($provider->id) ? $provider->id : null,
+                ]);
+                $series = explode(";", $row['serie']);
+                foreach ($series as $serie_manga) {
+                    $serie_manga = trim($serie_manga);
+                    if (!empty($serie_manga)) {
+                        $serie = Serie::firstWhere('name', $serie_manga);
+                        if ($serie == null) {
+                            $serie = new Serie();
+                            $serie->name = $serie_manga;
+                            $serie->save();
+                        }
+                        $product->series()->attach($serie);
                     }
-                    $stock = intval($stocks[$i]);
-                    $product->branches()->attach($branch, ['stock' => $stock]);
+                }
+
+                $figuretype = FigureType::firstWhere('name', trim($row['tipo']));
+                if ($figuretype == null && trim($row['tipo']) != null) {
+                    $figuretype = new FigureType();
+                    $figuretype->name = trim($row['tipo']);
+                    $figuretype->save();
+                }
+                $figure = Figure::create([
+                    'figure_type_id' => isset($figuretype->id) ? $figuretype->id : null,
+                ]);
+                $figure->product()->save($product);
+
+               // Ingresar stock
+               $branches = explode(";", $row['sucursal']);
+               $stocks = explode(";", $row['stock']);
+               if(sizeof($branches) != sizeof($branches)) {
+                   throw new \Exception("the number of branches is different from the number of stocks");
+               }else{
+                   for ($i = 0; $i < sizeof($branches); $i++) {
+                       $branches[$i] = trim($branches[$i]);
+                       if (!empty($branches[$i])) {
+                           $branch = Branch::firstWhere('name', $branches[$i]);
+                           if ($branch == null) {
+                               $branch = new Branch();
+                               $branch->name = $branches[$i];
+                               $branch->save();
+                           }
+                           $stock = intval($stocks[$i]);
+                           $product->branches()->attach($branch, ['stock' => $stock]);
+                       }
+                   }
+               }
+            }else{
+                $product = Product::firstWhere('code', trim($row['codigo']));
+                if ($product != null) {
+                    $product->update([
+                        'name' => trim($row['nombre']),
+                        'description' => trim($row['descripcion']),
+                        'price' => trim($row['precio']),
+                        'category_id' => $category->id,
+                        'provider_id' => isset($provider->id) ? $provider->id : null,
+                    ]);
+                    $series = explode(";", $row['serie']);
+                    $series_id = [];
+                    foreach ($series as $serie_manga) {
+                        $serie_manga = trim($serie_manga);
+                        if (!empty($serie_manga)) {
+                            $serie = Serie::firstWhere('name', $serie_manga);
+                            if ($serie == null) {
+                                $serie = new Serie();
+                                $serie->name = $serie_manga;
+                                $serie->save();
+                            }
+                            array_push($series_id,$serie->id);
+                        }
+                    }
+                    $product->series()->sync($series_id);
+
+                    $figuretype = FigureType::firstWhere('name', trim($row['tipo']));
+                    if ($figuretype == null && trim($row['tipo']) != null) {
+                        $figuretype = new FigureType();
+                        $figuretype->name = trim($row['tipo']);
+                        $figuretype->save();
+                    }
+                    $figure = $product->productable;
+                    $figure->update([
+                        'figure_type_id' => isset($figuretype->id) ? $figuretype->id : null,
+                    ]);
+
+                    // Ingresar stock
+                    $branches = explode(";", $row['sucursal']);
+                    $stocks = explode(";", $row['stock']);
+                    if(sizeof($branches) != sizeof($branches)) {
+                        throw new \Exception("the number of branches is different from the number of stocks");
+                    }else{
+                        for ($i = 0; $i < sizeof($branches); $i++) {
+                            $branches[$i] = trim($branches[$i]);
+                            if (!empty($branches[$i])) {
+                                $branch = Branch::firstWhere('name', $branches[$i]);
+                                if ($branch == null) {
+                                    $branch = new Branch();
+                                    $branch->name = $branches[$i];
+                                    $branch->save();
+                                }
+                                $stock = intval($stocks[$i]);
+                                $product->changeStock($branch->id, $stock);
+                            }
+                        }
+                    }
+                }else{
+                    $product = Product::create([
+                        'name' => trim($row['nombre']),
+                        'code'=>trim($row['codigo']),
+                        'description' => trim($row['descripcion']),
+                        'price' => trim($row['precio']),
+                        'category_id' => $category->id,
+                        'provider_id' => isset($provider->id) ? $provider->id : null,
+                    ]);
+                    $series = explode(";", $row['serie']);
+                    foreach ($series as $serie_manga) {
+                        $serie_manga = trim($serie_manga);
+                        if (!empty($serie_manga)) {
+                            $serie = Serie::firstWhere('name', $serie_manga);
+                            if ($serie == null) {
+                                $serie = new Serie();
+                                $serie->name = $serie_manga;
+                                $serie->save();
+                            }
+                            $product->series()->attach($serie);
+                        }
+                    }
+
+                    $figuretype = FigureType::firstWhere('name', trim($row['tipo']));
+                    if ($figuretype == null && trim($row['tipo']) != null) {
+                        $figuretype = new FigureType();
+                        $figuretype->name = trim($row['tipo']);
+                        $figuretype->save();
+                    }
+                    $figure = Figure::create([
+                        'figure_type_id' => isset($figuretype->id) ? $figuretype->id : null,
+                    ]);
+                    $figure->product()->save($product);
+
+
+                    // Ingresar stock
+                    $branches = explode(";", $row['sucursal']);
+                    $stocks = explode(";", $row['stock']);
+                    if(sizeof($branches) != sizeof($branches)) {
+                        throw new \Exception("the number of branches is different from the number of stocks");
+                    }else{
+                        for ($i = 0; $i < sizeof($branches); $i++) {
+                            $branches[$i] = trim($branches[$i]);
+                            if (!empty($branches[$i])) {
+                                $branch = Branch::firstWhere('name', $branches[$i]);
+                                if ($branch == null) {
+                                    $branch = new Branch();
+                                    $branch->name = $branches[$i];
+                                    $branch->save();
+                                }
+                                $stock = intval($stocks[$i]);
+                                $product->branches()->attach($branch, ['stock' => $stock]);
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -96,8 +221,8 @@ class FigureImport implements ToCollection, WithHeadingRow, SkipsOnError, WithVa
             "*.proveedor" => ['nullable'],
             "*.serie" => ['required'],
             "*.tipo" => ['required'],
-            "*.sucursal" => ['required'],
-            "*.stock" => ['required'],
+            "*.sucursal" => ['nullable'],
+            "*.stock" => ['nullable'],
         ];
     }
 }
