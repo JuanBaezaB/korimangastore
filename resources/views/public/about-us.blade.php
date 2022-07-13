@@ -31,25 +31,47 @@
             <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
                 <h2>Visitanos en nuestra tienda física</h2>
 
-                <p class="lead">A single, lightweight helper class allows you to add engaging, full width background images to sections of your page.</p>
-                <p class="mb-0">The universe is almost 14 billion years old, and, wow! Life had no problem starting here on Earth! I think it would be inexcusably egocentric of us to suggest that we're alone in the universe.</p>
+                <p class="card-text lead">
+                    Nos encontramos en Freire #522, Galería Caracol, 4to piso, Local 185. Concepción.
+                    <br>
+                    Horario de atención: Lunes a Viernes de 11:00 am - 19:00 pm.
+                </p>
+
             </div>
         </div>
     </div>
 </section>
-<!-- Image element - set the background image for the header in the line below-->
-<div class="py-5 bg-image-full" style="background-image: url('https://source.unsplash.com/4ulffa6qoKA/1200x800')">
-    <!-- Put anything you want here! The spacer below with inline CSS is just for demo purposes!-->
+<!-- Image element - set the background image for the header in the line below
+    <div class="py-5 bg-image-full" style="background-image: url('https://source.unsplash.com/4ulffa6qoKA/1200x800')">
+    Put anything you want here! The spacer below with inline CSS is just for demo purposes!
     <div style="height: 20rem"></div>
-</div>
-<!-- Content section-->
+    </div>
+-->
+
+<header class="pt-3 pb-1 bg-image-full" style="background-image: url('/media/login/portada1.png')">
+    <div class="text-center mt-5">
+        <img class="img-fluid mb-4" src="/media/login/logosombra.png" alt="..." width="150px" height="150px"/>
+        <h1 class="marca text-white fs-2"><b>Kori</b>MangaStore</h1>
+    </div>
+</header>
 <section class="py-5">
     <div class="container my-5">
         <div class="row justify-content-center">
-            <div class="col-lg-6">
-                <h2>Engaging Background Images</h2>
-                <p class="lead">The background images used in this template are sourced from Unsplash and are open source and free to use.</p>
-                <p class="mb-0">I can't tell you how many people say they were turned off from science because of a science teacher that completely sucked out all the inspiration and enthusiasm they had for the course.</p>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="card-body border-0">
+                    <h2>Nuestra Misión</h2>
+                    <p class="lead">Tener el catálogo más grande de mangas de Chile,
+                        trayendo los mejores precios y sucursales en todo el país.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="card-body border-0">
+                    <h2>Nuestra Visión</h2>
+                    <p class="lead">Entregar una excelente experiencia de compra, encargo o
+                        visita a nuestra tienda, entregar precios bajos, ofertas y variedad de productos.
+                    </p>
+                </div>
             </div>
         </div>
     </div>
