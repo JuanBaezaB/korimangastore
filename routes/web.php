@@ -41,8 +41,16 @@ Route::view('/nosotros', 'public.about-us')->name('about-us');
 /*  Articulo */
 Route::view('/articulo', 'public.article')->name('article');
 
-/*  Articulo */
+/*  Soporte */
 Route::view('/soporte', 'public.user-support')->name('user-support');
+
+/*  Carrito */
+Route::view('/carrito', 'public.cart')->name('user-cart');
+
+/*  Reserva  (No va aquí, pero mientras dejé su vista pública) */
+Route::view('/reserva', 'public.booking')->name('user-booking');
+
+
 
 
 Auth::routes();

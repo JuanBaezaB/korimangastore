@@ -103,11 +103,14 @@
 
                     @hasrole('User')
                         <div class="d-inline">
-                            <a href="#"
+                            <a href="/carrito"
                                 class="text-sm btn btn-outline-light text-gray-700 dark:text-gray-500 underline me-2">
                                 <b>
                                     <i class="fa-solid fa-cart-shopping pe-2"></i>
                                     Carrito
+                                    <!--
+                                        <i class="bg-danger text-light ms-1 pe-1 ps-1"> 2 </i>
+                                    -->
                                 </b>
                             </a>
                         </div>
@@ -130,10 +133,18 @@
                             </li>
 
                             <!-- Option -->
-                            <li><a class="dropdown-item" href="#">
+                            <li><a class="dropdown-item" href="/reserva">
+                                <b>
+                                    <i class="fa-solid fa-bag-shopping pe-2"></i>
+                                    Mis reservas
+                                </b></a>
+                            </li>
+
+                            <!-- Option -->
+                            <li><a class="dropdown-item" href="/reserva">
                                 <b>
                                     <i class="fa-solid fa-box-archive pe-2"></i>
-                                    Mis reservas
+                                    Mis compras
                                 </b></a>
                             </li>
 

@@ -118,7 +118,7 @@
             <div class="text-center">
                 <h3><b>Categorías Destacadas</b></h3>
                 <hr>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elitof.</p>
+                <p>Accede de forma rápida a las categorías más consultadas en nuestra tienda</p>
             </div>
             <div class="carousel pb-5">
                 <div class="carousel__contenedor pb-2">
@@ -179,7 +179,7 @@
             <div class="text-center text-light">
                 <h3><b>Productos Destacados</b></h3>
                 <hr>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elitof.</p>
+                <p>Revisa nuestro catálogo de productos, los cuales esperan por ti.</p>
             </div>
             <div class="row">
 
