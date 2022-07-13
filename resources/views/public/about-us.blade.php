@@ -36,6 +36,7 @@
                     <br>
                     Horario de atención: Lunes a Viernes de 11:00 am - 19:00 pm.
                 </p>
+                <p class="card-text text-primary fst-italic">Por ahora nuestra única sucursal física, pronto nos encontraremos en nuevas sucursales, ubicaciones las cuales encontrarás aquí.</p>
 
             </div>
         </div>
