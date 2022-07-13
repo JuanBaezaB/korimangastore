@@ -14,6 +14,7 @@ class UserLastLogin extends Model
     public $timestamps = false;
     protected $fillable = [
         'user_id',
+        'ip',
         'added_on',
     ];
 

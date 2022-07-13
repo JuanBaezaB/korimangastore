@@ -46,7 +46,9 @@ class LoginController extends Controller
     }
     function authenticated(Request $request, $user){
         UserLastLogin::create([
+            
             'user_id'=>Auth::user()->id,
+            'ip'=> $_SERVER['REMOTE_ADDR'],
             'added_on'=>now(),
         ]);
 

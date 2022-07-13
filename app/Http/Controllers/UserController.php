@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\UserLastLogin;
-use App\Http\Controllers\Auth;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -193,9 +193,10 @@ class UserController extends Controller
     }
     public function profile()//en edicion
     {
-        $lastFiveLogin = UserLastLogin::where('user_id', '=', Auth::user()->id)->order_by('added_on', 'desc')
+        $lastFiveLogin = UserLastLogin::where('user_id', '=', Auth::user()->id)//->order_by('added_on', 'desc')
         ->take(5)
         ->get();
-        return response()->view('admin.basic_management.user-management.user.profile')->compact('lastFiveLogin');
+
+        return response()->view('admin.basic_management.user-management.user.profile');//->compact('lastFiveLogin');
     }
 }
