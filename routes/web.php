@@ -20,6 +20,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\UserQuestionController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -42,7 +43,10 @@ Route::view('/nosotros', 'public.about-us')->name('about-us');
 Route::view('/articulo', 'public.article')->name('article');
 
 /*  Soporte */
-Route::view('/soporte', 'public.user-support')->name('user-support');
+Route::get('/soporte', [UserQuestionController::class, 'index'])->name('user-support');
+Route::post('/soporte', [UserQuestionController::class, 'question'])->name('user-support');
+
+/*  Soporte */
 Route::view('/preguntas-frecuentes', 'public.faq')->name('user-faq');
 
 /*  Carrito */
@@ -50,8 +54,6 @@ Route::view('/carrito', 'public.cart')->name('user-cart');
 
 /*  Reserva  (No va aquí, pero mientras dejé su vista pública) */
 Route::view('/reserva', 'public.booking')->name('user-booking');
-
-
 
 
 Auth::routes();
