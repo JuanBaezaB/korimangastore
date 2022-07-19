@@ -33,6 +33,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Styles -->
+    @livewireStyles
     @yield('css_before')
     @stack('css_before_stack')
     <link rel="stylesheet" id="css-main" href="{{ mix('css/dashmix.css') }}">
@@ -46,6 +47,7 @@
     <!-- <link rel="stylesheet" id="css-theme" href="{{ mix('css/themes/xwork.css') }}"> -->
     @yield('css_after')
     @stack('css_after_stack')
+
 
     <!-- Scripts -->
     <script>
@@ -514,6 +516,7 @@
 
     <script src="{{ mix('js/utils.js') }}"></script>
 
+    @livewireScripts
     @yield('js_after')
     @stack('js_after_stack')
     @if(auth()->user()->hasRole('Admin'))
