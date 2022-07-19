@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Models\UserQuestion;
 
 class UserQuestionController extends Controller
 {
@@ -25,6 +26,22 @@ class UserQuestionController extends Controller
             'title.required' => 'Por favor, introduce un asunto.',
             'title.required' => 'Por favor, introduce una descripción.',
         ]);
+
+        if($validator->fails()):
+            return back()->withErrors($validator)->with('mesagge', 'Se ha producido un error.')->with('typealert', 'danger');
+        else:
+            $question = new UserQuestion;
+            $question->email = e($request->input('email'));
+            $question->title = e($request->input('title'));
+            $question->description = e($request->input('description'));
+            $question->answer = '';
+            $question->status = 'Invisible';
+
+            if($question->save()):
+                return redirect('/')->with('mesagge', 'Se ha ingresado su consulta exitosamente.')->with('typealert', 'success');
+            endif;
+
+        endif;
 
     }
 

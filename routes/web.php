@@ -44,7 +44,7 @@ Route::view('/articulo', 'public.article')->name('article');
 
 /*  Soporte */
 Route::get('/soporte', [UserQuestionController::class, 'index'])->name('user-support');
-Route::post('/soporte', [UserQuestionController::class, 'question'])->name('user-support');
+Route::post('/soporte', [UserQuestionController::class, 'question'])->name('user-question-pub');
 
 /*  Soporte */
 Route::view('/preguntas-frecuentes', 'public.faq')->name('user-faq');

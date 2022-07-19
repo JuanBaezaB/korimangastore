@@ -32,22 +32,29 @@
             <div class="col-lg-6 text-center">
                 <h2><b>¿Tienes un problema?</b> ¡Infórmanos aquí!</h2>
                 <hr>
-                <form action="" method="">
+                <form action="POST" class="validation" method="{{ route('user-question-pub') }}">
+                    @csrf
                     <div class="input-group mb-3">
                         <span class="input-group-text"><i class="fa-solid fa-at"></i></span>
-                        <input type="text" class="form-control" placeholder="Correo electrónico" aria-label="Username" aria-describedby="basic-addon1">
+                        <input id="email" name="email" type="text" class="form-control" placeholder="Correo electrónico" aria-label="Username" aria-describedby="basic-addon1">
+
                     </div>
+
                     <div class="input-group mb-3">
                         <span class="input-group-text"><i class="fa-solid fa-indent"></i></span>
-                        <input type="text" class="form-control" placeholder="Asunto" aria-label="Username" aria-describedby="basic-addon1">
+                        <input id="index" name="index" type="text" class="form-control" placeholder="Asunto" aria-label="Username" aria-describedby="basic-addon1">
+
                     </div>
+
                     <div class="input-group">
                         <span class="input-group-text"><i class="fa-solid fa-keyboard"></i></span>
-                        <textarea class="form-control" aria-label="With textarea" placeholder="Describe tu problema"></textarea>
+                        <textarea id="description" name="description" class="form-control" aria-label="With textarea" placeholder="Describe tu problema"></textarea>
+
                     </div>
+                    <button type="submit" class="btn btn-success mt-3 mb-5">Enviar</button>
                 </form>
 
-                <button type="submit" class="btn btn-success mt-3 mb-5">Enviar</button>
+
 
                 <p class="lead">Si tienes problema con un producto, la visualización de alguno, reclamo o sugerencia, entonces te leemos.</p>
             </div>
