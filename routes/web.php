@@ -35,6 +35,8 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/', [HomeController::class, 'index'])->name('index.home');
 
+Route::view('/productos', 'public.products')->name('productos');
+
 /*  Nosotros */
 Route::view('/nosotros', 'public.about-us')->name('about-us');
 

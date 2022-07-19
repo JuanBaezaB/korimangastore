@@ -34,6 +34,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Styles -->
+    @livewireStyles
     @yield('css_before')
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
@@ -57,6 +58,7 @@
     @include('layouts.footer-app')
 
     @yield('js_after')
+    @livewireScripts
 
 </body>
 
