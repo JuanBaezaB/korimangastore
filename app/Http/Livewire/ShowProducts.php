@@ -23,19 +23,21 @@ class ShowProducts extends Component
 
     public function reloadProducts($category_id, $query)
     {
-        $this->products = Product::query();
+        $products = Product::query();
 
-        if($category_id){
-            $this->products = $this->products->where('category_id', $category_id);
+        if(!empty($category_id)){
+            $products = $products->where('category_id', $category_id);
         }
 
-        if($query){
-            $this->products = $this->products->where('name','like','%' . $query . '%');
+        if(!empty($query)){
+            $products = $products->where('name','like','%' . $query . '%');
         }
 
-        $this->products = $this->products->get();
+        //dd($products->toSql(), $products->getBindings());
 
-        $this -> emit('resfreshComponent');
+        $this->products = $products->get();
+
+        //$this -> emit('resfreshComponent');
     }
 
 }

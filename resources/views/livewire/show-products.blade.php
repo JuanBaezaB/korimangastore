@@ -1,5 +1,4 @@
- <!-- Products-->
- {{count($products)}}
+<div>
  <section class="product bg-dark pt-3">
      <div class="container">
          <div class="text-center text-light">
@@ -52,3 +51,4 @@
              </ul>
          </nav>
  </section>
+</div>
