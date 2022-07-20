@@ -24,6 +24,7 @@
     },
     "dependencies": {
         "chart.js": "^3.8.0",
+        "filepond": "^4.30.4",
         "simplebar": "^5.3.6"
     }
 }
