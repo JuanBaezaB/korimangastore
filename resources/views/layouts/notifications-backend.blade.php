@@ -5,7 +5,7 @@
             <span
                 class="nav-main-link-badge badge rounded-pill bg-black-50">{{ count(auth()->user()->unreadNotifications) }}</span>
         @endif
-        <i class="fa fa-fw fa-bell"></i>
+        <i class="fa fa-fw fa-bell {{  count(auth()->user()->unreadNotifications) > 0 ? 'fa-shake' : '' }}"></i>
 
     </button>
     <div class="dropdown-menu dropdown-menu-xxl dropdown-menu-end p-0"

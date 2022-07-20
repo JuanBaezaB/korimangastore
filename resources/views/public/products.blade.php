@@ -5,7 +5,7 @@
 @endsection'
 
 @section('css_before')
-    <link rel="stylesheet" href="{{asset('css/styles.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
 @endsection
 
 @section('content')
@@ -19,24 +19,19 @@
     </header>
 
     <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <!-- filter component -->
-                    <livewire:filter-products/>
-                </div>
-                <div class="col-12">
-                    <!-- show product component -->
-                    <livewire:show-products/>
-                </div>
+        <div class="row">
+            <div class="col-12">
+                <!-- filter component -->
+                <livewire:filter-products />
+            </div>
+            <div class="col-12">
+                <!-- show product component -->
+                <livewire:show-products />
             </div>
         </div>
-
     </section>
-
 @endsection
 
 
 @section('js_after')
-
 @endsection

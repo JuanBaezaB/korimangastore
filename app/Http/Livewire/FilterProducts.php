@@ -10,6 +10,7 @@ class FilterProducts extends Component
 
     public $category_id;
     public $query;
+    public $sort_by;
 
     public function render()
     {
@@ -18,6 +19,6 @@ class FilterProducts extends Component
     }
     public function filter()
     {
-        $this->emitTo('show-products','reloadProducts', $this->category_id, $this->query);
+        $this->emitTo('show-products','reloadProducts', $this->category_id, $this->query, $this->sort_by);
     }
 }
