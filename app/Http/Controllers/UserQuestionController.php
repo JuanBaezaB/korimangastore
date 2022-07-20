@@ -24,7 +24,8 @@ class UserQuestionController extends Controller
             'email.required' => 'Por favor, ingrese un email.',
             'email.email' => 'Por favor, ingrese un email válido.',
             'title.required' => 'Por favor, introduce un asunto.',
-            'title.required' => 'Por favor, introduce una descripción.',
+            'description.required' => 'Por favor, introduce una descripción.',
+            'description.max' => 'La descripción debe contener como máximo 255 caracteres.',
         ]);
 
         if($validator->fails()):
@@ -34,15 +35,50 @@ class UserQuestionController extends Controller
             $question->email = e($request->input('email'));
             $question->title = e($request->input('title'));
             $question->description = e($request->input('description'));
-            $question->answer = '';
+            // $question->answer = '';
             $question->status = 'Invisible';
 
             if($question->save()):
-                return redirect('/')->with('mesagge', 'Se ha ingresado su consulta exitosamente.')->with('typealert', 'success');
+                return redirect()->route('user-support')->with('mesagge', 'Se ha ingresado su consulta exitosamente.')->with('typealert', 'success');
             endif;
 
         endif;
 
+    }
+
+    public function listado(){
+        $questions = UserQuestion::all();
+
+        return response()->view('admin.support.list_adminfaq', compact('questions'));
+
+
+    }
+
+    public function destroy($id)
+    {
+        //
+        $questions = UserQuestion::find($id)->delete();
+
+        return redirect()->route('user-questions.list')
+            ->with('success', 'deleted');
+    }
+
+    public function update(Request $request, $id)
+    {
+        //
+        try {
+            request()->validate(UserQuestion::$rules);
+            $question = UserQuestion::where('id', '=', $id)->first();
+            $question->update($request->all());
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+
+
+
+        return redirect()->route('user-questions.list')
+            ->with('success', 'updated');
+        return response()->json($request);
     }
 
 

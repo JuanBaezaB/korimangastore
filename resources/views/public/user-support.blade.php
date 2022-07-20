@@ -29,10 +29,25 @@
 <section class="pt-2 pb-2">
     <div class="container my-5">
         <div class="row justify-content-center">
+
+            <div class="col-12">
+                @if ($errors->any())
+                <ul>
+                    <div id="ERROR_COPY" class="alert alert-danger">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }} <br></li>
+                        @endforeach
+                    </div>
+                </ul>
+                <br />
+            @endif
+            </div>
+
             <div class="col-lg-6 text-center">
                 <h2><b>¿Tienes un problema?</b> ¡Infórmanos aquí!</h2>
                 <hr>
-                <form action="POST" class="validation" method="{{ route('user-question-pub') }}">
+                <form action="{{ route('user-question-pub') }}" class="validation" method="POST">
+
                     @csrf
                     <div class="input-group mb-3">
                         <span class="input-group-text"><i class="fa-solid fa-at"></i></span>
@@ -42,7 +57,7 @@
 
                     <div class="input-group mb-3">
                         <span class="input-group-text"><i class="fa-solid fa-indent"></i></span>
-                        <input id="index" name="index" type="text" class="form-control" placeholder="Asunto" aria-label="Username" aria-describedby="basic-addon1">
+                        <input id="title" name="title" type="text" class="form-control" placeholder="Asunto" aria-label="Username" aria-describedby="basic-addon1">
 
                     </div>
 
