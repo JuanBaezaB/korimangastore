@@ -266,7 +266,7 @@ class ProductController extends Controller
                     $path = $x[0];
                     $fileContents = $x[1];
                     $newPath = 'product-images' . DIRECTORY_SEPARATOR . Str::random() . basename($path);
-                    if(!Storage::put($newPath, $fileContents)) {
+                    if(!Storage::disk('public')->put($newPath, $fileContents, 'public')) {
                         throw new \Exception("Couldn't upload file.");
                     }
                     return $newPath;
