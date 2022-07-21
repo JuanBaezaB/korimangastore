@@ -1,6 +1,4 @@
-<div class="container">
-
-
+<div class="mx-5">
     <form action="" class=" row row-cols-lg-auto mt-4 ">
         <div class="col-sm-4 mt-3">
             <input wire:model="query" wire:keyup.debounce="filter" style="width: 300px" type="search" class="form-control"
@@ -25,5 +23,4 @@
             </select>
         </div>
     </form>
-
 </div>

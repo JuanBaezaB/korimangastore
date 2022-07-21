@@ -50,7 +50,9 @@
                             <th>Código</th>
                             <th class=" d-sm-table-cell">Tipo</th>
                             <th class=" d-sm-table-cell">Precio</th>
-                            <th data-priority="2" style="width: 10%;">Acciones</th>
+                            @canany(['product.modify'])
+                                <th data-priority="2" style="width: 10%;">Acciones</th>
+                            @endcan
                         </tr>
                     </thead>
                     <tbody>
@@ -68,25 +70,27 @@
                                 <td class="d-sm-table-cell">
                                     $ {{ $product->price }}
                                 </td>
-                                <td class="">
-                                    <form class=" delete" action="{{ route('product.delete', $product->id) }}"
-                                        method="POST">
-                                        <div class=" btn-group">
-                                            <a type="button" class="btn btn-sm btn btn-outline-primary"
-                                                href="{{ route('product.edit', $product->id) }}" title="Actualizar">
-                                                <i class="fa fa-pencil-alt"></i>
-                                            </a>
+                                @canany(['product.modify'])
+                                    <td class="">
+                                        <form class=" delete" action="{{ route('product.delete', $product->id) }}"
+                                            method="POST">
+                                            <div class=" btn-group">
+                                                <a type="button" class="btn btn-sm btn btn-outline-primary"
+                                                    href="{{ route('product.edit', $product->id) }}" title="Actualizar">
+                                                    <i class="fa fa-pencil-alt"></i>
+                                                </a>
 
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn btn-outline-danger"
-                                                data-bs-toggle="tooltip" title="Eliminar">
-                                                <i class="fa fa-fw fa-trash"></i>
-                                            </button>
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn btn-outline-danger"
+                                                    data-bs-toggle="tooltip" title="Eliminar">
+                                                    <i class="fa fa-fw fa-trash"></i>
+                                                </button>
 
-                                        </div>
-                                    </form>
-                                </td>
+                                            </div>
+                                        </form>
+                                    </td>
+                                @endcan
                             </tr>
                         @endforeach
 

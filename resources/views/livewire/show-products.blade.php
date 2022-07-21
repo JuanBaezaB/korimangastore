@@ -1,8 +1,8 @@
 <div>
     <section class="product bg-dark pt-3">
-        <div class="container">
+        <div class=" mx-5">
             <div class="text-center text-light">
-                <h3><b>Productos Destacados</b></h3>
+                <h3><b>Productos</b></h3>
                 <hr>
             </div>
             <div class="row">
@@ -10,7 +10,7 @@
                 <!-- Productos -->
                 @foreach ($products as $product)
                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 pt-1 pb-1 text-center">
-                        <a href="/articulo" style="text-decoration: none">
+                        <a href="{{ route('show-product', $product->id) }}"style="text-decoration: none">
                             <div class="producto card shadow">
                                 <div class="card-body">
                                     <img class="card-img-top"
