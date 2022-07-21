@@ -268,7 +268,10 @@
 
             $('input#input-file-images[type=file]').filepond({
                 allowMultiple: true,
+                acceptedFileTypes: ['image/*'],
+                imagePreviewMaxFileSize: '2MB',
             });
+
         });
     });
 </script>
