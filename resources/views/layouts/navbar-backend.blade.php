@@ -304,9 +304,9 @@
     </a>
     <ul class="nav-main-submenu">
         <li class="nav-main-item">
-            <a class="nav-main-link{{ request()->is('soporte/preguntas-frecuentes-admin') ? ' active' : '' }}"
-                href="{{ route('support.adminfaq') }}">
-                <span class="nav-main-link-name">Preguntas frecuentes (FAQ's)</span>
+            <a class="nav-main-link{{ request()->is('soporte/preguntas-frecuentes/administracion') ? ' active' : '' }}"
+                href="{{ route('user-questions.list') }}">
+                <span class="nav-main-link-name">Administrar Preguntas frecuentes (FAQ's)</span>
             </a>
         </li>
 
