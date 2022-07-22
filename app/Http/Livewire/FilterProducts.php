@@ -19,6 +19,6 @@ class FilterProducts extends Component
     }
     public function filter()
     {
-        $this->emitTo('show-products','reloadProducts', $this->category_id, $this->query, $this->sort_by);
+        $this->emitTo('show-products','reloadProducts', $this->category_id, $this->sort_by);
     }
 }

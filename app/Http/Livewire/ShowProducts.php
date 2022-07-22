@@ -15,7 +15,7 @@ class ShowProducts extends Component
     public $query;
     public $sort_by;
 
-    protected $listeners = ['reloadProducts', 'refreshComponent'=>'$refresh'];
+    protected $listeners = ['reloadProducts', 'searchProduct', 'refreshComponent'=>'$refresh'];
 
     protected function getProducts()
     {
@@ -45,13 +45,19 @@ class ShowProducts extends Component
         return view('livewire.show-products',['products'=>$this->getProducts()]);
     }
 
-    public function reloadProducts($category_id, $query, $sort_by)
+    public function reloadProducts($category_id, $sort_by)
     {
         $this->category_id =$category_id;
-        $this->query = $query;
         $this->sort_by = $sort_by;
         $this->resetPage();
 
+        $this -> emit('resfreshComponent');
+    }
+
+    public function searchProduct($search)
+    {
+        $this->query = $search;
+        $this->resetPage();
         $this -> emit('resfreshComponent');
     }
 
