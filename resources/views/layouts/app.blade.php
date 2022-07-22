@@ -40,6 +40,7 @@
 
 
     <!-- Scripts -->
+    <script src="{{ asset('js/lib/jquery.min.js') }}"></script>
     <script src="{{ asset('js/laravel.app.js') }}" defer></script>
     <script>
         window.Laravel = {!! json_encode(['csrfToken' => csrf_token()]) !!};

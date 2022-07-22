@@ -22,6 +22,7 @@ use Illuminate\Validation\Rule;
 use App\Imports\FigureImport;
 use App\Imports\ProductImport;
 use App\Imports\MangaImport;
+use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
@@ -158,10 +159,12 @@ class ProductController extends Controller
         return [
             'name' => 'required|string|min:1|max:200',
             'price' => 'required|integer|min:0',
-            'p_code' => 'required_if:has_p_code,on|string|max:13',
+            'p_code' => 'required_if:has_p_code,on|exclude_unless:has_p_code,on|string|max:13',
             'description' => 'max:2000',
             'provider_id' => 'nullable|exists:App\Models\Provider,id',
             'series' => 'array',
+            'filepond_files' => 'array|max:3',
+            'filepond_files.*' => 'string',
             'series.*' => 'exists:App\Models\Serie,id',
             'category_id' => 'required|exists:App\Models\Category,id',
             /* MANGA */
@@ -188,7 +191,6 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         //
-        
         $validator = Validator::make($request->all(), self::makeRules($request));
         $validator->validate();
         /*if ($validator->fails()) {
@@ -247,6 +249,40 @@ class ProductController extends Controller
                 $figure->save();
 
             }
+            
+            if (count($datos->get('filepond_files')) > 0) {
+                $filepond = app(\Sopamo\LaravelFilepond\Filepond::class);
+                $disk = config('filepond.temporary_files_disk');
+                $filesystem = Storage::disk($disk);
+    
+                $paths = collect($datos->get('filepond_files'))->map(function ($x) use ($filepond) {
+                    return $filepond->getPathFromServerId($x);
+                });
+    
+                $files = $paths->map(function ($x) use ($filesystem) {
+                    return $filesystem->get($x);
+                });
+                $newPaths = $paths->zip($files)->map(function ($x) {
+                    $path = $x[0];
+                    $fileContents = $x[1];
+                    $newPath = 'product-images' . DIRECTORY_SEPARATOR . Str::random() . basename($path);
+                    if(!Storage::disk('public')->put($newPath, $fileContents, 'public')) {
+                        throw new \Exception("Couldn't upload file.");
+                    }
+                    return $newPath;
+                });
+
+                $filesystem->delete($paths);
+    
+                $product->images()->createMany(
+                    $newPaths
+                    ->map(function ($x) {
+                        return ['path' => $x];
+                    })
+                    ->all());
+            }
+
+            
             DB::commit();
         } catch(\Throwable $th) {
             DB::rollBack();

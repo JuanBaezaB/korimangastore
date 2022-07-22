@@ -52,6 +52,10 @@ class Product extends Model
         return $this->morphTo();
     }
 
+    public function images() {
+        return $this->hasMany(ProductImage::class);
+    }
+
     /**
      * Modifies stock of this product for a branch
      * Returns an array with the branch, the stock and the product itself

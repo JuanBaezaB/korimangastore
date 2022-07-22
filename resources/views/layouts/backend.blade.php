@@ -509,6 +509,7 @@
     <!-- END Page Container -->
 
     <!-- Dashmix Core JS -->
+    <script src="{{ asset('js/lib/jquery.min.js') }}"></script>
     <script src="{{ mix('js/dashmix.app.js') }}"></script>
 
     <!-- Laravel Original JS -->

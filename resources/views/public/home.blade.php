@@ -217,7 +217,6 @@
 
 @section('js_after')
     <script src="{{asset('js/plugins/glider/glider.min.js')}}"></script>
-    <script src="{{asset('js/lib/jquery.min.js')}}"></script>
     <script>
         var slider = new Glider(document.querySelector('.carousel__lista'), {
         slidesToShow: 1,
