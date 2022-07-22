@@ -8,29 +8,34 @@ use App\Models\UserQuestion;
 
 class UserQuestionController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return response()->view('public.user-support');
     }
 
-    public function question(Request $request){
-        $validator = Validator::make($request->all(),[
-            'email' => ['required', 'string', 'email', 'max:30'],
-            'title' => ['required', 'string', 'max:50'],
-            'description' => ['required', 'string', 'max:255'],
-            'answer',
-            'status',
-        ],
-        [
-            'email.required' => 'Por favor, ingrese un email.',
-            'email.email' => 'Por favor, ingrese un email válido.',
-            'title.required' => 'Por favor, introduce un asunto.',
-            'description.required' => 'Por favor, introduce una descripción.',
-            'description.max' => 'La descripción debe contener como máximo 255 caracteres.',
-        ]);
+    public function question(Request $request)
+    {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'email' => ['required', 'string', 'email', 'max:30'],
+                'title' => ['required', 'string', 'max:50'],
+                'description' => ['required', 'string', 'max:255'],
+                'answer',
+                'status',
+            ],
+            [
+                'email.required' => 'Por favor, ingrese un email.',
+                'email.email' => 'Por favor, ingrese un email válido.',
+                'title.required' => 'Por favor, introduce un asunto.',
+                'description.required' => 'Por favor, introduce una descripción.',
+                'description.max' => 'La descripción debe contener como máximo 255 caracteres.',
+            ]
+        );
 
-        if($validator->fails()):
+        if ($validator->fails()) :
             return back()->withErrors($validator)->with('mesagge', 'Se ha producido un error.')->with('typealert', 'danger');
-        else:
+        else :
             $question = new UserQuestion;
             $question->email = e($request->input('email'));
             $question->title = e($request->input('title'));
@@ -38,20 +43,18 @@ class UserQuestionController extends Controller
             // $question->answer = '';
             $question->status = 'Invisible';
 
-            if($question->save()):
+            if ($question->save()) :
                 return redirect()->route('user-support')->with('mesagge', 'Se ha ingresado su consulta exitosamente.')->with('typealert', 'success');
             endif;
 
         endif;
-
     }
 
-    public function listado(){
+    public function listado()
+    {
         $questions = UserQuestion::all();
 
         return response()->view('admin.support.list_adminfaq', compact('questions'));
-
-
     }
 
     public function destroy($id)
@@ -69,9 +72,15 @@ class UserQuestionController extends Controller
         try {
             request()->validate(UserQuestion::$rules);
             $question = UserQuestion::where('id', '=', $id)->first();
-            $question->update($request->all());
+            $question->update([
+                'email' => $request->email,
+                'title' => $request->title,
+                'description' => $request->description,
+                'status' => $request->status,
+                'answer' => $request->answer,
+            ]);
         } catch (\Throwable $th) {
-            //throw $th;
+            dd($th);
         }
 
 
@@ -80,6 +89,4 @@ class UserQuestionController extends Controller
             ->with('success', 'updated');
         return response()->json($request);
     }
-
-
 }

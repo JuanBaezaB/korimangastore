@@ -14,7 +14,7 @@
 </div>
 <div class="mb-3 form-check form-switch">
     <label class="col-form-label" for="flexSwitchCheckDefault">Deshabilitar/Habilitar</label>
-    <input class="form-check-input make-switch" name="status" type="checkbox" role="switch" value="Invisible" id="flexSwitchCheckDefault">
+    <input class="form-check-input make-switch" name="status" type="checkbox" role="switch" value="{{$an_item->status}}" id="flexSwitchCheckDefault" {{ $an_item->status == "Visible" ? 'checked' : ''}}>
 </div>
 <div class="mb-3">
     <label class="col-form-label">Respuesta:</label>

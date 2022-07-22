@@ -16,4 +16,11 @@ class UserQuestion extends Model
         'answer',
         'status',
     ];
+    protected $fillable = [
+        'email',
+        'title',
+        'description',
+        'answer',
+        'status',
+    ];
 }
