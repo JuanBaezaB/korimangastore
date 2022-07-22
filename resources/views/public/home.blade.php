@@ -173,8 +173,8 @@
 
     </section>
 
-    <!-- Products-->
-    <section class="product bg-dark pt-3">
+    <!-- Productos destacados -->
+    <section class="bg-dark pt-3 pb-5">
         <div class="container">
             <div class="text-center text-light">
                 <h3><b>Productos Destacados</b></h3>
@@ -182,6 +182,7 @@
                 <p>Revisa nuestro catálogo de productos, los cuales esperan por ti.</p>
             </div>
             <div class="row">
+                <!-- Articulo -->
                 @isset($products)
                     @foreach ($products as $product)
                         <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 pt-1 pb-1 text-center">
@@ -207,9 +208,86 @@
                         </div>
                     @endforeach
                 @endisset
-
-
+            </div>
         </div>
+
+    </section>
+
+    <!-- Novedades -->
+    <section class="pt-3 pb-5">
+        <div class="container">
+            <div class="text-center">
+                <h3><b>Novedades</b></h3>
+                <hr>
+                <p>Productos nuevos que han llegado especialmente para ti.</p>
+            </div>
+            <div class="row">
+                <!-- Articulo -->
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-xs-6 pt-1 pb-1 text-center">
+                    <a href="/articulo" style="text-decoration: none">
+                        <div class="producto card shadow">
+                            <div class="card-body">
+                                <img class="card-img-top" src="https://www.normaeditorial.com/upload/media/albumes/0001/17/cdcf47aecb0a210dec3d7cdff3dfbdd2c0a82995.jpeg" alt="">
+                            </div>
+                            <h6 class="text-dark">Nombre Manga</h6>
+                            <h5 class="text-dark">$12.990</h5>
+
+                            <a href="/reservar" type="button" class="botoncito ms-4 me-4 mb-2 ps-2 pe-2 pt-2 pb-2 text-light"><i class="pe-2 fa-solid fa-bookmark"></i>Reservar</a>
+                            <a href="/comprar" type="button" class="botoncito ms-4 me-4 mb-3 ps-2 pe-2 pt-2 pb-2 text-light"><i class="pe-2 fa-solid fa-cart-plus"></i>Agregar al Carrito</a>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Articulo -->
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-xs-6 pt-1 pb-1 text-center">
+                    <a href="/articulo" style="text-decoration: none">
+                        <div class="producto card shadow">
+                            <div class="card-body">
+                                <img class="card-img-top" src="https://www.normaeditorial.com/upload/media/albumes/0001/17/cdcf47aecb0a210dec3d7cdff3dfbdd2c0a82995.jpeg" alt="">
+                            </div>
+                            <h6 class="text-dark">Nombre Manga</h6>
+                            <h5 class="text-dark">$12.990</h5>
+
+                            <a href="/reservar" type="button" class="botoncito ms-4 me-4 mb-2 ps-2 pe-2 pt-2 pb-2 text-light"><i class="pe-2 fa-solid fa-bookmark"></i>Reservar</a>
+                            <a href="/comprar" type="button" class="botoncito ms-4 me-4 mb-3 ps-2 pe-2 pt-2 pb-2 text-light"><i class="pe-2 fa-solid fa-cart-plus"></i>Agregar al Carrito</a>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Articulo -->
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-xs-6 pt-1 pb-1 text-center">
+                    <a href="/articulo" style="text-decoration: none">
+                        <div class="producto card shadow">
+                            <div class="card-body">
+                                <img class="card-img-top" src="https://www.normaeditorial.com/upload/media/albumes/0001/17/cdcf47aecb0a210dec3d7cdff3dfbdd2c0a82995.jpeg" alt="">
+                            </div>
+                            <h6 class="text-dark">Nombre Manga</h6>
+                            <h5 class="text-dark">$12.990</h5>
+
+                            <a href="/reservar" type="button" class="botoncito ms-4 me-4 mb-2 ps-2 pe-2 pt-2 pb-2 text-light"><i class="pe-2 fa-solid fa-bookmark"></i>Reservar</a>
+                            <a href="/comprar" type="button" class="botoncito ms-4 me-4 mb-3 ps-2 pe-2 pt-2 pb-2 text-light"><i class="pe-2 fa-solid fa-cart-plus"></i>Agregar al Carrito</a>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Articulo -->
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-xs-6 pt-1 pb-1 text-center">
+                    <a href="/articulo" style="text-decoration: none">
+                        <div class="producto card shadow">
+                            <div class="card-body">
+                                <img class="card-img-top" src="https://www.normaeditorial.com/upload/media/albumes/0001/17/cdcf47aecb0a210dec3d7cdff3dfbdd2c0a82995.jpeg" alt="">
+                            </div>
+                            <h6 class="text-dark">Nombre Manga</h6>
+                            <h5 class="text-dark">$12.990</h5>
+
+                            <a href="/reservar" type="button" class="botoncito ms-4 me-4 mb-2 ps-2 pe-2 pt-2 pb-2 text-light"><i class="pe-2 fa-solid fa-bookmark"></i>Reservar</a>
+                            <a href="/comprar" type="button" class="botoncito ms-4 me-4 mb-3 ps-2 pe-2 pt-2 pb-2 text-light"><i class="pe-2 fa-solid fa-cart-plus"></i>Agregar al Carrito</a>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
     </section>
 
 @endsection
