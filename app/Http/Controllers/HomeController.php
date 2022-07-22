@@ -22,7 +22,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $products = Product::orderBy('created_at', 'DESC')->limit(12)->get();
+        $products = Product::orderBy('created_at', 'DESC')->limit(4)->get();
         $providers = Provider::all();
         $series = Serie::all();
         $publishers = Editorial::all();
