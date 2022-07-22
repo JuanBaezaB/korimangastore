@@ -182,6 +182,10 @@ class ProductController extends Controller
         ];
     }
 
+    protected static $errorMessages = [
+        'filepond_files.*.string' => 'Una imagen no fue subida completamente.'
+    ];
+
     /**
      * Store a newly created resource in storage.
      *
@@ -191,7 +195,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         //
-        $validator = Validator::make($request->all(), self::makeRules($request));
+        $validator = Validator::make($request->all(), self::makeRules($request), self::$errorMessages);
         $validator->validate();
         /*if ($validator->fails()) {
             dd($validator);
@@ -250,7 +254,7 @@ class ProductController extends Controller
 
             }
             
-            if (count($datos->get('filepond_files')) > 0) {
+            if (count($datos->get('filepond_files', [])) > 0) {
                 $filepond = app(\Sopamo\LaravelFilepond\Filepond::class);
                 $disk = config('filepond.temporary_files_disk');
                 $filesystem = Storage::disk($disk);
@@ -265,7 +269,7 @@ class ProductController extends Controller
                 $newPaths = $paths->zip($files)->map(function ($x) {
                     $path = $x[0];
                     $fileContents = $x[1];
-                    $newPath = 'product-images' . DIRECTORY_SEPARATOR . Str::random() . basename($path);
+                    $newPath = 'product-images' . DIRECTORY_SEPARATOR . Str::random() . DIRECTORY_SEPARATOR . basename($path);
                     if(!Storage::disk('public')->put($newPath, $fileContents, 'public')) {
                         throw new \Exception("Couldn't upload file.");
                     }
@@ -348,7 +352,7 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $validator = Validator::make($request->all(), self::makeRules($request));
+        $validator = Validator::make($request->all(), self::makeRules($request), self::$errorMessages);
         $validator->validate();
 
         $data = request()->except(['_token', '_method']);
@@ -439,6 +443,57 @@ class ProductController extends Controller
                 $figure->type()->associate($figureData->get('figure_type_id'));
                 $figure->save();
 
+            }
+
+
+            /*
+            Right now when you modify images for a product, it reuploads the all the images
+            very bad, but to fix it you would need to form sopamo/laravel-filepond to implement
+            the `restore` end point (https://pqina.nl/filepond/docs/api/server/#load)
+
+            */
+
+            $pathsToDelete = $product->images->pluck('path')->all();
+            // should probably delete its <<direct>> parent directory
+            // since it looks like product-images/<random string>/<image file>
+            // and we're  only deleting <image file>
+            // we should delete the <random string>/ directory too
+            if (count($pathsToDelete) > 0) {
+                if(!Storage::disk('public')->delete($pathsToDelete)) {
+                    throw new \Exception("Couldn't delete some images, $pathsToDelete");
+                }
+            }
+            $product->images->each->delete();
+            if (count($data->get('filepond_files', [])) > 0) {
+                $filepond = app(\Sopamo\LaravelFilepond\Filepond::class);
+                $disk = config('filepond.temporary_files_disk');
+                $filesystem = Storage::disk($disk);
+    
+                $paths = collect($data->get('filepond_files'))->map(function ($x) use ($filepond) {
+                    return $filepond->getPathFromServerId($x);
+                });
+    
+                $files = $paths->map(function ($x) use ($filesystem) {
+                    return $filesystem->get($x);
+                });
+                $newPaths = $paths->zip($files)->map(function ($x) {
+                    $path = $x[0];
+                    $fileContents = $x[1];
+                    $newPath = 'product-images' . DIRECTORY_SEPARATOR . Str::random() . DIRECTORY_SEPARATOR . basename($path);
+                    if(!Storage::disk('public')->put($newPath, $fileContents, 'public')) {
+                        throw new \Exception("Couldn't upload file.");
+                    }
+                    return $newPath;
+                });
+
+                $filesystem->delete($paths);
+    
+                $product->images()->createMany(
+                    $newPaths
+                    ->map(function ($x) {
+                        return ['path' => $x];
+                    })
+                    ->all());
             }
             DB::commit();
         } catch (\Throwable $th) {

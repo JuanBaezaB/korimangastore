@@ -266,12 +266,30 @@
             $('.js-basic-multiple').select2({});
             $('.js-basic-single').select2();
 
-            $('input#input-file-images[type=file]').filepond({
+            $('#input-file-images').filepond({
                 allowMultiple: true,
                 acceptedFileTypes: ['image/*'],
                 imagePreviewMaxFileSize: '2MB',
+                @isset($product)
+                /*
+                Not supported by server
+                files: {{ 
+                    Js::from($product->images->map(function($x) {
+                        return [
+                            'source' => $x->url(),
+                            'options' => [
+                                'type' => 'local',
+                            ],
+                        ];
+                    }))
+                }}
+                */
+                @endisset
             });
 
+            @isset($product)
+                $('#input-file-images').filepond('addFiles', {{ Js::from($product->images->map(function($x) { return $x->url(); })) }});
+            @endisset
         });
     });
 </script>
