@@ -43,6 +43,7 @@ Route::view('/articulo', 'public.article')->name('article');
 
 /*  Soporte */
 Route::view('/soporte', 'public.user-support')->name('user-support');
+Route::view('/preguntas-frecuentes', 'public.faq')->name('user-faq');
 
 /*  Carrito */
 Route::view('/carrito', 'public.cart')->name('user-cart');
@@ -181,6 +182,7 @@ Route::group(['middleware' => ['role:Admin|Vendedor']], function () {
     /*  Soporte */
     Route::view('/soporte/preguntas-frecuentes-admin', 'admin.support.adminfaq')->name('support.adminfaq')->middleware('auth');
     Route::view('/soporte/manual-admin', 'admin.support.adminmanual')->name('support.adminmanual')->middleware('auth');
+
 
 
 
