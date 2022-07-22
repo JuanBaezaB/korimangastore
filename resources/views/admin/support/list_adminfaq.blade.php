@@ -63,8 +63,8 @@ $validation_messages = [
     </div>
     <div class="mb-3">
         <label class="col-form-label ">Respuesta:</label>
-        <textarea class="js-simplemde form-control @error('answer') is-invalid @enderror" id="simplemde-add" id="answer"
-            name="answer"></textarea>
+        <textarea class="js-simplemde form-control @error('answer') is-invalid @enderror" id="simplemde-answer-add"
+            id="answer" name="answer"></textarea>
     </div>
 @endsection
 
@@ -72,8 +72,8 @@ $validation_messages = [
     <th class="text-center" style="width: 80px;">#</th>
     <th>Email</th>
     <th>Asunto</th>
-    <th class="d-none d-sm-table-cell">Descripción</th>
-    <th class="d-none d-sm-table-cell">Respuesta</th>
+    <th class=" d-sm-table-cell">Descripción</th>
+    <th class="d-sm-table-cell">Respuesta</th>
     <th class="d-none d-sm-table-cell">Estado</th>
 @endsection
 
@@ -88,6 +88,15 @@ $validation_messages = [
     <script>
         var simplemde = new SimpleMDE({
             element: document.getElementById("simplemde-add"),
+            /*
+                Desabilitado algunas partes del toolbar,
+                side-by-side y fullscreen estan bugueados
+            */
+            toolbar: ['bold', 'italic', 'heading', '|', 'quote', 'unordered-list', 'ordered-list', 'preview'],
+            spellChecker: false
+        });
+        var simplemde = new SimpleMDE({
+            element: document.getElementById("simplemde-answer-add"),
             /*
                 Desabilitado algunas partes del toolbar,
                 side-by-side y fullscreen estan bugueados
@@ -118,10 +127,45 @@ $validation_messages = [
 
             });
         });
+        jQuery(document).ready(function($) {
+            $('.modal-update').each(function() {
+                var textanswer = $(this).find('.simplemde-answer-update').text();
+                console.log(textanswer);
+                var simplemdeanswer = new SimpleMDE({
+                    element: $(this).find('.simplemde-answer-update').get(0),
+
+                    toolbar: ['bold', 'italic', 'heading', '|', 'quote', 'unordered-list',
+                        'ordered-list', 'preview'
+                    ],
+                    spellChecker: false,
+                });
+                simplemdeanswer.value(textanswer);
+                simplemdeanswer.render();
+                $(this).focus(function() {
+                    simplemdeanswer.codemirror.refresh();
+                });
+            });
+        });
+        /*
+        jQuery(document).ready(function($) {
+            $('.modal-update').each(function() {
+                var switch = $(this).find('.simplemde-answer-update').element;
+
+                switch.change(function() {
+                    if ($(this).prop('checked') == true) {
+                        document.getElementById("flexSwitchCheckDefault").value = "Visible";
+                        console.log(document.getElementById("flexSwitchCheckDefault").value);
+                    } else {
+                        document.getElementById("flexSwitchCheckDefault").value = "Invisible";
+                        console.log(document.getElementById("flexSwitchCheckDefault").value);
+                    }
+                });
+
+            });
+        });*/
     </script>
 
     <script>
-
         $(".make-switch").change(function() {
             if ($(this).prop('checked') == true) {
                 document.getElementById("flexSwitchCheckDefault").value = "Visible";

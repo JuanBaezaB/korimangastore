@@ -14,10 +14,10 @@
 </div>
 <div class="mb-3 form-check form-switch">
     <label class="col-form-label" for="flexSwitchCheckDefault">Deshabilitar/Habilitar</label>
-    <input class="form-check-input make-switch" name="status" type="checkbox" role="switch" value="{{$an_item->status}}" id="flexSwitchCheckDefault" {{ $an_item->status == "Visible" ? 'checked' : ''}}>
+    <input class="form-check-input make-switch-update" name="status" type="checkbox" role="switch" value="{{$an_item->status}}" id="flexSwitchCheckDefault{{$an_item->id}}" {{ $an_item->status == "Visible" ? 'checked' : ''}}>
 </div>
 <div class="mb-3">
     <label class="col-form-label">Respuesta:</label>
-    <textarea class="js-simplemde simplemde-update form-control" id="simplemde-update{{$an_item->id}}"  name="answer">{{ $an_item->answer }}</textarea>
+    <textarea class="js-simplemde simplemde-answer-update form-control" id="simplemde-answer-update{{$an_item->id}}"  name="answer">{{ $an_item->answer }}</textarea>
 </div>
 
