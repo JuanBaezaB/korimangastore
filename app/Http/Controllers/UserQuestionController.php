@@ -68,7 +68,7 @@ class UserQuestionController extends Controller
 
     public function update(Request $request, $id)
     {
-        //
+        //dd($request);
         try {
             request()->validate(UserQuestion::$rules);
             $question = UserQuestion::where('id', '=', $id)->first();
@@ -76,8 +76,8 @@ class UserQuestionController extends Controller
                 'email' => $request->email,
                 'title' => $request->title,
                 'description' => $request->description,
-                'status' => $request->status,
                 'answer' => $request->answer,
+                'status' => $request->status
             ]);
         } catch (\Throwable $th) {
             dd($th);
