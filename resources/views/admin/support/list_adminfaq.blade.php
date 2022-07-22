@@ -3,8 +3,8 @@
 @php
 $nombre_crud = 'Consultas';
 $add_action_route = 'user-question-pub';
-$update_action_route = 'user-question.update';
-$delete_action_route = 'user-question.delete';
+$update_action_route = 'user-questions.update';
+$delete_action_route = 'user-questions.delete';
 
 $collection_of_items = $questions;
 
@@ -15,35 +15,34 @@ $export_columns = [0, 1, 2];
 $validation_rules = [
     'email' => [
         'required' => true,
-        'maxlength' => 200
+        'maxlength' => 200,
     ],
     'title' => [
         'required' => true,
-        'maxlength' => 200
+        'maxlength' => 200,
     ],
     'description' => [
         'required' => false,
-        'maxlength' => 255
+        'maxlength' => 255,
     ],
     'answer' => [
         'required' => false,
-        'maxlength' => 255
+        'maxlength' => 255,
     ],
-
 ];
 
 $validation_messages = [
     'email' => [
         'required' => 'Por favor, ingrese un correo electrónico.',
-        'maxlength' => 'Por favor, ingrese no más de 200 caracteres.'
+        'maxlength' => 'Por favor, ingrese no más de 200 caracteres.',
     ],
     'title' => [
         'required' => 'Por favor, ingrese un asunto.',
-        'maxlength' => 'Por favor, ingrese no más de 200 caracteres.'
+        'maxlength' => 'Por favor, ingrese no más de 200 caracteres.',
     ],
     'description' => [
-        'maxlength' => 'Por favor, ingrese no más de 2000 caracteres.'
-    ]
+        'maxlength' => 'Por favor, ingrese no más de 2000 caracteres.',
+    ],
 ];
 
 @endphp
@@ -59,11 +58,13 @@ $validation_messages = [
     </div>
     <div class="mb-3">
         <label class="col-form-label ">Descripción:</label>
-        <textarea class="js-simplemde form-control @error('description') is-invalid @enderror" id="simplemde-add" id="description" name="description"></textarea>
+        <textarea class="js-simplemde form-control @error('description') is-invalid @enderror" id="simplemde-add"
+            id="description" name="description"></textarea>
     </div>
     <div class="mb-3">
         <label class="col-form-label ">Respuesta:</label>
-        <textarea class="js-simplemde form-control @error('answer') is-invalid @enderror" id="simplemde-add" id="answer" name="answer"></textarea>
+        <textarea class="js-simplemde form-control @error('answer') is-invalid @enderror" id="simplemde-add" id="answer"
+            name="answer"></textarea>
     </div>
 @endsection
 
@@ -98,22 +99,37 @@ $validation_messages = [
 
     <script>
         jQuery(document).ready(function($) {
-            $('.modal-update').each(function () {
+            $('.modal-update').each(function() {
                 var text = $(this).find('.simplemde-update').text();
                 console.log(text);
                 var simplemdeupdate = new SimpleMDE({
                     element: $(this).find('.simplemde-update').get(0),
 
-                    toolbar: ['bold', 'italic', 'heading', '|', 'quote', 'unordered-list', 'ordered-list', 'preview'],
+                    toolbar: ['bold', 'italic', 'heading', '|', 'quote', 'unordered-list',
+                        'ordered-list', 'preview'
+                    ],
                     spellChecker: false,
                 });
                 simplemdeupdate.value(text);
                 simplemdeupdate.render();
-                $(this).focus(function(){
+                $(this).focus(function() {
                     simplemdeupdate.codemirror.refresh();
                 });
 
             });
+        });
+    </script>
+
+    <script>
+
+        $(".make-switch").change(function() {
+            if ($(this).prop('checked') == true) {
+                document.getElementById("flexSwitchCheckDefault").value = "Visible";
+                console.log(document.getElementById("flexSwitchCheckDefault").value);
+            } else {
+                document.getElementById("flexSwitchCheckDefault").value = "Invisible";
+                console.log(document.getElementById("flexSwitchCheckDefault").value);
+            }
         });
     </script>
 @endpush
