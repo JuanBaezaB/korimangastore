@@ -10,6 +10,7 @@ use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use App\Rules\MatchOldPassword;
 
 class UserController extends Controller
 {
@@ -191,12 +192,95 @@ class UserController extends Controller
         return redirect()->route('user.list')
             ->with('success', 'deleted');
     }
-    public function profile()//en edicion
+    //Perfil de usuario
+    public function profile()
     {
-        $lastFiveLogin = UserLastLogin::where('user_id', '=', Auth::user()->id)//->order_by('added_on', 'desc')
-        ->take(5)
-        ->get();
+        $lastLogin = UserLastLogin::where('user_id', '=', auth()->user()->id)
+            ->orderByDesc('added_on')
+            ->take(1)
+            ->get();
 
-        return response()->view('admin.basic_management.user-management.user.profile');//->compact('lastFiveLogin');
+        $lastFiveLogin = UserLastLogin::where('user_id', '=', auth()->user()->id)
+            ->orderByDesc('added_on')
+            ->take(5)
+            ->get();
+
+        return response()->view('admin.basic_management.user-management.user.profile',compact('lastFiveLogin','lastLogin'));
+    }
+
+    public function editProfile(Request $request, $id)
+    {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name' => ['required', 'string', 'max:255'],
+                'image' => ['image', 'max:2048'],
+            ],
+            [
+                'name.required' => 'Por favor, ingrese su nuevo nombre.',
+                'image.image' => 'El tipo de archivo subido debe ser una imagen..',
+                'image.uploaded' => 'No se pudo cargar una imagen. El tamaño máximo de la imagen es de 2 MB.',
+            ]
+        );
+        if ($validator->fails()) {
+            return redirect()->route('user.profile')
+                ->withErrors($validator)
+                ->withInput();
+        } else {
+
+            $user = User::find($id);
+            if ($request->file('image')) {
+                $path = $request->file('image')->storeAs('user-image', date('YmdHi') . $request->file('image')->getClientOriginalName(), 'public');
+                $user->update([
+                    'name' => $request['name'],
+                    'email' => $request['email'],
+                    'image' => $path,
+
+                ]);
+            } else {
+                $user->update([
+                    'name' => $request['name'],
+                    'email' => $request['email'],
+                ]);
+            };
+
+            return redirect()->route('user.profile')
+                ->with('success', 'updated-profile');
+        }
+    }
+
+    public function editPassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => ['required', new MatchOldPassword],
+            'new_password' => ['required'],
+            'new_confirm_password' => ['same:new_password'],
+        ]);
+
+        User::find(auth()->user()->id)->update(['password' => Hash::make($request->new_password)]);
+
+        return redirect()->route('user.profile')
+            ->with('success', 'updated-password');
+
+        /* $validator = Validator::make(
+            $request->all(),
+            [
+                'password' => ['required', 'string', 'max:255'],
+            ]
+        );
+        if ($validator->fails()) {
+            return redirect()->route('user.profile')
+                ->withErrors($validator)
+                ->withInput();
+        } else {
+            $user = User::find($id);
+            $user->update([
+                'password' => $request['password'],
+            ]);
+
+
+
+            
+        }*/
     }
 }

@@ -24,9 +24,14 @@
                     <h2 class="h4 fw-bold text-white-75">
                         {{ Auth::user()->name }}
                     </h2>
-                    <a class="btn btn-secondary" href="be_pages_generic_profile.html">
-                        <i class="fa fa-fw fa-arrow-left opacity-50"></i> Volver al Perfil
-                    </a>
+                    
+                    @foreach ($lastLogin as $login)
+                    <h4>Tu ultima conexión fue el {{$login->added_on}}</h4>       
+                    @endforeach
+                    
+                    
+                    <button type="button" class="edit btn btn-alt-secondary mt-3" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal" data-bs-whatever="@mdo">Ver ultimas conexiones</button>
                 </div>
             </div>
         </div>
@@ -37,8 +42,10 @@
     <div class="content content-full content-boxed">
         <div class="block block-rounded">
             <div class="block-content">
-                <form action="be_pages_projects_edit.html" method="POST" enctype="multipart/form-data"
-                    onsubmit="return false;">
+                <form action="{{ route('user.editProfile', ['id' => auth()->user()->id]) }}" method="POST"
+                    enctype="multipart/form-data">
+                    @csrf
+                    {{ method_field('PATCH') }}
                     <!-- User Profile -->
                     <h2 class="content-heading pt-0">
                         <i class="fa fa-fw fa-user-circle text-muted me-1"></i> Perfil de Usuario
@@ -52,15 +59,13 @@
                         <div class="col-lg-8 col-xl-5">
                             <div class="mb-4">
                                 <label class="form-label" for="dm-profile-edit-name">Nombre</label>
-                                <input type="text" class="form-control" id="dm-profile-edit-username"
-                                    name="dm-profile-edit-username" placeholder="Enter your username.."
-                                    value="{{ Auth::user()->name }}">
+                                <input type="text" class="form-control" id="name" name="name"
+                                    placeholder="Enter your username.." value="{{ Auth::user()->name }}">
                             </div>
                             <div class="mb-4">
                                 <label class="form-label" for="dm-profile-edit-email">Direccion de correo</label>
-                                <input type="email" class="form-control" id="dm-profile-edit-email"
-                                    name="dm-profile-edit-email" placeholder="Enter your email.."
-                                    value="{{ Auth::user()->email }}">
+                                <input type="email" class="form-control" id="dm-profile-edit-email" name="email"
+                                    placeholder="Enter your email.." value="{{ Auth::user()->email }}">
                             </div>
                             <div class="mb-4">
                                 <label class="form-label">Tu avatar</label>
@@ -77,14 +82,24 @@
                                 <label class="form-label" for="dm-profile-edit-avatar">Selecciona un nuevo avatar</label>
                                 <input class="form-control" type="file" id="dm-profile-edit-avatar">
                             </div>
-                            <button type="button" class="btn btn-alt-secondary mt-3 "  >
-                              Guardar Cambios
-                          </button>
+
+                            <button type="submit" class="edit btn btn-alt-secondary mt-3 ">
+                                Guardar Cambios
+                            </button>
                         </div>
                     </div>
-                    <!-- END User Profile -->
+                </form>
+                <!-- END User Profile -->
 
-                    <!-- Change Password -->
+                <!-- Change Password -->
+
+                <form action="{{ route('user.editPassword', ['id' => auth()->user()->id]) }}" method="POST"
+                    enctype="multipart/form-data">
+                    @csrf
+                    {{ method_field('PATCH') }}
+                    @foreach ($errors->all() as $error)
+                        <p class="text-danger">{{ $error }}</p>
+                    @endforeach
                     <h2 class="content-heading pt-0">
                         <i class="fa fa-fw fa-asterisk text-muted me-1"></i> Cambio de contraseña
                     </h2>
@@ -97,29 +112,109 @@
                         <div class="col-lg-8 col-xl-5">
                             <div class="mb-4">
                                 <label class="form-label" for="dm-profile-edit-password">Contraseña actual</label>
-                                <input type="password" class="form-control" id="dm-profile-edit-password"
-                                    name="dm-profile-edit-password">
+                                <input id="password" type="password" class="form-control" name="current_password"
+                                    autocomplete="current-password">
                             </div>
                             <div class="row mb-4">
                                 <div class="col-12">
                                     <label class="form-label" for="dm-profile-edit-password-new">Nueva contraseña</label>
-                                    <input type="password" class="form-control" id="dm-profile-edit-password-new"
-                                        name="dm-profile-edit-password-new">
+                                    <input id="new_password" type="password" class="form-control" name="new_password"
+                                        autocomplete="current-password">
                                 </div>
                             </div>
                             <div class="row mb-4">
                                 <div class="col-12">
                                     <label class="form-label" for="dm-profile-edit-password-new-confirm">Confirme su nueva
                                         contraseña</label>
-                                    <input type="password" class="form-control" id="dm-profile-edit-password-new-confirm"
-                                        name="dm-profile-edit-password-new-confirm">
+                                    <input id="new_confirm_password" type="password" class="form-control"
+                                        name="new_confirm_password" autocomplete="current-password">
                                 </div>
 
                             </div>
-                            <button type="button" class="btn btn-alt-secondary mt-3 ">
+                            <button type="submit" class="edit btn btn-alt-secondary mt-3 ">
                                 Guardar Cambios
                             </button>
                         </div>
                     </div>
-                    <!-- END Change Password -->
-                @endsection
+                </form>
+
+                <!-- Modal -->
+
+
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Ultimas conexiones</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <table class="table table-striped table-hover table-borderless table-vcenter fs-sm">
+                                    <thead>
+                                        <tr class="text-uppercase text-center">
+                                            <th class="fw-bold">Fecha de conexion</th>
+                                            <th class="d-none d-sm-table-cell fw-bold">Direccion de IP</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-center">
+                                        @foreach ($lastFiveLogin as $login)
+                                            <tr>
+                                                <td class="fw-semibold">
+                                                    {{ $login->added_on }}
+                                                </td>
+                                                <td class="d-none d-sm-table-cell">
+                                                    {{ $login->ip_address }}
+                                                </td>
+                                            </tr>
+                                        @endforeach
+        
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <!-- END Change Password -->
+            @endsection
+
+
+            @section('js_after')
+                <!-- Datatable -->
+                <script src="{{ asset('js/lib/jquery.min.js') }}"></script>
+                <!-- End Datatable -->
+
+                <!-- js sweetalert2 -->
+                <script>
+                    let toast = Swal.mixin({
+                        buttonsStyling: false,
+                        target: '#page-container',
+                        customClass: {
+                            confirmButton: 'btn btn-success m-1',
+                            cancelButton: 'btn btn-danger m-1',
+                            input: 'form-control'
+                        }
+                    });
+                    @if (session('success') == 'updated-profile')
+                        toast.fire(
+                            'Actualizado!',
+                            'Tus datos se actualizaron exitosamente.',
+                            'success'
+                        );
+                    @endif
+                    @if (session('success') == 'updated-password')
+                        toast.fire(
+                            'Actualizado!',
+                            'Tu contraseña se actualizo exitosamente.',
+                            'success'
+                        );
+                    @endif
+                </script>
+            @endsection

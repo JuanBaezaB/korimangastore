@@ -16,6 +16,7 @@ class CreateUserLastLogin extends Migration
         //
         Schema::create('user_last_logins', function (Blueprint $table) {
             $table->uuid('user_id');
+            $table->ipAddress('ip_address');
             $table->date('added_on');
         });
     }

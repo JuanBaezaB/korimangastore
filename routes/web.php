@@ -175,9 +175,12 @@ Route::group(['middleware' => ['role:Admin|Vendedor']], function () {
     Route::view('/soporte/manual-admin', 'admin.support.adminmanual')->name('support.adminmanual')->middleware('auth');
 
     /*Prueba */
-    Route::get('/fetch-sales/{id}', [DashboardController::class, 'dataMonthSales'])->name('sale.fetch');
+    Route::get('/gestion-base/configuracion-base/dashboard/{id}', [DashboardController::class, 'index'])->name('sale.fetch');
     
     /*Perfil De Usuario */
     Route::get('/perfil', [UserController::class, 'profile'])->name('user.profile');
+    Route::patch('/password', [UserController::class, 'editPassword'])->name('user.editPassword');
+    Route::patch('/editProfile/{id}', [UserController::class, 'editProfile'])->name('user.editProfile');
+
 
 });

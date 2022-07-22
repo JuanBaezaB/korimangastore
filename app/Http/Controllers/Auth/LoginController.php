@@ -48,7 +48,7 @@ class LoginController extends Controller
         UserLastLogin::create([
             
             'user_id'=>Auth::user()->id,
-            'ip'=> $_SERVER['REMOTE_ADDR'],
+            'ip_address'=> $_SERVER['REMOTE_ADDR'],
             'added_on'=>now(),
         ]);
 

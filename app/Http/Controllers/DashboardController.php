@@ -39,7 +39,7 @@ class DashboardController extends Controller
         $previousDateFrom = Carbon::now()->subDays(60);
         $previousDateTo = Carbon::now()->subDays(31);
 
-        //Variables function retPercent
+        //Variables function getPercent
         $monthlySales = Sale::where('created_at', '>=', $dateFrom)->where('created_at', '<=', $dateTo)->count();
         $previousMonthlySales = Sale::where('created_at', '>=', $previousDateFrom)->where('created_at', '<=', $previousDateTo)->count();
 
@@ -47,8 +47,8 @@ class DashboardController extends Controller
         $previousMonthlyUser = User::where('created_at', '>=', $previousDateFrom)->where('created_at', '<=', $previousDateTo)->count();
 
         //Devuelve porcentajes de mes actual vs mes anterior
-        $percentListSales = DashboardController::retPercent($monthlySales, $previousMonthlySales);
-        $percentListUsers = DashboardController::retPercent($monthlyUsers, $previousMonthlyUser);
+        $percentListSales = DashboardController::getPercent($monthlySales, $previousMonthlySales);
+        $percentListUsers = DashboardController::getPercent($monthlyUsers, $previousMonthlyUser);
 
         //Datos grafico de torta
 
@@ -73,7 +73,7 @@ class DashboardController extends Controller
                 'cProducts',
                 'sales',
                 'percentListUsers',
-                'percentListSales',
+                'percentListSales',     
                 'products',
                 'users',
                 'branches',
@@ -82,7 +82,7 @@ class DashboardController extends Controller
         );
     }
 
-    function retPercent($monthly, $previousMonthly)
+    function getPercent($monthly, $previousMonthly)
     {
 
         $list_data = [];
