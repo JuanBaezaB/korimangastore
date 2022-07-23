@@ -57,6 +57,12 @@ class UserQuestionController extends Controller
         return response()->view('admin.support.list_adminfaq', compact('questions'));
     }
 
+    public function visible()
+    {
+        //$questions = UserQuestion;
+        return response()->view('public.faq');
+    }
+
     public function destroy($id)
     {
         //
@@ -68,7 +74,7 @@ class UserQuestionController extends Controller
 
     public function update(Request $request, $id)
     {
-        //dd($request);
+        dd($request);
         try {
             request()->validate(UserQuestion::$rules);
             $question = UserQuestion::where('id', '=', $id)->first();
@@ -77,7 +83,7 @@ class UserQuestionController extends Controller
                 'title' => $request->title,
                 'description' => $request->description,
                 'answer' => $request->answer,
-                'status' => $request->status
+                'status' => $request->status,
             ]);
         } catch (\Throwable $th) {
             dd($th);
