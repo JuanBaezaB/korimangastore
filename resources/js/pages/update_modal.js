@@ -135,6 +135,8 @@ class UpdateModal {
                 let $input = _this.fromOptGetInput(x);
                 if (type == 'simplemde') {
                     $input.data('simplemde').value(data[inputDataKey]);
+                } else if ($input.prop('type') === 'checkbox') {
+                    $input.get(0).checked = data[inputDataKey];
                 } else {
                     $input.val(data[inputDataKey]);
                 }
