@@ -1,8 +1,7 @@
 <li class="nav-main-item">
 
-    <a class="nav-main-link{{ request()->is('/dashboard') ? ' active' : '' }}"
-        href="{{ route('index.graphic') }}">
-        <i class="nav-main-link-icon fa fa-location-arrow"></i>
+    <a class="nav-main-link{{ request()->is('dashboard') ? ' active' : '' }}" href="{{ route('index.graphic') }}">
+        <i class="nav-main-link-icon fa fa-chart-line {{ request()->is('dashboard') ? 'fa-bounce' : '' }}"></i>
         <span class="nav-main-link-name">Dashboard</span>
     </a>
 </li>
@@ -224,75 +223,86 @@
 <!-- Gestion base -->
 @canany(['branch.list', 'provider.list', 'user.list', 'role.list', 'permission.list'])
     <li class="nav-main-heading">Gestión base </li>
-    @canany(['branch.list', 'provider.list'])
-        <li class="nav-main-item{{ request()->is('gestion-base/configuracion-base/*') ? ' open' : '' }}">
-            <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="true"
-                href="#">
+        @canany(['branch.list', 'provider.list'])
+            <li class="nav-main-item{{ request()->is('gestion-base/configuracion-base/*') ? ' open' : '' }}">
+                <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="true"
+                    href="#">
+                    <i
+                        class="nav-main-link-icon fa fa-gear {{ request()->is('gestion-base/configuracion-base/*') ? 'fa-bounce' : '' }}"></i>
+                    <span class="nav-main-link-name">Configuración interna</span>
+                </a>
+                <ul class="nav-main-submenu">
+                    @canany(['branch.list'])
+                        <li class="nav-main-item">
+                            <a class="nav-main-link{{ request()->is('gestion-base/configuracion-base/sucursales') ? ' active' : '' }}"
+                                href="{{ route('branch.list') }}">
+                                <span class="nav-main-link-name">Sucursales</span>
+                            </a>
+                        </li>
+                    @endcan
+                    @canany(['provider.list'])
+                        <li class="nav-main-item">
+                            <a class="nav-main-link{{ request()->is('gestion-base/configuracion-base/proveedores') ? ' active' : '' }}"
+                                href="{{ route('provider.list') }}">
+                                <span class="nav-main-link-name">Proveedor</span>
+                            </a>
+                        </li>
+                    @endcan
+                </ul>
+            </li>
+        @endcan
+
+
+
+        @canany(['user.list', 'role.list', 'permission.list'])
+            <li class="nav-main-item{{ request()->is('gestion-base/gestion-usuarios/*') ? ' open' : '' }}">
+                <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="true"
+                    href="#">
+                    <i
+                        class="nav-main-link-icon fa fa-users {{ request()->is('gestion-base/gestion-usuarios/*') ? 'fa-bounce' : '' }}"></i>
+                    <span class="nav-main-link-name">Gestión de usuarios</span>
+                </a>
+                <ul class="nav-main-submenu">
+                    @canany(['user.list'])
+                        <li class="nav-main-item">
+                            <a class="nav-main-link{{ request()->is('gestion-base/gestion-usuarios/usuarios') ? ' active' : '' }}"
+                                href="{{ route('user.list') }}">
+                                <span class="nav-main-link-name">Usuarios</span>
+                            </a>
+                        </li>
+                    @endcan
+
+                    @canany(['role.list'])
+                        <li class="nav-main-item">
+                            <a class="nav-main-link{{ request()->is('gestion-base/gestion-usuarios/roles') ? ' active' : '' }}"
+                                href="{{ route('role.list') }}">
+                                <span class="nav-main-link-name">Roles</span>
+                            </a>
+                        </li>
+                    @endcan
+
+                    @canany(['permission.list'])
+                        <li class="nav-main-item">
+                            <a class="nav-main-link{{ request()->is('gestion-base/gestion-usuarios/permisos') ? ' active' : '' }}"
+                                href="{{ route('permission.list') }}">
+                                <span class="nav-main-link-name">Permisos</span>
+                            </a>
+                        </li>
+                    @endcan
+
+
+                </ul>
+            </li>
+        @endcan
+
+        <li class="nav-main-item {{ request()->is('gestion-base/configuracion-base/*') ? ' open' : '' }}">
+            <a class="nav-main-link"
+                href="{{ route('configuration.public-site') }}">
                 <i
-                    class="nav-main-link-icon fa fa-gear {{ request()->is('gestion-base/configuracion-base/*') ? 'fa-bounce' : '' }}"></i>
-                <span class="nav-main-link-name">Configuración interna</span>
+                    class="nav-main-link-icon fa fa-screwdriver-wrench {{ request()->is('gestion-base/configuracion-base/*') ? 'fa-bounce' : '' }}"></i>
+                <span class="nav-main-link-name">Configuración sitio público</span>
             </a>
-            <ul class="nav-main-submenu">
-                @canany(['branch.list'])
-                    <li class="nav-main-item">
-                        <a class="nav-main-link{{ request()->is('gestion-base/configuracion-base/sucursales') ? ' active' : '' }}"
-                            href="{{ route('branch.list') }}">
-                            <span class="nav-main-link-name">Sucursales</span>
-                        </a>
-                    </li>
-                @endcan
-                @canany(['provider.list'])
-                    <li class="nav-main-item">
-                        <a class="nav-main-link{{ request()->is('gestion-base/configuracion-base/proveedores') ? ' active' : '' }}"
-                            href="{{ route('provider.list') }}">
-                            <span class="nav-main-link-name">Proveedor</span>
-                        </a>
-                    </li>
-                @endcan
-            </ul>
         </li>
-    @endcan
-
-    @canany(['user.list', 'role.list', 'permission.list'])
-        <li class="nav-main-item{{ request()->is('gestion-base/gestion-usuarios/*') ? ' open' : '' }}">
-            <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="true"
-                href="#">
-                <i
-                    class="nav-main-link-icon fa fa-users {{ request()->is('gestion-base/gestion-usuarios/*') ? 'fa-bounce' : '' }}"></i>
-                <span class="nav-main-link-name">Gestión de usuarios</span>
-            </a>
-            <ul class="nav-main-submenu">
-                @canany(['user.list'])
-                    <li class="nav-main-item">
-                        <a class="nav-main-link{{ request()->is('gestion-base/gestion-usuarios/usuarios') ? ' active' : '' }}"
-                            href="{{ route('user.list') }}">
-                            <span class="nav-main-link-name">Usuarios</span>
-                        </a>
-                    </li>
-                @endcan
-
-                @canany(['role.list'])
-                    <li class="nav-main-item">
-                        <a class="nav-main-link{{ request()->is('gestion-base/gestion-usuarios/roles') ? ' active' : '' }}"
-                            href="{{ route('role.list') }}">
-                            <span class="nav-main-link-name">Roles</span>
-                        </a>
-                    </li>
-                @endcan
-
-                @canany(['permission.list'])
-                    <li class="nav-main-item">
-                        <a class="nav-main-link{{ request()->is('gestion-base/gestion-usuarios/permisos') ? ' active' : '' }}"
-                            href="{{ route('permission.list') }}">
-                            <span class="nav-main-link-name">Permisos</span>
-                        </a>
-                    </li>
-                @endcan
-
-
-            </ul>
-        </li>
-    @endcan
 @endcan
 
 <!-- Soporte -->

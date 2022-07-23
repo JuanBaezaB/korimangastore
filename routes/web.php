@@ -8,6 +8,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\FormatController;
 use App\Http\Controllers\EditorialController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ConfigurationController;
 use App\Http\Controllers\SerieController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\CreativePersonController;
@@ -50,12 +51,7 @@ Route::view('/soporte', 'public.user-support')->name('user-support');
 Route::view('/preguntas-frecuentes', 'public.faq')->name('user-faq');
 
 /*  Carrito */
-Route::get('/add-cart', [CartController::class, 'add'])->name('cart.add');
 Route::view('/listado-carrito','public.cart')->name('cart.list');
-Route::post('/update-cart', [CartController::class, 'update'])->name('cart.update');
-Route::post('/remove-cart', [CartController::class, 'remove'])->name('cart.remove');
-Route::post('/clear-cart', [CartController::class, 'clear'])->name('cart.clear');
-
 
 /*  Reserva  (No va aquí, pero mientras dejé su vista pública) */
 Route::view('/reserva', 'public.booking')->name('user-booking');
@@ -188,6 +184,8 @@ Route::group(['middleware' => ['role:Admin|Vendedor']], function () {
     Route::delete('/gestion-base/gestion-usuarios/permisos/{id}', [PermissionController::class, 'destroy'])->name('permission.delete')->middleware('can:permission.modify');
     Route::patch('/gestion-base/gestion-usuarios/permisos/{id}', [PermissionController::class, 'update'])->name('permission.update')->middleware('can:permission.modify');
 
+    /*public site configuration*/
+    Route::get('/gestion-base/configuracion-sitio-publico', [ConfigurationController::class, 'index'])->name('configuration.public-site');
     /*  Soporte */
     Route::view('/soporte/preguntas-frecuentes-admin', 'admin.support.adminfaq')->name('support.adminfaq')->middleware('auth');
     Route::view('/soporte/manual-admin', 'admin.support.adminmanual')->name('support.adminmanual')->middleware('auth');
