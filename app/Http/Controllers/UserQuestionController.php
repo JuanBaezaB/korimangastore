@@ -53,6 +53,7 @@ class UserQuestionController extends Controller
     public function listado()
     {
         $questions = UserQuestion::all();
+        $questions->each->loadStatusBooleanField();
 
         return response()->view('admin.support.list_adminfaq', compact('questions'));
     }
@@ -74,7 +75,6 @@ class UserQuestionController extends Controller
 
     public function update(Request $request, $id)
     {
-        dd($request);
         try {
             request()->validate(UserQuestion::$rules);
             $question = UserQuestion::where('id', '=', $id)->first();
@@ -83,7 +83,7 @@ class UserQuestionController extends Controller
                 'title' => $request->title,
                 'description' => $request->description,
                 'answer' => $request->answer,
-                'status' => $request->status,
+                'status' => UserQuestion::booleanToStatus($request->has('status')),
             ]);
         } catch (\Throwable $th) {
             dd($th);
@@ -99,6 +99,7 @@ class UserQuestionController extends Controller
     public function get_one(Request $request)
     {
         $userQuestion = UserQuestion::findOrFail($request->get('id'));
+        $userQuestion->loadStatusBooleanField();
         return response()->json($userQuestion);
     }
 }

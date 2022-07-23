@@ -51,7 +51,7 @@ $update_modal_fields = [
     [ 'inputName' => 'email' ],
     [ 'inputName' => 'title' ],
     [ 'inputName' => 'description', 'type' => 'simplemde' ],
-    [ 'inputName' => 'status' ],
+    [ 'inputName' => 'status', 'inputDataKey' => 'statusBoolean' ],
     [ 'inputName' => 'answer', 'type' => 'simplemde' ]
 ];
 

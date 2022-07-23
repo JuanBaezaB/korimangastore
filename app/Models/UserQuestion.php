@@ -23,4 +23,16 @@ class UserQuestion extends Model
         'answer',
         'status',
     ];
+
+    /**
+     * sets field statusBoolean to true if status is 'Visible'
+     * false otherwise
+     */
+    public function loadStatusBooleanField() {
+        $this->statusBoolean = $this->status == 'Visible';
+    }
+
+    static public function booleanToStatus($b) {
+        return $b ? 'Visible' : 'Invisible';
+    }
 }
