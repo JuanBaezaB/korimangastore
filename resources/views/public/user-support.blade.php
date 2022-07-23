@@ -40,7 +40,7 @@
                     </div>
                 </ul>
                 <br />
-            @endif
+                @endif
             </div>
 
             <div class="col-lg-6 text-center">

@@ -88,9 +88,9 @@ $update_modal_fields = [
 @endsection
 
 @section('breadcrumb')
+    <li class="breadcrumb-item">Área de Soporte</li>
     <li class="breadcrumb-item">Soporte</li>
-    <li class="breadcrumb-item">Preguntas Frecuentes (FAQ's)</li>
-    <li class="breadcrumb-item active" aria-current="page">Administración</li>
+    <li class="breadcrumb-item active" aria-current="page">Administar Preguntas Frecuentes (FAQ's)</li>
 @endsection
 
 @push('scripts-extra')

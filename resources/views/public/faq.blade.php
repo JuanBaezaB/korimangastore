@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-{{ 'Nosotros' }}
+{{ 'Preguntas Frecuentes' }}
 @endsection
 
 @section('css_before')

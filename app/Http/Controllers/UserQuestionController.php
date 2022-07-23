@@ -44,7 +44,7 @@ class UserQuestionController extends Controller
             $question->status = 'Invisible';
 
             if ($question->save()) :
-                return redirect()->route('user-support')->with('mesagge', 'Se ha ingresado su consulta exitosamente.')->with('typealert', 'success');
+                return redirect()->route('userfaq-success')->with('mesagge', 'Se ha ingresado su consulta exitosamente.')->with('typealert', 'success');
             endif;
 
         endif;
