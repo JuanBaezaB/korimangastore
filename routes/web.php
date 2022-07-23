@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\BranchController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\FormatController;
 use App\Http\Controllers\EditorialController;
 use App\Http\Controllers\CategoryController;
@@ -49,7 +50,12 @@ Route::view('/soporte', 'public.user-support')->name('user-support');
 Route::view('/preguntas-frecuentes', 'public.faq')->name('user-faq');
 
 /*  Carrito */
-Route::view('/carrito', 'public.cart')->name('user-cart');
+Route::get('/add-cart', [CartController::class, 'add'])->name('cart.add');
+Route::view('/listado-carrito','public.cart')->name('cart.list');
+Route::post('/update-cart', [CartController::class, 'update'])->name('cart.update');
+Route::post('/remove-cart', [CartController::class, 'remove'])->name('cart.remove');
+Route::post('/clear-cart', [CartController::class, 'clear'])->name('cart.clear');
+
 
 /*  Reserva  (No va aquí, pero mientras dejé su vista pública) */
 Route::view('/reserva', 'public.booking')->name('user-booking');
@@ -185,8 +191,5 @@ Route::group(['middleware' => ['role:Admin|Vendedor']], function () {
     /*  Soporte */
     Route::view('/soporte/preguntas-frecuentes-admin', 'admin.support.adminfaq')->name('support.adminfaq')->middleware('auth');
     Route::view('/soporte/manual-admin', 'admin.support.adminmanual')->name('support.adminmanual')->middleware('auth');
-
-
-
 
 });

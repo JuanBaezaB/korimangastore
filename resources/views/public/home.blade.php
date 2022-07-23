@@ -200,9 +200,7 @@
                                     <a href="/reservar" type="button"
                                         class="botoncito ms-4 me-4 mb-2 ps-2 pe-2 pt-2 pb-2 text-light"><i
                                             class="pe-2 fa-solid fa-bookmark"></i>Reservar</a>
-                                    <a href="/comprar" type="button"
-                                        class="botoncito ms-4 me-4 mb-3 ps-2 pe-2 pt-2 pb-2 text-light"><i
-                                            class="pe-2 fa-solid fa-cart-plus"></i>Agregar al Carrito</a>
+                                    <livewire:add-cart :product-id="$product->id">
                                 </div>
                             </a>
                         </div>
@@ -240,9 +238,7 @@
                                     <a href="/reservar" type="button"
                                         class="botoncito ms-4 me-4 mb-2 ps-2 pe-2 pt-2 pb-2 text-light"><i
                                             class="pe-2 fa-solid fa-bookmark"></i>Reservar</a>
-                                    <a href="/comprar" type="button"
-                                        class="botoncito ms-4 me-4 mb-3 ps-2 pe-2 pt-2 pb-2 text-light"><i
-                                            class="pe-2 fa-solid fa-cart-plus"></i>Agregar al Carrito</a>
+                                    <livewire:add-cart :product-id="$product->id">
                                 </div>
                             </a>
                         </div>
@@ -250,7 +246,6 @@
                 @endisset
             </div>
         </div>
-
     </section>
 
 @endsection
