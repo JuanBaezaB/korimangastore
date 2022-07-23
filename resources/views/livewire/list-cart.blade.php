@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-lg-8 col-sm-12 mt-2">
-        <div class="card shadow">
+        <div style="height: 100%"  class="card shadow">
             <div class="card-header"><b>Tu pedido</b></div>
             <div class="card-body">
                 <ul class="list-group">
