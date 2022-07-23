@@ -5,15 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Cart;
-
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
     public function cart()
     {
-        $cartCollection = Cart::getContent();
-        //dd($cartCollection);
-        return view('cart')->withTitle('E-COMMERCE STORE | CART')->with(['cartCollection' => $cartCollection]);;
+        if(Auth::guest()){
+            $cartItems = Cart::getContent();
+        }else {
+            $userId = auth()->user()->id;
+            $cartItems = Cart::session($userId)->getContent();
+        }
+
+        return response()->view('public.cart', compact('cartItems'));
     }
 
 
@@ -28,9 +33,18 @@ class CartController extends Controller
     {
         try {
             $userId = auth()->user()->id;
+            Cart::session($userId);
             $product = Product::firstWhere('id', 1);
 
-            $cartItem = Cart::session($userId)->add(1, $product->name, $product->price, 2, array());
+            Cart::add([
+                'id' => $product->id,
+                'name' => $product->name,
+                'price' => $product->price,
+                'quantity' => 4,
+                'attributes' => array(),
+                'associatedModel' => $product
+            ]);
+            dd(Cart::getContent());
         } catch (\Throwable $th) {
             dd($th);
         }

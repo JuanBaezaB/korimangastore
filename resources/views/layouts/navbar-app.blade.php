@@ -68,13 +68,7 @@
 
             <livewire:search-products />
 
-            <div class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 d-lg-none d-xl-block">
-                <button class="btn btn-alt-secondary position-relative">
-                    <i style="color: #fff" class="fa-solid fa-cart-shopping"></i>
-                    <span class="badge position-absolute top-0 start-0 translate-middle bg-warning">{{count(Cart::getContent())}}</span>
-                </button>
-
-            </div>
+            <livewire:cart-shopping>
 
             <div class="d-inlineflex pe-1">
                 <!-- Authentication Links -->

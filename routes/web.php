@@ -50,9 +50,8 @@ Route::view('/soporte', 'public.user-support')->name('user-support');
 Route::view('/preguntas-frecuentes', 'public.faq')->name('user-faq');
 
 /*  Carrito */
-Route::view('/carrito', 'public.cart')->name('user-cart');
 Route::get('/add-cart', [CartController::class, 'add'])->name('cart.add');
-Route::get('/list-cart', [CartController::class, 'cart'])->name('cart.list');
+Route::view('/listado-carrito','public.cart')->name('cart.list');
 Route::post('/update-cart', [CartController::class, 'update'])->name('cart.update');
 Route::post('/remove-cart', [CartController::class, 'remove'])->name('cart.remove');
 Route::post('/clear-cart', [CartController::class, 'clear'])->name('cart.clear');
