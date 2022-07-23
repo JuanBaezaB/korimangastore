@@ -11,7 +11,7 @@ class CartController extends Controller
 {
     public function cart()
     {
-        $cartCollection = \Cart::getContent();
+        $cartCollection = Cart::getContent();
         //dd($cartCollection);
         return view('cart')->withTitle('E-COMMERCE STORE | CART')->with(['cartCollection' => $cartCollection]);;
     }
