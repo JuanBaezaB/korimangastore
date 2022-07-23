@@ -95,4 +95,10 @@ class UserQuestionController extends Controller
             ->with('success', 'updated');
         return response()->json($request);
     }
+
+    public function get_one(Request $request)
+    {
+        $userQuestion = UserQuestion::findOrFail($request->get('id'));
+        return response()->json($userQuestion);
+    }
 }

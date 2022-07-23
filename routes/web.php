@@ -186,6 +186,7 @@ Route::group(['middleware' => ['role:Admin|Vendedor']], function () {
     Route::view('/soporte/preguntas-frecuentes-admin', 'admin.support.adminfaq')->name('support.adminfaq')->middleware('auth');
 
     Route::get('/soporte/preguntas-frecuentes/administracion', [UserQuestionController::class, 'listado'])->name('user-questions.list')->middleware();
+    Route::post('/soporte/preguntas-frecuentes/administracion/uno', [UserQuestionController::class, 'get_one'])->name('user-questions.get_one')->middleware();
     Route::delete('/soporte/preguntas-frecuentes/administracion/eliminar-pregunta/{id}', [UserQuestionController::class, 'destroy'])->name('user-questions.delete')->middleware();
     Route::patch('/soporte/preguntas-frecuentes/administracion/actualizar-pregunta/{id}', [UserQuestionController::class, 'update'])->name('user-questions.update')->middleware();
 

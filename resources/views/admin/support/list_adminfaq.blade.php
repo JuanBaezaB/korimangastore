@@ -1,4 +1,4 @@
-@extends('admin.template_list_no_ajax')
+@extends('admin.template_list_ajax')
 
 @php
 $nombre_crud = 'Consultas';
@@ -43,6 +43,16 @@ $validation_messages = [
     'description' => [
         'maxlength' => 'Por favor, ingrese no más de 2000 caracteres.',
     ],
+];
+
+// AJAX ONLY
+$get_one_route = 'user-questions.get_one';
+$update_modal_fields = [
+    [ 'inputName' => 'email' ],
+    [ 'inputName' => 'title' ],
+    [ 'inputName' => 'description', 'type' => 'simplemde' ],
+    [ 'inputName' => 'status' ],
+    [ 'inputName' => 'answer', 'type' => 'simplemde' ]
 ];
 
 @endphp
@@ -104,65 +114,6 @@ $validation_messages = [
             toolbar: ['bold', 'italic', 'heading', '|', 'quote', 'unordered-list', 'ordered-list', 'preview'],
             spellChecker: false
         });
-    </script>
-
-    <script>
-        jQuery(document).ready(function($) {
-            $('.modal-update').each(function() {
-                var text = $(this).find('.simplemde-update').text();
-                console.log(text);
-                var simplemdeupdate = new SimpleMDE({
-                    element: $(this).find('.simplemde-update').get(0),
-
-                    toolbar: ['bold', 'italic', 'heading', '|', 'quote', 'unordered-list',
-                        'ordered-list', 'preview'
-                    ],
-                    spellChecker: false,
-                });
-                simplemdeupdate.value(text);
-                simplemdeupdate.render();
-                $(this).focus(function() {
-                    simplemdeupdate.codemirror.refresh();
-                });
-
-            });
-        });
-        jQuery(document).ready(function($) {
-            $('.modal-update').each(function() {
-                var textanswer = $(this).find('.simplemde-answer-update').text();
-                console.log(textanswer);
-                var simplemdeanswer = new SimpleMDE({
-                    element: $(this).find('.simplemde-answer-update').get(0),
-
-                    toolbar: ['bold', 'italic', 'heading', '|', 'quote', 'unordered-list',
-                        'ordered-list', 'preview'
-                    ],
-                    spellChecker: false,
-                });
-                simplemdeanswer.value(textanswer);
-                simplemdeanswer.render();
-                $(this).focus(function() {
-                    simplemdeanswer.codemirror.refresh();
-                });
-            });
-        });
-        /*
-        jQuery(document).ready(function($) {
-            $('.modal-update').each(function() {
-                var switch = $(this).find('.simplemde-answer-update').element;
-
-                switch.change(function() {
-                    if ($(this).prop('checked') == true) {
-                        document.getElementById("flexSwitchCheckDefault").value = "Visible";
-                        console.log(document.getElementById("flexSwitchCheckDefault").value);
-                    } else {
-                        document.getElementById("flexSwitchCheckDefault").value = "Invisible";
-                        console.log(document.getElementById("flexSwitchCheckDefault").value);
-                    }
-                });
-
-            });
-        });*/
     </script>
 
     <script>
