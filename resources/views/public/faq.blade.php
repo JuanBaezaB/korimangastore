@@ -32,30 +32,32 @@
                 <p>¿Tienes alguna consulta o duda? Puede que la encuentres aquí</p>
             </div>
 
-            <!-- Pregunta 1 -->
+            <!-- Preguntas -->
+
+            @foreach ( $questions as $question )
+
             <div class="col-lg-12">
                 <div class="card shadow mb-4">
                     <div class="card-header">
-                        <b><i class="fa-solid fa-circle-question pe-2"></i> Pregunta 1 <!-- title --> </b>
+                        <b><i class="fa-solid fa-circle-question pe-2"></i> {{ $question->title }} </b>
                     </div>
                     <div class="card-body">
 
                         <div class="card border-0 ps-3 pe-3 pb-3">
-                            <p class="card-text pt-2"><i class="fa-solid fa-comment pe-2"></i> Aquí una descripción del problema. <!-- description --></p>
+                            <p class="card-text pt-2"><i class="fa-solid fa-comment pe-2"></i> {{ $question->description }}</p>
 
                         </div>
 
                         <div class="alert alert-success" role="alert">
-                            <i class="fa-solid fa-message pe-2"></i><b>Respuesta: </b>Lorem ipsum dolor sit amet
-                            consectetur, adipisicing elit. Nostrum nihil totam ab consectetur laboriosam non qui voluptate
-                            facilis cumque tempore aliquam, asperiores placeat expedita veritatis quaerat eaque! Similique,
-                            suscipit ratione!
-                            <!-- answer -->
+                            <i class="fa-solid fa-message pe-2"></i><b>Respuesta: </b>{{ $question->answer }}
                         </div>
                     </div>
                 </div>
-
             </div>
+
+            @endforeach
+
+
 
         </div>
     </div>

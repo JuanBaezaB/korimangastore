@@ -15,33 +15,36 @@ $export_columns = [0, 1, 2];
 $validation_rules = [
     'email' => [
         'required' => true,
-        'maxlength' => 200,
+        'maxlength' => 50,
     ],
     'title' => [
         'required' => true,
-        'maxlength' => 200,
+        'maxlength' => 100,
     ],
     'description' => [
         'required' => false,
-        'maxlength' => 255,
+        'maxlength' => 500,
     ],
     'answer' => [
         'required' => false,
-        'maxlength' => 255,
+        'maxlength' => 500,
     ],
 ];
 
 $validation_messages = [
     'email' => [
         'required' => 'Por favor, ingrese un correo electrónico.',
-        'maxlength' => 'Por favor, ingrese no más de 200 caracteres.',
+        'maxlength' => 'Por favor, ingrese un correo electrónico de máximo 50 caracteres.',
     ],
     'title' => [
         'required' => 'Por favor, ingrese un asunto.',
-        'maxlength' => 'Por favor, ingrese no más de 200 caracteres.',
+        'maxlength' => 'Por favor, ingrese un asunto de máximo 100 caracteres.',
     ],
     'description' => [
-        'maxlength' => 'Por favor, ingrese no más de 2000 caracteres.',
+        'maxlength' => 'Por favor, ingrese una descripción de máximo 500 caracteres.',
+    ],
+    'answer' => [
+        'maxlength' => 'Por favor, ingrese una respuesta de de máximo 500 caracteres.',
     ],
 ];
 
@@ -82,8 +85,8 @@ $update_modal_fields = [
     <th class="text-center" style="width: 80px;">#</th>
     <th>Email</th>
     <th>Asunto</th>
-    <th class=" d-sm-table-cell">Descripción</th>
-    <th class="d-sm-table-cell">Respuesta</th>
+    <th class="d-sm-table-cell">Descripción</th>
+    <th class="d-sm-table-cell" style="width: 200px">Respuesta</th>
     <th class="d-none d-sm-table-cell">Estado</th>
 @endsection
 

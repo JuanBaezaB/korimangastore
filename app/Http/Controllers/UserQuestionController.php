@@ -18,18 +18,20 @@ class UserQuestionController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'email' => ['required', 'string', 'email', 'max:30'],
-                'title' => ['required', 'string', 'max:50'],
-                'description' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:50'],
+                'title' => ['required', 'string', 'max:100'],
+                'description' => ['required', 'string', 'max:500'],
                 'answer',
                 'status',
             ],
             [
                 'email.required' => 'Por favor, ingrese un email.',
+                'email.max' => 'Por favor, ingrese un email de máximo 50 caracteres.',
                 'email.email' => 'Por favor, ingrese un email válido.',
-                'title.required' => 'Por favor, introduce un asunto.',
+                'title.required' => 'Por favor, introduzca un asunto.',
+                'title.max' => 'Por favor, introduzca un asunto de máximo 100 caracteres.',
                 'description.required' => 'Por favor, introduce una descripción.',
-                'description.max' => 'La descripción debe contener como máximo 255 caracteres.',
+                'description.max' => 'La descripción debe contener como máximo 500 caracteres.',
             ]
         );
 
@@ -60,8 +62,9 @@ class UserQuestionController extends Controller
 
     public function visible()
     {
-        //$questions = UserQuestion;
-        return response()->view('public.faq');
+        $questions = UserQuestion::query()->where('status', 'Visible')->get();
+
+        return response()->view('public.faq', compact('questions') );
     }
 
     public function destroy($id)
