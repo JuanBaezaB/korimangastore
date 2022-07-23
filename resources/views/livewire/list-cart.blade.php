@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-lg-8 col-sm-12 mt-2">
         <div style="height: 100%"  class="card shadow">
-            <div class="card-header"><b>Tu pedido</b></div>
+            <div class="card-header"><b>Tu carrito</b></div>
             <div class="card-body">
                 <ul class="list-group">
                     @foreach ($cart as $item)
@@ -17,9 +17,9 @@
                                         <p><b>Precio: </b>{{ $item->model->price }}</p>
                                         <p><b>Cantidad:</b>{{ $item->quantity }}</p>
                                         <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                            <button type="button" class="btn btn-danger">-</button>
-                                            <input type="text" class="form-control" value="{{ $item->quantity }}">
-                                            <button type="button" class="btn btn-success">+</button>
+                                            <button wire:click="delete( {{$item->id}})" type="button" class="btn btn-danger">-</button>
+                                            <input disabled type="text" class="form-control text-center" value="{{ $item->quantity }}">
+                                            <button wire:click="add( {{$item->id}})"  type="button" class="btn btn-success">+</button>
                                         </div>
                                         <br>
                                         <livewire:delete-item-cart :product-id="$item->id" :wire:key="$item->id">
