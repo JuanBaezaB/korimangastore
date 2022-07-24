@@ -96,7 +96,6 @@
                         <div class="me-3">
                             <p class="fs-3 fw-medium mb-0">
                                 {{ $cProducts }}
-
                             </p>
                             <p class="text-muted mb-0">
                                 Cantidad de Productos
@@ -110,7 +109,7 @@
             </div>
             <!-- Grafico de barras Ventas-->
             <div class="col-xl-12" id="graf1">
-                <div class="block block-rounded">
+                <div style="height: 100%" class="block block-rounded">
                     <div class="block-header block-header-default">
                         <h3 class="block-title">Grafico de Ventas</h3>
                         <!--Filtros por sucursal-->
@@ -129,7 +128,6 @@
                             </div>
                         </div>
                         <!--Fin Filtros por sucursal-->
-
                         <div class="block-options">
                             <button type="button" class="btn-block-option" data-toggle="block-option"
                                 data-action="state_toggle" data-action-mode="demo">
@@ -145,6 +143,39 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <!-- Tabla Productos mas vendidos -->
+            <div class="col-xl-6" id="graf2tabla">
+                <div class="block block-rounded block-mode-loading-refresh h-100 mb-0">
+                    <div class="block-header block-header-default">
+                        <h3 class="block-title">Tabla de productos</h3>
+
+                    </div>
+                    <div class="block-content">
+                        <table class="table table-striped table-hover table-borderless table-vcenter fs-sm">
+                            <thead>
+                                <tr class="text-uppercase">
+                                    <th class="fw-bold">Producto</th>
+                                    <th class="d-none d-sm-table-cell fw-bold">Categoria</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($products as $product)
+                                    <tr>
+                                        <td class="fw-semibold">
+                                            {{ $product->name }}
+                                        </td>
+                                        <td class="d-none d-sm-table-cell">
+                                            {{ $product->category->name }}
+                                        </td>
+                                    </tr>
+                                @endforeach
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- END Purchases -->
             </div>
             <!-- Grafico de lineas Usuarios-->
             <div class="col-xl-6" id="graf3">
@@ -172,25 +203,25 @@
                     <div class="block-header block-header-default">
                         <h3 class="block-title">Tabla de últimos usuarios registrados</h3>
                         <!--
-                        <div class="block-options">
-                            <button type="button" class="btn-block-option" data-toggle="block-option"
-                                data-action="state_toggle" data-action-mode="demo">
-                                <i class="si si-refresh"></i>
-                            </button>
-                            <button type="button" class="btn-block-option">
-                                <i class="si si-cloud-download"></i>
-                            </button>
-                            <div class="dropdown">
-                                <button type="button" class="btn-block-option" data-bs-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                    <i class="si si-wrench"></i>
-                                </button>
+                                                    <div class="block-options">
+                                                        <button type="button" class="btn-block-option" data-toggle="block-option"
+                                                            data-action="state_toggle" data-action-mode="demo">
+                                                            <i class="si si-refresh"></i>
+                                                        </button>
+                                                        <button type="button" class="btn-block-option">
+                                                            <i class="si si-cloud-download"></i>
+                                                        </button>
+                                                        <div class="dropdown">
+                                                            <button type="button" class="btn-block-option" data-bs-toggle="dropdown"
+                                                                aria-haspopup="true" aria-expanded="false">
+                                                                <i class="si si-wrench"></i>
+                                                            </button>
 
 
 
-                            </div>
-                        </div>
-                        filtros de informacion-->
+                                                        </div>
+                                                    </div>
+                                                    filtros de informacion-->
                     </div>
                     <div class="block-content">
                         <table class="table table-striped table-hover table-borderless table-vcenter fs-sm">
@@ -241,39 +272,7 @@
                 </div>
                 <!-- END Bars Chart -->
             </div>
-            <!-- Tabla Productos mas vendidos -->
-            <div class="col-xl-6" id="graf2tabla">
-                <div class="block block-rounded block-mode-loading-refresh h-100 mb-0">
-                    <div class="block-header block-header-default">
-                        <h3 class="block-title">Tabla de productos</h3>
 
-                    </div>
-                    <div class="block-content">
-                        <table class="table table-striped table-hover table-borderless table-vcenter fs-sm">
-                            <thead>
-                                <tr class="text-uppercase">
-                                    <th class="fw-bold">Producto</th>
-                                    <th class="d-none d-sm-table-cell fw-bold">Categoria</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($products as $product)
-                                    <tr>
-                                        <td class="fw-semibold">
-                                            {{ $product->name }}
-                                        </td>
-                                        <td class="d-none d-sm-table-cell">
-                                            {{ $product->category->name }}
-                                        </td>
-                                    </tr>
-                                @endforeach
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <!-- END Purchases -->
-            </div>
         </div>
     @endsection
 
@@ -350,6 +349,10 @@
         </script>
         {{-- Traer Ventas para grafico por sucursal --}}
         <script>
+            var month = new Array();
+            var count = new Array();
+
+
             function fetchSalesByBranch(id) {
                 $.ajaxSetup({
                     headers: {
@@ -357,69 +360,64 @@
                     }
                 })
                 $.ajax({
-                    type: 'POST',
-                    url: '{{ route('sale.fetch2')}}',
-                    data: id,
+                    type: 'GET',
+                    url: '{{ route('sale.fetch2', ':id') }}'.replace(':id', id),
                     dataType: "JSON",
-                    success:function(response){
-                            var Datos = {
-                                    labels : Object.keys(response),
-                                    datasets : [
-                                        {
-                                            fillColor : 'rgba(91,228,146,0.6)', //COLOR DE LAS BARRAS
-                                            strokeColor : 'rgba(57,194,112,0.7)', //COLOR DEL BORDE DE LAS BARRAS
-                                            highlightFill : 'rgba(73,206,180,0.6)', //COLOR "HOVER" DE LAS BARRAS
-                                            highlightStroke : 'rgba(66,196,157,0.7)', //COLOR "HOVER" DEL BORDE DE LAS BARRAS
-                                            data : Object.values(response)
-                                        }
-                                    ]
+                    success: function(response) {
+
+                        
+                        response.forEach(function(data) {
+                            month.push(data.month);
+                            count.push(data.count);
+
+                        });
+
+                        console.log(month)
+                        console.log(count)
+
+                        const ctx = document.getElementById('#grafico1').getContext('2d');
+                        const myChart = new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: month,
+                                datasets: [{
+                                    label: 'Grafico de Ventas',
+                                    data: count,
+                                    backgroundColor: [
+                                        'rgba(255, 99, 132, 0.2)',
+                                        'rgba(54, 162, 235, 0.2)',
+                                        'rgba(255, 206, 86, 0.2)',
+                                        'rgba(75, 192, 192, 0.2)',
+                                        'rgba(153, 102, 255, 0.2)',
+                                        'rgba(255, 159, 64, 0.2)'
+                                    ],
+                                    borderColor: [
+                                        'rgba(255, 99, 132, 1)',
+                                        'rgba(54, 162, 235, 1)',
+                                        'rgba(255, 206, 86, 1)',
+                                        'rgba(75, 192, 192, 1)',
+                                        'rgba(153, 102, 255, 1)',
+                                        'rgba(255, 159, 64, 1)'
+                                    ],
+                                    borderWidth: 3
+                                }]
+                            },
+                            options: {
+                                scales: {
+                                    y: {
+                                        beginAtZero: true
+                                    }
                                 }
-                            var contexto = document.getElementById('grafico1').getContext('2d');
-                            window.Barra = new Chart(contexto).Bar(Datos, { responsive : true });
-                            Barra.clear();
-                        }
-                    });
-                    return false;
-                }
-        </script>
-        {{-- Script grafico de barras{{ Js::from($salesMonthParam) }}; --}}
-        <script>
-            /*const data = {{ Js::from($dataMonthsales) }};*/
-            /*const ctx = document.getElementById('grafico1').getContext('2d');*/
-            const myChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: Object.keys(data),
-                    datasets: [{
-                        label: 'Grafico de Ventas',
-                        data: Object.values(data),
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
-                        ],
-                        borderWidth: 3
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
+                            }
+                        });
                     }
-                }
-            });
+                });
+                return false;
+            }
+        </script>
+        {{-- Script grafico de barras --}}
+        <script>
+            
         </script>
         {{-- Script grafico de torta --}}
         <script>
@@ -429,7 +427,7 @@
             const datosIngresos = {
                 data: Object.values(
                     dataKake
-                    ), // La data es un arreglo que debe tener la misma cantidad de valores que la cantidad de etiquetas
+                ), // La data es un arreglo que debe tener la misma cantidad de valores que la cantidad de etiquetas
                 // Ahora debería haber tantos background colors como datos, es decir, para este ejemplo, 4
                 backgroundColor: [
                     'rgba(163,221,203,0.2)',
@@ -458,8 +456,8 @@
         {{-- Script grafico de lineas --}}
         <script>
             const datos = {{ Js::from($usersMonthParam) }};
-            //const ctx = document.getElementById('grafico1').getContext('2d');
-            new Chart("grafico3", {
+            const ctx = document.getElementById('grafico3').getContext('2d');
+            new Chart(ctx, {
                 type: "line",
                 data: {
                     labels: Object.keys(datos),

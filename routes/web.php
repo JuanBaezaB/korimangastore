@@ -194,7 +194,7 @@ Route::group(['middleware' => ['role:Admin|Vendedor']], function () {
 
     /*Prueba */
     Route::get('/gestion-base/configuracion-base/dashboard/{id}', [DashboardController::class, 'index'])->name('sale.fetch');
-    Route::get('/fetch-sales', [DashboardController::class, 'dataMonthSales'])->name('sale.fetch2');
+    Route::get('/fetch-sales/{id}', [DashboardController::class, 'dataMonthSales'])->name('sale.fetch2');
 
     
     /*Perfil De Usuario */

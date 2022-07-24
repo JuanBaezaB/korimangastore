@@ -122,7 +122,20 @@ class DashboardController extends Controller
     }
 
     function dataMonthSales($branch)
-    {
+    {/*
+        $dataMonthsales = collect(['month' => 'Enero', 'count' => Sale::whereMonth('created_at', '=', '01')->whereYear('created_at', '=', date("Y"))->where('branch_id', '=', $branch)->count('id')]);
+        $dataMonthsales = collect(['month' => 'Febrero', 'count' => Sale::whereMonth('created_at', '=', '02')->whereYear('created_at', '=', date("Y"))->where('branch_id', '=', $branch)->count('id')]);
+        $dataMonthsales = collect(['month' => 'Marzo', 'count' => Sale::whereMonth('created_at', '=', '03')->whereYear('created_at', '=', date("Y"))->where('branch_id', '=', $branch)->count('id')]);
+        $dataMonthsales = collect(['month' => 'Abril', 'count' => Sale::whereMonth('created_at', '=', '04')->whereYear('created_at', '=', date("Y"))->where('branch_id', '=', $branch)->count('id')]);
+        $dataMonthsales = collect(['month' => 'Mayo', 'count' => Sale::whereMonth('created_at', '=', '05')->whereYear('created_at', '=', date("Y"))->where('branch_id', '=', $branch)->count('id')]);
+        $dataMonthsales = collect(['month' => 'Junio', 'count' => Sale::whereMonth('created_at', '=', '06')->whereYear('created_at', '=', date("Y"))->where('branch_id', '=', $branch)->count('id')]);
+        $dataMonthsales = collect(['month' => 'Julio', 'count' => Sale::whereMonth('created_at', '=', '07')->whereYear('created_at', '=', date("Y"))->where('branch_id', '=', $branch)->count('id')]);
+        $dataMonthsales = collect(['month' => 'Agosto', 'count' => Sale::whereMonth('created_at', '=', '08')->whereYear('created_at', '=', date("Y"))->where('branch_id', '=', $branch)->count('id')]);
+        $dataMonthsales = collect(['month' => 'Septiembre', 'count' => Sale::whereMonth('created_at', '=', '09')->whereYear('created_at', '=', date("Y"))->where('branch_id', '=', $branch)->count('id')]);
+        $dataMonthsales = collect(['month' => 'Octubre', 'count' => Sale::whereMonth('created_at', '=', '10')->whereYear('created_at', '=', date("Y"))->where('branch_id', '=', $branch)->count('id')]);
+        $dataMonthsales = collect(['month' => 'Noviembre', 'count' => Sale::whereMonth('created_at', '=', '11')->whereYear('created_at', '=', date("Y"))->where('branch_id', '=', $branch)->count('id')]);
+        $dataMonthsales = collect(['month' => 'Diciembre', 'count' => Sale::whereMonth('created_at', '=', '12')->whereYear('created_at', '=', date("Y"))->where('branch_id', '=', $branch)->count('id')]);
+        */
         $dataMonthsales['Enero'] =  Sale::whereMonth('created_at', '=', '01')->whereYear('created_at', '=', date("Y"))->where('branch_id', '=', $branch)->count('id');
         $dataMonthsales['Febrero'] =  Sale::whereMonth('created_at', '=', '02')->whereYear('created_at', '=', date("Y"))->where('branch_id', '=', $branch)->count('id');
         $dataMonthsales['Marzo'] =  Sale::whereMonth('created_at', '=', '03')->whereYear('created_at', '=', date("Y"))->where('branch_id', '=', $branch)->count('id');
@@ -136,10 +149,11 @@ class DashboardController extends Controller
         $dataMonthsales['Noviembre'] =  Sale::whereMonth('created_at', '=', '11')->whereYear('created_at', '=', date("Y"))->where('branch_id', '=', $branch)->count('id');
         $dataMonthsales['Diciembre'] =  Sale::whereMonth('created_at', '=', '12')->whereYear('created_at', '=', date("Y"))->where('branch_id', '=', $branch)->count('id');
 
-        return response()->json(
-            $dataMonthsales
-        );
-
+        dd($dataMonthsales);
+        
+        
+        return $dataMonthsales;
+        
     }
 
 
