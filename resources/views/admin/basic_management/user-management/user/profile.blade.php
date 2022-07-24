@@ -105,12 +105,14 @@
                     enctype="multipart/form-data">
                     @csrf
                     {{ method_field('PATCH') }}
-                    @foreach ($errors->all() as $error)
-                        <p class="text-danger">{{ $error }}</p>
-                    @endforeach
+
                     <h2 class="content-heading pt-0">
                         <i class="fa fa-fw fa-asterisk text-muted me-1"></i> Cambio de contraseña
                     </h2>
+
+                    @foreach ($errors->all() as $error)
+                        <p class="text-danger">{{ $error }}</p>
+                    @endforeach
                     <div class="row push">
                         <div class="col-lg-4">
                             <p class="text-muted">
