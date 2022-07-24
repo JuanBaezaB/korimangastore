@@ -77,6 +77,11 @@ Route::view('/forms/be_forms_plugins', 'admin.forms.be_forms_plugins')->middlewa
 Route::view('/forms/be_forms_editors', 'admin.forms.be_forms_editors')->middleware('auth');
 Route::view('/forms/be_forms_validation', 'admin.forms.be_forms_validation')->middleware('auth');
 
+Route::group(['middleware' => ['role:User']], function () {
+
+
+});
+
 
 Route::group(['middleware' => ['role:Admin|Vendedor']], function () {
 
@@ -207,7 +212,7 @@ Route::group(['middleware' => ['role:Admin|Vendedor']], function () {
     Route::get('/gestion-base/configuracion-base/dashboard/{id}', [DashboardController::class, 'index'])->name('sale.fetch');
     Route::get('/fetch-sales/{id}', [DashboardController::class, 'dataMonthSales'])->name('sale.fetch2');
 
-    
+
     /*Perfil De Usuario */
     Route::get('/perfil', [UserController::class, 'profile'])->name('user.profile');
     Route::patch('/password', [UserController::class, 'editPassword'])->name('user.editPassword');
