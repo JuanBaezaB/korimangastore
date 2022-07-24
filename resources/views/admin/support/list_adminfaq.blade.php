@@ -10,7 +10,7 @@ $collection_of_items = $questions;
 
 $list_columns = 'admin.support.adminfaq_columns';
 $modal_edit_contents = 'admin.support.adminfaq_edit';
-$export_columns = [0, 1, 2];
+$export_columns = [0, 1, 2, 3, 4];
 
 $validation_rules = [
     'email' => [
@@ -82,12 +82,11 @@ $update_modal_fields = [
 @endsection
 
 @section('label_headers')
-    <th class="text-center" style="width: 80px;">#</th>
+    <th data-priority="1">Asunto</th>
     <th>Email</th>
-    <th>Asunto</th>
-    <th class="d-sm-table-cell">Descripción</th>
-    <th class="d-sm-table-cell" style="width: 200px">Respuesta</th>
-    <th class="d-none d-sm-table-cell">Estado</th>
+    <th>Descripción</th>
+    <th>Respuesta</th>
+    <th>Estado</th>
 @endsection
 
 @section('breadcrumb')

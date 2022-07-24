@@ -72,12 +72,12 @@ Stacks:
                 @endif
 
                 <!-- DataTables init on table by adding .js-dataTable-full class, functionality is initialized in js/pages/be_tables_datatables.min.js which was auto compiled from _js/pages/be_tables_datatables.js -->
-                <table id="product-table" class="table table-bordered table-striped table-vcenter table-hover w-100 display">
+                <table id="product-table" style="width: 100%;" class="table table-bordered table-striped table-vcenter">
                     <thead>
                         <tr>
                             <!-- <th class="text-center" style="width: 80px;">#</th> -->
                             @yield('label_headers')
-                            <th {{ request()->is('gestion-base/gestion-usuarios/permisos') ? ' hidden' : '' }} style="width: 10%;">Acciones</th>
+                            <th data-priority="2" {{ request()->is('gestion-base/gestion-usuarios/permisos') ? ' hidden' : '' }} style="width: 10%;">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
