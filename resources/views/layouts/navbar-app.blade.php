@@ -36,12 +36,8 @@
                         <li><a class="dropdown-item" href="#">Otros</a></li>
                     </ul>
                 </li>
-
                 <li class="nav-item">
-                    <a class="nav-link">Figuras</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link">Novedades</a>
+                    <a href="/productos" class="nav-link {{ request()->is('productos*') ? 'text-info' : '' }}">Productos</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ request()->is('nosotros*') ? 'text-info' : '' }}"
@@ -106,6 +102,18 @@
                         </div>
                     @endhasrole
 
+                    @hasrole('Vendedor')
+                        <div class="d-inline">
+                            <a href="{{ url('/dashboard') }}"
+                                class="text-sm btn btn-outline-light text-gray-700 dark:text-gray-500 underline me-2">
+                                <b>
+                                    <i class="fa-solid fa-chart-line pe-2"></i>
+                                    Dashboard
+                                </b>
+                            </a>
+                        </div>
+                    @endhasrole
+
                     <div class="d-inline dropdown">
                         <a id="navbarDropdown" class="btn btn-outline-info dropdown-toggle" href="#"
                             role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -116,7 +124,7 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <!-- Option -->
-                            <li><a class="dropdown-item" href="#">
+                            <li><a class="dropdown-item" href="/perfil-de-usuario">
                                     <b>
                                         <i class="fa-solid fa-user-gear pe-2"></i>
                                         Configurar mi perfil

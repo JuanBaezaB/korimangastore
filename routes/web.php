@@ -79,6 +79,11 @@ Route::view('/forms/be_forms_validation', 'admin.forms.be_forms_validation')->mi
 
 Route::group(['middleware' => ['role:User']], function () {
 
+    /*Perfil De Usuario Cliente*/
+    Route::get('/perfil-de-usuario', [UserController::class, 'clienteProfile'])->name('cliente.profile')->middleware();
+    Route::patch('/contrasena', [UserController::class, 'clienteEditPassword'])->name('cliente.editPassword')->middleware();
+    Route::patch('/perfil-de-usuario/editar/{id}', [UserController::class, 'clienteEditProfile'])->name('cliente.editProfile')->middleware();
+
 
 });
 
