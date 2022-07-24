@@ -23,6 +23,7 @@ mix
     .sass('resources/sass/dashmix/themes/xpro.scss', 'public/css/themes/')
     .sass('resources/sass/dashmix/themes/xplay.scss', 'public/css/themes/')
     .sass('resources/sass/app.scss', 'public/css')
+    .css('resources/css/styles.css', 'public/css/styles.css')
 
     /* JS */
     .js('resources/js/app.js', 'public/js/laravel.app.js')

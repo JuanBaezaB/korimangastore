@@ -181,6 +181,9 @@ return [
         // Laravel Excel
         Maatwebsite\Excel\ExcelServiceProvider::class,
 
+        //  Shopping Cart
+        Darryldecode\Cart\CartServiceProvider::class,
+
     ],
 
     /*
@@ -238,6 +241,9 @@ return [
 
         // Laravel Excel
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+
+        //  Shopping Cart
+        'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
     ],
 
 ];

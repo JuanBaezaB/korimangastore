@@ -1,0 +1,93 @@
+.mangas {
+    height: 600px;
+}
+
+.desc {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden;
+}
+
+.presentacion {
+    background-image: url("/media/login/portada3.png");
+    background-position: center;
+}
+
+.producto {
+    transition: background-color .5s;
+}
+
+.producto:hover {
+    background-color: #00ffff;
+
+}
+
+.btn-dark:hover {
+    text-decoration: underline;
+    -webkit-text-decoration-style: double;
+            text-decoration-style: double;
+    -webkit-text-decoration-color: white;
+            text-decoration-color: white;
+}
+
+.botoncito {
+    transition: background-color .5s;
+    background-color: black;
+    border: white;
+    border-style: solid;
+    border-radius: 10px;
+    color: white;
+    text-decoration: none;
+}
+
+.botoncito p {
+    color: white;
+}
+
+.botoncito:hover {
+    background-color: #006574;
+    text-decoration: none;
+}
+
+.carousel__anterior,
+.carousel__siguiente {
+    position: absolute;
+    display: block;
+    width: 30px;
+    height: 30px;
+    border: none;
+    top: calc(50% - 35px);
+    cursor: pointer;
+    line-height: 30px;
+    text-align: center;
+    background: none;
+    color: black;
+    opacity: 50%;
+    transition: opacity .5s;
+
+}
+
+.carousel__anterior:hover,
+.carousel__siguiente:hover {
+    opacity: 100%;
+
+}
+
+.carousel__anterior {
+    left: -30px;
+}
+
+.carousel__siguiente {
+    right: -30px;
+}
+
+.carousel__lista {
+    overflow: hidden;
+}
+
+.carousel__elemento {
+    text-align: center;
+}
+

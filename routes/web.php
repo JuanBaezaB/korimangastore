@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\BranchController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\FormatController;
 use App\Http\Controllers\EditorialController;
 use App\Http\Controllers\CategoryController;
@@ -34,6 +35,9 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('index.home');
+Route::get('/ver-producto/{id}', [HomeController::class, 'showProduct'])->name('show-product');
+
+Route::view('/productos', 'public.products')->name('productos');
 
 /*  Nosotros */
 Route::view('/nosotros', 'public.about-us')->name('about-us');
@@ -41,8 +45,22 @@ Route::view('/nosotros', 'public.about-us')->name('about-us');
 /*  Articulo */
 Route::view('/articulo', 'public.article')->name('article');
 
-/*  Articulo */
+/*  Soporte */
 Route::view('/soporte', 'public.user-support')->name('user-support');
+Route::view('/preguntas-frecuentes', 'public.faq')->name('user-faq');
+
+/*  Carrito */
+Route::get('/add-cart', [CartController::class, 'add'])->name('cart.add');
+Route::view('/listado-carrito','public.cart')->name('cart.list');
+Route::post('/update-cart', [CartController::class, 'update'])->name('cart.update');
+Route::post('/remove-cart', [CartController::class, 'remove'])->name('cart.remove');
+Route::post('/clear-cart', [CartController::class, 'clear'])->name('cart.clear');
+
+
+/*  Reserva  (No va aquí, pero mientras dejé su vista pública) */
+Route::view('/reserva', 'public.booking')->name('user-booking');
+
+
 
 
 Auth::routes();
@@ -54,11 +72,6 @@ Route::view('/forms/be_forms_input_groups', 'admin.forms.be_forms_input_groups')
 Route::view('/forms/be_forms_plugins', 'admin.forms.be_forms_plugins')->middleware('auth');
 Route::view('/forms/be_forms_editors', 'admin.forms.be_forms_editors')->middleware('auth');
 Route::view('/forms/be_forms_validation', 'admin.forms.be_forms_validation')->middleware('auth');
-
-Route::view('/gestion-de-productos/producto/importar', 'admin.product_management.import_products')->name('product.import');
-Route::post('/importar-manga', [ProductController::class, 'mangaimport'])->name('product.mangaimport');
-Route::post('/importar-product', [ProductController::class, 'productimport'])->name('product.genericimport');
-Route::post('/importar-figure', [ProductController::class, 'figureimport'])->name('product.figureimport');
 
 
 Route::group(['middleware' => ['role:Admin|Vendedor']], function () {
@@ -77,6 +90,11 @@ Route::group(['middleware' => ['role:Admin|Vendedor']], function () {
     Route::patch('/gestion-de-productos/producto/{id}/editar', [ProductController::class, 'update'])->name('product.update')->middleware('can:product.modify');
     Route::delete('/gestion-de-productos/producto/{id}/eliminar', [ProductController::class, 'destroy'])->name('product.delete')->middleware('can:product.modify');
     Route::post('/gestion-de-productos/producto/buscar', [ProductController::class, 'search'])->name('product.search')->middleware('auth');
+    /* Importar producto */
+    Route::view('/gestion-de-productos/producto/importar', 'admin.product_management.import_products')->name('product.import')->middleware('can:product.modify');
+    Route::post('/importar-manga', [ProductController::class, 'mangaimport'])->name('product.mangaimport')->middleware('can:product.modify');
+    Route::post('/importar-product', [ProductController::class, 'productimport'])->name('product.genericimport')->middleware('can:product.modify');
+    Route::post('/importar-figure', [ProductController::class, 'figureimport'])->name('product.figureimport')->middleware('can:product.modify');
 
     /* Stock */
     Route::get('/gestion-de-inventario/stock', [StockController::class, 'index'])->name('stock.list')->middleware('can:stock.list');
