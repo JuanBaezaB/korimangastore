@@ -27,7 +27,7 @@ class DashboardController extends Controller
 
         $sales = Sale::all();
         $cSales = Sale::count();
-        $users = User::all();
+        $users = User::orderBy('created_at', 'DESC')->limit(10)->get();
         $cUsers  = User::count();
         $products = Product::all();
         $cProducts = Product::count();
@@ -72,7 +72,7 @@ class DashboardController extends Controller
         //usuarios y ventas por mes (Graficos)
         $usersMonthParam = DashboardController::dataMonthUsers();
 
-        //necesito llenar un arreglo con los tipos de categorias y despues sumar las categorias para entregar un arreglo en el compact 
+        //necesito llenar un arreglo con los tipos de categorias y despues sumar las categorias para entregar un arreglo en el compact
         $mostSelledProducts = DashboardController::mostSelledProducts();
 
         return view(
@@ -84,7 +84,7 @@ class DashboardController extends Controller
                 'cProducts',
                 'sales',
                 'percentListUsers',
-                'percentListSales',     
+                'percentListSales',
                 'products',
                 'users',
                 'branches',
@@ -139,9 +139,9 @@ class DashboardController extends Controller
         return response()->json(
             $dataMonthsales
         );
-        
+
     }
-    
+
 
     function dataMonthUsers()
     {

@@ -148,9 +148,9 @@
             </div>
             <!-- Grafico de lineas Usuarios-->
             <div class="col-xl-6" id="graf3">
-                <div class="block block-rounded">
+                <div style="height: 100%" class="block block-rounded">
                     <div class="block-header block-header-default">
-                        <h3 class="block-title">Grafico Usuarios registrados por mes</h3>
+                        <h3 class="block-title">Grafico de cantidad de úsuarios registrados por mes</h3>
                         <div class="block-options">
                             <button type="button" class="btn-block-option" data-toggle="block-option"
                                 data-action="state_toggle" data-action-mode="demo">
@@ -170,7 +170,8 @@
             <div class="col-xl-6" id="graf3tabla">
                 <div class="block block-rounded block-mode-loading-refresh h-100 mb-0">
                     <div class="block-header block-header-default">
-                        <h3 class="block-title">Tabla de usuarios</h3>
+                        <h3 class="block-title">Tabla de últimos usuarios registrados</h3>
+                        <!--
                         <div class="block-options">
                             <button type="button" class="btn-block-option" data-toggle="block-option"
                                 data-action="state_toggle" data-action-mode="demo">
@@ -185,10 +186,11 @@
                                     <i class="si si-wrench"></i>
                                 </button>
 
-                                <!--filtros de informacion-->
+
 
                             </div>
                         </div>
+                        filtros de informacion-->
                     </div>
                     <div class="block-content">
                         <table class="table table-striped table-hover table-borderless table-vcenter fs-sm">
@@ -209,7 +211,7 @@
                                             {{ $user->email }}
                                         </td>
                                         <td class="d-none d-sm-table-cell">
-                                            {{ $user->created_at }}
+                                            {{ $user->created_at->diffForHumans() }}
                                         </td>
                                     </tr>
                                 @endforeach
