@@ -24,6 +24,9 @@
     },
     "dependencies": {
         "chart.js": "^3.8.0",
+        "filepond": "^4.30.4",
+        "filepond-plugin-file-validate-type": "^1.2.8",
+        "filepond-plugin-image-preview": "^4.6.11",
         "simplebar": "^5.3.6"
     }
 }

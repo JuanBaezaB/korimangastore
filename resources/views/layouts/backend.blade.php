@@ -33,6 +33,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Styles -->
+    @livewireStyles
     @yield('css_before')
     @stack('css_before_stack')
     <link rel="stylesheet" id="css-main" href="{{ mix('css/dashmix.css') }}">
@@ -46,6 +47,7 @@
     <!-- <link rel="stylesheet" id="css-theme" href="{{ mix('css/themes/xwork.css') }}"> -->
     @yield('css_after')
     @stack('css_after_stack')
+
 
     <!-- Scripts -->
     <script>
@@ -415,7 +417,7 @@
                                 User Options
                             </div>
                             <div class="p-2">
-                                <a class="dropdown-item" href="javascript:void(0)">
+                                <a class="dropdown-item" href="{{route('user.profile')}}">
                                     <i class="far fa-fw fa-user me-1"></i> Profile
                                 </a>
                                 <div role="separator" class="dropdown-divider"></div>
@@ -507,6 +509,7 @@
     <!-- END Page Container -->
 
     <!-- Dashmix Core JS -->
+    <script src="{{ asset('js/lib/jquery.min.js') }}"></script>
     <script src="{{ mix('js/dashmix.app.js') }}"></script>
 
     <!-- Laravel Original JS -->
@@ -514,6 +517,7 @@
 
     <script src="{{ mix('js/utils.js') }}"></script>
 
+    @livewireScripts
     @yield('js_after')
     @stack('js_after_stack')
     @if(auth()->user()->hasRole('Admin'))

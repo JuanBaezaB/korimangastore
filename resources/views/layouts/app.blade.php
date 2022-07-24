@@ -34,11 +34,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Styles -->
+    @livewireStyles
     @yield('css_before')
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
 
     <!-- Scripts -->
+    <script src="{{ asset('js/lib/jquery.min.js') }}"></script>
     <script src="{{ asset('js/laravel.app.js') }}" defer></script>
     <script>
         window.Laravel = {!! json_encode(['csrfToken' => csrf_token()]) !!};
@@ -57,6 +59,7 @@
     @include('layouts.footer-app')
 
     @yield('js_after')
+    @livewireScripts
 
 </body>
 

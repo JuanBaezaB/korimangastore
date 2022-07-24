@@ -196,6 +196,11 @@
                     <!-- END FORM FIGURE -->
 
                     <div class="mb-3">
+                    <label class="col-form-label">Imagenes:</label>
+                        <input id="input-file-images" type="file" name="filepond_files[]" data-max-files="3" multiple />
+                    </div>
+
+                    <div class="mb-3">
                         <!-- SimpleMDE Container -->
                         <label class="col-form-label">Descripción:</label>
                         <textarea class="js-simplemde" id="simplemde" name="description">{{ isset($product) ? $product->description : '' }}</textarea>
@@ -232,22 +237,59 @@
     });
 </script>
 
-<!-- jQuery (required for Select2 + jQuery Validation plugins) -->
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-
-
+<script src="{{ mix('/js/laravel.app.js') }}"></script>
 
 <!-- Page JS Plugins -->
 <script src="{{ asset('js/plugins/select2/js/select2.full.js') }}"></script>
 <script src="{{ asset('js/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
 <script src="{{ asset('js/plugins/jquery-validation/additional-methods.js') }}"></script>
+<script src="{{ asset('js/plugins/jquery-filepond/filepond.jquery.js') }}"></script>
 
 <!-- select2-->
 <script>
     jQuery(document).ready(function($) {
         $(document).ready(function() {
+
+            // Modification for laravel-filepond
+            $.fn.filepond.setDefaults({
+                server: {
+                    url: '/filepond/api',
+                    process: '/process',
+                    revert: '/process',
+                    patch: '?patch=',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    }
+                }
+            });
+            
             $('.js-basic-multiple').select2({});
             $('.js-basic-single').select2();
+
+            $('#input-file-images').filepond({
+                allowMultiple: true,
+                acceptedFileTypes: ['image/*'],
+                imagePreviewMaxFileSize: '2MB',
+                @isset($product)
+                /*
+                Not supported by server
+                files: {{ 
+                    Js::from($product->images->map(function($x) {
+                        return [
+                            'source' => $x->url(),
+                            'options' => [
+                                'type' => 'local',
+                            ],
+                        ];
+                    }))
+                }}
+                */
+                @endisset
+            });
+
+            @isset($product)
+                $('#input-file-images').filepond('addFiles', {{ Js::from($product->images->map(function($x) { return $x->url(); })) }});
+            @endisset
         });
     });
 </script>
