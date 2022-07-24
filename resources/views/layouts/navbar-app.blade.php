@@ -106,20 +106,6 @@
                         </div>
                     @endhasrole
 
-                    @hasrole('User')
-                        <div class="d-inline">
-                            <a href="/carrito"
-                                class="text-sm btn btn-outline-light text-gray-700 dark:text-gray-500 underline me-2">
-                                <b>
-                                    <i class="fa-solid fa-cart-shopping pe-2"></i>
-                                    Carrito
-                                    <!--
-                                                <i class="bg-danger text-light ms-1 pe-1 ps-1"> 2 </i>
-                                            -->
-                                </b>
-                            </a>
-                        </div>
-                    @endhasrole
                     <div class="d-inline dropdown">
                         <a id="navbarDropdown" class="btn btn-outline-info dropdown-toggle" href="#"
                             role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
