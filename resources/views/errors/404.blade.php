@@ -1,7 +1,7 @@
 @extends('layouts.error')
 
 @section('title')
-{{ 'Preguntas Frecuentes' }}
+{{ 'Error 404' }}
 @endsection
 
 @section('css_before')
