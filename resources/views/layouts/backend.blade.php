@@ -517,7 +517,11 @@
 
     <script src="{{ mix('js/utils.js') }}"></script>
 
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     @livewireScripts
+    @livewireChartsScripts
+
     @yield('js_after')
     @stack('js_after_stack')
     @if(auth()->user()->hasRole('Admin'))

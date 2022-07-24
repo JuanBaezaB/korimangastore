@@ -109,40 +109,8 @@
             </div>
             <!-- Grafico de barras Ventas-->
             <div class="col-xl-12" id="graf1">
-                <div style="height: 100%" class="block block-rounded">
-                    <div class="block-header block-header-default">
-                        <h3 class="block-title">Grafico de Ventas</h3>
-                        <!--Filtros por sucursal-->
-                        <div class="dropdown d-inline-block">
-                            <button type="button" class="btn btn-sm btn-alt-primary px-3" id="dropdown-analytics-overview"
-                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Sucursal <i class="fa fa-fw fa-angle-down"></i>
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-end fs-sm" aria-labelledby="dropdown-analytics-overview"
-                                style="">
-                                @foreach ($branches as $branch)
-                                    <a class="dropdown-item" href="javascript:void(0)"
-                                        onclick="fetchSalesByBranch({{ $branch->id }})">{{ $branch->name }}</a>
-                                @endforeach
+                <livewire:sales-chart>
 
-                            </div>
-                        </div>
-                        <!--Fin Filtros por sucursal-->
-                        <div class="block-options">
-                            <button type="button" class="btn-block-option" data-toggle="block-option"
-                                data-action="state_toggle" data-action-mode="demo">
-                                <i class="si si-refresh"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="block-content block-content-full text-center">
-                        <div class="py-3">
-                            <!-- Lines Chart Container -->
-                            <canvas id="grafico1" width="553" height="276"
-                                style="display: block; box-sizing: border-box; height: 276px; width: 553px;"></canvas>
-                        </div>
-                    </div>
-                </div>
             </div>
             <!-- Tabla Productos mas vendidos -->
             <div class="col-xl-6" id="graf2tabla">
@@ -365,7 +333,7 @@
                     dataType: "JSON",
                     success: function(response) {
 
-                        
+
                         response.forEach(function(data) {
                             month.push(data.month);
                             count.push(data.count);
@@ -417,7 +385,7 @@
         </script>
         {{-- Script grafico de barras --}}
         <script>
-            
+
         </script>
         {{-- Script grafico de torta --}}
         <script>

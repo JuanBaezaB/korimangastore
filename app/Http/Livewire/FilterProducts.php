@@ -17,7 +17,7 @@ class FilterProducts extends Component
         $categories = Category::get();
         return view('livewire.filter-products',['categories'=> $categories]);
     }
-    public function filter()
+    public function filter($branch_id)
     {
         $this->emitTo('show-products','reloadProducts', $this->category_id, $this->sort_by);
     }
