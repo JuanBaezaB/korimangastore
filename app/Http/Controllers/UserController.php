@@ -254,7 +254,12 @@ class UserController extends Controller
         $request->validate([
             'current_password' => ['required', new MatchOldPassword],
             'new_password' => ['required'],
+            'new_confirm_password' => ['required'],
             'new_confirm_password' => ['same:new_password'],
+        ],[
+            'new_password.required' => 'Por favor, ingrese una contraseña nueva.',
+            'new_confirm_password.same' => 'Por favor, asegure de que "Nueva Contraseña" sea igual a "Confirme su nueva contraseña".',
+            'new_confirm_password.required' => 'Por favor, complete el campo de confirmación de contraseña.',
         ]);
 
         User::find(auth()->user()->id)->update(['password' => Hash::make($request->new_password)]);
@@ -280,7 +285,7 @@ class UserController extends Controller
 
 
 
-            
+
         }*/
     }
 }

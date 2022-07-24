@@ -4,6 +4,14 @@
     {{ 'Profile' }}
 @endsection
 
+@section('css_before')
+    <style>
+        .marca{
+            text-shadow: 2px 2px 2px black;
+        }
+    </style>
+@endsection
+
 @section('content')
     <!-- Hero -->
     <div class="bg-image" style="background-image: url('https://cdn.wallpapersafari.com/64/23/LChQ6l.png');">
@@ -24,13 +32,13 @@
                     <h2 class="h4 fw-bold text-white-75">
                         {{ Auth::user()->name }}
                     </h2>
-                    
+
                     @foreach ($lastLogin as $login)
-                    <h4>Tu ultima conexión fue el {{$login->added_on}}</h4>       
+                    <h4 class="text-white marca ">Tu última conexión fue el {{$login->added_on}}</h4>
                     @endforeach
-                    
-                    
-                    <button type="button" class="edit btn btn-alt-secondary mt-3" data-bs-toggle="modal"
+
+
+                    <button type="button" class="edit btn btn-outline-primary bg-dark mt-3" data-bs-toggle="modal"
                         data-bs-target="#exampleModal" data-bs-whatever="@mdo">Ver ultimas conexiones</button>
                 </div>
             </div>
@@ -169,7 +177,7 @@
                                                 </td>
                                             </tr>
                                         @endforeach
-        
+
                                     </tbody>
                                 </table>
                             </div>
