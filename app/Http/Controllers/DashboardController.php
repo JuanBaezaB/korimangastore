@@ -53,6 +53,19 @@ class DashboardController extends Controller
         //Datos grafico de torta
 
 
+        $dataMonthsales['Enero'] =  Sale::whereMonth('created_at', '=', '01')->whereYear('created_at', '=', date("Y"));
+        $dataMonthsales['Febrero'] =  Sale::whereMonth('created_at', '=', '02')->whereYear('created_at', '=', date("Y"));
+        $dataMonthsales['Marzo'] =  Sale::whereMonth('created_at', '=', '03')->whereYear('created_at', '=', date("Y"));
+        $dataMonthsales['Abril'] =  Sale::whereMonth('created_at', '=', '04')->whereYear('created_at', '=', date("Y"));
+        $dataMonthsales['Mayo'] =  Sale::whereMonth('created_at', '=', '05')->whereYear('created_at', '=', date("Y"));
+        $dataMonthsales['Junio'] =  Sale::whereMonth('created_at', '=', '06')->whereYear('created_at', '=', date("Y"));
+        $dataMonthsales['Julio'] =  Sale::whereMonth('created_at', '=', '07')->whereYear('created_at', '=', date("Y"));
+        $dataMonthsales['Agosto'] =  Sale::whereMonth('created_at', '=', '08')->whereYear('created_at', '=', date("Y"));
+        $dataMonthsales['Septiembre'] =  Sale::whereMonth('created_at', '=', '09')->whereYear('created_at', '=', date("Y"));
+        $dataMonthsales['Octubre'] =  Sale::whereMonth('created_at', '=', '10')->whereYear('created_at', '=', date("Y"));
+        $dataMonthsales['Noviembre'] =  Sale::whereMonth('created_at', '=', '11')->whereYear('created_at', '=', date("Y"));
+        $dataMonthsales['Diciembre'] =  Sale::whereMonth('created_at', '=', '12')->whereYear('created_at', '=', date("Y"));
+
 
         //mostSelledProducts;
 
@@ -62,11 +75,9 @@ class DashboardController extends Controller
         //necesito llenar un arreglo con los tipos de categorias y despues sumar las categorias para entregar un arreglo en el compact 
         $mostSelledProducts = DashboardController::mostSelledProducts();
 
-
         return view(
             'admin.dashboard.dashboard',
             compact(
-                
                 'usersMonthParam',
                 'cUsers',
                 'cSales',
@@ -78,6 +89,7 @@ class DashboardController extends Controller
                 'users',
                 'branches',
                 'mostSelledProducts',
+                'dataMonthsales'
             )
         );
     }
@@ -124,10 +136,12 @@ class DashboardController extends Controller
         $dataMonthsales['Noviembre'] =  Sale::whereMonth('created_at', '=', '11')->whereYear('created_at', '=', date("Y"))->where('branch_id', '=', $branch)->count('id');
         $dataMonthsales['Diciembre'] =  Sale::whereMonth('created_at', '=', '12')->whereYear('created_at', '=', date("Y"))->where('branch_id', '=', $branch)->count('id');
 
-        return response()->json([
-            'sales' => $dataMonthsales,
-        ]);
+        return response()->json(
+            $dataMonthsales
+        );
+        
     }
+    
 
     function dataMonthUsers()
     {
@@ -152,9 +166,9 @@ class DashboardController extends Controller
         $listMostSales = [];
         $category = Category::all();
         foreach ($category as $categories) {
-            $listMostSales[(string)$categories->name] = DB::table('products')
-                ->leftjoin('product_sale', 'product_sale.product_id', '=', 'products.id')
-                ->leftjoin('categories', 'categories.id', '=', 'products.category_id')
+            $listMostSales[$categories->name] = DB::table('product_sale')
+                ->leftJoin('products', 'products.id', '=', 'product_sale.product_id')
+                ->leftJoin('categories', 'categories.id', '=', 'products.category_id')
                 ->where('categories.name', '=', $categories->name)
                 ->count();
         }

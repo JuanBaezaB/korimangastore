@@ -228,12 +228,6 @@
 
 
 
-                        <div class="block-options">
-                            <button type="button" class="btn-block-option" data-toggle="block-option"
-                                data-action="state_toggle" data-action-mode="demo">
-                                <i class="si si-refresh"></i>
-                            </button>
-                        </div>
                     </div>
                     <div class="block-content block-content-full text-center">
                         <div class="py-3">
@@ -250,39 +244,7 @@
                 <div class="block block-rounded block-mode-loading-refresh h-100 mb-0">
                     <div class="block-header block-header-default">
                         <h3 class="block-title">Tabla de productos</h3>
-                        <div class="block-options">
-                            <button type="button" class="btn-block-option" data-toggle="block-option"
-                                data-action="state_toggle" data-action-mode="demo">
-                                <i class="si si-refresh"></i>
-                            </button>
-                            <button type="button" class="btn-block-option">
-                                <i class="si si-cloud-download"></i>
-                            </button>
-                            <div class="dropdown">
-                                <button type="button" class="btn-block-option" data-bs-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                    <i class="si si-wrench"></i>
-                                </button>
 
-                                <!--filtros de informacion-->
-                                <div class="dropdown-menu dropdown-menu-end">
-                                    <a class="dropdown-item" href="javascript:void(0)">
-                                        <i class="fa fa-fw fa-sync fa-spin text-warning me-1"></i> Pendiente
-                                    </a>
-                                    <a class="dropdown-item" href="javascript:void(0)">
-                                        <i class="far fa-fw fa-times-circle text-danger me-1"></i> Cancelled
-                                    </a>
-                                    <a class="dropdown-item" href="javascript:void(0)">
-                                        <i class="far fa-fw fa-check-circle text-success me-1"></i> Cancelled
-                                    </a>
-                                    <div role="separator" class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="javascript:void(0)">
-                                        <i class="fa fa-fw fa-eye me-1"></i> View All
-                                    </a>
-
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <div class="block-content">
                         <table class="table table-striped table-hover table-borderless table-vcenter fs-sm">
@@ -311,11 +273,10 @@
                 <!-- END Purchases -->
             </div>
         </div>
-        
     @endsection
 
     @section('js_after')
-    <script src="{{asset('js/lib/jquery.min.js')}}"></script>
+        <script src="{{ asset('js/lib/jquery.min.js') }}"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js"></script>
         {{-- Script para esconder los graficos dependiendo de lo que quiera ver en el grafico --}}
         <script>
@@ -387,33 +348,49 @@
         </script>
         {{-- Traer Ventas para grafico por sucursal --}}
         <script>
-            function fetchSalesByBranch($id) {
+            function fetchSalesByBranch(id) {
                 $.ajaxSetup({
-                    headers:{
+                    headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
                 })
                 $.ajax({
-                    type: 'GET',
-                    url: '{{route("sale.fetch", ":id")}}'.replace(':id', $id),
-                    dataType: 'json',
-                    success: function(response) {
-                        return response;
-                    }
-                });
-            }
+                    type: 'POST',
+                    url: '{{ route('sale.fetch2')}}',
+                    data: id,
+                    dataType: "JSON",
+                    success:function(response){
+                            var Datos = {
+                                    labels : Object.keys(response),
+                                    datasets : [
+                                        {
+                                            fillColor : 'rgba(91,228,146,0.6)', //COLOR DE LAS BARRAS
+                                            strokeColor : 'rgba(57,194,112,0.7)', //COLOR DEL BORDE DE LAS BARRAS
+                                            highlightFill : 'rgba(73,206,180,0.6)', //COLOR "HOVER" DE LAS BARRAS
+                                            highlightStroke : 'rgba(66,196,157,0.7)', //COLOR "HOVER" DEL BORDE DE LAS BARRAS
+                                            data : Object.values(response)
+                                        }
+                                    ]
+                                }
+                            var contexto = document.getElementById('grafico1').getContext('2d');
+                            window.Barra = new Chart(contexto).Bar(Datos, { responsive : true });
+                            Barra.clear();
+                        }
+                    });
+                    return false;
+                }
         </script>
         {{-- Script grafico de barras{{ Js::from($salesMonthParam) }}; --}}
         <script>
-            const $data = //aca necesito pasar lo que me esta mostrando el ajax
-            const ctx = document.getElementById('grafico1').getContext('2d');
+            /*const data = {{ Js::from($dataMonthsales) }};*/
+            /*const ctx = document.getElementById('grafico1').getContext('2d');*/
             const myChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: Object.keys($data),
+                    labels: Object.keys(data),
                     datasets: [{
                         label: 'Grafico de Ventas',
-                        data: Object.values($data),
+                        data: Object.values(data),
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
                             'rgba(54, 162, 235, 0.2)',
@@ -445,10 +422,12 @@
         {{-- Script grafico de torta --}}
         <script>
             // Obtener una referencia al elemento canvas del DOM
-            const $dataKake = {{ Js::from($mostSelledProducts) }};
-            const $grafica = document.querySelector("#grafico2"); // Las etiquetas son las porciones de la gráfica
+            const dataKake = {{ Js::from($mostSelledProducts) }};
+            const grafica = document.querySelector("#grafico2"); // Las etiquetas son las porciones de la gráfica
             const datosIngresos = {
-                data: Object.values($dataKake), // La data es un arreglo que debe tener la misma cantidad de valores que la cantidad de etiquetas
+                data: Object.values(
+                    dataKake
+                    ), // La data es un arreglo que debe tener la misma cantidad de valores que la cantidad de etiquetas
                 // Ahora debería haber tantos background colors como datos, es decir, para este ejemplo, 4
                 backgroundColor: [
                     'rgba(163,221,203,0.2)',
@@ -464,10 +443,10 @@
                 ], // Color del borde
                 borderWidth: 3, // Ancho del borde
             };
-            new Chart($grafica, {
+            new Chart(grafica, {
                 type: 'pie', // Tipo de gráfica. Puede ser dougnhut o pie
                 data: {
-                    labels: Object.keys($dataKake),
+                    labels: Object.keys(dataKake),
                     datasets: [
                         datosIngresos,
                     ]
@@ -476,18 +455,18 @@
         </script>
         {{-- Script grafico de lineas --}}
         <script>
-            const $datos = {{ Js::from($usersMonthParam) }};
+            const datos = {{ Js::from($usersMonthParam) }};
             //const ctx = document.getElementById('grafico1').getContext('2d');
             new Chart("grafico3", {
                 type: "line",
                 data: {
-                    labels: Object.keys($datos),
+                    labels: Object.keys(datos),
                     datasets: [{
                         fill: false,
                         lineTension: 0,
                         backgroundColor: "rgba(0,0,255,1.0)",
                         borderColor: "rgba(0,0,255,0.1)",
-                        data: Object.values($datos),
+                        data: Object.values(datos),
                     }]
                 },
                 options: {
