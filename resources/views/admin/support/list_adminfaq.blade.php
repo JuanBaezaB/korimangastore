@@ -86,7 +86,7 @@ $update_modal_fields = [
     <th>Email</th>
     <th>Asunto</th>
     <th class="d-sm-table-cell">Descripción</th>
-    <th class="d-sm-table-cell" style="width: 200px">Respuesta</th>
+    <th class="d-sm-table-cell">Respuesta</th>
     <th class="d-none d-sm-table-cell">Estado</th>
 @endsection
 
