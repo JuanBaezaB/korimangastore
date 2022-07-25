@@ -77,7 +77,7 @@ Route::view('/forms/be_forms_plugins', 'admin.forms.be_forms_plugins')->middlewa
 Route::view('/forms/be_forms_editors', 'admin.forms.be_forms_editors')->middleware('auth');
 Route::view('/forms/be_forms_validation', 'admin.forms.be_forms_validation')->middleware('auth');
 
-Route::group(['middleware' => ['role:User']], function () {
+Route::group(['middleware' => ['role:User|Admin|Vendedor']], function () {
 
     /*Perfil De Usuario Cliente*/
     Route::get('/perfil-de-usuario', [UserController::class, 'clienteProfile'])->name('cliente.profile')->middleware();
