@@ -11,7 +11,7 @@
     <div class="dropdown-menu dropdown-menu-xxl dropdown-menu-end p-0"
         aria-labelledby="page-header-notifications-dropdown">
         <div class="bg-primary-dark rounded-top fw-semibold text-white text-center p-3">
-            Notificationes
+            Notificaciones
         </div>
         <ul class="nav-items my-2">
             <div class="text-center border-bottom"><span>Notificaciones no leídas</span></div>

@@ -32,7 +32,7 @@
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-6 text-center pt-5">
                     <p class="text-white">Accede a nuestras preguntas frecuentes</p>
-                    <a href="/preguntas-frecuentes" type="button" class="btn btn-outline-success {{ request()->is('soporte') ? 'disabled' : '' }}">Preguntas Frecuentes</a>
+                    <a href="/preguntas-frecuentes" type="button" class="btn btn-outline-success {{ request()->is('preguntas-frecuentes') ? 'disabled' : '' }}">Preguntas Frecuentes</a>
                 </div>
             </div>
         </div>

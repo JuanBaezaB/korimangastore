@@ -109,7 +109,6 @@ class DashboardController extends Controller
 
     function dataMonthSales($branch)
     {
-        $dataMonthsales = collect();
         $dataMonthsales = collect([
             ['month' => 'Enero', 'count' => Sale::whereMonth('created_at', '=', '01')->whereYear('created_at', '=', date("Y"))->where('branch_id', '=', $branch)->count('id')],
             ['month' => 'Febrero', 'count' => Sale::whereMonth('created_at', '=', '02')->whereYear('created_at', '=', date("Y"))->where('branch_id', '=', $branch)->count('id')],
@@ -130,18 +129,18 @@ class DashboardController extends Controller
 
     function allDataMonthSales()
     {
-        $dataMonthsales['Enero'] =  Sale::whereMonth('created_at', '=', '01')->whereYear('created_at', '=', date("Y"));
-        $dataMonthsales['Febrero'] =  Sale::whereMonth('created_at', '=', '02')->whereYear('created_at', '=', date("Y"));
-        $dataMonthsales['Marzo'] =  Sale::whereMonth('created_at', '=', '03')->whereYear('created_at', '=', date("Y"));
-        $dataMonthsales['Abril'] =  Sale::whereMonth('created_at', '=', '04')->whereYear('created_at', '=', date("Y"));
-        $dataMonthsales['Mayo'] =  Sale::whereMonth('created_at', '=', '05')->whereYear('created_at', '=', date("Y"));
-        $dataMonthsales['Junio'] =  Sale::whereMonth('created_at', '=', '06')->whereYear('created_at', '=', date("Y"));
-        $dataMonthsales['Julio'] =  Sale::whereMonth('created_at', '=', '07')->whereYear('created_at', '=', date("Y"));
-        $dataMonthsales['Agosto'] =  Sale::whereMonth('created_at', '=', '08')->whereYear('created_at', '=', date("Y"));
-        $dataMonthsales['Septiembre'] =  Sale::whereMonth('created_at', '=', '09')->whereYear('created_at', '=', date("Y"));
-        $dataMonthsales['Octubre'] =  Sale::whereMonth('created_at', '=', '10')->whereYear('created_at', '=', date("Y"));
-        $dataMonthsales['Noviembre'] =  Sale::whereMonth('created_at', '=', '11')->whereYear('created_at', '=', date("Y"));
-        $dataMonthsales['Diciembre'] =  Sale::whereMonth('created_at', '=', '12')->whereYear('created_at', '=', date("Y"));
+        $dataMonthsales['Enero'] =  Sale::whereMonth('created_at', '=', '01')->whereYear('created_at', '=', date("Y"))->count('id');
+        $dataMonthsales['Febrero'] =  Sale::whereMonth('created_at', '=', '02')->whereYear('created_at', '=', date("Y"))->count('id');
+        $dataMonthsales['Marzo'] =  Sale::whereMonth('created_at', '=', '03')->whereYear('created_at', '=', date("Y"))->count('id');
+        $dataMonthsales['Abril'] =  Sale::whereMonth('created_at', '=', '04')->whereYear('created_at', '=', date("Y"))->count('id');
+        $dataMonthsales['Mayo'] =  Sale::whereMonth('created_at', '=', '05')->whereYear('created_at', '=', date("Y"))->count('id');
+        $dataMonthsales['Junio'] =  Sale::whereMonth('created_at', '=', '06')->whereYear('created_at', '=', date("Y"))->count('id');
+        $dataMonthsales['Julio'] =  Sale::whereMonth('created_at', '=', '07')->whereYear('created_at', '=', date("Y"))->count('id');
+        $dataMonthsales['Agosto'] =  Sale::whereMonth('created_at', '=', '08')->whereYear('created_at', '=', date("Y"))->count('id');
+        $dataMonthsales['Septiembre'] =  Sale::whereMonth('created_at', '=', '09')->whereYear('created_at', '=', date("Y"))->count('id');
+        $dataMonthsales['Octubre'] =  Sale::whereMonth('created_at', '=', '10')->whereYear('created_at', '=', date("Y"))->count('id');
+        $dataMonthsales['Noviembre'] =  Sale::whereMonth('created_at', '=', '11')->whereYear('created_at', '=', date("Y"))->count('id');
+        $dataMonthsales['Diciembre'] =  Sale::whereMonth('created_at', '=', '12')->whereYear('created_at', '=', date("Y"))->count('id');
 
         return $dataMonthsales;
     }
@@ -182,15 +181,12 @@ class DashboardController extends Controller
     public function mostSelledProductsTable()
     {
         $listMostSales = [];
-        
-        
-            $listMostSales = DB::table('sales')
-                ->leftJoin('product_sale', 'product_sale.sale_id', '=', 'sales.id')
-                ->leftJoin('products', 'products.id', '=', 'product_sale.product_id')
-                ->leftJoin('categories', 'categories.id', '=', 'products.category_id')
-                ->select('products.name as nombre_producto','categories.name as nombre_categoria')
-                ->get();
-        
+        $listMostSales = DB::table('sales')
+            ->leftJoin('product_sale', 'product_sale.sale_id', '=', 'sales.id')
+            ->leftJoin('products', 'products.id', '=', 'product_sale.product_id')
+            ->leftJoin('categories', 'categories.id', '=', 'products.category_id')
+            ->select('products.name as nombre_producto', 'categories.name as nombre_categoria')
+            ->get();
         return $listMostSales;
     }
 }

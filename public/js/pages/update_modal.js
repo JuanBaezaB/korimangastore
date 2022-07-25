@@ -1,180 +1,32 @@
+/*
+ * ATTENTION: An "eval-source-map" devtool has been used.
+ * This devtool is neither made for production nor for readable output files.
+ * It uses "eval()" calls to create a separate source file with attached SourceMaps in the browser devtools.
+ * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
+ * or disable the default devtool with "devtool: false".
+ * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
+ */
 /******/ (() => { // webpackBootstrap
-var __webpack_exports__ = {};
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./resources/js/pages/update_modal.js":
 /*!********************************************!*\
   !*** ./resources/js/pages/update_modal.js ***!
   \********************************************/
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+/***/ (() => {
 
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+eval("function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }\n\nfunction _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, \"prototype\", { writable: false }); return Constructor; }\n\nfunction _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }\n\nvar UpdateModal = /*#__PURE__*/function () {\n  function UpdateModal($, updateModal, form, editButtons, getOneUrl, csrf) {\n    _classCallCheck(this, UpdateModal);\n\n    this.$ = $;\n    this.$updateModal = $(updateModal);\n    this.$form = $(form);\n    this.toUpdate = [];\n    this.getOneUrl = getOneUrl;\n    this.csrf = csrf;\n    this.$editButtons = $(editButtons);\n    this.actionUrl = this.$form.attr('action');\n  }\n\n  _createClass(UpdateModal, [{\n    key: \"_process_opts\",\n    value: function _process_opts(opts) {\n      if (!opts.type) {\n        opts.type = 'plain';\n      }\n\n      if (!opts.inputDataKey) {\n        opts.inputDataKey = opts.inputName;\n      }\n\n      if (UpdateModal.VALID_OPT_TYPES.indexOf(opts.type) == -1) {\n        throw new Error(\"invalid opts type \".concat(opts.type));\n      }\n\n      if (!opts.inputName) {\n        throw new Error('no input name given');\n      }\n\n      return opts;\n    }\n  }, {\n    key: \"append\",\n    value: function append(opts) {\n      opts = this._process_opts(opts);\n      this.toUpdate.append(opts);\n      return this;\n    }\n  }, {\n    key: \"appendMany\",\n    value: function appendMany(lst) {\n      this.toUpdate = this.toUpdate.concat(lst.map(this._process_opts));\n      return this;\n    }\n  }, {\n    key: \"build\",\n    value: function build() {\n      var _this = this;\n\n      var $updateModal = _this.$updateModal;\n      this.toUpdate.forEach(function (opt) {\n        if (opt.type === 'select2' || opt.type === 'select2-multiple') {\n          var select2Opts = opt.options || {};\n          select2Opts.dropdownParent = $updateModal;\n\n          _this.fromOptGetInput(opt).select2(select2Opts);\n        } else if (opt.type == 'simplemde') {\n          var $input = _this.fromOptGetInput(opt);\n\n          var simplemdeOpts = opt.options || {};\n          simplemdeOpts.element = $input.get(0);\n          simplemdeOpts.toolbar = simplemdeOpts.toolbar || ['bold', 'italic', 'heading', '|', 'quote', 'unordered-list', 'ordered-list', 'preview'];\n          if (simplemdeOpts.spellChecker === undefined) simplemdeOpts.spellChecker = false;\n          var simplemde = new SimpleMDE(simplemdeOpts);\n          simplemde.render();\n          $input.on('focus', function () {\n            simplemde.codemirror.refresh();\n          });\n          $input.data('simplemde', simplemde);\n        }\n      });\n      this.$editButtons.on('click', this.makeOnClickCallback());\n      this.$form.submit(this.makeSubmitCallback());\n    }\n  }, {\n    key: \"fromOptGetInput\",\n    value: function fromOptGetInput(opt) {\n      if (!opt.inputName) {\n        throw new Error(\"can't get Input, does not have inputName\");\n      }\n\n      return this.$updateModal.find(\"[name=\".concat(opt.inputName, \"]\"));\n    }\n  }, {\n    key: \"makeSubmitCallback\",\n    value: function makeSubmitCallback() {\n      var _this = this;\n\n      var $ = this.$;\n      return function (e, from) {\n        var $updateModal = _this.$updateModal;\n\n        if (from == null) {\n          var $form = $(this);\n          var id = $updateModal.prop('x-data-id');\n\n          var actionUrl = _this.actionUrl.replace(':id', id);\n\n          $form.attr('action', actionUrl);\n          e.preventDefault();\n          $form.trigger('submit', ['update_modal.js']);\n        } else {}\n      };\n    }\n  }, {\n    key: \"makeOnClickCallback\",\n    value: function makeOnClickCallback() {\n      var _this = this;\n\n      var updater = this.makeUpdaterCallback();\n      var $ = this.$;\n      return function () {\n        var $button = $(this);\n        var id = $button.attr('x-data-id');\n        var url = _this.getOneUrl;\n        $.ajax(url, {\n          dataType: 'json',\n          contentType: 'application/json',\n          method: 'POST',\n          data: JSON.stringify({\n            'id': id,\n            '_token': _this.csrf\n          })\n        }).done(updater) // TODO make better error handling\n        .fail(function (x) {\n          return console.log(x);\n        });\n      };\n    }\n  }, {\n    key: \"makeUpdaterCallback\",\n    value: function makeUpdaterCallback() {\n      var _this = this;\n\n      var $ = this.$;\n      return function (data) {\n        var $updateModal = _this.$updateModal;\n        $updateModal.prop('x-data-id', data.id);\n\n        _this.toUpdate.forEach(function (x) {\n          var inputName = x.inputName,\n              inputDataKey = x.inputDataKey,\n              type = x.type;\n\n          var $input = _this.fromOptGetInput(x);\n\n          if (type == 'simplemde') {\n            $input.data('simplemde').value(data[inputDataKey]);\n          } else if ($input.prop('type') === 'checkbox') {\n            $input.get(0).checked = data[inputDataKey];\n          } else {\n            $input.val(data[inputDataKey]);\n          }\n\n          if (type == 'select2' || type === 'select2-multiple') {\n            $input.trigger('change');\n          }\n        });\n      };\n    }\n  }]);\n\n  return UpdateModal;\n}();\n\n_defineProperty(UpdateModal, \"VALID_OPT_TYPES\", ['plain', 'select2', 'select2-multiple', 'simplemde']);\n\njQuery.fn.extend({\n  updateModal: function updateModal(args) {\n    var form = args.form,\n        editButtons = args.editButtons,\n        getOneUrl = args.getOneUrl,\n        csrf = args.csrf,\n        fields = args.fields;\n    var $updateModal = this.first();\n    var inst = new UpdateModal(jQuery, $updateModal, form, editButtons, getOneUrl, csrf);\n    inst.appendMany(fields).build();\n    return $updateModal;\n  }\n});//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9yZXNvdXJjZXMvanMvcGFnZXMvdXBkYXRlX21vZGFsLmpzLmpzIiwibmFtZXMiOlsiVXBkYXRlTW9kYWwiLCIkIiwidXBkYXRlTW9kYWwiLCJmb3JtIiwiZWRpdEJ1dHRvbnMiLCJnZXRPbmVVcmwiLCJjc3JmIiwiJHVwZGF0ZU1vZGFsIiwiJGZvcm0iLCJ0b1VwZGF0ZSIsIiRlZGl0QnV0dG9ucyIsImFjdGlvblVybCIsImF0dHIiLCJvcHRzIiwidHlwZSIsImlucHV0RGF0YUtleSIsImlucHV0TmFtZSIsIlZBTElEX09QVF9UWVBFUyIsImluZGV4T2YiLCJFcnJvciIsIl9wcm9jZXNzX29wdHMiLCJhcHBlbmQiLCJsc3QiLCJjb25jYXQiLCJtYXAiLCJfdGhpcyIsImZvckVhY2giLCJvcHQiLCJzZWxlY3QyT3B0cyIsIm9wdGlvbnMiLCJkcm9wZG93blBhcmVudCIsImZyb21PcHRHZXRJbnB1dCIsInNlbGVjdDIiLCIkaW5wdXQiLCJzaW1wbGVtZGVPcHRzIiwiZWxlbWVudCIsImdldCIsInRvb2xiYXIiLCJzcGVsbENoZWNrZXIiLCJ1bmRlZmluZWQiLCJzaW1wbGVtZGUiLCJTaW1wbGVNREUiLCJyZW5kZXIiLCJvbiIsImNvZGVtaXJyb3IiLCJyZWZyZXNoIiwiZGF0YSIsIm1ha2VPbkNsaWNrQ2FsbGJhY2siLCJzdWJtaXQiLCJtYWtlU3VibWl0Q2FsbGJhY2siLCJmaW5kIiwiZSIsImZyb20iLCJpZCIsInByb3AiLCJyZXBsYWNlIiwicHJldmVudERlZmF1bHQiLCJ0cmlnZ2VyIiwidXBkYXRlciIsIm1ha2VVcGRhdGVyQ2FsbGJhY2siLCIkYnV0dG9uIiwidXJsIiwiYWpheCIsImRhdGFUeXBlIiwiY29udGVudFR5cGUiLCJtZXRob2QiLCJKU09OIiwic3RyaW5naWZ5IiwiZG9uZSIsImZhaWwiLCJ4IiwiY29uc29sZSIsImxvZyIsInZhbHVlIiwiY2hlY2tlZCIsInZhbCIsImpRdWVyeSIsImZuIiwiZXh0ZW5kIiwiYXJncyIsImZpZWxkcyIsImZpcnN0IiwiaW5zdCIsImFwcGVuZE1hbnkiLCJidWlsZCJdLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vLy4vcmVzb3VyY2VzL2pzL3BhZ2VzL3VwZGF0ZV9tb2RhbC5qcz9kODBiIl0sInNvdXJjZXNDb250ZW50IjpbIlxuY2xhc3MgVXBkYXRlTW9kYWwge1xuICAgIGNvbnN0cnVjdG9yICgkLCB1cGRhdGVNb2RhbCwgZm9ybSwgZWRpdEJ1dHRvbnMsIGdldE9uZVVybCwgY3NyZikge1xuICAgICAgICB0aGlzLiQgPSAkO1xuICAgICAgICB0aGlzLiR1cGRhdGVNb2RhbCA9ICQodXBkYXRlTW9kYWwpO1xuICAgICAgICB0aGlzLiRmb3JtID0gJChmb3JtKTtcblxuICAgICAgICB0aGlzLnRvVXBkYXRlID0gW107XG4gICAgICAgIHRoaXMuZ2V0T25lVXJsID0gZ2V0T25lVXJsO1xuICAgICAgICB0aGlzLmNzcmYgPSBjc3JmO1xuICAgICAgICB0aGlzLiRlZGl0QnV0dG9ucyA9ICQoZWRpdEJ1dHRvbnMpO1xuICAgICAgICB0aGlzLmFjdGlvblVybCA9IHRoaXMuJGZvcm0uYXR0cignYWN0aW9uJyk7XG4gICAgICAgIFxuICAgICAgICBcbiAgICB9XG5cbiAgICBzdGF0aWMgVkFMSURfT1BUX1RZUEVTID0gWydwbGFpbicsICdzZWxlY3QyJywgJ3NlbGVjdDItbXVsdGlwbGUnLCAnc2ltcGxlbWRlJ107XG5cbiAgICBfcHJvY2Vzc19vcHRzKG9wdHMpIHtcbiAgICAgICAgaWYgKCFvcHRzLnR5cGUpIHtcbiAgICAgICAgICAgIG9wdHMudHlwZSA9ICdwbGFpbic7XG4gICAgICAgIH1cbiAgICAgICAgaWYgKCFvcHRzLmlucHV0RGF0YUtleSkge1xuICAgICAgICAgICAgb3B0cy5pbnB1dERhdGFLZXkgPSBvcHRzLmlucHV0TmFtZTtcbiAgICAgICAgfVxuXG4gICAgICAgIGlmIChVcGRhdGVNb2RhbC5WQUxJRF9PUFRfVFlQRVMuaW5kZXhPZihvcHRzLnR5cGUpID09IC0xKSB7XG4gICAgICAgICAgICB0aHJvdyBuZXcgRXJyb3IoYGludmFsaWQgb3B0cyB0eXBlICR7b3B0cy50eXBlfWApO1xuICAgICAgICB9XG5cbiAgICAgICAgaWYgKCFvcHRzLmlucHV0TmFtZSkge1xuICAgICAgICAgICAgdGhyb3cgbmV3IEVycm9yKCdubyBpbnB1dCBuYW1lIGdpdmVuJyk7XG4gICAgICAgIH1cblxuICAgICAgICByZXR1cm4gb3B0cztcbiAgICB9XG5cbiAgICBhcHBlbmQgKG9wdHMpIHtcbiAgICAgICAgb3B0cyA9IHRoaXMuX3Byb2Nlc3Nfb3B0cyhvcHRzKTtcbiAgICAgICAgdGhpcy50b1VwZGF0ZS5hcHBlbmQob3B0cyk7XG4gICAgICAgIHJldHVybiB0aGlzO1xuICAgIH1cblxuICAgIGFwcGVuZE1hbnkgKGxzdCkge1xuICAgICAgICB0aGlzLnRvVXBkYXRlID0gdGhpcy50b1VwZGF0ZS5jb25jYXQobHN0Lm1hcCh0aGlzLl9wcm9jZXNzX29wdHMpKTtcbiAgICAgICAgcmV0dXJuIHRoaXM7XG4gICAgfVxuXG4gICAgYnVpbGQgKCkge1xuICAgICAgICBsZXQgX3RoaXMgPSB0aGlzO1xuICAgICAgICBsZXQgJHVwZGF0ZU1vZGFsID0gX3RoaXMuJHVwZGF0ZU1vZGFsO1xuICAgICAgICB0aGlzLnRvVXBkYXRlLmZvckVhY2goZnVuY3Rpb24gKG9wdCkge1xuICAgICAgICAgICAgaWYgKG9wdC50eXBlID09PSAnc2VsZWN0MicgfHwgb3B0LnR5cGUgPT09ICdzZWxlY3QyLW11bHRpcGxlJykge1xuICAgICAgICAgICAgICAgIGxldCBzZWxlY3QyT3B0cyA9IG9wdC5vcHRpb25zIHx8IHt9O1xuICAgICAgICAgICAgICAgIHNlbGVjdDJPcHRzLmRyb3Bkb3duUGFyZW50ID0gJHVwZGF0ZU1vZGFsO1xuICAgICAgICAgICAgICAgIF90aGlzLmZyb21PcHRHZXRJbnB1dChvcHQpLnNlbGVjdDIoc2VsZWN0Mk9wdHMpO1xuICAgICAgICAgICAgfSBlbHNlIGlmIChvcHQudHlwZSA9PSAnc2ltcGxlbWRlJykge1xuICAgICAgICAgICAgICAgIGxldCAkaW5wdXQgPSBfdGhpcy5mcm9tT3B0R2V0SW5wdXQob3B0KTtcbiAgICAgICAgICAgICAgICBsZXQgc2ltcGxlbWRlT3B0cyA9IG9wdC5vcHRpb25zIHx8IHt9O1xuICAgICAgICAgICAgICAgIHNpbXBsZW1kZU9wdHMuZWxlbWVudCA9JGlucHV0LmdldCgwKTtcbiAgICAgICAgICAgICAgICBzaW1wbGVtZGVPcHRzLnRvb2xiYXIgPSBzaW1wbGVtZGVPcHRzLnRvb2xiYXIgfHwgWydib2xkJywgJ2l0YWxpYycsICdoZWFkaW5nJywgJ3wnLCAncXVvdGUnLCAndW5vcmRlcmVkLWxpc3QnLCAnb3JkZXJlZC1saXN0JywgJ3ByZXZpZXcnXTtcbiAgICAgICAgICAgICAgICBpZiAoc2ltcGxlbWRlT3B0cy5zcGVsbENoZWNrZXIgPT09IHVuZGVmaW5lZCkgc2ltcGxlbWRlT3B0cy5zcGVsbENoZWNrZXIgPSBmYWxzZTtcbiAgICAgICAgICAgICAgICBsZXQgc2ltcGxlbWRlID0gbmV3IFNpbXBsZU1ERShzaW1wbGVtZGVPcHRzKTtcbiAgICAgICAgICAgICAgICBzaW1wbGVtZGUucmVuZGVyKCk7XG4gICAgICAgICAgICAgICAgJGlucHV0Lm9uKCdmb2N1cycsIGZ1bmN0aW9uKCkge1xuICAgICAgICAgICAgICAgICAgICBzaW1wbGVtZGUuY29kZW1pcnJvci5yZWZyZXNoKCk7XG4gICAgICAgICAgICAgICAgfSk7XG4gICAgICAgICAgICAgICAgJGlucHV0LmRhdGEoJ3NpbXBsZW1kZScsIHNpbXBsZW1kZSk7XG5cbiAgICAgICAgICAgIH1cbiAgICAgICAgfSk7XG5cbiAgICAgICAgdGhpcy4kZWRpdEJ1dHRvbnMub24oJ2NsaWNrJywgdGhpcy5tYWtlT25DbGlja0NhbGxiYWNrKCkpO1xuICAgICAgICB0aGlzLiRmb3JtLnN1Ym1pdCh0aGlzLm1ha2VTdWJtaXRDYWxsYmFjaygpKTtcblxuICAgIH1cblxuICAgIGZyb21PcHRHZXRJbnB1dChvcHQpIHtcbiAgICAgICAgaWYgKCFvcHQuaW5wdXROYW1lKSB7XG4gICAgICAgICAgICB0aHJvdyBuZXcgRXJyb3IoYGNhbid0IGdldCBJbnB1dCwgZG9lcyBub3QgaGF2ZSBpbnB1dE5hbWVgKTtcbiAgICAgICAgfVxuICAgICAgICByZXR1cm4gdGhpcy4kdXBkYXRlTW9kYWwuZmluZChgW25hbWU9JHtvcHQuaW5wdXROYW1lfV1gKTtcbiAgICB9XG5cbiAgICBtYWtlU3VibWl0Q2FsbGJhY2soKSB7XG4gICAgICAgIGxldCBfdGhpcyA9IHRoaXM7XG4gICAgICAgIGxldCAkID0gdGhpcy4kO1xuICAgICAgICByZXR1cm4gZnVuY3Rpb24gKGUsIGZyb20pIHtcbiAgICAgICAgICAgIGxldCAkdXBkYXRlTW9kYWwgPSBfdGhpcy4kdXBkYXRlTW9kYWw7XG4gICAgICAgICAgICBpZiAoZnJvbSA9PSBudWxsKSB7XG4gICAgICAgICAgICAgICAgbGV0ICRmb3JtID0gJCh0aGlzKTtcbiAgICAgICAgICAgICAgICBsZXQgaWQgPSAkdXBkYXRlTW9kYWwucHJvcCgneC1kYXRhLWlkJyk7XG4gICAgICAgICAgICAgICAgbGV0IGFjdGlvblVybCA9IF90aGlzLmFjdGlvblVybC5yZXBsYWNlKCc6aWQnLCBpZCk7XG4gICAgICAgICAgICAgICAgJGZvcm0uYXR0cignYWN0aW9uJywgYWN0aW9uVXJsKTtcbiAgICAgICAgICAgICAgICBlLnByZXZlbnREZWZhdWx0KCk7XG4gICAgICAgICAgICAgICAgJGZvcm0udHJpZ2dlcignc3VibWl0JywgWyd1cGRhdGVfbW9kYWwuanMnXSk7XG4gICAgICAgICAgICB9IGVsc2Uge1xuICAgICAgICAgICAgfVxuICAgICAgICB9O1xuICAgIH1cblxuICAgIG1ha2VPbkNsaWNrQ2FsbGJhY2soKSB7XG4gICAgICAgIGxldCBfdGhpcyA9IHRoaXM7XG4gICAgICAgIGxldCB1cGRhdGVyID0gdGhpcy5tYWtlVXBkYXRlckNhbGxiYWNrKCk7XG4gICAgICAgIGxldCAkID0gdGhpcy4kO1xuICAgICAgICByZXR1cm4gZnVuY3Rpb24gKCkge1xuICAgICAgICAgICAgbGV0ICRidXR0b24gPSAkKHRoaXMpO1xuICAgICAgICAgICAgbGV0IGlkID0gJGJ1dHRvbi5hdHRyKCd4LWRhdGEtaWQnKTtcbiAgICAgICAgICAgIGxldCB1cmwgPSBfdGhpcy5nZXRPbmVVcmw7XG4gICAgICAgICAgICAkLmFqYXgodXJsLCB7XG4gICAgICAgICAgICAgICAgZGF0YVR5cGU6ICdqc29uJyxcbiAgICAgICAgICAgICAgICBjb250ZW50VHlwZTogJ2FwcGxpY2F0aW9uL2pzb24nLFxuICAgICAgICAgICAgICAgIG1ldGhvZDogJ1BPU1QnLFxuICAgICAgICAgICAgICAgIGRhdGE6IEpTT04uc3RyaW5naWZ5KHtcbiAgICAgICAgICAgICAgICAgICAgJ2lkJzogaWQsXG4gICAgICAgICAgICAgICAgICAgICdfdG9rZW4nOiBfdGhpcy5jc3JmXG4gICAgICAgICAgICAgICAgfSlcbiAgICAgICAgICAgIH0pXG4gICAgICAgICAgICAuZG9uZSh1cGRhdGVyKVxuXG4gICAgICAgICAgICAvLyBUT0RPIG1ha2UgYmV0dGVyIGVycm9yIGhhbmRsaW5nXG4gICAgICAgICAgICAuZmFpbCh4ID0+IGNvbnNvbGUubG9nKHgpKTtcblxuICAgICAgICB9O1xuICAgIH1cblxuICAgIG1ha2VVcGRhdGVyQ2FsbGJhY2soKSB7XG4gICAgICAgIGxldCBfdGhpcyA9IHRoaXM7XG4gICAgICAgIGxldCAkID0gdGhpcy4kO1xuICAgICAgICByZXR1cm4gZnVuY3Rpb24gKGRhdGEpIHtcbiAgICAgICAgICAgIGxldCAkdXBkYXRlTW9kYWwgPSBfdGhpcy4kdXBkYXRlTW9kYWw7XG4gICAgICAgICAgICAkdXBkYXRlTW9kYWwucHJvcCgneC1kYXRhLWlkJywgZGF0YS5pZCk7XG4gICAgICAgICAgICBfdGhpcy50b1VwZGF0ZS5mb3JFYWNoKHggPT4ge1xuICAgICAgICAgICAgICAgIGNvbnN0IHtpbnB1dE5hbWUsIGlucHV0RGF0YUtleSwgdHlwZX0gPSB4O1xuICAgICAgICAgICAgICAgIGxldCAkaW5wdXQgPSBfdGhpcy5mcm9tT3B0R2V0SW5wdXQoeCk7XG4gICAgICAgICAgICAgICAgaWYgKHR5cGUgPT0gJ3NpbXBsZW1kZScpIHtcbiAgICAgICAgICAgICAgICAgICAgJGlucHV0LmRhdGEoJ3NpbXBsZW1kZScpLnZhbHVlKGRhdGFbaW5wdXREYXRhS2V5XSk7XG4gICAgICAgICAgICAgICAgfSBlbHNlIGlmICgkaW5wdXQucHJvcCgndHlwZScpID09PSAnY2hlY2tib3gnKSB7XG4gICAgICAgICAgICAgICAgICAgICRpbnB1dC5nZXQoMCkuY2hlY2tlZCA9IGRhdGFbaW5wdXREYXRhS2V5XTtcbiAgICAgICAgICAgICAgICB9IGVsc2Uge1xuICAgICAgICAgICAgICAgICAgICAkaW5wdXQudmFsKGRhdGFbaW5wdXREYXRhS2V5XSk7XG4gICAgICAgICAgICAgICAgfVxuXG4gICAgICAgICAgICAgICAgaWYgKHR5cGUgPT0gJ3NlbGVjdDInIHx8IHR5cGUgPT09ICdzZWxlY3QyLW11bHRpcGxlJykge1xuICAgICAgICAgICAgICAgICAgICAkaW5wdXQudHJpZ2dlcignY2hhbmdlJyk7XG4gICAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgfSk7XG4gICAgICAgIH07XG4gICAgfVxufVxuXG5qUXVlcnkuZm4uZXh0ZW5kKHtcbiAgICB1cGRhdGVNb2RhbDogZnVuY3Rpb24gKGFyZ3MpIHtcbiAgICAgICAgY29uc3Qge2Zvcm0sIGVkaXRCdXR0b25zLCBnZXRPbmVVcmwsIGNzcmYsIGZpZWxkc30gPSBhcmdzO1xuICAgICAgICBsZXQgJHVwZGF0ZU1vZGFsID0gdGhpcy5maXJzdCgpO1xuICAgICAgICBsZXQgaW5zdCA9IG5ldyBVcGRhdGVNb2RhbChqUXVlcnksICR1cGRhdGVNb2RhbCwgZm9ybSwgZWRpdEJ1dHRvbnMsIGdldE9uZVVybCwgY3NyZik7XG4gICAgICAgIGluc3QuYXBwZW5kTWFueShmaWVs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\n//# sourceURL=webpack-internal:///./resources/js/pages/update_modal.js\n");
 
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+/***/ })
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var UpdateModal = /*#__PURE__*/function () {
-  function UpdateModal($, updateModal, form, editButtons, getOneUrl, csrf) {
-    _classCallCheck(this, UpdateModal);
-
-    this.$ = $;
-    this.$updateModal = $(updateModal);
-    this.$form = $(form);
-    this.toUpdate = [];
-    this.getOneUrl = getOneUrl;
-    this.csrf = csrf;
-    this.$editButtons = $(editButtons);
-    this.actionUrl = this.$form.attr('action');
-  }
-
-  _createClass(UpdateModal, [{
-    key: "_process_opts",
-    value: function _process_opts(opts) {
-      if (!opts.type) {
-        opts.type = 'plain';
-      }
-
-      if (!opts.inputDataKey) {
-        opts.inputDataKey = opts.inputName;
-      }
-
-      if (UpdateModal.VALID_OPT_TYPES.indexOf(opts.type) == -1) {
-        throw new Error("invalid opts type ".concat(opts.type));
-      }
-
-      if (!opts.inputName) {
-        throw new Error('no input name given');
-      }
-
-      return opts;
-    }
-  }, {
-    key: "append",
-    value: function append(opts) {
-      opts = this._process_opts(opts);
-      this.toUpdate.append(opts);
-      return this;
-    }
-  }, {
-    key: "appendMany",
-    value: function appendMany(lst) {
-      this.toUpdate = this.toUpdate.concat(lst.map(this._process_opts));
-      return this;
-    }
-  }, {
-    key: "build",
-    value: function build() {
-      var _this = this;
-
-      var $updateModal = _this.$updateModal;
-      this.toUpdate.forEach(function (opt) {
-        if (opt.type === 'select2' || opt.type === 'select2-multiple') {
-          var select2Opts = opt.options || {};
-          select2Opts.dropdownParent = $updateModal;
-
-          _this.fromOptGetInput(opt).select2(select2Opts);
-        }
-      });
-      this.$editButtons.on('click', this.makeOnClickCallback());
-      this.$form.submit(this.makeSubmitCallback());
-    }
-  }, {
-    key: "fromOptGetInput",
-    value: function fromOptGetInput(opt) {
-      if (!opt.inputName) {
-        throw new Error("can't get Input, does not have inputName");
-      }
-
-      return this.$updateModal.find("[name=".concat(opt.inputName, "]"));
-    }
-  }, {
-    key: "makeSubmitCallback",
-    value: function makeSubmitCallback() {
-      var _this = this;
-
-      var $ = this.$;
-      return function (e, from) {
-        var $updateModal = _this.$updateModal;
-
-        if (from == null) {
-          var $form = $(this);
-          var id = $updateModal.prop('x-data-id');
-
-          var actionUrl = _this.actionUrl.replace(':id', id);
-
-          $form.attr('action', actionUrl);
-          e.preventDefault();
-          $form.trigger('submit', ['update_modal.js']);
-        } else {}
-      };
-    }
-  }, {
-    key: "makeOnClickCallback",
-    value: function makeOnClickCallback() {
-      var _this = this;
-
-      var updater = this.makeUpdaterCallback();
-      var $ = this.$;
-      return function () {
-        var $button = $(this);
-        var id = $button.attr('x-data-id');
-        var url = _this.getOneUrl;
-        $.ajax(url, {
-          dataType: 'json',
-          contentType: 'application/json',
-          method: 'POST',
-          data: JSON.stringify({
-            'id': id,
-            '_token': _this.csrf
-          })
-        }).done(updater) // TODO make better error handling
-        .fail(function (x) {
-          return console.log(x);
-        });
-      };
-    }
-  }, {
-    key: "makeUpdaterCallback",
-    value: function makeUpdaterCallback() {
-      var _this = this;
-
-      var $ = this.$;
-      return function (data) {
-        var $updateModal = _this.$updateModal;
-        $updateModal.prop('x-data-id', data.id);
-
-        _this.toUpdate.forEach(function (x) {
-          var inputName = x.inputName,
-              inputDataKey = x.inputDataKey,
-              type = x.type;
-
-          var $input = _this.fromOptGetInput(x);
-
-          $input.val(data[inputDataKey]);
-
-          if (type == 'select2' || type === 'select2-multiple') {
-            $input.trigger('change');
-          }
-        });
-      };
-    }
-  }]);
-
-  return UpdateModal;
-}();
-
-_defineProperty(UpdateModal, "VALID_OPT_TYPES", ['plain', 'select2', 'select2-multiple']);
-
-jQuery.fn.extend({
-  updateModal: function updateModal(args) {
-    var form = args.form,
-        editButtons = args.editButtons,
-        getOneUrl = args.getOneUrl,
-        csrf = args.csrf,
-        fields = args.fields;
-    var $updateModal = this.first();
-    var inst = new UpdateModal(jQuery, $updateModal, form, editButtons, getOneUrl, csrf);
-    inst.appendMany(fields).build();
-    return $updateModal;
-  }
-});
+/******/ 	});
+/************************************************************************/
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module can't be inlined because the eval-source-map devtool is used.
+/******/ 	var __webpack_exports__ = {};
+/******/ 	__webpack_modules__["./resources/js/pages/update_modal.js"]();
+/******/ 	
 /******/ })()
 ;
