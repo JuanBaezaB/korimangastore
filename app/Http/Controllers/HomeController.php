@@ -59,6 +59,11 @@ class HomeController extends Controller
     {
         try {
             $product = Product::findOrFail($id);
+            $stocks = Product::select('branches.name as name', 'branch_product.stock as stock')
+                ->leftJoin('branch_product', 'products.id', '=', 'branch_product.product_id')
+                ->leftJoin('branches', 'branches.id', '=', 'branch_product.branch_id')
+                ->where('products.id', '=', $product->id)
+                ->get();
             $providers = Provider::all();
             $series = Serie::all();
             $publishers = Editorial::all();
@@ -74,6 +79,7 @@ class HomeController extends Controller
             'public.show-product',
             compact(
                 'product',
+                'stocks',
                 'providers',
                 'series',
                 'publishers',

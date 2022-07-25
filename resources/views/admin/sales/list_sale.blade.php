@@ -42,7 +42,7 @@
                 <div class="block-options">
                     <a class="btn btn-sm btn-alt-secondary btn-primary" href="{{ route('sale.create') }}">
                         <i class="fa fa-fw fa fa-plus"></i> Realizar venta
-                    </a>   
+                    </a>
                 </div>
             </div>
             <div class="block-content block-content-full">
@@ -70,7 +70,6 @@
                             <th class="" style="">Vendedor</th>
                             <th class="" style="">n° Productos</th>
                             <th class="" style="">Precio Total</th>
-                            <th style="">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -157,14 +156,7 @@
                 { data: 'user.name' },
                 { data: 'products_count' },
                 { data: 'total_price' },
-                {
-                    data: null,
-                    searchable: null,
-                    orderable: null,
-                    render: function (data, type, row, meta) {
-                        return ''; // agregar modal para ver detalles
-                    }
-                }
+
             ],
             dom: 'Bfrtip',
             responsive: true,

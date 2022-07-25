@@ -18,7 +18,8 @@
                     <a class="nav-link {{ request()->is('/') ? 'text-info' : '' }}"
                         href="{{ route('index.home') }}">Inicio</a>
                 </li>
-                <li class="nav-item dropdown">
+
+                <li hidden class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         Mangas
@@ -43,22 +44,6 @@
                     <a class="nav-link {{ request()->is('nosotros*') ? 'text-info' : '' }}"
                         href="{{ route('about-us') }}">Nosotros</a>
                 </li>
-                <li class="nav-item dropdown d-none d-lg-block d-xl-none">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        Buscar
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                        <li class="nav-item">
-                            <div class="ms-3 me-3" style="width: 250px">
-                                <input type="search"
-                                    class="form-control form-control-dark bg-dark btn-outline-info text-white mb-1 mt-1"
-                                    placeholder="🔍︎ Busca aquí tu producto..." aria-label="Search">
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-
             </ul>
 
             <livewire:cart-shopping>

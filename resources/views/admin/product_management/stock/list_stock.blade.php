@@ -43,14 +43,14 @@
                     <a class="btn btn-sm btn-alt-secondary btn-primary" href="{{ route('stock.create') }}">
                         <i class="fa fa-fw fa fa-plus"></i> Añadir nuevo
                     </a>
-                    
+
                 </div>
             </div>
             <div class="block-content block-content-full">
                 <div class="row items-push">
                     <h5>Seleccione una sucursal</h5>
                     <div class="d-flex flex-column col-sm-8 pb-3 flex-sm-row justify-content-sm-start align-items-sm-center">
-                        
+
                         <div class="mx-sm-2 flex-grow-1">
                             <select id="change-branch-select" class="js-select2 form-select" style="width: 100%;" autocomplete="off">
                                 <option value="" {{ ($is_all_branches) ? 'selected' : '' }}>Todos</option>
@@ -68,8 +68,8 @@
                         <tr>
                             <th style="width: 9%">Unidades</th>
                             <th style="width: 50%">Nombre</th>
-                            <th class="d-none d-sm-table-cell" style="width: 40%;">Tipo</th>
-                            <th class="d-none d-sm-table-cell" style="width: 15%;">Precio</th>
+                            <th class="" style="width: 40%;">Tipo</th>
+                            <th class="" style="width: 15%;">Precio</th>
                             <th style="width: 10%;">Acciones</th>
                         </tr>
                     </thead>
@@ -163,7 +163,7 @@
                 dom: 'Bfrtip',
                 responsive: true,
                     columnDefs: [
-                        { responsivePriority: 1, targets: 0 },
+                        { responsivePriority: 1, targets: 1 },
                         { responsivePriority: 2, targets: -1 }
                     ],
                 buttons: [{

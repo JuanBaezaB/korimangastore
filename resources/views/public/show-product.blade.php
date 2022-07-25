@@ -103,6 +103,35 @@
 
                         </div>
                     </div>
+                    @isset($stocks)
+                        <div class="card text-dark shadow mb-3">
+                            <div class="card-header bg-info"><b>Disponibilidad</b></div>
+                            <div class="card-body">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="text-center">Sucursal</th>
+                                            <th scope="col" class="text-center">Cantidad</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($stocks as $stock)
+                                            <tr>
+                                                <th scope="row" class="text-center">{{ $stock->name }}</th>
+                                                <td class="text-center">{{ $stock->stock }}</td>
+                                            </tr>
+                                        @endforeach
+
+                                    </tbody>
+                                </table>
+                                <div class="text-center card-text">
+
+                                </div>
+
+                            </div>
+                        </div>
+                    @endisset
+
 
                 </div>
             </div>
