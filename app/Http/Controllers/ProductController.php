@@ -124,7 +124,8 @@ class ProductController extends Controller
      * @return \Illuminate\Support\Collection
      */
     protected static function accumulateArtists($illustrators, $writers) {
-
+        $illustrators = $illustrators ? $illustrators : [];
+        $writers = $writers ? $writers : [];
         $artists = [];
         foreach ($illustrators as $artBy) {
             $artists[$artBy] = [ 'creative_type' => 'art' ];
