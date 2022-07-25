@@ -265,27 +265,7 @@ class UserController extends Controller
         User::find(auth()->user()->id)->update(['password' => Hash::make($request->new_password)]);
 
         return redirect()->route('user.profile')
-            ->with('success', 'updated-password');
+        ->with('success', 'updated-password');
 
-        /* $validator = Validator::make(
-            $request->all(),
-            [
-                'password' => ['required', 'string', 'max:255'],
-            ]
-        );
-        if ($validator->fails()) {
-            return redirect()->route('user.profile')
-                ->withErrors($validator)
-                ->withInput();
-        } else {
-            $user = User::find($id);
-            $user->update([
-                'password' => $request['password'],
-            ]);
-
-
-
-
-        }*/
     }
 }
