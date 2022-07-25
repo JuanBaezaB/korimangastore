@@ -125,9 +125,10 @@
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <!-- Option -->
                             <li><a class="dropdown-item" href="/perfil-de-usuario">
-li><a class="dropdown-item" href="#">
+                                <b>
+                                    <i class="fa-solid fa-user-gear pe-2"></i>
                                     Configurar mi perfil
-                                    </b></a>
+                                </b></a>
                             </li>
 
                             <!-- Option -->
