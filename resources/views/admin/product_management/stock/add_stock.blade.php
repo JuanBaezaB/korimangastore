@@ -48,21 +48,23 @@
                 <div class="row items-push">
                     <div class="col-lg-8 col-md-6">
                         <div class="">
+                            <h5>Seleccione una sucursal</h5>
                             <select id="change-branch-select" class="js-select2 form-select" style="width: 100%;" autocomplete="off" data-placeholder="Elige una sucursal..." >
                                 @foreach($branches as $branch)
                                     <option value="{{ $branch->id }}" {{ (isset($the_branch->id) && $the_branch->id==$branch->id) ? 'selected' : '' }}>{{ $branch->name }}</option>
                                 @endforeach
                             </select>
                         </div>
-
                     </div>
                     <div class="col-lg-8 col-md-6">
                         <div class="">
+                            <h5>Seleccione un producto</h5>
                             <x-product-search id="select-product" />
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6">
                         <div class="row">
+                            <h5>Ingrese una cantidad</h5>
                             <div class="col-sm-6">
                                 <div class="mb-3"><input type="number" id="qnt-product-stock" class="form-control" min="1" value="1" autocomplete="off" /></div>
                             </div>
@@ -150,7 +152,7 @@
                         'product.category.name',
                         null
                     ];
-
+                    //console.log(data);
                     for (var i = 0; i < order.length; ++i) {
                         var colKey = order[i];
                         if (colKey) {

@@ -48,8 +48,9 @@
             </div>
             <div class="block-content block-content-full">
                 <div class="row items-push">
+                    <h5>Seleccione una sucursal</h5>
                     <div class="d-flex flex-column col-sm-8 pb-3 flex-sm-row justify-content-sm-start align-items-sm-center">
-                        Sucursal
+                        
                         <div class="mx-sm-2 flex-grow-1">
                             <select id="change-branch-select" class="js-select2 form-select" style="width: 100%;" autocomplete="off">
                                 <option value="" {{ ($is_all_branches) ? 'selected' : '' }}>Todos</option>
