@@ -135,7 +135,16 @@
                         <!-- User Info -->
                         <div class="ms-2">
                             <a class="text-white fw-semibold" href="javascript:void(0)">{{ Auth::user()->name }}</a>
-                            <div class="text-white-75 fs-sm">Full Stack Developer</div>
+                            @hasrole('Vendedor')
+                                <div class="text-white-75 fs-sm">Vendedor</div>
+                            @endhasrole
+
+                            @hasrole('Admin')
+                                <div class="text-white-75 fs-sm">Administrador</div>
+                            @endhasrole
+
+
+
                         </div>
                         <!-- END User Info -->
 
@@ -157,7 +166,7 @@
                     <!-- Color Themes -->
                     <!-- Toggle Themes functionality initialized in Template._uiHandleTheme() -->
                     <div class="block-content block-content-sm block-content-full bg-body">
-                        <span class="text-uppercase fs-sm fw-bold">Color Themes</span>
+                        <span class="text-uppercase fs-sm fw-bold">Color del Tema</span>
                     </div>
                     <div class="block-content block-content-full">
                         <div class="row g-sm text-center">
@@ -221,17 +230,17 @@
 
                     <!-- Sidebar -->
                     <div class="block-content block-content-sm block-content-full bg-body">
-                        <span class="text-uppercase fs-sm fw-bold">Sidebar</span>
+                        <span class="text-uppercase fs-sm fw-bold">Barra Lateral Izquierda</span>
                     </div>
                     <div class="block-content block-content-full">
                         <div class="row g-sm text-center">
                             <div class="col-6 mb-1">
                                 <a class="d-block py-3 bg-body-dark fw-semibold text-dark" data-toggle="layout"
-                                    data-action="sidebar_style_dark" href="javascript:void(0)">Dark</a>
+                                    data-action="sidebar_style_dark" href="javascript:void(0)">Oscura</a>
                             </div>
                             <div class="col-6 mb-1">
                                 <a class="d-block py-3 bg-body-dark fw-semibold text-dark" data-toggle="layout"
-                                    data-action="sidebar_style_light" href="javascript:void(0)">Light</a>
+                                    data-action="sidebar_style_light" href="javascript:void(0)">Luminosa</a>
                             </div>
                         </div>
                     </div>
@@ -239,25 +248,25 @@
 
                     <!-- Header -->
                     <div class="block-content block-content-sm block-content-full bg-body">
-                        <span class="text-uppercase fs-sm fw-bold">Header</span>
+                        <span class="text-uppercase fs-sm fw-bold">Barra superior</span>
                     </div>
                     <div class="block-content block-content-full">
                         <div class="row g-sm text-center mb-2">
                             <div class="col-6 mb-1">
                                 <a class="d-block py-3 bg-body-dark fw-semibold text-dark" data-toggle="layout"
-                                    data-action="header_style_dark" href="javascript:void(0)">Dark</a>
+                                    data-action="header_style_dark" href="javascript:void(0)">Oscura</a>
                             </div>
                             <div class="col-6 mb-1">
                                 <a class="d-block py-3 bg-body-dark fw-semibold text-dark" data-toggle="layout"
-                                    data-action="header_style_light" href="javascript:void(0)">Light</a>
+                                    data-action="header_style_light" href="javascript:void(0)">Luminosa</a>
                             </div>
                             <div class="col-6 mb-1">
                                 <a class="d-block py-3 bg-body-dark fw-semibold text-dark" data-toggle="layout"
-                                    data-action="header_mode_fixed" href="javascript:void(0)">Fixed</a>
+                                    data-action="header_mode_fixed" href="javascript:void(0)">Dinámica</a>
                             </div>
                             <div class="col-6 mb-1">
                                 <a class="d-block py-3 bg-body-dark fw-semibold text-dark" data-toggle="layout"
-                                    data-action="header_mode_static" href="javascript:void(0)">Static</a>
+                                    data-action="header_mode_static" href="javascript:void(0)">Estática</a>
                             </div>
                         </div>
                     </div>
@@ -265,21 +274,21 @@
 
                     <!-- Content -->
                     <div class="block-content block-content-sm block-content-full bg-body">
-                        <span class="text-uppercase fs-sm fw-bold">Content</span>
+                        <span class="text-uppercase fs-sm fw-bold">Contenido</span>
                     </div>
                     <div class="block-content block-content-full">
                         <div class="row g-sm text-center">
                             <div class="col-6 mb-1">
                                 <a class="d-block py-3 bg-body-dark fw-semibold text-dark" data-toggle="layout"
-                                    data-action="content_layout_boxed" href="javascript:void(0)">Boxed</a>
+                                    data-action="content_layout_boxed" href="javascript:void(0)">Ajustado</a>
                             </div>
                             <div class="col-6 mb-1">
                                 <a class="d-block py-3 bg-body-dark fw-semibold text-dark" data-toggle="layout"
-                                    data-action="content_layout_narrow" href="javascript:void(0)">Narrow</a>
+                                    data-action="content_layout_narrow" href="javascript:void(0)">Normal</a>
                             </div>
                             <div class="col-12 mb-1">
                                 <a class="d-block py-3 bg-body-dark fw-semibold text-dark" data-toggle="layout"
-                                    data-action="content_layout_full_width" href="javascript:void(0)">Full Width</a>
+                                    data-action="content_layout_full_width" href="javascript:void(0)">Ancho</a>
                             </div>
                         </div>
                     </div>
@@ -288,11 +297,11 @@
                 <div class="block pull-x mb-0">
                     <!-- Content -->
                     <div class="block-content block-content-sm block-content-full bg-body">
-                        <span class="text-uppercase fs-sm fw-bold">Heading</span>
+                        <span class="text-uppercase fs-sm fw-bold">Menú de Personalización</span>
                     </div>
                     <div class="block-content">
                         <p>
-                            Content..
+                            Copyright &copy; <b>Kori</b>MangaStore 2022
                         </p>
                     </div>
                     <!-- END Content -->
@@ -414,11 +423,11 @@
                         </button>
                         <div class="dropdown-menu dropdown-menu-end p-0" aria-labelledby="page-header-user-dropdown">
                             <div class="bg-primary-dark rounded-top fw-semibold text-white text-center p-3">
-                                User Options
+                                Opciones de Usuario
                             </div>
                             <div class="p-2">
                                 <a class="dropdown-item" href="{{route('user.profile')}}">
-                                    <i class="far fa-fw fa-user me-1"></i> Profile
+                                    <i class="far fa-fw fa-user me-1"></i> Perfil
                                 </a>
                                 <div role="separator" class="dropdown-divider"></div>
 
@@ -426,7 +435,7 @@
                                 <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
                                 <a class="dropdown-item" href="javascript:void(0)" data-toggle="layout"
                                     data-action="side_overlay_toggle">
-                                    <i class="far fa-fw fa-building me-1"></i> Settings
+                                    <i class="far fa-fw fa-building me-1"></i> Temas
                                 </a>
                                 <!-- END Side Overlay -->
 

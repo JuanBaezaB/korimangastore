@@ -52,7 +52,7 @@ Stacks:
             <div class="block-header block-header-default">
                 <h3 class="block-title">{{ $nombre_crud }}</h3>
                 <div class="block-options">
-                    <buttonb {{ request()->is('gestion-base/gestion-usuarios/permisos') ? ' hidden' : '' }} class="btn btn-sm btn-alt-secondary btn-primary" data-bs-toggle="modal"
+                    <button {{ request()->is('gestion-base/gestion-usuarios/permisos') || request()->is('soporte/preguntas-frecuentes/administracion')? ' hidden' : '' }} class="btn btn-sm btn-alt-secondary btn-primary" data-bs-toggle="modal"
                         data-bs-target="#add_item" data-bs-whatever="@mdo">
                         <i class="fa fa-fw fa fa-plus"></i> Ingresar {{ mb_strtolower($nombre_crud) }}
                     </button>
@@ -72,12 +72,12 @@ Stacks:
                 @endif
 
                 <!-- DataTables init on table by adding .js-dataTable-full class, functionality is initialized in js/pages/be_tables_datatables.min.js which was auto compiled from _js/pages/be_tables_datatables.js -->
-                <table id="product-table" class="table table-bordered table-striped table-vcenter table-hover w-100 display">
+                <table id="product-table" style="width: 100%;" class="table table-bordered table-striped table-vcenter">
                     <thead>
                         <tr>
                             <!-- <th class="text-center" style="width: 80px;">#</th> -->
                             @yield('label_headers')
-                            <th {{ request()->is('gestion-base/gestion-usuarios/permisos') ? ' hidden' : '' }} style="width: 10%;">Acciones</th>
+                            <th data-priority="2" {{ request()->is('gestion-base/gestion-usuarios/permisos') ? ' hidden' : '' }} style="width: 10%;">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>

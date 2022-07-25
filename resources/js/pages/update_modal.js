@@ -14,7 +14,7 @@ class UpdateModal {
         
     }
 
-    static VALID_OPT_TYPES = ['plain', 'select2', 'select2-multiple'];
+    static VALID_OPT_TYPES = ['plain', 'select2', 'select2-multiple', 'simplemde'];
 
     _process_opts(opts) {
         if (!opts.type) {
@@ -54,6 +54,19 @@ class UpdateModal {
                 let select2Opts = opt.options || {};
                 select2Opts.dropdownParent = $updateModal;
                 _this.fromOptGetInput(opt).select2(select2Opts);
+            } else if (opt.type == 'simplemde') {
+                let $input = _this.fromOptGetInput(opt);
+                let simplemdeOpts = opt.options || {};
+                simplemdeOpts.element =$input.get(0);
+                simplemdeOpts.toolbar = simplemdeOpts.toolbar || ['bold', 'italic', 'heading', '|', 'quote', 'unordered-list', 'ordered-list', 'preview'];
+                if (simplemdeOpts.spellChecker === undefined) simplemdeOpts.spellChecker = false;
+                let simplemde = new SimpleMDE(simplemdeOpts);
+                simplemde.render();
+                $input.on('focus', function() {
+                    simplemde.codemirror.refresh();
+                });
+                $input.data('simplemde', simplemde);
+
             }
         });
 
@@ -120,7 +133,14 @@ class UpdateModal {
             _this.toUpdate.forEach(x => {
                 const {inputName, inputDataKey, type} = x;
                 let $input = _this.fromOptGetInput(x);
-                $input.val(data[inputDataKey]);
+                if (type == 'simplemde') {
+                    $input.data('simplemde').value(data[inputDataKey]);
+                } else if ($input.prop('type') === 'checkbox') {
+                    $input.get(0).checked = data[inputDataKey];
+                } else {
+                    $input.val(data[inputDataKey]);
+                }
+
                 if (type == 'select2' || type === 'select2-multiple') {
                     $input.trigger('change');
                 }

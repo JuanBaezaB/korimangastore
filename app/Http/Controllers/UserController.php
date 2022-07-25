@@ -268,4 +268,86 @@ class UserController extends Controller
         ->with('success', 'updated-password');
 
     }
+
+
+
+    //////////////////////////////////////////////////////
+
+
+    //Perfil de usuario
+    public function clienteProfile()
+    {
+        $lastLogin = UserLastLogin::where('user_id', '=', auth()->user()->id)
+            ->orderByDesc('added_on')
+            ->take(1)
+            ->get();
+
+        $lastFiveLogin = UserLastLogin::where('user_id', '=', auth()->user()->id)
+            ->orderByDesc('added_on')
+            ->take(5)
+            ->get();
+
+        return response()->view('admin.basic_management.user-management.cliente.profile',compact('lastFiveLogin','lastLogin'));
+    }
+
+    public function clienteEditProfile(Request $request, $id)
+    {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name' => ['required', 'string', 'max:255'],
+                'image' => ['image', 'max:2048'],
+            ],
+            [
+                'name.required' => 'Por favor, ingrese su nuevo nombre.',
+                'image.image' => 'El tipo de archivo subido debe ser una imagen..',
+                'image.uploaded' => 'No se pudo cargar una imagen. El tamaño máximo de la imagen es de 2 MB.',
+            ]
+        );
+        if ($validator->fails()) {
+            return redirect()->route('cliente.profile')
+                ->withErrors($validator)
+                ->withInput();
+        } else {
+
+            $user = User::find($id);
+            if ($request->file('image')) {
+                $path = $request->file('image')->storeAs('user-image', date('YmdHi') . $request->file('image')->getClientOriginalName(), 'public');
+                $user->update([
+                    'name' => $request['name'],
+                    'email' => $request['email'],
+                    'image' => $path,
+
+                ]);
+            } else {
+                $user->update([
+                    'name' => $request['name'],
+                    'email' => $request['email'],
+                ]);
+            };
+
+            return redirect()->route('cliente.profile')
+                ->with('success', 'updated-profile');
+        }
+    }
+
+    public function clienteEditPassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => ['required', new MatchOldPassword],
+            'new_password' => ['required'],
+            'new_confirm_password' => ['required'],
+            'new_confirm_password' => ['same:new_password'],
+        ],[
+            'new_password.required' => 'Por favor, ingrese una contraseña nueva.',
+            'new_confirm_password.same' => 'Por favor, asegure de que "Nueva Contraseña" sea igual a "Confirme su nueva contraseña".',
+            'new_confirm_password.required' => 'Por favor, complete el campo de confirmación de contraseña.',
+        ]);
+
+        User::find(auth()->user()->id)->update(['password' => Hash::make($request->new_password)]);
+
+        return redirect()->route('cliente.profile')
+            ->with('success', 'updated-password');
+
+    }
 }

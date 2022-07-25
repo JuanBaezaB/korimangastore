@@ -21,6 +21,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\UserQuestionController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -46,8 +47,13 @@ Route::view('/nosotros', 'public.about-us')->name('about-us');
 Route::view('/articulo', 'public.article')->name('article');
 
 /*  Soporte */
-Route::view('/soporte', 'public.user-support')->name('user-support');
-Route::view('/preguntas-frecuentes', 'public.faq')->name('user-faq');
+Route::get('/soporte', [UserQuestionController::class, 'index'])->name('user-support');
+Route::post('/soporte', [UserQuestionController::class, 'question'])->name('user-question-pub');
+Route::get('/preguntas-frecuentes', [UserQuestionController::class, 'visible'])->name('user-questions.visible');
+Route::view('/preguntas-frecuentes/ingreso-exitoso', 'public.userfaq-success')->name('userfaq-success');
+
+/*  Soporte */
+//Route::view('/preguntas-frecuentes', 'public.faq')->name('user-faq');
 
 /*  Carrito */
 Route::get('/add-cart', [CartController::class, 'add'])->name('cart.add');
@@ -61,8 +67,6 @@ Route::post('/clear-cart', [CartController::class, 'clear'])->name('cart.clear')
 Route::view('/reserva', 'public.booking')->name('user-booking');
 
 
-
-
 Auth::routes();
 
 
@@ -72,6 +76,16 @@ Route::view('/forms/be_forms_input_groups', 'admin.forms.be_forms_input_groups')
 Route::view('/forms/be_forms_plugins', 'admin.forms.be_forms_plugins')->middleware('auth');
 Route::view('/forms/be_forms_editors', 'admin.forms.be_forms_editors')->middleware('auth');
 Route::view('/forms/be_forms_validation', 'admin.forms.be_forms_validation')->middleware('auth');
+
+Route::group(['middleware' => ['role:User']], function () {
+
+    /*Perfil De Usuario Cliente*/
+    Route::get('/perfil-de-usuario', [UserController::class, 'clienteProfile'])->name('cliente.profile')->middleware();
+    Route::patch('/contrasena', [UserController::class, 'clienteEditPassword'])->name('cliente.editPassword')->middleware();
+    Route::patch('/perfil-de-usuario/editar/{id}', [UserController::class, 'clienteEditProfile'])->name('cliente.editProfile')->middleware();
+
+
+});
 
 
 Route::group(['middleware' => ['role:Admin|Vendedor']], function () {
@@ -190,17 +204,26 @@ Route::group(['middleware' => ['role:Admin|Vendedor']], function () {
 
     /*  Soporte */
     Route::view('/soporte/preguntas-frecuentes-admin', 'admin.support.adminfaq')->name('support.adminfaq')->middleware('auth');
+
+    Route::get('/soporte/preguntas-frecuentes/administracion', [UserQuestionController::class, 'listado'])->name('user-questions.list')->middleware();
+    Route::post('/soporte/preguntas-frecuentes/administracion/uno', [UserQuestionController::class, 'get_one'])->name('user-questions.get_one')->middleware();
+    Route::delete('/soporte/preguntas-frecuentes/administracion/eliminar-pregunta/{id}', [UserQuestionController::class, 'destroy'])->name('user-questions.delete')->middleware();
+    Route::patch('/soporte/preguntas-frecuentes/administracion/actualizar-pregunta/{id}', [UserQuestionController::class, 'update'])->name('user-questions.update')->middleware();
+
+
     Route::view('/soporte/manual-admin', 'admin.support.adminmanual')->name('support.adminmanual')->middleware('auth');
 
     /*Prueba */
     Route::get('/gestion-base/configuracion-base/dashboard/{id}', [DashboardController::class, 'index'])->name('sale.fetch');
     Route::get('/fetch-sales/{id}', [DashboardController::class, 'dataMonthSales'])->name('sale.fetch2');
 
-    
+
     /*Perfil De Usuario */
     Route::get('/perfil', [UserController::class, 'profile'])->name('user.profile');
     Route::patch('/password', [UserController::class, 'editPassword'])->name('user.editPassword');
     Route::patch('/editProfile/{id}', [UserController::class, 'editProfile'])->name('user.editProfile');
+
+
 
 
 });
