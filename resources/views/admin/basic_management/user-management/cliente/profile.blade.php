@@ -17,13 +17,13 @@
 <div class="bg-image" style="background-image: url('/media/login/portada1.png');">
         <div class="content content-full">
             <div class="py-5 text-center">
-                <a class="img-link" href="be_pages_generic_profile.html">
+                <a class="img-link" >
                     @if (Auth::user()->image != null)
-                    <img class="img-avatar img-avatar96 img-avatar-thumb"
+                    <img style="width: 100px" class="img-thumbnail rounded-circle"
                         src="{{ asset('storage/' . Auth::user()->image) }}">
                     @endif
                     @if (Auth::user()->image == null)
-                    <img class="img-avatar img-avatar96 img-avatar-thumb"
+                    <img style="width: 100px" class="img-thumbnail rounded-circle"
                         src="{{ asset('media/avatars/avatar10.jpg') }}" alt="">
                     @endif
                 </a>
@@ -87,17 +87,17 @@
                                             <label class="form-label">Tu avatar</label>
                                             <div class="push">
                                                 @if (Auth::user()->image != null)
-                                                <img class="img-avatar img-avatar96 img-avatar-thumb"
+                                                <img style="width: 100px" class="img-thumbnail rounded-circle"
                                                     src="{{ asset('storage/' . Auth::user()->image) }}">
                                                 @endif
                                                 @if (Auth::user()->image == null)
-                                                <img class="img-avatar img-avatar96 img-avatar-thumb"
+                                                <img style="width: 100px" class="img-thumbnail rounded-circle"
                                                     src="{{ asset('media/avatars/avatar10.jpg') }}" alt="">
                                                 @endif
                                             </div>
                                             <label class="form-label" for="dm-profile-edit-avatar">Selecciona un nuevo
                                                 avatar</label>
-                                            <input class="form-control" type="file" id="dm-profile-edit-avatar">
+                                            <input type="file" class="form-control" name="image"  id="dm-profile-edit-avatar" accept="image/png, image/jpeg, image/jpg, image/svg">
                                         </div>
 
                                         <button type="submit" class="edit btn btn-outline-success mt-3 ">

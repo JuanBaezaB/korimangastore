@@ -50,8 +50,7 @@
     <div class="content content-full content-boxed">
         <div class="block block-rounded">
             <div class="block-content">
-                <form action="{{ route('user.editProfile', ['id' => auth()->user()->id]) }}" method="POST"
-                    enctype="multipart/form-data">
+                <form action="{{ route('user.editProfile', ['id' => auth()->user()->id]) }}"  method="POST" enctype="multipart/form-data">
                     @csrf
                     {{ method_field('PATCH') }}
                     <!-- User Profile -->
@@ -88,10 +87,10 @@
                                     @endif
                                 </div>
                                 <label class="form-label" for="dm-profile-edit-avatar">Selecciona un nuevo avatar</label>
-                                <input class="form-control" type="file" id="dm-profile-edit-avatar">
+                                <input type="file" class="form-control" name="image" id="dm-profile-edit-avatar"  accept="image/png, image/jpeg, image/jpg, image/svg">
                             </div>
 
-                            <button type="submit" class="edit btn btn-alt-secondary mt-3 ">
+                            <button type="submit" class="edit btn btn-primary mt-3 ">
                                 Guardar Cambios
                             </button>
                         </div>
