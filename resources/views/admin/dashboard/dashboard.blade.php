@@ -232,18 +232,18 @@
                         <table class="table table-striped table-hover table-borderless table-vcenter fs-sm">
                             <thead>
                                 <tr class="text-uppercase">
-                                    <th class="fw-bold">Producto</th>
-                                    <th class="d-none d-sm-table-cell fw-bold">Categoría</th>
+                                    <th class="text-center fw-bold">Producto</th>
+                                    <th class="text-center d-sm-table-cell fw-bold">Cantidad Ventas</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($mostSelledProductsTable as $product)
                                     <tr>
-                                        <td class="fw-semibold">
-                                            {{ $product->nombre_producto }}
+                                        <td class="text-center fw-semibold">
+                                            {{ $product->name }}
                                         </td>
-                                        <td class="d-none d-sm-table-cell">
-                                            {{ $product->nombre_categoria }}
+                                        <td class="text-center d-sm-table-cell">
+                                            {{ $product->countSales }}
                                         </td>
                                     </tr>
                                 @endforeach

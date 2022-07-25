@@ -181,12 +181,12 @@ class DashboardController extends Controller
     public function mostSelledProductsTable()
     {
         $listMostSales = [];
-        $listMostSales = DB::table('sales')
-            ->leftJoin('product_sale', 'product_sale.sale_id', '=', 'sales.id')
-            ->leftJoin('products', 'products.id', '=', 'product_sale.product_id')
-            ->leftJoin('categories', 'categories.id', '=', 'products.category_id')
-            ->select('products.name as nombre_producto', 'categories.name as nombre_categoria')
-            ->get();
+        $listMostSales = Product::select('products.*','countSales')
+                        ->leftjoin(DB::raw('(SELECT products.id as pds_id, SUM(amount) as countSales FROM products join product_sale on products.id = product_sale.product_id group by products.id) as countSales'), 'products.id','=','pds_id')
+                        ->orderBy('countSales', 'DESC')
+                        ->whereNotNull('countSales')
+                        ->limit(10)
+                        ->get();
         return $listMostSales;
     }
 }

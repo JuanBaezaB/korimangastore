@@ -12,6 +12,7 @@ use App\Models\Product;
 use App\Models\Provider;
 use App\Models\Serie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -22,6 +23,12 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $listMostSales = Product::select('products.*','countSales')
+            ->leftjoin(DB::raw('(SELECT products.id as pds_id, SUM(amount) as countSales FROM products join product_sale on products.id = product_sale.product_id group by products.id) as countSales'), 'products.id','=','pds_id')
+            ->orderBy('countSales', 'DESC')
+            ->whereNotNull('countSales')
+            ->limit(10)
+            ->get();
         $products = Product::orderBy('created_at', 'DESC')->limit(10)->get();
         $providers = Provider::all();
         $series = Serie::all();
@@ -43,6 +50,7 @@ class HomeController extends Controller
                 'creatives',
                 'categories',
                 'figure_types',
+                'listMostSales'
             )
         );
     }
