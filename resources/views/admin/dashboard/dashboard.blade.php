@@ -181,8 +181,8 @@
                             <thead>
                                 <tr class="text-uppercase text-center">
                                     <th class="fw-bold">Nombre</th>
-                                    <th class="d-none d-sm-table-cell fw-bold">Email</th>
-                                    <th class="fw-bold">Registrado hace</th>
+                                    <th class="d-sm-table-cell fw-bold">Email</th>
+                                    <th class="d-none d-sm-table-cell fw-bold">Registrado hace</th>
                                 </tr>
                             </thead>
                             <tbody class="text-center">
@@ -191,7 +191,7 @@
                                         <td class="fw-semibold">
                                             {{ $user->name }}
                                         </td>
-                                        <td class="d-none d-sm-table-cell">
+                                        <td class="d-sm-table-cell">
                                             {{ $user->email }}
                                         </td>
                                         <td class="d-none d-sm-table-cell">
@@ -245,9 +245,6 @@
                                         </td>
                                         <td class="text-center d-sm-table-cell">
                                             {{ $product->countSales }}
-                                        </td>
-                                        <td class="d-none d-sm-table-cell">
-                                            {{ $product->nombre_categoria }}
                                         </td>
                                     </tr>
                                 @endforeach
