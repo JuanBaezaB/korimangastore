@@ -27,26 +27,19 @@
                 <div class="col-lg-5 col-md-4 col-sm-12">
                     <div class="card-body">
                         <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-
                             <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <img src="https://www.normaeditorial.com/upload/media/albumes/0001/17/cdcf47aecb0a210dec3d7cdff3dfbdd2c0a82995.jpeg"
-                                        class="d-block w-100" alt="...">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="https://www.normaeditorial.com/upload/media/albumes/0001/17/cdcf47aecb0a210dec3d7cdff3dfbdd2c0a82995.jpeg"
-                                        class="d-block w-100" alt="...">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="https://www.normaeditorial.com/upload/media/albumes/0001/17/cdcf47aecb0a210dec3d7cdff3dfbdd2c0a82995.jpeg"
-                                        class="d-block w-100" alt="...">
-                                </div>
                                 @foreach ($product->images as $item)
-                                    <div class="carousel-item active">
-                                        <img src="{{ asset('storage/' . $item->path) }}" class="d-block w-100"
-                                            alt="...">
+                                    <div @class(['carousel-item', 'active' => $loop->first])>
+                                        <img src="{{ $item->url() }}" class="d-block w-100" alt="...">
                                     </div>
                                 @endforeach
+                                @if (count($product->images) == 0)
+                                    <div class="carousel-item active">
+                                        <img src="{{ asset('media/products/image-product.png') }}" class="d-block w-100"
+                                            alt="...">
+                                    </div>
+                                @endif
+
                             </div>
                             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
                                 data-bs-slide="prev">

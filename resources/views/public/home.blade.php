@@ -5,13 +5,13 @@
 @endsection
 
 @section('css_before')
-    <link rel="stylesheet" href="{{asset('js/plugins/glider/glider.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('js/plugins/glider/glider.min.css') }}">
     <style>
-        .mangas{
+        .mangas {
             height: 600px;
         }
 
-        .desc{
+        .desc {
             display: -webkit-box;
             -webkit-box-orient: vertical;
             -webkit-line-clamp: 2;
@@ -19,84 +19,84 @@
             overflow: hidden;
         }
 
-        .presentacion{
+        .presentacion {
             background-image: url("/media/login/portada3.png");
             background-position: center;
         }
 
-        .producto{
+        .producto {
             transition: background-color .5s;
         }
 
-        .producto:hover{
+        .producto:hover {
             background-color: #00ffff;
 
         }
 
-        .btn-dark:hover{
+        .btn-dark:hover {
             text-decoration: underline;
             text-decoration-style: double;
             text-decoration-color: white;
         }
 
-        .botoncito{
-        transition: background-color .5s;
-        background-color: black;
-        border: white;
-        border-style: solid;
-        border-radius: 10px;
-        color: white;
-        text-decoration: none;
-    }
+        .botoncito {
+            transition: background-color .5s;
+            background-color: black;
+            border: white;
+            border-style: solid;
+            border-radius: 10px;
+            color: white;
+            text-decoration: none;
+        }
 
-    .botoncito p{
-        color: white;
-    }
+        .botoncito p {
+            color: white;
+        }
 
-    .botoncito:hover{
-        background-color: #006574;
-        text-decoration: none;
-    }
+        .botoncito:hover {
+            background-color: #006574;
+            text-decoration: none;
+        }
 
-    .carousel__anterior, .carousel__siguiente{
-        position: absolute;
-        display: block;
-        width: 30px;
-        height: 30px;
-        border: none;
-        top: calc(50% - 35px);
-        cursor: pointer;
-        line-height: 30px;
-        text-align: center;
-        background: none;
-        color: black;
-        opacity: 50%;
-        transition: opacity .5s;
+        .carousel__anterior,
+        .carousel__siguiente {
+            position: absolute;
+            display: block;
+            width: 30px;
+            height: 30px;
+            border: none;
+            top: calc(50% - 35px);
+            cursor: pointer;
+            line-height: 30px;
+            text-align: center;
+            background: none;
+            color: black;
+            opacity: 50%;
+            transition: opacity .5s;
 
-    }
+        }
 
-    .carousel__anterior:hover, .carousel__siguiente:hover{
-        opacity: 100%;
+        .carousel__anterior:hover,
+        .carousel__siguiente:hover {
+            opacity: 100%;
 
-    }
+        }
 
-    .carousel__anterior{
-        left: -30px;
-    }
+        .carousel__anterior {
+            left: -30px;
+        }
 
-    .carousel__siguiente{
-        right: -30px;
-    }
+        .carousel__siguiente {
+            right: -30px;
+        }
 
-    .carousel__lista{
-        overflow: hidden;
-    }
+        .carousel__lista {
+            overflow: hidden;
+        }
 
-    .carousel__elemento{
-        text-align: center;
-    }
-
-
+        .carousel__elemento {
+            text-align: center;
+        }
     </style>
 @endsection
 
@@ -122,7 +122,8 @@
             </div>
             <div class="carousel pb-5">
                 <div class="carousel__contenedor pb-2">
-                    <button aria-label="Anterior" class="carousel__anterior d-sm-none d-md-block"><i class="fa-solid fa-chevron-left"></i></button>
+                    <button aria-label="Anterior" class="carousel__anterior d-sm-none d-md-block"><i
+                            class="fa-solid fa-chevron-left"></i></button>
 
                     <div class="carousel__lista pt-2 shadow">
                         <a href="" class="text-decoration-none">
@@ -163,7 +164,8 @@
                         </a>
                     </div>
 
-                    <button aria-label="Siguiente" class="carousel__siguiente"><i class="fa-solid fa-chevron-right"></i></button>
+                    <button aria-label="Siguiente" class="carousel__siguiente"><i
+                            class="fa-solid fa-chevron-right"></i></button>
                 </div>
 
                 <div role="tablist" class="carousel__indicadores"></div>
@@ -189,9 +191,35 @@
                             <a href="{{ route('show-product', $product->id) }}"style="text-decoration: none">
                                 <div class="producto card shadow">
                                     <div class="card-body">
-                                        <img class="card-img-top"
-                                            src="https://www.normaeditorial.com/upload/media/albumes/0001/17/cdcf47aecb0a210dec3d7cdff3dfbdd2c0a82995.jpeg"
-                                            alt="">
+                                        <div id="carouselExampleIndicators{{ $product->id }}" class="carousel slide"
+                                            data-bs-ride="carousel">
+                                            <div class="carousel-inner">
+                                                @foreach ($product->images as $item)
+                                                    <div @class(['carousel-item', 'active' => $loop->first])>
+                                                        <img src="{{ $item->url() }}" class="card-img-top" alt="...">
+                                                    </div>
+                                                @endforeach
+                                                @if (count($product->images) == 0)
+                                                    <div class="carousel-item active">
+                                                        <img src="{{ asset('media/products/image-product.png') }}"
+                                                            class="card-img-top" alt="...">
+                                                    </div>
+                                                @endif
+
+                                            </div>
+                                            <button class="carousel-control-prev" type="button"
+                                                data-bs-target="#carouselExampleIndicators{{ $product->id }}"
+                                                data-bs-slide="prev">
+                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                <span class="visually-hidden">Previous</span>
+                                            </button>
+                                            <button class="carousel-control-next" type="button"
+                                                data-bs-target="#carouselExampleIndicators{{ $product->id }}"
+                                                data-bs-slide="next">
+                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                <span class="visually-hidden">Next</span>
+                                            </button>
+                                        </div>
                                     </div>
                                     <h6 class="text-dark">{{ $product->name }}</h6>
                                     <h5 class="text-dark">${{ $product->price }}</h5>
@@ -227,9 +255,35 @@
                             <a href="{{ route('show-product', $product->id) }}"style="text-decoration: none">
                                 <div class="producto card shadow">
                                     <div class="card-body">
-                                        <img class="card-img-top"
-                                            src="https://www.normaeditorial.com/upload/media/albumes/0001/17/cdcf47aecb0a210dec3d7cdff3dfbdd2c0a82995.jpeg"
-                                            alt="">
+                                        <div id="carouselExampleIndicators{{ $product->id }}" class="carousel slide"
+                                            data-bs-ride="carousel">
+                                            <div class="carousel-inner">
+                                                @foreach ($product->images as $item)
+                                                    <div @class(['carousel-item', 'active' => $loop->first])>
+                                                        <img src="{{ $item->url() }}" class="card-img-top" alt="...">
+                                                    </div>
+                                                @endforeach
+                                                @if (count($product->images) == 0)
+                                                    <div class="carousel-item active">
+                                                        <img src="{{ asset('media/products/image-product.png') }}"
+                                                            class="card-img-top" alt="...">
+                                                    </div>
+                                                @endif
+
+                                            </div>
+                                            <button class="carousel-control-prev" type="button"
+                                                data-bs-target="#carouselExampleIndicators{{ $product->id }}"
+                                                data-bs-slide="prev">
+                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                <span class="visually-hidden">Previous</span>
+                                            </button>
+                                            <button class="carousel-control-next" type="button"
+                                                data-bs-target="#carouselExampleIndicators{{ $product->id }}"
+                                                data-bs-slide="next">
+                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                <span class="visually-hidden">Next</span>
+                                            </button>
+                                        </div>
                                     </div>
                                     <h6 class="text-dark">{{ $product->name }}</h6>
                                     <h5 class="text-dark">${{ $product->price }}</h5>
@@ -252,51 +306,49 @@
 
 
 @section('js_after')
-    <script src="{{asset('js/plugins/glider/glider.min.js')}}"></script>
+    <script src="{{ asset('js/plugins/glider/glider.min.js') }}"></script>
     <script>
         var slider = new Glider(document.querySelector('.carousel__lista'), {
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        itemWidth: 150,
-        duration: 0.5,
-        rewind: true,
-        draggable: true,
-        dots: '.carousel__indicadores',
-        arrows: {
-            prev: '.carousel__anterior',
-            next: '.carousel__siguiente'
-        },
-        responsive: [
-            {
-            // screens greater than >= 690px
-            breakpoint: 690,
-            settings: {
-                // Set to `auto` and provide item width to adjust to viewport
-                slidesToShow: 2,
-                slidesToScroll: 1,
-                itemWidth: 150,
-                duration: 0.5
-            }
-            },{
-            // screens greater than >= 970px
-            breakpoint: 970,
-            settings: {
-                slidesToShow: 3,
-                slidesToScroll: 1,
-                itemWidth: 150,
-                duration: 0.5
-            }
-            },{
-            // screens greater than >= 1280px
-            breakpoint: 1280,
-            settings: {
-                slidesToShow: 4,
-                slidesToScroll: 1,
-                itemWidth: 150,
-                duration: 0.5
-            }
-            }
-        ]
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            itemWidth: 150,
+            duration: 0.5,
+            rewind: true,
+            draggable: true,
+            dots: '.carousel__indicadores',
+            arrows: {
+                prev: '.carousel__anterior',
+                next: '.carousel__siguiente'
+            },
+            responsive: [{
+                // screens greater than >= 690px
+                breakpoint: 690,
+                settings: {
+                    // Set to `auto` and provide item width to adjust to viewport
+                    slidesToShow: 2,
+                    slidesToScroll: 1,
+                    itemWidth: 150,
+                    duration: 0.5
+                }
+            }, {
+                // screens greater than >= 970px
+                breakpoint: 970,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 1,
+                    itemWidth: 150,
+                    duration: 0.5
+                }
+            }, {
+                // screens greater than >= 1280px
+                breakpoint: 1280,
+                settings: {
+                    slidesToShow: 4,
+                    slidesToScroll: 1,
+                    itemWidth: 150,
+                    duration: 0.5
+                }
+            }]
         });
 
         slideAutoPaly(slider, '.glider');
@@ -338,6 +390,4 @@
             }, 300);
         }
     </script>
-
-
 @endsection

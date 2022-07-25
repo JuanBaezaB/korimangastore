@@ -13,9 +13,35 @@
                         <a href="{{ route('show-product', $product->id) }}"style="text-decoration: none">
                             <div class="producto card shadow">
                                 <div class="card-body">
-                                    <img class="card-img-top"
-                                        src="https://www.normaeditorial.com/upload/media/albumes/0001/17/cdcf47aecb0a210dec3d7cdff3dfbdd2c0a82995.jpeg"
-                                        alt="">
+                                    <div id="carouselExampleIndicators{{ $product->id }}" class="carousel slide"
+                                        data-bs-ride="carousel">
+                                        <div class="carousel-inner">
+                                            @foreach ($product->images as $item)
+                                                <div @class(['carousel-item', 'active' => $loop->first])>
+                                                    <img src="{{ $item->url() }}" class="card-img-top" alt="...">
+                                                </div>
+                                            @endforeach
+                                            @if (count($product->images) == 0)
+                                                <div class="carousel-item active">
+                                                    <img src="{{ asset('media/products/image-product.png') }}"
+                                                        class="card-img-top" alt="...">
+                                                </div>
+                                            @endif
+
+                                        </div>
+                                        <button class="carousel-control-prev" type="button"
+                                            data-bs-target="#carouselExampleIndicators{{ $product->id }}"
+                                            data-bs-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Previous</span>
+                                        </button>
+                                        <button class="carousel-control-next" type="button"
+                                            data-bs-target="#carouselExampleIndicators{{ $product->id }}"
+                                            data-bs-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Next</span>
+                                        </button>
+                                    </div>
                                 </div>
                                 <h6 class="text-dark">{{ $product->name }}</h6>
                                 <h5 class="text-dark">${{ $product->price }}</h5>
