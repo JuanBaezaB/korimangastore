@@ -109,8 +109,7 @@ class DashboardController extends Controller
 
     function dataMonthSales($branch)
     {
-        $dataMonthsales = collect([
-            ['month' => 'Enero', 'count' => Sale::whereMonth('created_at', '=', '01')->whereYear('created_at', '=', date("Y"))->where('branch_id', '=', $branch)->count('id')],
+        $dataMonthsales = collect([['month' => 'Enero', 'count' => Sale::whereMonth('created_at', '=', '01')->whereYear('created_at', '=', date("Y"))->where('branch_id', '=', $branch)->count('id')],
             ['month' => 'Febrero', 'count' => Sale::whereMonth('created_at', '=', '02')->whereYear('created_at', '=', date("Y"))->where('branch_id', '=', $branch)->count('id')],
             ['month' => 'Marzo', 'count' => Sale::whereMonth('created_at', '=', '03')->whereYear('created_at', '=', date("Y"))->where('branch_id', '=', $branch)->count('id')],
             ['month' => 'Abril', 'count' => Sale::whereMonth('created_at', '=', '04')->whereYear('created_at', '=', date("Y"))->where('branch_id', '=', $branch)->count('id')],
@@ -186,7 +185,9 @@ class DashboardController extends Controller
             ->leftJoin('products', 'products.id', '=', 'product_sale.product_id')
             ->leftJoin('categories', 'categories.id', '=', 'products.category_id')
             ->select('products.name as nombre_producto', 'categories.name as nombre_categoria')
+            ->distinct()
             ->get();
         return $listMostSales;
     }
+
 }

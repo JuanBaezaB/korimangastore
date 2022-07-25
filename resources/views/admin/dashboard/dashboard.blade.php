@@ -238,9 +238,13 @@
                             </thead>
                             <tbody>
                                 @foreach ($mostSelledProductsTable as $product)
+
                                     <tr>
                                         <td class="fw-semibold">
                                             {{ $product->nombre_producto }}
+                                        </td>
+                                        <td class="d-none d-sm-table-cell">
+                                            {{ $product->nombre_categoria }}
                                         </td>
                                         <td class="d-none d-sm-table-cell">
                                             {{ $product->nombre_categoria }}
