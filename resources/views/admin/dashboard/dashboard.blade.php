@@ -13,7 +13,7 @@
                     <div class="col-md-6 d-md-flex align-items-md-center">
                         <div class="py-4 py-md-0 text-center text-md-start">
                             <h1 class="fs-2 text-white mb-2">Dashboard</h1>
-                            <h2 hidden class="fs-lg fw-normal text-white-75 mb-0">Welcome to your overview</h2>
+                            <h2 class="fs-lg fw-normal text-white-75 mb-0">Bienvenido a su resumen</h2>
                         </div>
                     </div>
                     <div class="col-md-6 d-md-flex align-items-md-center">
@@ -115,7 +115,7 @@
             <div class="col-xl-12" id="graf1">
                 <div style="height: 100%" class="block block-rounded">
                     <div class="block-header block-header-default">
-                        <h3 class="block-title">Grafico de Ventas por mes</h3>
+                        <h3 class="block-title">Gráfico de las ventas registradas por mes durante presente el año</h3>
                         <!--Filtros por sucursal-->
                         <div class="dropdown d-inline-block">
                             <button type="button" class="btn btn-sm btn-primary px-3" id="dropdown-analytics-overview"
@@ -154,7 +154,7 @@
             <div class="col-xl-6" id="graf3">
                 <div style="height: 100%" class="block block-rounded">
                     <div class="block-header block-header-default">
-                        <h3 class="block-title">Grafico de cantidad de úsuarios registrados por mes</h3>
+                        <h3 class="block-title">Gráfico de cantidad de úsuarios registrados por mes</h3>
                         <div class="block-options">
                             <button type="button" class="btn-block-option" data-toggle="block-option"
                                 data-action="state_toggle" data-action-mode="demo">
@@ -174,7 +174,7 @@
             <div class="col-xl-6" id="graf3tabla">
                 <div class="block block-rounded block-mode-loading-refresh h-100 mb-0">
                     <div class="block-header block-header-default">
-                        <h3 class="block-title">Tabla de últimos usuarios registrados</h3>
+                        <h3 class="block-title">Tabla de últimos usuarios registrados en el sistema</h3>
                     </div>
                     <div class="block-content">
                         <table class="table table-striped table-hover table-borderless table-vcenter fs-sm">
@@ -182,7 +182,7 @@
                                 <tr class="text-uppercase text-center">
                                     <th class="fw-bold">Nombre</th>
                                     <th class="d-none d-sm-table-cell fw-bold">Email</th>
-                                    <th class="fw-bold">Fecha Creacion</th>
+                                    <th class="fw-bold">Registrado hace</th>
                                 </tr>
                             </thead>
                             <tbody class="text-center">
@@ -211,7 +211,7 @@
             <div class="col-xl-6" id="graf2">
                 <div style="height: 100%" class="block block-rounded">
                     <div class="block-header block-header-default">
-                        <h3 class="block-title">Grafico de productos más vendidos por categoría</h3>
+                        <h3 class="block-title">Gráfico de las categorías más vendidas</h3>
                     </div>
                     <div class="block-content block-content-full text-center">
                         <div class="py-3">
@@ -226,14 +226,14 @@
             <div class="col-xl-6" id="graf2tabla">
                 <div class="block block-rounded block-mode-loading-refresh h-100 mb-0">
                     <div class="block-header block-header-default">
-                        <h3 class="block-title">Tabla de productos</h3>
+                        <h3 class="block-title">Tabla de productos más vendidos</h3>
                     </div>
                     <div class="block-content">
                         <table class="table table-striped table-hover table-borderless table-vcenter fs-sm">
                             <thead>
                                 <tr class="text-uppercase">
                                     <th class="fw-bold">Producto</th>
-                                    <th class="d-none d-sm-table-cell fw-bold">Categoria</th>
+                                    <th class="d-none d-sm-table-cell fw-bold">Categoría</th>
                                 </tr>
                             </thead>
                             <tbody>
