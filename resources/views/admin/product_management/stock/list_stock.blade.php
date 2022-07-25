@@ -117,7 +117,7 @@
                 };
             } else {
                 firstColumn = {
-                    data: null
+                    data: 'branches.0.pivot.stock'
                 };
             }
 
