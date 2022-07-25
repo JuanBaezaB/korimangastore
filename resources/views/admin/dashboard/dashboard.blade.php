@@ -115,7 +115,7 @@
             <div class="col-xl-12" id="graf1">
                 <div style="height: 100%" class="block block-rounded">
                     <div class="block-header block-header-default">
-                        <h3 class="block-title">Grafico de Ventas</h3>
+                        <h3 class="block-title">Grafico de Ventas por mes</h3>
                         <!--Filtros por sucursal-->
                         <div class="dropdown d-inline-block">
                             <button type="button" class="btn btn-sm btn-primary px-3" id="dropdown-analytics-overview"
@@ -359,7 +359,7 @@
                                 data: {
                                     labels: month,
                                     datasets: [{
-                                        label: 'Ventas por mes',
+                                        label: 'Ventas por sucursal',
                                         data: count,
                                         backgroundColor: [
                                             'rgba(255, 99, 132, 0.2)',
@@ -405,7 +405,7 @@
                     data: {
                         labels: Object.keys(data),
                         datasets: [{
-                            label: 'Grafico de Ventas',
+                            label: 'Grafico de Ventas Total',
                             data: Object.values(data),
                             backgroundColor: [
                                 'rgba(255, 99, 132, 0.2)',
@@ -472,8 +472,8 @@
             {{-- Script grafico de lineas --}}
             <script>
                 const datos = {{ Js::from($usersMonthParam) }};
-                const ctx = document.getElementById('grafico3').getContext('2d');
-                new Chart(ctx, {
+                const graficoLineas = document.getElementById('grafico3').getContext('2d');
+                new Chart(graficoLineas, {
                     type: "line",
                     data: {
                         labels: Object.keys(datos),
