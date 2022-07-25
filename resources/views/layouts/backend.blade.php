@@ -140,7 +140,7 @@
                             @endhasrole
 
                             @hasrole('Admin')
-                                <div class="text-white-75 fs-sm">Vendedor</div>
+                                <div class="text-white-75 fs-sm">Administrador</div>
                             @endhasrole
 
 
