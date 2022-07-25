@@ -114,7 +114,7 @@
                         </div>
                     @endhasrole
 
-                    <div class="d-inline dropdown">
+                    <div class="d-block dropdown">
                         <a id="navbarDropdown" class="btn btn-outline-info dropdown-toggle" href="#"
                             role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             <b>
