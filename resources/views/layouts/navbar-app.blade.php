@@ -114,7 +114,7 @@
                         </div>
                     @endhasrole
 
-                    <div class="d-inline dropdown">
+                    <div class="d-block dropdown">
                         <a id="navbarDropdown" class="btn btn-outline-info dropdown-toggle" href="#"
                             role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             <b>
@@ -125,10 +125,10 @@
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <!-- Option -->
                             <li><a class="dropdown-item" href="/perfil-de-usuario">
-                                    <b>
-                                        <i class="fa-solid fa-user-gear pe-2"></i>
-                                        Configurar mi perfil
-                                    </b></a>
+                                <b>
+                                    <i class="fa-solid fa-user-gear pe-2"></i>
+                                    Configurar mi perfil
+                                </b></a>
                             </li>
 
                             <!-- Option -->
