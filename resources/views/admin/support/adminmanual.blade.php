@@ -1,5 +1,9 @@
 @extends('layouts.backend')
 
+@section('title')
+    {{ 'Manual de Usuario' }}
+@endsection
+
 @section('content')
     <div class="bg-body-light">
         <div class="content content-full">
@@ -21,11 +25,12 @@
             <div class="block-header block-header-default">
                 <h3 class="block-title">Revisa el documento:</h3>
                 <div class="block-options">
-                    
+
                 </div>
             </div>
             <div class="block-content block-content-full">
-                <iframe src="http://docs.google.com/gview?url=http://www.educoas.org/portal/bdigital/contenido/valzacchi/ValzacchiCapitulo-2New.pdf &embedded=true" style="width:100%; height:700px;" frameborder="0" ></iframe>
+                <iframe src="https://drive.google.com/file/d/1bZUhtAO8iEB-aLVQIawZ82CNkVT3b39S/preview" width="640" height="480" allow="autoplay"></iframe>
+                <p>Tambien disponible <a href="https://drive.google.com/file/d/1bZUhtAO8iEB-aLVQIawZ82CNkVT3b39S/view">aquí</a>.</p>
             </div>
         </div>
     </div>
