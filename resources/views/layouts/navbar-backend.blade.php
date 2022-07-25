@@ -1,8 +1,8 @@
 <li class="nav-main-item">
 
-    <a class="nav-main-link{{ request()->is('/dashboard') ? ' active' : '' }}"
+    <a class="nav-main-link{{ request()->is('dashboard') ? ' active' : '' }}"
         href="{{ route('index.graphic') }}">
-        <i class="nav-main-link-icon fa fa-location-arrow"></i>
+        <i class="nav-main-link-icon fa fa-chart-line {{ request()->is('dashboard*') ? 'fa-bounce' : '' }}"></i>
         <span class="nav-main-link-name">Dashboard</span>
     </a>
 </li>
