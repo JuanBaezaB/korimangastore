@@ -184,7 +184,7 @@
             },
             {
                 extend: 'print',
-                text: '<i class="fas fa-print"></i>',
+                text: '<i style="color:white" class="fas fa-print"></i>',
                 titleAttr: 'Imprimir',
                 className:'btn btn-warning mb-2',
                 exportOptions: {
