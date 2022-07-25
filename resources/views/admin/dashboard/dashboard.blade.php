@@ -238,12 +238,16 @@
                             </thead>
                             <tbody>
                                 @foreach ($mostSelledProductsTable as $product)
+
                                     <tr>
                                         <td class="text-center fw-semibold">
                                             {{ $product->name }}
                                         </td>
                                         <td class="text-center d-sm-table-cell">
                                             {{ $product->countSales }}
+                                        </td>
+                                        <td class="d-none d-sm-table-cell">
+                                            {{ $product->nombre_categoria }}
                                         </td>
                                     </tr>
                                 @endforeach

@@ -18,15 +18,17 @@
         </div>
     </header>
 
-    <section>
-        <div class="row">
-            <div class="col-12">
-                <!-- filter component -->
-                <livewire:filter-products />
-            </div>
-            <div class="col-12">
-                <!-- show product component -->
-                <livewire:show-products />
+    <section class="mw-100">
+        <div class="container mw-100">
+            <div class="row">
+                <div class="col-12">
+                    <!-- filter component -->
+                    <livewire:filter-products />
+                </div>
+                <div class="col-12 bg-dark mw-100">
+                    <!-- show product component -->
+                    <livewire:show-products />
+                </div>
             </div>
         </div>
     </section>
