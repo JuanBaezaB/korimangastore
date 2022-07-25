@@ -18,7 +18,7 @@
         <div class="bg-black-75">
             <div class="content content-full">
                 <div class="py-5 text-center">
-                    <a class="img-link" href="be_pages_generic_profile.html">
+                    <a class="img-link">
                         @if (Auth::user()->image != null)
                             <img class="img-avatar img-avatar96 img-avatar-thumb"
                                 src="{{ asset('storage/' . Auth::user()->image) }}">
@@ -140,7 +140,7 @@
                                 </div>
 
                             </div>
-                            <button type="submit" class="edit btn btn-alt-secondary mt-3 ">
+                            <button type="submit" class="edit btn btn-primary mt-3 ">
                                 Guardar Cambios
                             </button>
                         </div>
