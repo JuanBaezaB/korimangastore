@@ -181,8 +181,8 @@
                             <thead>
                                 <tr class="text-uppercase text-center">
                                     <th class="fw-bold">Nombre</th>
-                                    <th class="d-none d-sm-table-cell fw-bold">Email</th>
-                                    <th class="fw-bold">Registrado hace</th>
+                                    <th class="d-sm-table-cell fw-bold">Email</th>
+                                    <th class="d-none d-sm-table-cell fw-bold">Registrado hace</th>
                                 </tr>
                             </thead>
                             <tbody class="text-center">
@@ -191,7 +191,7 @@
                                         <td class="fw-semibold">
                                             {{ $user->name }}
                                         </td>
-                                        <td class="d-none d-sm-table-cell">
+                                        <td class="d-sm-table-cell">
                                             {{ $user->email }}
                                         </td>
                                         <td class="d-none d-sm-table-cell">
@@ -233,7 +233,7 @@
                             <thead>
                                 <tr class="text-uppercase">
                                     <th class="fw-bold">Producto</th>
-                                    <th class="d-none d-sm-table-cell fw-bold">Categoría</th>
+                                    <th class="d-sm-table-cell fw-bold">Categoría</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -243,12 +243,10 @@
                                         <td class="fw-semibold">
                                             {{ $product->nombre_producto }}
                                         </td>
-                                        <td class="d-none d-sm-table-cell">
+                                        <td class="d-sm-table-cell">
                                             {{ $product->nombre_categoria }}
                                         </td>
-                                        <td class="d-none d-sm-table-cell">
-                                            {{ $product->nombre_categoria }}
-                                        </td>
+                                        
                                     </tr>
                                 @endforeach
                             </tbody>
