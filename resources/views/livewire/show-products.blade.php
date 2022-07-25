@@ -1,6 +1,6 @@
 <div>
-    <section class="product bg-dark pt-3">
-        <div class=" mx-5">
+    <section class="product bg-dark pt-3 mw-100">
+        <div class="mx-5">
             <div class="text-center text-light">
                 <h3><b>Productos</b></h3>
                 <hr>
