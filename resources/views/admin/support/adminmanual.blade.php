@@ -28,8 +28,8 @@
 
                 </div>
             </div>
-            <div class="block-content block-content-full">
-                <iframe src="https://drive.google.com/file/d/1bZUhtAO8iEB-aLVQIawZ82CNkVT3b39S/preview" width="640" height="480" allow="autoplay"></iframe>
+            <div class="block-content block-content-full text-center">
+                <iframe class="mw-100 mh-100" src="https://drive.google.com/file/d/1bZUhtAO8iEB-aLVQIawZ82CNkVT3b39S/preview" width="640" height="480" allow="autoplay"></iframe>
                 <p>Tambien disponible <a href="https://drive.google.com/file/d/1bZUhtAO8iEB-aLVQIawZ82CNkVT3b39S/view">aquí</a>.</p>
             </div>
         </div>
