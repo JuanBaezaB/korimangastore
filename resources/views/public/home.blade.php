@@ -189,7 +189,7 @@
                     @foreach ($products as $product)
                         <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 pt-1 pb-1 text-center">
                             <a href="{{ route('show-product', $product->id) }}"style="text-decoration: none">
-                                <div class="producto card shadow">
+                                <div style="height: 100%" class="producto card shadow">
                                     <div class="card-body">
                                         <div id="carouselExampleIndicators{{ $product->id }}" class="carousel slide"
                                             data-bs-ride="carousel">
@@ -253,7 +253,7 @@
                     @foreach ($products as $product)
                         <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 pt-1 pb-1 text-center">
                             <a href="{{ route('show-product', $product->id) }}"style="text-decoration: none">
-                                <div class="producto card shadow">
+                                <div style="height: 100%"  class="producto card shadow">
                                     <div class="card-body">
                                         <div id="carouselExampleIndicators{{ $product->id }}" class="carousel slide"
                                             data-bs-ride="carousel">
