@@ -529,27 +529,29 @@
     @livewireScripts
     @yield('js_after')
     @stack('js_after_stack')
+
+    <!-- Notificaciones -->
     @if(auth()->user()->hasRole('Admin'))
-    <script>
-    function sendMarkRequest(id = null) {
-        return $.ajax("{{ route('markNotification') }}", {
-            method: 'POST',
-            data: {
-                _token: $('meta[name="csrf-token"]').attr('content'),
-                id
+        <script>
+            function sendMarkRequest(id = null) {
+                return $.ajax("{{ route('markNotification') }}", {
+                    method: 'POST',
+                    data: {
+                        _token: $('meta[name="csrf-token"]').attr('content'),
+                        id
+                    }
+                });
             }
-        });
-    }
-    $(function() {
-        $('.mark-as-read').click(function() {
-            let request = sendMarkRequest($(this).data('id'));
-            request.done(() => {
-                $(this).parents('div.alert').remove();
+            $(function() {
+                $('.mark-as-read').click(function() {
+                    let request = sendMarkRequest($(this).data('id'));
+                    request.done(() => {
+                        $(this).parents('div.alert').remove();
+                    });
+                });
             });
-        });
-    });
-    </script>
-@endif
+        </script>
+    @endif
 
 
 </body>

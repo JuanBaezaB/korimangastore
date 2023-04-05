@@ -5,6 +5,7 @@
 @section('content')
     <img src="" alt="">
     <!-- Page Content -->
+    <img src="" alt="">
     <div class="bg-image" style="background-image: url('/media/register/FondoRegister.jpg');">
         <div class="row g-0 justify-content-center bg-black-75">
             <div class="hero-static col-sm-8 col-md-6 col-xl-4 d-flex align-items-center p-2 px-sm-0">
