@@ -3,6 +3,7 @@
 @section('title') {{'Register'}} @endsection
 
 @section('content')
+    <img src="" alt="">
     <!-- Page Content -->
     <div class="bg-image" style="background-image: url('/media/register/FondoRegister.jpg');">
         <div class="row g-0 justify-content-center bg-black-75">
